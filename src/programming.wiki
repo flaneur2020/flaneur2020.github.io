@@ -1,1 +1,19 @@
-== programming ==
+= programming =
+
+%toc
+
+== Ruby ==
+
+红宝石
+
+== C ==
+=== 链接和装载 ===
+
+== FP ==
+
+[http://fleurer-lee.com haskell趣学指南]
+
+=== Monad ===
+
+==== 范畴论 ====
+

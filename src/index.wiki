@@ -4,5 +4,6 @@
     
 * [[math]]
 * [[programming]] 
-* [[quote]]
+* [[quotes]]
+* [[words]]
 * [[misc]]

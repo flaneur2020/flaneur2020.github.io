@@ -5,7 +5,7 @@
     <style>
         @import url(css/style.css);
     </style>
-    <title>fleurer</title>
+    <title>%title% - fleurer</title>
 </head>
 <body>
     <div id="main">
