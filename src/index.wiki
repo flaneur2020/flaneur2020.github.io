@@ -2,7 +2,7 @@
 
 书是看一点忘一点，想法来的快去的也快，so...记笔记吧。
     
+* [[math]]
+* [[programming]] 
 * [[quote]]
-* [[lambda]]
-* [[kernel]]
 * [[misc]]
