@@ -1,0 +1,21 @@
+= words =
+
+%toc
+
+== 数学&技术 ==
+拓扑        :: topology, 从上往下看。
+consistent  :: 一致的
+joint       :: 连接的
+reflexive   :: 自反的
+symmetric   :: 对偶的，对称的
+domain      :: 定义域
+codomain    :: 值域
+
+能量 :: 做功的能力。包括势能（位置），动能与静止能量（质量）。
+
+bit :: binary digit
+
+
+== 地理&历史 ==
+Tibet :: 吐蕃
+British Commonwealth :: 大英联邦。“大东亚光荣圈”应该就是以此为榜样的。
