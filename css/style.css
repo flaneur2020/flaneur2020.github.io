@@ -33,6 +33,13 @@ body {
     width: 900px;
     background: #eee;
     text-shadow: #bbb 1px 1px 1px;
+    position: relative;
+}
+
+#nav {
+    position: absolute;
+    top: 10px;
+    font: normal 14px Courier New;
 }
 
 #main {
