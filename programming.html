@@ -31,13 +31,22 @@
 <ul>
 <li><a href="#toc_1.3.1">Git</a></li>
 <li><a href="#toc_1.3.2">Vim</a></li>
+<ul>
+<li><a href="#toc_1.3.2.1">Links</a></li>
 </ul>
-<li><a href="#toc_1.4">FP</a></li>
+</ul>
+<li><a href="#toc_1.4">线程同步</a></li>
 <ul>
-<li><a href="#toc_1.4.1">Y组合子</a></li>
-<li><a href="#toc_1.4.2">Monad</a></li>
+<li><a href="#toc_1.4.1">信号量</a></li>
+<li><a href="#toc_1.4.2">锁</a></li>
+</ul>
+<li><a href="#toc_1.5">FP</a></li>
 <ul>
-<li><a href="#toc_1.4.2.1">范畴论</a></li>
+<li><a href="#toc_1.5.1">Y组合子</a></li>
+<li><a href="#toc_1.5.2">haskell</a></li>
+<li><a href="#toc_1.5.3">Monad</a></li>
+<ul>
+<li><a href="#toc_1.5.3.1">范畴论</a></li>
 </ul>
 </ul>
 </ul>
@@ -60,6 +69,10 @@
 
 <h3 id="toc_1.2.1">链接和装载</h3>
 
+<p>
+动机: 使程序模块化(.o, .so, .so, .dll...)
+</p>
+
 <table>
 <tr>
 <td>ar</td>
@@ -70,36 +83,56 @@
 <td>列出目标文件的符号表</td>
 </tr>
 <tr>
+<td>readelf</td>
+<td>可以读elf文件的信息</td>
+</tr>
+<tr>
 <td>strip</td>
 <td>去掉符号表和调试信息</td>
 </tr>
 </table>
 
 <h2 id="toc_1.3">工具</h2>
+
 <h3 id="toc_1.3.1">Git</h3>
-<p>
-版本控制
-</p>
 
 <h3 id="toc_1.3.2">Vim</h3>
+
+<h4 id="toc_1.3.2.1">Links</h4>
 <p>
-编辑器之神
+<a href="http://www.fleurer-lee.com/2009/07/02/vim-quick-reference-card/">vim quick reference card</a>
 </p>
 
-<h2 id="toc_1.4">FP</h2>
 
-<h3 id="toc_1.4.1">Y组合子</h3>
+<h2 id="toc_1.4">线程同步</h2>
+
+<p>
+无论何时，只要单个资源需要在多个用户间共享，就必须处理一致性问题。
+</p>
+
+<p>
+即使是所谓“无副作用”的函数式编程，也只是计算时的无副作用。处理IO时同样需要处理同步问题。
+</p>
+
+<h3 id="toc_1.4.1">信号量</h3>
+<h3 id="toc_1.4.2">锁</h3>
+
+<h2 id="toc_1.5">FP</h2>
+
+<h3 id="toc_1.5.1">Y组合子</h3>
 <p>
 Y := \y -&gt; (\x -&gt; y (x x)) (\x -&gt; y (x x))
 </p>
+
+<h3 id="toc_1.5.2">haskell</h3>
 
 <p>
 <a href="http://fleurer-lee.com">haskell趣学指南</a>
 </p>
 
-<h3 id="toc_1.4.2">Monad</h3>
+<h3 id="toc_1.5.3">Monad</h3>
 
-<h4 id="toc_1.4.2.1">范畴论</h4>
+<h4 id="toc_1.5.3.1">范畴论</h4>
         </div>
     </body>
 </html>
