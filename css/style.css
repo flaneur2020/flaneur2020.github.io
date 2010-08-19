@@ -34,7 +34,7 @@ body {
     background: #eee;
     text-shadow: #bbb 1px 1px 1px;
     position: relative;
-    background: #eee url(../img/fleurer.png) fixed no-repeat right bottom;
+    background: #eee;
 }
 
 
