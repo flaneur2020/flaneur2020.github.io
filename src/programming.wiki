@@ -37,7 +37,7 @@
 * [http://www.haskell.org/hoogle/ Hoogle] 查阅库函数超级方便。
 
 教程
-* [http://fleurer-lee.com haskell趣学指南] 可作入门教程。
+* [http://fleurer-lee.com/lyah haskell趣学指南] 可作入门教程。
 
 === Monad & 范畴论 ===
 
