@@ -1,0 +1,10 @@
+= tools =
+
+== Git ==
+
+== Vim ==
+
+* [http://www.fleurer-lee.com/2009/07/02/vim-quick-reference-card/ vim quick reference card]
+
+== Misc == 
+* [http://www.graphviz.org/ Grapviz] 据说配合gcc可以生成函数的调用关系。 

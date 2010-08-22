@@ -21,16 +21,6 @@
 | readelf | 可以读elf文件的信息  |
 | strip   | 去掉符号表和调试信息 |
 
-== 工具 ==
-
-=== Git ===
-
-=== Vim ===
-
-==== Links ====
-[http://www.fleurer-lee.com/2009/07/02/vim-quick-reference-card/ vim quick reference card]
-
-
 == 线程同步 ==
 
 无论何时，只要单个资源需要在多个用户间共享，就必须处理一致性问题。
@@ -42,14 +32,32 @@
 
 == FP ==
 
-=== Y组合子 ===
-Y := \y -> (\x -> y (x x)) (\x -> y (x x))
-
 === haskell ===
 
-[http://fleurer-lee.com haskell趣学指南]
+* [http://www.haskell.org/hoogle/ Hoogle] 查阅库函数超级方便。
 
-=== Monad ===
+教程
+* [http://fleurer-lee.com haskell趣学指南] 可作入门教程。
 
-==== 范畴论 ====
+=== Monad & 范畴论 ===
+
+感觉...与其说Monad是来自范畴论，不如说Haskell是参照范畴论而构造了那套强大的类型系统。
+
+*动机*
+
+[http://ncatlab.org/nlab/show/category+theory]
+
+    Category theory was introduced by Samuel Eilenberg and Saunders Mac Lane in the 1945 paper General theory of natural equivalences. The reason for introducing categories was to introduce *functors*, and the reason for introducing functors was to introduce *natural transformations* (more specifically natural equivalences) in order to define what *natural* means in mathematics.
+
+一开始这篇论文是遭到驳回的。。。所谓"abstract nonsense"。
+
+Monad里面的bind(>>=)和unit(return)就是natural transformations。
+    
+    The basic idea of category theory is to shift attention from the study of objects to the study of maps or relations between objects: of (homo)morphisms between objects.
+
+像王猫猫说的，范畴论就是使用 *图* 来表示几乎“所有数学的概念”。而图论正是研究物件与其间关系的理论。
+    
+
+
+
 

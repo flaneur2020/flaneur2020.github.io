@@ -15,6 +15,10 @@
     Some have been thought brave because they were afraid to run away.
 -_Thomas Fuller_
 
+
+    世上只有两种编程语言：一种是总是被人骂的，一种是从来没人用的。
+-_Bjarne Stroustrup_
+
     
     民主政治产生了社会主义；平庸造成了天才的湮灭；软弱造成了力量。
 -_艾瑞克·霍布斯鲍姆_ 

@@ -1,9 +1,9 @@
 * { padding: 0; margin: 0; }
 
 body {font-family: Courier New, sans-serif; font-size: 100%; line-height: 130%;}
-h1, h2, h3, h4, h5, h6 {font-family: Trebuchet MS, serif; margin-top: 0.8em; margin-bottom: 0.8em; }
-h1 {font-size: 2.5em; color: #a77070; }
-h2 {font-size: 1.6em; color: #779977;}
+h1, h2, h3, h4, h5, h6 {font-family: Trebuchet MS, serif; margin-top: 1em; margin-bottom: 0.8em; }
+h1 {font-size: 2.5em; color: #a77070;}
+h2 {font-size: 1.6em; color: #779977; margin-top: 1.5em; }
 h3 {font-size: 1.3em; color: #555577;}
 h4 {font-size: 1.2em; color: #222244;}
 h5 {font-size: 1.1em; color: #222244;}

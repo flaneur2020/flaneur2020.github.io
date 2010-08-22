@@ -6,6 +6,7 @@
 
 * [[math]]
 * [[programming]] 
+* [[tools]]
 * [[quotes]]
 * [[words]]
 * [[misc]]
