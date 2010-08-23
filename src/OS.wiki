@@ -1,0 +1,3 @@
+= OS =
+
+* [http://pdos.csail.mit.edu/6.828/2009/xv6-book/index.html xv6] 麻省理工的教学项目，仿照unix v6的风格在x86上的实现。

@@ -2,6 +2,8 @@
 
 == Git ==
 
+* [http://progit.org/book/zh/ Git Pro中文版]
+
 == Vim ==
 
 * [http://www.fleurer-lee.com/2009/07/02/vim-quick-reference-card/ vim quick reference card]

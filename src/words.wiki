@@ -14,7 +14,7 @@ codomain    :: 值域
 能量 :: 做功的能力。包括势能（位置），动能与静止能量（质量）。
 
 bit :: binary digit
-blog :: binary large object
+blob :: binary large object
 
 
 == 地理&历史 ==

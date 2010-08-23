@@ -15,132 +15,17 @@
 
 <h1 id="toc_1">programming</h1>
 
-<div class="toc">
-<ul>
-<li><a href="#toc_1">programming</a></li>
-<ul>
-<li><a href="#toc_1.1">Ruby</a></li>
-<ul>
-<li><a href="#toc_1.1.1">sinatra</a></li>
-</ul>
-<li><a href="#toc_1.2">C</a></li>
-<ul>
-<li><a href="#toc_1.2.1">链接和装载</a></li>
-</ul>
-<li><a href="#toc_1.3">线程同步</a></li>
-<ul>
-<li><a href="#toc_1.3.1">信号量</a></li>
-<li><a href="#toc_1.3.2">锁</a></li>
-</ul>
-<li><a href="#toc_1.4">FP</a></li>
-<ul>
-<li><a href="#toc_1.4.1">haskell</a></li>
-<li><a href="#toc_1.4.2">Monad &amp; 范畴论</a></li>
-</ul>
-</ul>
-</ul>
-</div>
-
-<h2 id="toc_1.1">Ruby</h2>
-
-<p>
-面向人类的程序设计语言。
-</p>
-
-<h3 id="toc_1.1.1">sinatra</h3>
-
-<h2 id="toc_1.2">C</h2>
-
-<p>
-.h 文件里的只是一堆字符串。
-</p>
-
-<h3 id="toc_1.2.1">链接和装载</h3>
-
-<p>
-动机: 使程序模块化(.o, .so, .so, .dll...)
-</p>
-
-<table>
-<tr>
-<td>ar</td>
-<td>列出目标文件</td>
-</tr>
-<tr>
-<td>nm</td>
-<td>列出目标文件的符号表</td>
-</tr>
-<tr>
-<td>readelf</td>
-<td>可以读elf文件的信息</td>
-</tr>
-<tr>
-<td>strip</td>
-<td>去掉符号表和调试信息</td>
-</tr>
-</table>
-
-<h2 id="toc_1.3">线程同步</h2>
-
-<p>
-无论何时，只要单个资源需要在多个用户间共享，就必须处理一致性问题。
-</p>
-
-<p>
-即使是所谓“无副作用”的函数式编程，也只是计算时的无副作用。处理IO时同样需要处理同步问题。
-</p>
-
-<h3 id="toc_1.3.1">信号量</h3>
-<h3 id="toc_1.3.2">锁</h3>
-
-<h2 id="toc_1.4">FP</h2>
-
-<h3 id="toc_1.4.1">haskell</h3>
-
 <ul>
 <li>
-<a href="http://www.haskell.org/hoogle/">Hoogle</a> 查阅库函数超级方便。
+<a href="C.html">C</a> 
 </li>
-</ul>
-
-<p>
-教程
-</p>
-<ul>
 <li>
-<a href="http://fleurer-lee.com/lyah">haskell趣学指南</a> 可作入门教程。
+<a href="OS.html">OS</a>
+</li>
+<li>
+<a href="FP.html">FP</a>
 </li>
 </ul>
-
-<h3 id="toc_1.4.2">Monad &amp; 范畴论</h3>
-
-<p>
-感觉...与其说Monad是来自范畴论，不如说Haskell是参照范畴论而构造了那套强大的类型系统。
-</p>
-
-<p>
-<strong>动机</strong>
-</p>
-
-<p>
-<a href="http://ncatlab.org/nlab/show/category+theory">http://ncatlab.org/nlab/show/category+theory</a>
-</p>
-<blockquote>
-Category theory was introduced by Samuel Eilenberg and Saunders Mac Lane in the 1945 paper General theory of natural equivalences. The reason for introducing categories was to introduce <strong>functors</strong>, and the reason for introducing functors was to introduce <strong>natural transformations</strong> (more specifically natural equivalences) in order to define what <strong>natural</strong> means in mathematics.
-</blockquote>
-<p>
-一开始这篇论文是遭到驳回的。。。所谓"abstract nonsense"。
-</p>
-
-<p>
-Monad里面的bind(&gt;&gt;=)和unit(return)就是natural transformations。
-</p>
-<blockquote>
-The basic idea of category theory is to shift attention from the study of objects to the study of maps or relations between objects: of (homo)morphisms between objects.
-</blockquote>
-<p>
-像王猫猫说的，范畴论就是使用 <strong>图</strong> 来表示几乎“所有数学的概念”。而图论正是研究物件与其间关系的理论。
-</p>
         </div>
     </body>
 </html>
