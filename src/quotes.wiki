@@ -23,4 +23,6 @@
     民主政治产生了社会主义；平庸造成了天才的湮灭；软弱造成了力量。
 -_艾瑞克·霍布斯鲍姆_ 
 
+    Symmetry is a complexity reducing concept (co-routines include sub-routines); seek it everywhere.
+-_Alan Perlis_
     

@@ -1,6 +1,6 @@
 * { padding: 0; margin: 0; }
 
-body {font-family: Courier New, sans-serif; font-size: 100%; line-height: 130%;}
+body {font-family: 'Courier New' arial; font-size: 100%; line-height: 130%;}
 h1, h2, h3, h4, h5, h6 {font-family: Trebuchet MS, serif; margin-top: 1em; margin-bottom: 0.8em; }
 h1 {font-size: 2.5em; color: #a77070;}
 h2 {font-size: 1.6em; color: #779977; margin-top: 1.5em; }
@@ -15,7 +15,7 @@ ul {margin-left: 2em; padding-left: 0.5em;}
 dt {font-weight: bold; }
 dd {padding: 0 0 10px 20px;}
 img {border: none;}
-pre {border-left: 1px solid #ccc; margin-left: 2em; padding-left: 0.5em;}
+pre {border-left: 3px solid #ccc; margin-left: 2em; padding-left: 0.5em;}
 blockquote {padding: 0.4em; background-color: #D7E8F5;}
 th, td {border: 1px solid #ccc; padding: 0.3em;}
 th {background-color: #f0f0f0;}

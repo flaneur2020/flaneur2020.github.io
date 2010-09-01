@@ -4,7 +4,8 @@
 * [[OS]]
 * [[FP]]
 
-
+Misc 
+* [http://www-pu.informatik.uni-tuebingen.de/users/klaeren/epigrams.html Alan Perlis] 的编程警句。
     
 
 

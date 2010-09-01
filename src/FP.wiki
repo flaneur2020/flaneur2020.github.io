@@ -11,7 +11,7 @@
 
 == Monad & 范畴论 ==
 
-在一堆abstract nonsense面前，任何无心插柳都可能有意想不到的效果。
+在一堆abstract nonsense面前，任何无心插柳都可能得到意想不到的效果。
 
 感觉...与其说Monad是来自范畴论，不如说Haskell是参照范畴论而构造了那套强大的类型系统。
 
