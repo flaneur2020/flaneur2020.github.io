@@ -1,3 +1,13 @@
 = OS =
 
+* [http://www.osdever.net/ osdever] 有很多资源
+* [http://wiki.osdev.org/Main_Page OSDev wiki] 不错的wiki
+
+* [http://www.osdever.net/bkerndev/Docs/title.htm Bran's Kernel Development Toturial]
+* [http://www.brokenthorn.com/Resources/OSDevIndex.html Operating System Development Series] 挺全
+
 * [http://pdos.csail.mit.edu/6.828/2009/xv6-book/index.html xv6] 麻省理工的教学项目，仿照unix v6的风格在x86上的实现。
+
+== misc ==
+
+
