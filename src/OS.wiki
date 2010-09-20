@@ -6,8 +6,9 @@
 * [http://www.nondot.org/sabre/os/articles the Operating System resource center] 超级全的资源站
 
 * [http://www.osdever.net/bkerndev/Docs/title.htm Bran's Kernel Development Toturial]
-* [http://en.skelix.org/skelixos/ SkelixOS Toturial] Bran的教程加强版
-* [http://www.brokenthorn.com/Resources/OSDevIndex.html Operating System Development Series] 挺全
+* [http://www.osdever.net/bkerndev/Docs/title.htm JamesM's kernel development tutorials] Bran的教程加强版
+* [http://en.skelix.org/skelixos/ SkelixOS Toturial] 更全的一个教程
+* [http://www.brokenthorn.com/Resources/OSDevIndex.html Operating System Development Series] 
 
 * [http://pdos.csail.mit.edu/6.828/2009/xv6-book/index.html xv6] 麻省理工的教学项目，仿照unix v6的风格在x86上的实现。
 
