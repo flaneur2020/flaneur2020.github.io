@@ -6,6 +6,7 @@
 
 Misc 
 * [http://www-pu.informatik.uni-tuebingen.de/users/klaeren/epigrams.html Alan Perlis] 的编程警句。
+* [http://codex.wordpress.org/Template_Tags Template Tags] Wordpress模版函数的参考
     
 
 
