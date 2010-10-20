@@ -1,0 +1,5 @@
+= FAQ =
+
+Q:什么是loop device? 还有losetup是个什么样的命令?
+A:In Unix-like operating systems, a loop device, vnd (vnode disk), or lofi (loopback file interface) is a pseudo-device that makes a file accessible as a block device. *losetup*(loop setup?)就是将一个磁盘文件关联到一个虚拟设备（/dev/loop*）上，此后所有对设备的操作都是转向了文件。
+
