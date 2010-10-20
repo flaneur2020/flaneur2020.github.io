@@ -15,11 +15,21 @@
 
 <h1 id="toc_1">C</h1>
 
-<p>
-.h 文件里的只是一堆字符串。
-</p>
+<h3 id="toc_1.0.1">Traps &amp; Tips</h3>
 
-<h3 id="toc_1.0.1">链接和装载</h3>
+<ul>
+<li>
+sprintf有个问题，那就是它并不知道写入的字节数是否超出了缓冲区的大小。
+</li>
+<li>
+_<em>attribute</em>_((packed))，即不对结构体的字段进行对齐。
+</li>
+<li>
+.align n，这个n是2的n次幂的意思。比如.align 4，按16位进行对齐。 
+</li>
+</ul>
+
+<h3 id="toc_1.0.2">链接和装载</h3>
 
 <p>
 动机: 使程序模块化(.o, .so, .so, .dll...)
@@ -28,7 +38,6 @@
 <p>
 <strong>ld</strong> 是link editor的缩写。
 </p>
-
 <table>
 <tr>
 <td>ar</td>

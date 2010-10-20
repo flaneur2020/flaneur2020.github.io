@@ -1,5 +1,7 @@
 = OS =
 
+== 资源 ==
+
 * [http://www.osdever.net/ osdever] 有很多资源
 * [http://wiki.osdev.org/Main_Page OSDev wiki] 不错的wiki
 * [http://www.nondot.org/sabre/os/articles the Operating System resource center] 超级全的资源站
