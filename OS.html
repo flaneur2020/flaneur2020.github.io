@@ -60,20 +60,40 @@
 </ul>
 
 <h3 id="toc_1.1.2">Process Context</h3>
-<p>
-• Process context
-</p>
-<blockquote>
-– User address space
-∗ program text, data, user stack, shared memory
-– Control information
-∗ u area
-∗ proc structure
-∗ Kernel stack and address translation maps
-– Credentials
-∗ User and group id
-– Environment variables
-</blockquote>
+<ul>
+<li>
+User address space
+</li>
+<ul>
+<li>
+program text, data, user stack, shared memory
+</li>
+</ul>
+<li>
+Control information
+</li>
+<ul>
+<li>
+u area
+</li>
+<li>
+proc structure
+</li>
+<li>
+Kernel stack and address translation maps
+</li>
+</ul>
+<li>
+Credentials
+</li>
+<ul>
+<li>
+User and group id
+</li>
+</ul>
+<li>
+Environment variables
+</li>
 <ul>
 <li>
 Inherited from the parent, possibly defined in the shell
@@ -88,9 +108,9 @@ Manipulated using the standard library
 Upon exec, caller may request to retain the environment variables or provide a new set
 </li>
 </ul>
-<p>
-– Hardware context
-</p>
+<li>
+Hardware context
+</li>
 <ul>
 <li>
 Set of general-purpose and system registers
@@ -103,13 +123,20 @@ Stack pointer
 </li>
 <li>
 Processor status word (psw)
-                · System state (current and previous execution modes)
-                · Current and previous interrupt priority levels
-                · Overflow and carry bits
-        ∗ Memory management registers (address translation maps)
-        ∗ Floating point unit registers
-        ∗ Entire context gets saved in process control block (pcb) in the u area upon context switch
+        · System state (current and previous execution modes)
+        · Current and previous interrupt priority levels
+        · Overflow and carry bits
 </li>
+<li>
+Memory management registers (address translation maps)
+</li>
+<li>
+Floating point unit registers
+</li>
+<li>
+Entire context gets saved in process control block (pcb) in the u area upon context switch
+</li>
+</ul>
 </ul>
         </div>
     </body>
