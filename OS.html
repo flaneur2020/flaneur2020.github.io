@@ -58,6 +58,59 @@
 <a href="http://www.cs.hut.fi/~tvoipio/memtutor.html">Basic VMM for dummies</a>
 </li>
 </ul>
+
+<h3 id="toc_1.1.2">Process Context</h3>
+<p>
+• Process context
+</p>
+<blockquote>
+– User address space
+∗ program text, data, user stack, shared memory
+– Control information
+∗ u area
+∗ proc structure
+∗ Kernel stack and address translation maps
+– Credentials
+∗ User and group id
+– Environment variables
+</blockquote>
+<ul>
+<li>
+Inherited from the parent, possibly defined in the shell
+</li>
+<li>
+Stored at the bottom of the user stack
+</li>
+<li>
+Manipulated using the standard library
+</li>
+<li>
+Upon exec, caller may request to retain the environment variables or provide a new set
+</li>
+</ul>
+<p>
+– Hardware context
+</p>
+<ul>
+<li>
+Set of general-purpose and system registers
+</li>
+<li>
+Program counter
+</li>
+<li>
+Stack pointer
+</li>
+<li>
+Processor status word (psw)
+                · System state (current and previous execution modes)
+                · Current and previous interrupt priority levels
+                · Overflow and carry bits
+        ∗ Memory management registers (address translation maps)
+        ∗ Floating point unit registers
+        ∗ Entire context gets saved in process control block (pcb) in the u area upon context switch
+</li>
+</ul>
         </div>
     </body>
 </html>
