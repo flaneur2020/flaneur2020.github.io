@@ -20,14 +20,14 @@
 - User address space
     * program text, data, user stack, shared memory
 - Control information
-    * u area
-    * proc structure
+    * _u_ area
+    * _proc_ structure
     * Kernel stack and address translation maps
 - Credentials
     * User and group id
 - Environment variables
     * Inherited from the parent, possibly defined in the shell
-    * Stored at the bottom of the user stack
+    * _Stored at the bottom of the user stack_
     * Manipulated using the standard library
     * Upon exec, caller may request to retain the environment variables or provide a new set
 - Hardware context
@@ -35,9 +35,9 @@
     * Program counter
     * Stack pointer
     * Processor status word (psw)
-        · System state (current and previous execution modes)
-        · Current and previous interrupt priority levels
-        · Overflow and carry bits
+        - System state (current and previous execution modes)
+        - Current and previous interrupt priority levels
+        - Overflow and carry bits
     * Memory management registers (address translation maps)
     * Floating point unit registers
     * Entire context gets saved in process control block (pcb) in the u area upon context switch
