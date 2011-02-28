@@ -6,7 +6,7 @@
 * [http://www.nondot.org/sabre/os/articles the Operating System resource center] 超级全的资源站
 
 * [http://www.osdever.net/bkerndev/Docs/title.htm Bran's Kernel Development Toturial]
-* [http://www.osdever.net/bkerndev/Docs/title.htm JamesM's kernel development tutorials] Bran的教程加强版
+* [http://www.jamesmolloy.co.uk/tutorial_html/index.html JamesM's kernel development tutorials] Bran的教程加强版
 * [http://en.skelix.org/skelixos/ SkelixOS Toturial] 更全的一个教程
 * [http://www.brokenthorn.com/Resources/OSDevIndex.html Operating System Development Series] 
 
