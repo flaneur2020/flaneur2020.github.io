@@ -1,3 +1,4 @@
 = Misc =
 
 * [[japanese]] 日语
+* [[chinese-phrase]] 成语
