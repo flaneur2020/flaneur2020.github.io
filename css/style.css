@@ -1,6 +1,6 @@
 * { padding: 0; margin: 0; }
 
-body {font-family: 'Courier New' arial; font-size: 100%; line-height: 130%;}
+body {font-family: 'Ubuntu', 'Courier New', Arial, sans-serif; font-size: 100%; font-weight: normal; line-height: 130%;}
 h1, h2, h3, h4, h5, h6 {font-family: Trebuchet MS, serif; margin-top: 1em; margin-bottom: 0.8em; }
 h1 {font-size: 2.5em; color: #a77070;}
 h2 {font-size: 1.6em; color: #779977; margin-top: 1.5em; }
@@ -14,6 +14,7 @@ li {margin: 0.3em auto;}
 ul {margin-left: 2em; padding-left: 0.5em;}
 dt {font-weight: bold; }
 dd {padding: 0 0 10px 20px;}
+em { font-size: 0.9em; color: #444; }
 img {border: none;}
 pre {border-left: 3px solid #ccc; margin-left: 2em; padding-left: 0.5em;}
 blockquote {padding: 0.4em; background-color: #D7E8F5;}
@@ -32,17 +33,16 @@ del {text-decoration: line-through; color: #777777;}
 
 body {
     width: 900px;
-    background: #eee;
-    text-shadow: #bbb 1px 1px 1px;
     position: relative;
-    background: #EBF4FA;
+    text-shadow: #fff 1px 1px 1px;
+    background: #dcdcdc;
 }
 
 
 #nav {
     position: absolute;
     top: 10px;
-    font: normal 14px Courier New;
+    font: normal 14px;
 }
 
 #main {

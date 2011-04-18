@@ -10,6 +10,6 @@
 <body>
     <div id="main">
         <span id="nav">
-            <a href="index.html">Home</a>
+            <a href="index.html">&lt;Home</a>
         </span>
 
