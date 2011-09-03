@@ -1,0 +1,160 @@
+a {
+    color: #0066B2;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color: #6CAAD9;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: #eee url(../img/bg_hr.png);
+    display: block;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Love Ya Like A Sister', cursive;
+    padding: 0.1em 0 0.1em 0;
+}
+
+h1 { font-size: 60px; }
+h2 { font-size: 40px; }
+h3 { font-size: 30px; }
+h4 { font-size: 20px; }
+
+body {
+    background: #000 url(../img/bg.png) fixed;
+    font-family: 'ubuntu', 'WenQuanYi Micro Hei', serif;
+    color: #444;
+}
+
+/* ------------------------------------------------ */
+
+#wrap {
+    width: 700px;
+    background: #fff;
+    margin: 20px 0 20px 20px;
+    padding: 10px 0 10px 0;
+}
+
+#wrap > hr {
+    margin: 20px 0 30px 0;
+}
+
+/* ------------------------------------------------ */
+
+#hd {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    padding: 0 10px 0 10px;
+}
+
+#hd h1 {
+    text-align: center;
+}
+
+#hd .info {
+    font-family: 'Love Ya Like A Sister', cursive;
+    display: block;
+    margin: 10px auto;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+#hd .info a {
+    color: #000;
+}
+
+/* ------------------------------------------------ */
+
+#mn {
+    width: 100%;
+}
+
+#mn #posts {
+    display: block;
+    width: 480px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+#mn #posts li {
+    padding: 0 0 8px 0;
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+#mn #posts span.date {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: #bbb;
+    font-size: 15px;
+    display: block;
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    margin-top: 10px;
+}
+
+#mn #posts a.title {
+    vertical-align: middle;
+    font-size: 20px;
+    line-height: 30px;
+    width: 350px;
+    display: block;
+    float: left;
+}
+
+#mn #posts a.more {
+    font-size: 15px;
+}
+
+/*= for single */
+
+#mn #content {
+    padding: 0 20px 0 20px;
+    font-size: 17px;
+} 
+
+#mn #content > * {
+    margin: 8px 0 8px 10px;
+}
+
+#mn #content p {
+}
+
+#mn #content blockquote {
+    padding: 10px 0 10px 20px;
+    font-style: italic;
+    color: #555;
+}
+
+#mn #content pre {
+    background: #444;
+    color: #fff;
+    font-size: 17px;
+    padding: 10px 0 10px 10px;
+}
+
+#mn #content ul {
+    list-style: decimal;
+    padding: 10px 0 10px 0;
+}
+
+#mn #content ul li {
+    margin-left: 50px;
+}
+
+/* ---------------------------------------------- */
+
+#ft {
+    margin: 10px 5px 0 0;
+    color: #eee;
+    text-align: right;
+}

@@ -1,0 +1,23 @@
+= words =
+
+%toc
+
+== 数学&技术 ==
+拓扑        :: topology, 从上往下看。
+consistent  :: 一致的
+joint       :: 连接的
+reflexive   :: 自反的
+symmetric   :: 对偶的，对称的
+domain      :: 定义域
+codomain    :: 值域
+
+能量 :: 做功的能力。包括势能（位置），动能与静止能量（质量）。
+
+bit :: binary digit
+blob :: binary large object
+
+
+== 地理&历史 ==
+Tibet :: 吐蕃
+British Commonwealth :: 大英联邦。“大东亚光荣圈”应该就是以此为榜样的。
+德意志 :: Deutsches。古代德国人原自称“Teutsche"。当时南方的古罗马人将这群"Teutsche”民众称为“Teuton人”(条顿人)。German, 日耳曼。普鲁士(Preußen)仅仅是神圣罗马帝国的一个邦国，在德国统一前从未作为德国的整体存在。

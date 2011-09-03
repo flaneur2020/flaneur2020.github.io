@@ -1,0 +1,45 @@
+= OS =
+
+== 资源 ==
+* [http://www.osdever.net/ osdever] 有很多资源
+* [http://wiki.osdev.org/Main_Page OSDev wiki] 不错的wiki
+* [http://www.nondot.org/sabre/os/articles the Operating System resource center] 超级全的资源站
+
+* [http://www.osdever.net/bkerndev/Docs/title.htm Bran's Kernel Development Toturial]
+* [http://www.jamesmolloy.co.uk/tutorial_html/index.html JamesM's kernel development tutorials] Bran的教程加强版
+* [http://en.skelix.org/skelixos/ SkelixOS Toturial] 更全的一个教程
+* [http://www.brokenthorn.com/Resources/OSDevIndex.html Operating System Development Series] 
+
+* [http://www.tom-yam.or.jp/2238/src/ unix v6] UnixV6的源码，在线阅读。
+* [http://pdos.csail.mit.edu/6.828/2009/xv6-book/index.html xv6] 麻省理工的教学项目，仿照unix v6的风格在x86上的实现。
+
+=== Memory Management ===
+* [http://www.cs.hut.fi/~tvoipio/memtutor.html Basic VMM for dummies ]
+
+=== Process Context ===
+- User address space
+    * program text, data, user stack, shared memory
+- Control information
+    * _u_ area
+    * _proc_ structure
+    * Kernel stack and address translation maps
+- Credentials
+    * User and group id
+- Environment variables
+    * Inherited from the parent, possibly defined in the shell
+    * _Stored at the bottom of the user stack_
+    * Manipulated using the standard library
+    * Upon exec, caller may request to retain the environment variables or provide a new set
+- Hardware context
+    * Set of general-purpose and system registers
+    * Program counter
+    * Stack pointer
+    * Processor status word (psw)
+        - System state (current and previous execution modes)
+        - Current and previous interrupt priority levels
+        - Overflow and carry bits
+    * Memory management registers (address translation maps)
+    * Floating point unit registers
+    * Entire context gets saved in process control block (pcb) in the u area upon context switch
+
+

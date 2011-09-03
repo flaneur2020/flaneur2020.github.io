@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <style>
+        @import url(css/style.css);
+    </style>
+    <title>OS - fleurer</title>
+</head>
+<body>
+    <div id="main">
+        <span id="nav">
+            <a href="index.html">&lt;Home</a>
+        </span>
+
+<h1 id="toc_1">OS</h1>
+
+<h2 id="toc_1.1">资源</h2>
+<ul>
+<li>
+<a href="http://www.osdever.net/">osdever</a> 有很多资源
+</li>
+<li>
+<a href="http://wiki.osdev.org/Main_Page">OSDev wiki</a> 不错的wiki
+</li>
+<li>
+<a href="http://www.nondot.org/sabre/os/articles">the Operating System resource center</a> 超级全的资源站
+</li>
+</ul>
+
+<ul>
+<li>
+<a href="http://www.osdever.net/bkerndev/Docs/title.htm">Bran's Kernel Development Toturial</a>
+</li>
+<li>
+<a href="http://www.jamesmolloy.co.uk/tutorial_html/index.html">JamesM's kernel development tutorials</a> Bran的教程加强版
+</li>
+<li>
+<a href="http://en.skelix.org/skelixos/">SkelixOS Toturial</a> 更全的一个教程
+</li>
+<li>
+<a href="http://www.brokenthorn.com/Resources/OSDevIndex.html">Operating System Development Series</a> 
+</li>
+</ul>
+
+<ul>
+<li>
+<a href="http://www.tom-yam.or.jp/2238/src/">unix v6</a> UnixV6的源码，在线阅读。
+</li>
+<li>
+<a href="http://pdos.csail.mit.edu/6.828/2009/xv6-book/index.html">xv6</a> 麻省理工的教学项目，仿照unix v6的风格在x86上的实现。
+</li>
+</ul>
+
+<h3 id="toc_1.1.1">Memory Management</h3>
+<ul>
+<li>
+<a href="http://www.cs.hut.fi/~tvoipio/memtutor.html">Basic VMM for dummies</a>
+</li>
+</ul>
+
+<h3 id="toc_1.1.2">Process Context</h3>
+<ul>
+<li>
+User address space
+</li>
+<ul>
+<li>
+program text, data, user stack, shared memory
+</li>
+</ul>
+<li>
+Control information
+</li>
+<ul>
+<li>
+<em>u</em> area
+</li>
+<li>
+<em>proc</em> structure
+</li>
+<li>
+Kernel stack and address translation maps
+</li>
+</ul>
+<li>
+Credentials
+</li>
+<ul>
+<li>
+User and group id
+</li>
+</ul>
+<li>
+Environment variables
+</li>
+<ul>
+<li>
+Inherited from the parent, possibly defined in the shell
+</li>
+<li>
+<em>Stored at the bottom of the user stack</em>
+</li>
+<li>
+Manipulated using the standard library
+</li>
+<li>
+Upon exec, caller may request to retain the environment variables or provide a new set
+</li>
+</ul>
+<li>
+Hardware context
+</li>
+<ul>
+<li>
+Set of general-purpose and system registers
+</li>
+<li>
+Program counter
+</li>
+<li>
+Stack pointer
+</li>
+<li>
+Processor status word (psw)
+</li>
+<ul>
+<li>
+System state (current and previous execution modes)
+</li>
+<li>
+Current and previous interrupt priority levels
+</li>
+<li>
+Overflow and carry bits
+</li>
+</ul>
+<li>
+Memory management registers (address translation maps)
+</li>
+<li>
+Floating point unit registers
+</li>
+<li>
+Entire context gets saved in process control block (pcb) in the u area upon context switch
+</li>
+</ul>
+</ul>
+        </div>
+    </body>
+</html>
