@@ -2,5 +2,5 @@ markdown: rdiscount
 pygments: true
 baseurl: http://fleurer.github.com
 destination: ./_site
-auto: true
+auto: false
 
