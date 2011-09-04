@@ -3,5 +3,5 @@ task :default do
 end
 
 task :preview do
-  sh "jekyll --server"
+  sh "jekyll --server --base-url --auto"
 end

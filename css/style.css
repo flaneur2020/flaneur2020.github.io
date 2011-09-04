@@ -9,6 +9,10 @@ a:visited {
     color: #6CAAD9;
 }
 
+strong {
+    font-weight: bold;
+}
+
 hr {
     border: none;
     height: 3px;
@@ -127,6 +131,7 @@ body {
 }
 
 #mn #content p {
+    line-height: 1.2em;
 }
 
 #mn #content blockquote {
