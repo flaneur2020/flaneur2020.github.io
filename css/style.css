@@ -26,9 +26,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h1 { font-size: 60px; }
-h2 { font-size: 40px; }
-h3 { font-size: 30px; }
-h4 { font-size: 20px; }
+h2 { font-size: 30px; }
+h3 { font-size: 22px; }
+h4 { font-size: 19px; }
 
 body {
     background: #000 url(../img/bg.png) fixed;
@@ -154,6 +154,22 @@ body {
 
 #mn #content ul li {
     margin-left: 50px;
+}
+
+/*= for comments */
+
+#mn #comments {
+    padding: 20px 20px 0 30px;
+    font-size: 17px;
+}
+
+#mn #comments h3 {
+    display: none;
+    font-family: 'ubuntu';
+}
+
+#mn #comments #dsq-pagination, #dsq-sort-by {
+    display: none;
 }
 
 /* ---------------------------------------------- */
