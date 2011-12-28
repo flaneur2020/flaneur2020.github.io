@@ -22,10 +22,10 @@ hr {
 
 h1,h2,h3,h4,h5,h6 {
     font-family: 'Love Ya Like A Sister', cursive;
-    padding: 0.1em 0 0.1em 0;
+    padding: 1em 0 0.1em 0;
 }
 
-h1 { font-size: 60px; }
+h1 { font-size: 40px; }
 h2 { font-size: 30px; }
 h3 { font-size: 22px; }
 h4 { font-size: 19px; }
@@ -39,7 +39,7 @@ body {
 /* ------------------------------------------------ */
 
 #wrap {
-    width: 700px;
+    width: 800px;
     background: #fff;
     margin: 20px 0 20px 20px;
     padding: 10px 0 10px 0;
@@ -59,25 +59,33 @@ body {
 
 #hd h1 {
     text-align: center;
+    padding: 0.1em 0.4em 0.1em 0;
 }
 
 #hd .info {
     font-family: 'Love Ya Like A Sister', cursive;
-    display: block;
     margin: 10px auto;
-    padding: 0;
-    font-size: 20px;
+    display: block;
+    padding: 0 20px 0 20px;
+    font-size: 17px;
     text-align: center;
 }
 
 #hd .info a {
-    color: #000;
+    display: inline-block;
+    padding: 0 5px 0 5px;
+    color: #222;
 }
 
 /* ------------------------------------------------ */
 
 #mn {
     width: 100%;
+    line-height: 1.2em;
+}
+
+#mn hr {
+    height: 2px;
 }
 
 #mn #posts {
@@ -123,15 +131,15 @@ body {
 
 #mn #content {
     padding: 0 20px 0 20px;
-    font-size: 17px;
+    font-size: 15px;
 } 
 
 #mn #content > * {
-    margin: 8px 0 8px 10px;
+    margin: 12px 0 12px 0;
 }
 
 #mn #content p {
-    line-height: 1.2em;
+    line-height: 1.4em;
 }
 
 #mn #content blockquote {
@@ -140,21 +148,41 @@ body {
     color: #555;
 }
 
+#mn #content img {
+    display: inline-block;
+    max-width: 700px;
+}
+
 #mn #content pre {
     background: #444;
     color: #fff;
-    font-size: 17px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 19px;
     padding: 10px 0 10px 10px;
+    overflow: auto;
 }
 
 #mn #content ul {
+    list-style: circle;
+    padding: 10px 0 10px 0;
+}
+
+#mn #content ol {
     list-style: decimal;
     padding: 10px 0 10px 0;
 }
 
-#mn #content ul li {
+#mn #content ul,ol li {
     margin-left: 50px;
 }
+
+#mn #content table th {
+    border: 1px solid #eee;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    text-align: left;
+}
+
 
 /*= for comments */
 

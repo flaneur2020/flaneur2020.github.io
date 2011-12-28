@@ -2,6 +2,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
         <link rel="alternate" type="application/rss+xml" href="/atom.xml" /> 
+        <link rel="shortcut icon" type="image/png" href="http://m3.img.libdd.com/farm1/177/A549EBE68A67032286374B166D7439B1_16_16.jpg" />
         <style>
             @import url(/css/reset.css);
             @import url(/css/toolkit.css);
@@ -14,15 +15,21 @@
         <div id="wrap" class="rounded inner_box_shadowed">
             <div id="hd">
                 <h1>{{ page.title }}</h1>
-                <span class="desc info"><a href="/index.html">fleuria</a></span>
+                <span class="desc info">
+                    <a href="/archieve.html">fleuria</a>
+                    <a href="/about.html">»	</a>
+                </span>
                 {% if page.date %}
                 <span class="date info">{{ page.date | date_to_string }}</span>
                 {% endif %}
             </div>
+
             <hr/>
+
             <div id="mn">
-                {{ content }}
+                {{content}}
             </div>
+            
             <div id="ft">
                 hosted on github, and powered by jekyll. (<a href="/atom.xml">rss</a>)
             </div>
