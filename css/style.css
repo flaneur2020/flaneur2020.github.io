@@ -22,10 +22,10 @@ hr {
 
 h1,h2,h3,h4,h5,h6 {
     font-family: 'Love Ya Like A Sister', cursive;
-    padding: 1em 0 0.4em 0;
+    padding: 1em 0 0.1em 0;
 }
 
-h1 { font-size: 60px; }
+h1 { font-size: 40px; }
 h2 { font-size: 30px; }
 h3 { font-size: 22px; }
 h4 { font-size: 19px; }
@@ -79,6 +79,7 @@ body {
 
 #mn {
     width: 100%;
+    line-height: 1.2em;
 }
 
 #mn #posts {
@@ -144,13 +145,15 @@ body {
 #mn #content pre {
     background: #444;
     color: #fff;
-    font-style: Monospace;
-    font-size: 14px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 19px;
     padding: 10px 0 10px 10px;
+    overflow: auto;
 }
 
 #mn #content ul {
-    list-style: decimal;
+    list-style: circle;
     padding: 10px 0 10px 0;
 }
 
