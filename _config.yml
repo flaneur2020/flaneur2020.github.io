@@ -3,3 +3,4 @@ pygments: true
 baseurl: http://fleurer.github.com
 auto: false
 destination: ./_site
+title: the old new thing

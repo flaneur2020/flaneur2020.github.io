@@ -17,49 +17,45 @@ meta:
 
 </div></blockquote>
 
-
-<!--more-->
-	<style type="text/css">
-	<!--
-	p{
-		line-height:18px;
-		font-size:14px;
-	}
-	p.content, p.system-content{
-		padding-left:12px;
-		word-wrap:break-word;
-		word-break:break-all;
-	}
-	p.my-id{
-		color:#008040;
-	}
-	p.friend-id{
-		color:#00f;
-	}
-	p.system-id{
-	    color:#6b6b6b;
-	}
-	h3#title {
-		font-size:14px;
-		font-weight:bold;
-	}
-	#chatinfo {
-		clear:both;
-		color:#808080;
-		text-align:left;
-		font-size: 80%;
-	}
-	#save {
-		padding-left:20px;
-	}
-	#footer {
-		padding-top:30px;
-	}
-	#footer img {
-		border:0px;
-	}
-	-->
-	</style>
+<style type="text/css">
+p{
+    line-height:18px;
+    font-size:14px;
+}
+p.content, p.system-content{
+    padding-left:12px;
+    word-wrap:break-word;
+    word-break:break-all;
+}
+p.my-id{
+    color:#008040;
+}
+p.friend-id{
+    color:#00f;
+}
+p.system-id{
+    color:#6b6b6b;
+}
+h3#title {
+    font-size:14px;
+    font-weight:bold;
+}
+#chatinfo {
+    clear:both;
+    color:#808080;
+    text-align:left;
+    font-size: 80%;
+}
+#save {
+    padding-left:20px;
+}
+#footer {
+    padding-top:30px;
+}
+#footer img {
+    border:0px;
+}
+</style>
 
 
 <div>

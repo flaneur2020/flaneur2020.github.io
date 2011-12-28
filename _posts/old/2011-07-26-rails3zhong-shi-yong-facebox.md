@@ -41,7 +41,8 @@ rails generate jquery:install</pre>
 换用jquery之后，把各种js都生成到html里的link_to_remote就不能使用了。可行的做法是在link_to中加上一个:remote => true，生成的代码会像是这样：
 
 <pre lang="html">
-<a href="/favorites/4e2e7a331c78b4288b000005/edit" data-remote="true">想读</a></pre>
+&lt;a href="/favorites/4e2e7a331c78b4288b000005/edit" data-remote="true"&gt; 想读 &lt;/a&gt;
+</pre>
 
 仅仅多了一个data-remote="true"，专门给jquery看的一个属性。如果用户点击这个链接，触发一个js事件弹出facebox；如果用户要从新标签中打开这个链接，就可以见到原先非ajax的那个表单。
 
