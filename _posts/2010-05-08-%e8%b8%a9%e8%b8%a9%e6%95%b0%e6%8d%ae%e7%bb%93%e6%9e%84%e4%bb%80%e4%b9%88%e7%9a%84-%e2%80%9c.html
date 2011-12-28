@@ -1,0 +1,79 @@
+--- 
+layout: post
+title: "\xE8\xB8\xA9\xE8\xB8\xA9\xE6\x95\xB0\xE6\x8D\xAE\xE7\xBB\x93\xE6\x9E\x84\xE4\xBB\x80\xE4\xB9\x88\xE7\x9A\x84 =\xE2\x80\x9C="
+tags: 
+- haskell
+- "\xE5\xA4\x87\xE5\xBF\x98"
+status: publish
+type: post
+published: true
+meta: 
+  _edit_last: "2"
+---
+发觉算法太弱了 ="=
+
+当年在ACM那里呆了两天就隐身了，可惜那个老师非常非常非常好的（实验室里还有空调 >_<）。总觉得这玩意水太深，掉进去就出不来了....“不成熟的优化乃万恶之源”这话又正好应了惰性心理，心安理得地“出了性能问题再说之前先弄出来再说管算法干嘛”...可现实往往是，不会算法你压根就弄不出来...
+
+先从一棵二叉查找树开始好了。挖坑慢慢填，时间有的是(?)
+
+<pre lang="haskell">
+module BTree where
+
+data BTree a b = Empty 
+               | BNode {
+                    kv :: (a, b), 
+                    left :: BTree a b,
+                    right :: BTree a b
+               } 
+               deriving(Show, Eq)
+
+insert :: (Ord a) => (a, b) -> BTree a b -> BTree a b
+insert (k,v) Empty = BNode (k, v) Empty Empty
+insert (k,v) pnode@(BNode (pk, _) lnode rnode) 
+    | k == pk   = pnode { kv = (k,v) }
+    | k <  pk   = pnode { left  = insert (k,v) lnode }
+    | k >  pk   = pnode { right = insert (k,v) rnode }
+
+find :: (Ord a) => a -> BTree a b -> Maybe b
+find k Empty = Nothing
+find k (BNode (pk,pv) lnode rnode)
+    | k == pk = Just pv
+    | k <= pk = find k lnode
+    | k >  pk = find k rnode
+find _ _ = Nothing
+
+remove :: (Ord a) => a -> BTree a b -> BTree a b
+remove k Empty = Empty
+remove k pnode@(BNode (pk,pv) lnode rnode) 
+    | k == pk = merge lnode rnode
+    | k <= pk = pnode { left = remove k lnode }
+    | k >  pk = pnode { right = remove k rnode }
+
+merge :: (Ord a) => BTree a b -> BTree a b -> BTree a b
+merge lnode rnode = fromList $ (toList lnode) ++ (toList rnode)
+
+--helper
+isEmpty Empty = True 
+isEmpty _     = False
+
+fromList :: (Ord a) => [(a,b)] -> BTree a b
+fromList = foldl (flip insert) Empty 
+
+toList :: BTree a b -> [(a,b)]
+toList Empty = [] 
+toList (BNode (k,v) lnode rnode) = 
+    (toList lnode) ++ [(k,v)] ++ (toList rnode)
+
+-- for test
+root = fromList $ [
+    (4, "fleurer"), 
+    (10, "ssword"), 
+    (100, "ssword"), 
+    (2, "xx")]
+
+</pre>
+
+haskell做数据结构好像别扭的很...不用ST Monad或者IO的话什么都是值还不能引用，像二叉树的旋转什么的就没想出常数时间的办法。像上面那个remove就直接简单粗暴了orz
+
+(邪恶音：用ST Monad不就好了嘛)
+(ST Monad都用了还用haskell干嘛 TvT)
