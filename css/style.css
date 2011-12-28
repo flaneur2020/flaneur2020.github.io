@@ -139,7 +139,7 @@ body {
 }
 
 #mn #content p {
-    line-height: 1.2em;
+    line-height: 1.4em;
 }
 
 #mn #content blockquote {
@@ -168,9 +168,21 @@ body {
     padding: 10px 0 10px 0;
 }
 
-#mn #content ul li {
+#mn #content ol {
+    list-style: decimal;
+    padding: 10px 0 10px 0;
+}
+
+#mn #content ul,ol li {
     margin-left: 50px;
 }
+
+#mn #content table th {
+    border: 1px solid #eee;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    text-align: left;
+}
+
 
 /*= for comments */
 
