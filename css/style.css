@@ -188,7 +188,7 @@ body {
 
 #mn #comments {
     padding: 20px 20px 0 30px;
-    font-size: 17px;
+    font-size: 13px;
 }
 
 #mn #comments h3 {
@@ -196,8 +196,16 @@ body {
     font-family: 'ubuntu';
 }
 
+#mn #comments hr {
+    height: 1px;
+}
+
 #mn #comments #dsq-pagination, #dsq-sort-by {
     display: none;
+}
+
+#mn #comments .dsq-comment-message {
+    font: 12px;
 }
 
 /* ---------------------------------------------- */
