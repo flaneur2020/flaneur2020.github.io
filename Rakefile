@@ -15,7 +15,7 @@ end
 desc "create a new post file to _post"
 task :n => :new_post
 task :new_post do
-  title = ENV['T'] || ENV['TITLE'] || 'untitled'
+  title = ENV['t'] || ENV['T'] || ENV['TITLE'] || 'untitled'
   date_str = Time.now.strftime('%Y-%m-%d')
   path = File.dirname(__FILE__) + "/_posts/#{date_str}-#{title}.md"
   open(path, 'w+') do |f|
