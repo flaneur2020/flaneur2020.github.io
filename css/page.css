@@ -97,7 +97,7 @@ h4 { font-size: 19px; }
 
 #mn ol {
     list-style: decimal;
-    padding: 10px 0 10px 0;
+    padding: 0.4em 0 0.4em 0;
 }
 
 #mn li {
@@ -116,6 +116,6 @@ h4 { font-size: 19px; }
 }
 
 #toc li {
-    margin: 0 0 0.5em 3em;
+    margin: 0.2em 0 0.2em 3em;
     padding: none;
 }

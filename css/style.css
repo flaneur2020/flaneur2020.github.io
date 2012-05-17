@@ -173,7 +173,7 @@ body {
     padding: 10px 0 10px 0;
 }
 
-#mn #content ul,ol li {
+#mn #content ul li, ol li {
     margin-left: 50px;
 }
 
