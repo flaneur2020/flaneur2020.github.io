@@ -372,10 +372,10 @@ fleurix采用软件的进程切换，一切进程切换都发生在内核态。�
 
 + 内核栈的顶，供中断处理例程使用；
 + 页目录，也就是地址空间；
-+ `eip`与`esp`；
-+ callee-saved registers(`ebp`、`ebx`、`esi`、`edi`)；
++ `eip`；
++ 所有通用寄存器(`eax`、`ebx`、`ecx`、`edx`、`edi`、`esi`、`ebp`、`esp`)。
 
-因为进程切换都发生在内核态，因此无需保存`cs`等段寄存器；依据gcc的调用约定，`eax`、`ecx`与`edx`为`caller-saved registers`，也同样不需要保存。
+需要留意的是，依据gcc的调用约定，`eax`、`ecx`与`edx`为`caller-saved registers`，会在调用`_swtch_to()`时由调用者自动压栈，不需要额外保存，因此内核只需要保存`ebx`、`ebp`、`edi`、`esi`、`esp`五个通用寄存器。 另外，因为进程切换都发生在内核态，`cs`等段寄存器也无需保存。
 
 fleurix将上下文相关的寄存器保存在一个`struct jmp_buf`结构中，它与C标准库中的`jmp_buf`基本相同，甚至可以这样想：进程切换就是，在切换地址空间之后，为当前进程的上下文执行`setjmp()`记录下来，同时通过`longjmp()`跳转到目标进程的上下文。
 
