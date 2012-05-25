@@ -721,7 +721,7 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
 
 ![](/img/inode_dirent.gif)
 
-目录的数据布局与普通文件一致，不同在于数据的内容。目录文件的格式可以视作是`struct dirent`结构的一个数组，表示了一个目录中，文件名到inode编号的映射关系。`struect dirent`的声明为：
+目录的数据布局与普通文件一致，不同在于数据的内容。目录文件的格式可以视作是`struct dirent`结构的一个数组，表示了一个目录中文件名到inode编号的映射关系。`struect dirent`的声明为：
 
     #define NAMELEN 12
 
@@ -731,11 +731,11 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
         char    __p[18]; /* a padding. each dirent is aligned with a 32 bytes boundary. */
     };
 
-每条`dirent`占据32字节，其中inode编号为2字节，文件名为12字节，保留16字节。可知在minix v1文件系统中，文件名的大小限制为12个字符。
+每条`dirent`(目录项)占据32字节，其中inode编号为2字节，文件名为12字节，保留16字节。可知在minix v1文件系统中，文件名的大小限制为12个字符。
 
-而`namei(char *path, uchar creat)`所做的工作就是，根据路径，依次查找目录文件，返回对应的inode对象，并在必要时新建inode。此外，内核有时需要依据文件路径来修改父目录的内容(比如通过`unlink()`来删除一个文件)，对此fleurix也提供了一个`namei_parent(char *path, char **name)`例程，它可以返回父目录的inode对象，同时找到指向目标文件名的指针。
+而`namei(char *path, uchar creat)`所做的工作就是，根据路径依次查找目录文件，并在必要时新建inode，最后返回一个上锁的inode对象或在出错时返回NULL。此外，内核有时会对父目录的内容更感兴趣(比如通过`unlink()`来删除一个文件)，对此fleurix也提供了一个`namei_parent(char *path, char **name)`例程，它可以返回父目录的inode对象，同时找到指向目标文件名的指针。
 
-在fleurix中，`namei()`与`namei_parent()`都只是对`_namei(char *path, uchar creat, uchar parent, char **name)`的一层封装。`_namei()`的4个参数的意义分别为：
+在查找过程中需要小心地处理inode对象的锁和一些异常情况，`namei()`与`namei_parent()`中有关遍历目录的代码会很复杂，所以将它们分开实现是没有意义的。为此，fleurix实现了`_namei(char *path, uchar creat, uchar parent, char **name)`作为`namei()`与`namei_parent()`所共有的基础例程。它的4个参数的意义分别为：
 
 + `path`：目标文件的路径，若`path`为绝对路径(以`'/'`开头)，`_namei()`将从根目录开始查找，否则从当前的活动(`cu->p_wdir`)目录开始查找；
 + `creat`：若最后没有找到对应的文件，则新建一个文件；
