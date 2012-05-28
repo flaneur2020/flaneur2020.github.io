@@ -273,14 +273,16 @@ CPU通常都是通过寄存器的形式访问外部设备，外设的寄存器�
 + 将外设寄存器与内存统一编址：访问寄存器即一般的内存读写，没有专门用于I/O的指令。
 + 将外设寄存器独立编址：每个寄存器对应一个端口号(port)，通过专门读/写的指令访问外设的寄存器，如`in`与`out`指令。
 
-x86为后者，外设寄存器即I/O端口。在fleurix中，提供了如下的几个函数来读写端口：
+x86采用了一个混合的方案：对于大部分设备，皆采用独立编址的方式，外设寄存器即I/O端口；对于少数设备，也支持内存映射的I/O，如VGA。
+
+在fleurix中，提供了如下的几个函数来读写端口：
 
 + `inb()`与`outb()`：按字节读写端口
 + `inw()`与`outw()`：按字读写端口
 + `insb()`与`outsb()`：对某端口读/写一个字节序列
 + `insl()`与`outsl()`：对某端口读/写一个双字的序列
 
-以上函数均可见于`src/inc/asm.h`。
+以上函数都是对汇编指令的简单包装，定义于`src/inc/asm.h`。
 
 留意它们的代码，可以注意到它们都会在最后调用一个`io_delay()`函数。这是因为对于一些老式总线的外部设备，读写I/O端口的速度若过快就容易出现丢失数据的现象，为此在每次I/O操作之间插入几条指令作为延时，等待慢速外设。
 
@@ -367,7 +369,7 @@ fleurix假定用户的物理内存为128mb，并将内核永远地映射于每�
 
 fleurix使用了一个简单且高效的内存分配算法，它将`pgalloc()`作为后端，能够以O(1)的时间分配2次幂对齐的虚拟内存块，单次内存分配的上限为4kb。
 
-`kmalloc()`将固定大小的内存块(32b、64b、128b...4kb)分别组织为不同的链表。假如待分配的内存块大小为n，它会依据n来找到合适的链表(通过`bkslot()`，见于`src/mm/malloc.c`)，其中内存块的大小为m(m为2次幂且`n <= m <= 4096`)，然后检查链表中是否有可用的内存块。如果有，就将它取出链表，直接返回；如果没有，则通过`pgalloc()`分配一个物理页，将它划分为`4096 / m`个内存块，将它们链到对应的链表中，重复尝试分配。
+`kmalloc()`将固定大小的内存块(32b、64b、128b...4kb)分别组织为不同的链表。假如待分配的内存块大小为n，它会依据n来找到合适的链表(通过`bkslot()`，见于`src/mm/malloc.c`)，其中内存块的大小为m(m为2次幂且`n <= m <= 4096`)，然后检查链表中是否有可用的内存块。如果有，就将它取出链表，直接返回；如果没有，则通过`pgalloc()`分配一个物理页，将它划分为`4096 / m`个内存块并链到对应的链表中，重复尝试分配。
 
 与C标准库函数`free()`的不同在于，`kfree()`需要调用者记住内存块的大小，用以找到对应的链表。这是个不好的设计，使用者若将大小写错就会有bug产生。另外值得留意的地方是，除了4kb内存块的特殊情况，`kfree()`不能将其它物理页返还给操作系统，而是留做以后内存分配的保留内存。这是一个不足之处，如果一次性分配比较多的临时对象，将会造成较大的内存浪费。
 
@@ -492,7 +494,7 @@ fleurix采用传统UNIX的优先级调度算法。
     
     p->p_cpu /= 2;
 
-随着时间的增加，当前进程的优先级会慢慢地低于其它的任何进程。在这时调用`swtch()`，便可以找出当前优先级最高的进程并切换0。
+随着时间的增加，当前进程的优先级会慢慢地低于其它的任何进程。在这时调用`swtch()`，便可以找出当前优先级最高的进程并切换。
 
 值得留意的是，调用`swtch()`的时机有两种：
 
@@ -699,9 +701,9 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
 
 与之相对，释放`inode`对象的例程为`iput()`，它会将`i_count`减一，当`i_count`为0时释放inode对象。
 
-除了`i_count`，inode结构还有一个字段用于引用计数，也就是`i_nlink`，用于 表示磁盘上的引用数，也就是硬连接的数量。当新建一个文件时，`i_nlink`的值为1，随后每增加一个硬连接时增1，删除时减1，当`i_nlink`为0时才真正删除磁盘上的inode。
+除了`i_count`，inode结构还有一个字段`i_nlink`，用于 表示磁盘上的引用数，也就是硬连接的数量。当新建一个文件时，`i_nlink`的值为1，随后每增加一个硬连接时增1，删除时减1，当`i_nlink`为0时才真正删除磁盘上的inode。
 
-值得注意的是，`iput()`与`unlk_ino()`同为"释放一个inode对象"，但含义有所不同。准确来讲，`unlk_ino()`的行为是释放一个inode对象的锁，`iput()`则是根据引用计数来释放inode对象本身。锁的目的是限制对象的控制权，保护对象的数据不被破坏，内核必须在系统调用的结束之前及时地释放锁，不然将导致死锁；而引用计数的目的是跟踪对象的所有权的变化，来管理对象的生存周期。
+此外值得注意的是，`iput()`与`unlk_ino()`虽同为"释放一个inode对象"，但含义有所不同。准确来讲，`unlk_ino()`的行为是释放一个inode对象的锁，`iput()`则是根据引用计数来释放inode对象本身。锁的目的是限制对象的控制权，保护对象的数据不被破坏，内核必须在系统调用的结束之前及时地释放锁，不然将导致死锁；而引用计数的目的是跟踪对象的所有权的变化，来管理对象的生存周期。
 
 #### bmap()
 
@@ -742,7 +744,7 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
 + `parent`：若不为0，则返回父目录的inode对象，同时将目标文件名的地址存入第四个参数`name`；
 + `name`：当`parent`不为0时，保存目标文件名的地址。
 
-`_namei()`主要用于`link()`、`unlink()`、`open()`、`exec()`等系统调用的实现。
+`_namei()`主要用于`link()`、`unlink()`、`open()`、`exec()`等系统调用的实现，凡是需要访问文件路径的地方，就都会调用到它。
 
 ## 遇到的问题
 
@@ -751,9 +753,25 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
 ## 参考文献
 
 + 《Linux内核完全注释》，赵炯 著
-+ 《莱昂氏UNIX源码分析》
-+ 《UNIX操作系统设计》
-+ 《UNIX Internals》
-+ 《4.4 BSD操作系统的设计与实现》
++ 《Linux内核完全剖析》，赵炯 著
++ 《莱昂氏UNIX源代码分析》，John Lions 著
++ 《UNIX操作系统设计》， Maurice J.Bach 著
++ 《操作系统设计与实现》，Andrew S. Tanenbaum、 Albert S. Woodhull 著
++ 《现代操作系统》，Andrew S. Tanenbaum 著
++ 《计算机的心智：操作系统之哲学原理》，邹恒明 著
++ 《结构化计算机组成》，Andrew S.Tanenbaum 著
++ 《链接器和加载器》，John R.Levine 著
++ 《4.4 BSD操作系统的设计与实现》，Marshall Kirk McKusick、Keith Bostic、Michael J.Karels、John S.Quarterman 著
++ 《UNIX Internals》，Uresh Vahalia 著
 + 《Bran's Kernel Development Toturial》，Brandon Friesen 著
++ 《Design and Implementation of the Berkeley Virtual Memory Extensions to the UNIX† Operating System‡》，Ozalp Babao lug、William Joy、Juan Porcar 著
++ 《Virtual Memory Architecture in SunOS》，Robert A. Gingell、Joseph P. Moran、 William A. Shannon 著
++ 《Intel® 64 and IA-32 Architectures Software Developer’s Manual Volume 2A: Instruction Set Reference A-M》，英特尔公司 著
++ 《Intel® 64 and IA-32 Architectures Software Developer’s Manual Volume 2B: Instruction Set Reference N-Z》，英特尔公司 著
++ 《Intel® 64 and IA-32 Architectures Software Developer’s Manual Volume 3A: System Programming Guide, Part 1》，英特尔公司 著
++ 《Intel® 64 and IA-32 Architectures Software Developer’s Manual Volume 3B: System Programming Guide, Part 2》，英特尔公司 著
++ 《80x86处理器和80x87协处理器大全》，Hummel，R.L. 编著
++ 《UNIX环境高级编程》，W.Richard Stevens 著
++ 《An Introduction to GCC》，Brian J. Gough 著
+
 
