@@ -4,8 +4,9 @@ title: F/Index
 ---
 
 <ul id="posts">
-    {% for post in site.posts limit:15 %}
-    <li> <span class="date">{{ post.date | date_to_string }}</span> <a class="title" href="{{ post.url }}">{{ post.title }}</a> </li>
-    {% endfor %}
-    <li> <span class="date"></span> <a class="title more" href="archieve.html"> more </a> </li>
+  {% for post in site.posts limit:12 %}
+  <li> <a class="title" href="{{ post.url }}">{{ post.title }}</a> </li>
+  {% endfor %}
+  <li> <a class="title more" href="archieve.html"> » more </a> </li>
 </ul>
+

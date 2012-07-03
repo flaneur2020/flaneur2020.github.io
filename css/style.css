@@ -1,13 +1,25 @@
+html {
+    background: ;
+}
+
+body {
+    background-color: #e8dabf;
+    background-image: url(../img/bg.png), url(../img/bg_tile.png);
+    background-position: bottom right, top;
+    background-repeat: no-repeat, repeat;
+    font-family: 'Port Lligat Slab', arial, sans-serif;
+    color: #444;
+}
+
 a {
-    color: #0066B2;
+    font-family: 'Port Lligat Slab', arial, sans-serif;
+    color: #222;
+    border-bottom: 1px dotted;
     text-decoration: none;
 }
-a:hover {
-    text-decoration: underline;
-}
-a:visited {
-    color: #6CAAD9;
-}
+
+a:hover { border-bottom: 1px solid; }
+a:visited { color: #444; }
 
 strong {
     font-weight: bold;
@@ -21,7 +33,7 @@ hr {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: 'Love Ya Like A Sister', cursive;
+    font-family: 'Port Lligat Slab', sans-serif;
     padding: 1em 0 0.1em 0;
 }
 
@@ -30,50 +42,41 @@ h2 { font-size: 30px; }
 h3 { font-size: 22px; }
 h4 { font-size: 19px; }
 
-body {
-    background: #000 url(../img/bg.png) fixed;
-    font-family: 'ubuntu', 'WenQuanYi Micro Hei', serif;
-    color: #444;
-}
-
 /* ------------------------------------------------ */
 
 #wrap {
     width: 800px;
-    background: #fff;
-    margin: 20px 0 20px 20px;
-    padding: 10px 0 10px 0;
+    padding: 30px;
 }
 
-#wrap > hr {
-    margin: 20px 0 30px 0;
+#neta {
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 
 /* ------------------------------------------------ */
 
 #hd {
     width: 100%;
-    margin: 10px 0 10px 0;
+    margin: 10px 0 30px 0;
     padding: 0 10px 0 10px;
 }
 
 #hd h1 {
-    text-align: center;
     padding: 0.1em 0.4em 0.1em 0;
 }
 
 #hd .info {
-    font-family: 'Love Ya Like A Sister', cursive;
     margin: 10px auto;
     display: block;
-    padding: 0 20px 0 20px;
-    font-size: 17px;
-    text-align: center;
+    padding: 0 20px 0 0;
+    font-size: 14px;
+    font-family: 'Port Lligat Slab';
 }
 
 #hd .info a {
     display: inline-block;
-    padding: 0 5px 0 5px;
     color: #222;
 }
 
@@ -81,6 +84,7 @@ body {
 
 #mn {
     width: 100%;
+    padding: 0 10px 0 10px;
     line-height: 1.2em;
 }
 
@@ -88,49 +92,26 @@ body {
     height: 2px;
 }
 
-#mn #posts {
-    display: block;
-    width: 480px;
-    margin: 0 auto;
-    overflow: auto;
+#mn ul#posts {
+    list-style: none;
 }
 
 #mn #posts li {
     padding: 0 0 8px 0;
-    display: block;
-    width: 100%;
-    float: left;
-}
-
-#mn #posts span.date {
-    font-family: 'Love Ya Like A Sister', cursive;
-    color: #bbb;
-    font-size: 15px;
-    display: block;
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-    float: left;
-    margin-top: 10px;
 }
 
 #mn #posts a.title {
     vertical-align: middle;
-    font-size: 20px;
-    line-height: 30px;
-    width: 350px;
-    display: block;
-    float: left;
+    font-size: 15px;
+    line-height: 20px;
 }
 
 #mn #posts a.more {
-    font-size: 15px;
 }
 
 /*= for single */
 
 #mn #content {
-    padding: 0 20px 0 20px;
     font-size: 15px;
 } 
 
@@ -187,13 +168,12 @@ body {
 /*= for comments */
 
 #mn #comments {
-    padding: 20px 20px 0 30px;
+    padding: 20px 0 0 0;
     font-size: 13px;
 }
 
 #mn #comments h3 {
     display: none;
-    font-family: 'ubuntu';
 }
 
 #mn #comments hr {
@@ -212,6 +192,6 @@ body {
 
 #ft {
     margin: 10px 5px 0 0;
-    color: #eee;
-    text-align: right;
+    color: #444;
+    font-size: 11px;
 }
