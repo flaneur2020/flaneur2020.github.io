@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE7\xAE\x80\xE4\xBB\x8B\xE5\xA4\x9A\xE4\xBB\xBB\xE5\x8A\xA1\xE7\x9A\x84\xE5\xAE\x9E\xE7\x8E\xB0"
+title: "简介多任务的实现"
 tags: 
 - ASM
 - C
 - Kernel
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 原文：<a href="http://hosted.cjmovie.net/TutMultitask.htm">http://hosted.cjmovie.net/TutMultitask.htm</a>
 翻译：fleurer
 

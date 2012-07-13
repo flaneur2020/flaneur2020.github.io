@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "\xE5\xB9\xB8\xE4\xB8\xBA\xE7\xA8\x8B\xE5\xBA\x8F\xE5\x91\x98"
+title: "幸为程序员"
 tags: 
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：Gustavo Duarte
 翻译：ssword
 原文：<a href="http://duartes.org/gustavo/blog/post/lucky-to-be-a-programmer">http://duartes.org/gustavo/blog/post/lucky-to-be-a-programmer</a>

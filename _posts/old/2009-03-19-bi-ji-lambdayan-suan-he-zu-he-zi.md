@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE7\xAC\x94\xE8\xAE\xB0, lambda\xE6\xBC\x94\xE7\xAE\x97\xE5\x92\x8C\xE7\xBB\x84\xE5\x90\x88\xE5\xAD\x90"
+title: "笔记, lambda演算和组合子"
 tags: 
 - FP
 - lambda
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 看了几天wikipedia, 记一点自己的理解. 当然, 理解能力有限, 不一定正确.
 
 还是关于lambda演算, 貌似church发明这东西是为了解决可计算性问题的判定, 也就是那个传说中的church-图灵论题. 同为形式系统(什么是形式系统...囧), 人们都说这东西跟图灵机的运算能力等价, 我觉得这种等价关系应该是在数学上, 而且是忽略中间的演算步骤的, 如1+1与1+34-78+96-51貌似就可以算是等价的.

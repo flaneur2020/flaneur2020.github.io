@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "git\xE4\xBD\xBF\xE7\x94\xA8\xE5\x85\xA5\xE9\x97\xA8"
+title: "git使用入门"
 tags: 
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 自己写小东西什么的还是git最省心 ^_^
 
 版本控制工具里的命令什么还真够多的，所幸一个人要求不高，平时用的功能也就这么几个了。所以.....忘掉svn吧！ =V=

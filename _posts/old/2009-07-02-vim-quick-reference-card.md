@@ -1,16 +1,17 @@
---- 
+---
 layout: post
 title: vim quick reference card
 tags: 
 - trick
 - vim
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 原地址：<a href="http://tnerual.eriogerg.free.fr/vim.html">http://tnerual.eriogerg.free.fr/vim.html</a>
 翻译：ssword
 

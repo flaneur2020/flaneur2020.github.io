@@ -1,16 +1,17 @@
---- 
+---
 layout: post
 title: "谬论：C最高效"
 tags: 
 - C
 - PL
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：Mark Chu-Carroll (aka MarkCC)
 翻译：ssword
 原文：<a href="http://scienceblogs.com/goodmath/2006/11/the_c_is_efficient_language_fa.php">http://scienceblogs.com/goodmath/2006/11/the_c_is_efficient_language_fa.php</a>

@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "\xE8\xB8\xA9\xE8\xB8\xA9\xE6\x95\xB0\xE6\x8D\xAE\xE7\xBB\x93\xE6\x9E\x84\xE4\xBB\x80\xE4\xB9\x88\xE7\x9A\x84 =\xE2\x80\x9C="
+title: "踩踩数据结构什么的 =“="
 tags: 
 - haskell
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 
 先从一棵二叉查找树开始好了。挖坑慢慢填，时间有的是(?)
 

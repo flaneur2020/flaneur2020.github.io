@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE5\x85\xB3\xE4\xBA\x8EGC\xE7\x9A\x84FAQ"
+title: "关于GC的FAQ"
 tags: 
 - C
 - GC
 - MM
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 翻译：ssword
 原文：http://www.iecc.com/gclist/GC-faq.html
 

@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "\xE5\x8A\xA8\xE6\x80\x81\xE4\xBD\x9C\xE7\x94\xA8\xE5\x9F\x9F"
+title: "动态作用域"
 tags: 
 - PL
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 好像刚弄明白动态作用域是怎么回事，拿个例子：
 
 <pre lang="javascript">

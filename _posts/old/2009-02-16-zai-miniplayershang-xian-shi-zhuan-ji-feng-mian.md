@@ -1,13 +1,14 @@
---- 
+---
 layout: post
-title: "\xE5\x9C\xA8miniplayer\xE4\xB8\x8A\xE6\x98\xBE\xE7\xA4\xBA\xE4\xB8\x93\xE8\xBE\x91\xE5\xB0\x81\xE9\x9D\xA2"
+title: "在miniplayer上显示专辑封面"
 tags: 
 - trick
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 昨天下歌时候无意发现的, 貌似把专辑封面图片重命名为专辑名, 再放在歌曲的同一目录下即可.

@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "Fleurer\xE2\x80\x99s Stack VM"
+title: "Fleurer’s Stack VM"
 tags: 
 - C
 - fsvm
 - VM
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 <a href="http://github.com/Fleurer/fsvm">http://github.com/Fleurer/fsvm</a>
 尝试用C写的堆栈机，好像烂尾了 - -!
 

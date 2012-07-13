@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "C\xE7\x9A\x84\xE6\xB3\x9B\xE5\x9E\x8B\xE5\xBA\x93khash"
+title: "C的泛型库khash"
 tags: 
 - C
 - trick
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 写小东西需要用到哈希表这样的数据结构时候才后悔没用C++，最起码还有stl能用来着。虽说C也能搞泛型，不过宏实现的泛型...真的好恐怖。
 
 tinyrb用了khash做哈希表，据作者说已经是一个稳定的实现了。

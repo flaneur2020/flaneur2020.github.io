@@ -1,18 +1,19 @@
---- 
+---
 layout: post
-title: "\xE5\xB9\xB6\xE8\xA1\x8C\xE7\x9A\x84quicksort"
+title: "并行的quicksort"
 tags: 
 - FP
 - haskell
 - parallel
 - trick
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 haskell搞并行还是挺方便的。纯函数式没状态嘛，这儿锁啊钥匙啊什么的都不用管了。有个Control.Parallel，里貌似只有两个函数，一个par，表示两个并行计算；一个pseq，表示连续计算。参数都是两个名字。像处理个分治算法啥的，就再合适不过了。于是再次膜拜惰性求值，写起来真的太奇特了。
 
 <pre lang="haskell">

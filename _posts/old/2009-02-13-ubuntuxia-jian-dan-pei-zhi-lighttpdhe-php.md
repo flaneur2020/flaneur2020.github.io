@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "ubuntu\xE4\xB8\x8B\xE7\xAE\x80\xE5\x8D\x95\xE9\x85\x8D\xE7\xBD\xAElighttpd\xE5\x92\x8Cphp"
+title: "ubuntu下简单配置lighttpd和php"
 tags: 
 - lighttpd
 - php
 - ubuntu
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 弄个调试环境而已, 简单整下就是了..
 
 先安装lighttpd和php, 有apt-get, 简单无比

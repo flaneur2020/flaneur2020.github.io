@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "haskell\xE8\xB6\xA3\xE5\xAD\xA6\xE6\x8C\x87\xE5\x8D\x97"
+title: "haskell趣学指南"
 tags: 
 - haskell
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 前天与作者BONUS的email联系中，他表示可以为这个中文的译本画一个同<a href="http://naucte-se.haskell.cz/">捷克文的版本</a>类似的图，只要我提供中文的字形。当时考虑到作者在尝试使用一种诙谐幽默的文风并搭配有趣的图画来讲解haskell，便冒昧标了《haskell趣学指南》的题。只是没想到居然会这么快，很是激动！
 
 捷克版的图画中是一只开小车的鼹鼠，还记得<a href="http://www.douban.com/subject/2994961/?i=0">鼹鼠的故事</a>吗？哈哈。

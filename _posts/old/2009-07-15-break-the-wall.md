@@ -1,17 +1,18 @@
---- 
+---
 layout: post
 title: break the wall!
 tags: 
 - gfw
 - javascript
-- "\xE4\xB8\xAD\xE6\x8C\x87"
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "中指"
+- "杂碎"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 灵感来自HelloTee的<a href="http://hellotee.com/break-the-gfw.tee">这件shirt</a>，不知道现在还能不能买到 :D
 
 用的< canvas>，所以ie下肯定是看不到了。源码不到一百行，见<a href="http://code.google.com/p/kick-gfw/source/browse/#svn/trunk">这里</a> ，稍微蛋疼了点 :p

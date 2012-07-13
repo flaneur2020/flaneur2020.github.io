@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE8\xAF\x95\xE7\x8E\xA9\xE4\xBA\x86\xE4\xB8\x8Bparsec"
+title: "试玩了下parsec"
 tags: 
 - FP
 - haskell
 - parsec
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 上个星期翻的那篇文章里貌似提了下parsec，照着文档试玩了下。之前貌似玩过ruby的那个代码生成工具racc，它的名气不是很大而且文档不怎么全，感觉不是很爽。写了个helloworld就再也没碰。再写个parsec的helloworld。
 
 语法分析的helloword就是表达式计算了。parsec跟*acc貌似不怎么像。不过无非都是上下文无关文法嘛，这个有名的ebnf：

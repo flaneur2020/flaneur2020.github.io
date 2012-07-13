@@ -1,10 +1,10 @@
---- 
+---
 layout: post
-title: "\xE6\x97\xA9\xE6\x9C\x9Funix\xE5\x90\x8C\xE6\xAD\xA5\xE6\x9C\xBA\xE5\x88\xB6\xE7\x9A\x84\xE7\xAE\x80\xE5\x8D\x95\xE7\xAC\x94\xE8\xAE\xB0"
+title: "早期unix同步机制的简单笔记"
 tags: 
 - Kernel
 - Unix
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
@@ -12,6 +12,7 @@ meta:
   _wp_old_slug: ""
   _edit_last: "2"
 ---
+
 在写那篇关于buffer cache的post时还没有意识到，B_BUSY+B_WANTED+sleep/wakeup，即为早期unix中一套通用的同步机制了。只要存在在不同进程间共享的数据，不管并行还是并发，就都免不了得考虑竞态条件和同步问题。在处理某个对象之前都先给它上锁，防止其他进程碰它。比方前面说的B_BUSY，改叫B_LOCK没准更直白。
 
 早期Unix内核中没有通用的内存分配器，不同类型的对象单独静态分配一个固定长度的数组，inode，super block，file，buf乃至proc等等皆如此。所以有关对象分配释放的代码都是十分相似，而且分配即缓存，统一到一类简单的机制之下。可是反过来看就是把功能相近的代码重复了n遍，也是模块化和重用性不好的体现吧。这也正是现代unix所努力的方向，其结果之一即solaris/linux中的伙伴系统（用于申请内存）和slab（用于对象的缓存）。

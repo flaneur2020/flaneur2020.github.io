@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "\xE5\x85\xB3\xE4\xBA\x8E\xE8\xBF\x9B\xE7\xA8\x8B\xE7\x9A\x84\xE7\x96\x91\xE9\x97\xAE\xE9\x9B\x86"
+title: "关于进程的疑问集"
 tags: 
 - Kernel
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 <ol>
 <li>如何在有限的空间（如内存和硬盘，可以将其看作一个大数组）内储存不定长度不定生命周期的个体（如进程或者文件）？</li>
 <li>如何限制一个进程在运行时无法访问或修改其他进程的数据？</li>

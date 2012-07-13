@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "\xE6\x9C\xAC\xE6\x9D\xB0\xE6\x98\x8E\xE5\xB7\xB4\xE9\xA1\xBF\xE5\xA5\x87\xE4\xBA\x8B 1-3"
+title: "本杰明巴顿奇事 1-3"
 tags: 
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：弗·司各特·菲茨杰拉德 Fitzgerald,F.S.
 翻译：ssword
 

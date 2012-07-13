@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "haskell\xE6\xB1\x82\xE8\xA7\xA3n\xE7\x9A\x87\xE5\x90\x8E\xE9\x97\xAE\xE9\xA2\x98"
+title: "haskell求解n皇后问题"
 tags: 
 - FP
 - haskell
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 八皇后问题大家都已耳熟能详, 貌似没有赘述的必要.
 
 看了lich_ray同学的这篇<a href="http://www.javaeye.com/post/421913?page=1">用 Python 秒掉八皇后问题!</a>, 对list comprehension的表达能力有了新的认识. 他的楼下们几乎列出了所有语言的八皇后求解实现, 其中就有albertlee大牛的haskell版本:

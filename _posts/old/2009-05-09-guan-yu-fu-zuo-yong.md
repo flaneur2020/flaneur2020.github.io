@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE5\x85\xB3\xE4\xBA\x8E\xE5\x89\xAF\xE4\xBD\x9C\xE7\x94\xA8"
+title: "关于副作用"
 tags: 
 - FP
 - haskell
 - monad
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 所谓三人成虎，monad就是了。
 
 先烈告诉我们，玩haskell，不用学monad；玩monad，不用学范畴论。当年不懂事啊，正被functor态射范畴这堆鬼东西折磨的半死的时候，突然就骂了出来：“妈的，这还是编程么？数学的拉去见学院派大胡子去！”

@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "lambda\xE9\x9A\x8F\xE7\xAC\x94"
+title: "lambda随笔"
 tags: 
 - FP
 - lambda
 - lisp
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作为人类历史上第二门编程语言, lisp的语法是公认的简单了, 函数套函数, 括号套括号.  不谈应用, 学lisp就是为了娱乐的, 最有意思的东西莫过于lambda, 简单至极又无处不在, 而且几乎无所不能.
 
 <span> </span>

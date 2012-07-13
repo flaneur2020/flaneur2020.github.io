@@ -1,18 +1,19 @@
---- 
+---
 layout: post
-title: "\xE8\xAF\x95\xE7\x8E\xA9vimperator"
+title: "试玩vimperator"
 tags: 
 - firefox
 - trick
 - vim
 - vimperator
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 以前貌似在豆瓣看到有人提起过这vim键操作firefox的插件，当时的第一反应就是蛋疼：有人用导线连了一台cpu，有人只用emacs上网，有人用《最后的晚餐》里的面包谱曲子，有人的妈妈找他回家吃饭...拉门，我确实都想到一块去了。
 
 好吧，暑假在家无所事事，我又蛋疼了，装vimperator。简单熟悉一下后发现这东西还是很成熟的，除去猎奇者，拿它日常使用的也大有人在。装上之后ff的导航栏和书签栏都消失了，习惯chrome的同学们可能会找到一点熟悉的感觉，反正清爽多了。再就是一些快捷键绑定，ctrl+c ctrl+v等键全变了，唔，这不爽。还好，可以自定义.vimperatorrc修改键绑定。同vim一样，vimperator也内置了强大的帮助，即:help，该有的options里面貌似都有了。

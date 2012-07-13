@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE5\x86\x99\xE4\xB8\x80\xE4\xB8\xAAbootsector"
+title: "写一个bootsector"
 tags: 
 - ASM
 - Kernel
 - OS
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 看的这个教程 http://share.solrex.org/WriteOS/
 
 仿照《自己动手写操作系统》的格式，除却gas确实很囧的因素，大体上还是不错的。万事开头难，在开头的bootloader这里卡了好久的说...不过动手写一下也不过半小时的功夫 TvT

@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "eval, class_eval, instance_eval\xE5\x92\x8Cbinding"
+title: "eval, class_eval, instance_eval和binding"
 tags: 
 - ruby
 - trick
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 前些天写html生成器的时候用到了erb，在生成html的时候是这么一句：
 
 <pre lang="erb">

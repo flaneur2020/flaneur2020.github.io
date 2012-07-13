@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE4\xBD\xBF\xE7\x94\xA8rake\xE7\xBC\x96\xE8\xAF\x91C\xE7\xA8\x8B\xE5\xBA\x8F"
+title: "使用rake编译C程序"
 tags: 
 - C
 - rake
 - ruby
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 每次修改代码一般只会涉及一部分文件，大部分代码都是不必重复编译的。而且编译明显是分步骤也有依赖关系，比如要测试程序就得先链接出一个可执行文件，要链接就得先编译成.o。。。所以就有了make，自动分析任务的依赖关系，只对有变更的文件执行编译，省心省时间。
 
 不过make的语法晦涩啊...就有了rake

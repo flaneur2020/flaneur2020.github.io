@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "State Monad\xE7\xAC\x94\xE8\xAE\xB0\xE4\xB8\x80"
+title: "State Monad笔记一"
 tags: 
 - FP
 - haskell
 - monad
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 去年听王猫猫讲过之后就一直心安理得再也没看过Monad，以至于到昨天还不知State Monad为何物...囧
 
 关于State Monad，似乎见过的教材都是拿随机数作例子，拿Monad跟一堆let对比，满眼的二元组绕啊绕啊，我给你个Monad让它不那么绕（存疑）～其实什么东西理解不了，往往就是因为不知道它怎么用（比如复变函数 ="=）

@@ -1,18 +1,19 @@
---- 
+---
 layout: post
-title: "Haskell\xEF\xBC\x9A\xE5\x8F\xAF\xE5\x8F\x98\xE7\x8A\xB6\xE6\x80\x81\xE7\x9A\x84\xE5\x91\xBD\xE4\xBB\xA4\xE5\xBC\x8F\xE8\xAF\xAD\xE8\xA8\x80"
+title: "Haskell：可变状态的命令式语言"
 tags: 
 - FP
 - haskell
 - monad
 - PL
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：Neil
 翻译：ssword
 原文：<a href="http://neilbartlett.name/blog/2007/04/11/haskell-an-imperative-language-with-mutable-state/">http://neilbartlett.name/blog/2007/04/11/haskell-an-imperative-language-with-mutable-state/</a>

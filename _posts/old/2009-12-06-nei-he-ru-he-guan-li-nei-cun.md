@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE5\x86\x85\xE6\xA0\xB8\xE5\xA6\x82\xE4\xBD\x95\xE7\xAE\xA1\xE7\x90\x86\xE5\x86\x85\xE5\xAD\x98"
+title: "内核如何管理内存"
 tags: 
 - Kernel
 - Linux
 - MM
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：Gustavo Duarte
 翻译：ssword
 原文：http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory

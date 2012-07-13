@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "\xE9\x81\x87\xE6\x9F\x90\xE7\x86\x8A\xE7\x82\xB9\xE5\x90\x8D"
+title: "遇某熊点名"
 tags: 
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "杂碎"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 来自某宅熊 ≡ω≡ ：<a href="http://blog.icybear.net/2010/02/desktop-ah-was-named-the.html">http://blog.icybear.net/2010/02/desktop-ah-was-named-the.html</a>
 
 1、今日桌面

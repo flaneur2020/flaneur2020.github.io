@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "GCC\xE5\x86\x85\xE8\x81\x94\xE6\xB1\x87\xE7\xBC\x96\xE7\x9A\x84\xE7\xAC\x94\xE8\xAE\xB0"
+title: "GCC内联汇编的笔记"
 tags: 
 - ASM
 - C
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 起比VC风格的内联汇编，GCC的确实要别扭些，一开始要不看手册肯定一头雾水。
 <pre lang="c">int foo = 10, bar = 15;
 asm volatile("addl  %%ebx,%%eax"

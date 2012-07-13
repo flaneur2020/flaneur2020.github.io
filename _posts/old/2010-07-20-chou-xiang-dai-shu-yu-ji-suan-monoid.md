@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE6\x8A\xBD\xE8\xB1\xA1\xE4\xBB\xA3\xE6\x95\xB0\xE4\xB8\x8E\xE8\xAE\xA1\xE7\xAE\x97-Monoid"
+title: "抽象代数与计算-Monoid"
 tags: 
 - Algbera
 - Math
 - Monoid
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：Mark C. Chu-Carroll
 翻译：Fleurer
 原文：<a href="http://scienceblogs.com/goodmath/2008/02/abstract_algebra_and_computati.php">http://scienceblogs.com/goodmath/2008/02/abstract_algebra_and_computati.php</a>

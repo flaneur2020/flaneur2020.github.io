@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "ruby\xE4\xBD\xBF\xE7\x94\xA8open-uri\xE5\x81\x9Ahttp basic\xE9\xAA\x8C\xE8\xAF\x81"
+title: "ruby使用open-uri做http basic验证"
 tags: 
 - http-basic
 - open-uri
 - ruby
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 如今的web api基本上都是用http basic作为验证方式, 在浏览器中的话只要将用户名和密码用和一个@放到url的前面即可,如http://ssword:password@somedomain.com , 使用curl也是简单无比, 如饭否api的示例, 它可以验证你的身份并获得你好友的信息, 若密码错误, 就得到一个401的错误
 
 curl -u loginname:password http://api.fanfou.com/statuses/friends_timeline.rss

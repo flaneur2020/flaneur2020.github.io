@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "lua\xE6\x8C\x87\xE4\xBB\xA4\xE6\x89\xA7\xE8\xA1\x8C\xE7\x9B\xB8\xE5\x85\xB3\xE7\x9A\x84\xE5\x87\xA0\xE4\xB8\xAA\xE6\x95\xB0\xE6\x8D\xAE\xE7\xBB\x93\xE6\x9E\x84\xE7\xAC\x94\xE8\xAE\xB0"
+title: "lua指令执行相关的几个数据结构笔记"
 tags: 
 - lua
 - VM
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 对lua的upvalue机制一直很好奇，但两三年下来对它的了解只限于paper中的那张插图，于细节则毫不知情。直到最近几天晚上下班无聊看lua源码，也算是回头来补补这个小坑了。
 
 某某机制肯定是针对某问题而发，对upvalue机制而言，问题不外乎就是闭包的实现。对lua来讲，又可以分成三个子问题：

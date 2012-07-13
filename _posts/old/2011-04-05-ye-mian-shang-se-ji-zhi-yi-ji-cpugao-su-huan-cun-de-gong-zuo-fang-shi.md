@@ -1,12 +1,12 @@
---- 
+---
 layout: post
-title: "\xE9\xA1\xB5\xE9\x9D\xA2\xE4\xB8\x8A\xE8\x89\xB2\xE6\x9C\xBA\xE5\x88\xB6\xE4\xBB\xA5\xE5\x8F\x8ACPU\xE9\xAB\x98\xE9\x80\x9F\xE7\xBC\x93\xE5\xAD\x98\xE7\x9A\x84\xE5\xB7\xA5\xE4\xBD\x9C\xE6\x96\xB9\xE5\xBC\x8F"
+title: "页面上色机制以及CPU高速缓存的工作方式"
 tags: 
 - BSD
 - Kernel
 - MM
 - Unix
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
@@ -14,6 +14,7 @@ meta:
   _edit_last: "2"
   _wp_old_slug: ""
 ---
+
 摘译自：<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/articles/vm-design/article.html">Design elements of the FreeBSD VM system</a>
 作者： Matthew Dillon
 翻译：fleurer

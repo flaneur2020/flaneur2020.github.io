@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE7\xAE\x80\xE4\xBB\x8BAT&T\xE9\xA3\x8E\xE6\xA0\xBC\xE6\xB1\x87\xE7\xBC\x96"
+title: "简介AT&T风格汇编"
 tags: 
 - ASM
 - gas
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：vivek
 翻译：ssword
 原文：<a href="http://sig9.com/articles/att-syntax">http://sig9.com/articles/att-syntax</a>

@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "haskell\xE4\xB8\xAD\xE7\x9A\x84\xE6\x8C\x87\xE9\x92\x88"
+title: "haskell中的指针"
 tags: 
 - FP
 - haskell
 - trick
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 标题党了，阿门。其实更像C++，java之类语言中的引用。这就是Data.IORef中的IORef，使用它可以创建真正mutable的变量。
 
 在do-notation中可以写这样的代码：

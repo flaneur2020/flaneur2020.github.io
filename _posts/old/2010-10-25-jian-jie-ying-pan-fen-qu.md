@@ -1,9 +1,9 @@
---- 
+---
 layout: post
-title: "\xE7\xAE\x80\xE4\xBB\x8B\xE7\xA1\xAC\xE7\x9B\x98\xE5\x88\x86\xE5\x8C\xBA"
+title: "简介硬盘分区"
 tags: 
 - ASM
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
@@ -11,6 +11,7 @@ meta:
   _edit_last: "2"
   _wp_old_slug: ""
 ---
+
 作者：Denis A Nicole
 翻译：fleurer
 原文：http://www.hpcc.ecs.soton.ac.uk/~dan/filesystems/partition.html

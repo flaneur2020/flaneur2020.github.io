@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "ruby on rails:\xE8\x87\xAA\xE5\xBC\x95\xE7\x94\xA8\xE7\x9A\x84\xE5\x85\xB3\xE8\x81\x94\xE8\xA1\xA8"
+title: "ruby on rails:自引用的关联表"
 tags: 
 - Rails
 - ruby
 - trick
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 原文：<a href="http://dizzy.co.uk/ruby_on_rails/contents/self-referential-table-joins">http://dizzy.co.uk/ruby_on_rails/contents/self-referential-table-joins</a>
 翻译：ssword
 

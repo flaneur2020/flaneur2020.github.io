@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "rails\xE4\xBD\xBF\xE7\x94\xA8paperclip\xE6\x8F\x92\xE4\xBB\xB6\xE4\xB8\x8A\xE4\xBC\xA0\xE6\x97\xB6\xE9\x81\x87\xE5\x88\xB0500 Internal Server Error"
+title: "rails使用paperclip插件上传时遇到500 Internal Server Error"
 tags: 
 - Rails
 - ruby
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 有可能是imageMagick没装利索。找不到imagemagick，显示错误信息的时候试图把上传的文件对象序列化，就505了。
 
 <pre lang="shell">sudo apt-get install imagemagick --fix-missing</pre>

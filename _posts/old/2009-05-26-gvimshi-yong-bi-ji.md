@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "gvim\xE4\xBD\xBF\xE7\x94\xA8\xE7\xAC\x94\xE8\xAE\xB0"
+title: "gvim使用笔记"
 tags: 
 - trick
 - vim
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 使用gvim也有一段时间了，还不敢说得心应手，不过倒也不会再碰editplus之类的编辑器了。它真的很好用，熟悉起来也真的需要很长时间。前辈们说的话里还是很多实话的。
 
 使用gvim是个有趣的过程，按下一个i，鼠标 + 箭头 它就跟普通的编辑器没有两样，初学之时不至于像在vi中完全无从下手。诚然，在键盘上的手移动到鼠标处是相当累人的，按着箭头等着光标挪到那地方也很磨耐性！这就是gvim的好处，一个命令就可以将光标移动到你想要的地方。一般而言，学会了一个命令之后要再忘记就很难了，找到了近路，谁还会绕远呢？另外，个人觉得也不用总是纠结“这是vi！要按vi的法子来！”，我就觉得ctrl+s比esc+:w省力，ctrl+a比ggvG方便，反正用着舒服就好。

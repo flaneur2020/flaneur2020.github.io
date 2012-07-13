@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE5\x9C\xA8cygwin\xE4\xB8\x8B\xE7\xBC\x96\xE8\xAF\x91\xE4\xBA\x86ruby\xE5\x92\x8Cracc"
+title: "在cygwin下编译了ruby和racc"
 tags: 
 - cygwin
 - ruby
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 前段时间由于没找到传说中的《<a href="http://www.douban.com/subject/1134994/?i=0">龙之书</a>》，草草翻了下《<a href="http://www.douban.com/subject/1088057/">编译原理及实战</a>》中对yacc和lex用法的简单介绍，的确是很神奇的东西。
 
 由于是在win32下，而且对C不甚熟悉，心想在ruby中应该也有类似yacc的工具吧，google了一下，找到了<a href="http://i.loveruby.net/en/projects/racc/">racc</a>，于是天真地下了来，里面有个setup.rb，运行之，提示在system("nmake")处出现错误。翻了下它的目录，里面有一堆.c文件（为啥没有纯ruby的cc，囧），然后到网上找到了nmake.exe，扔进windows文件夹之后又提示缺少cl.exe，找到cl.exe后又弹出了个alert,提示缺少MSPDB41.DLL，折腾。根据shiningray老师的说法，这几个文件貌似都是windows platform sdk那一套，而且据说在windows下编译成功的概率会很低，得，装cygwin。

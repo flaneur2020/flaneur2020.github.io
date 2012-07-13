@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "Haskell\xE8\xB6\xA3\xE5\xAD\xA6\xE6\x8C\x87\xE5\x8D\x97\xEF\xBC\x81"
+title: "Haskell趣学指南！"
 tags: 
 - FP
 - haskell
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 译言前几天被杯具了，还好当初嗅到苗头全都抓了来 -v-
 
 新地址见<a href="http://fleurer-lee.com/lyah">http://fleurer-lee.com/lyah</a>。

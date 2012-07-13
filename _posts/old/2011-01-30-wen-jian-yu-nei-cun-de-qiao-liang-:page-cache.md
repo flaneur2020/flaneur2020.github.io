@@ -1,9 +1,9 @@
---- 
+---
 layout: post
-title: "\xE6\x96\x87\xE4\xBB\xB6\xE4\xB8\x8E\xE5\x86\x85\xE5\xAD\x98\xE7\x9A\x84\xE6\xA1\xA5\xE6\xA2\x81\xEF\xBC\x9APage Cache"
+title: "文件与内存的桥梁：Page Cache"
 tags: 
 - Kernel
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
@@ -11,6 +11,7 @@ meta:
   _wp_old_slug: ""
   _edit_last: "2"
 ---
+
 
 * 作者：Gustavo Duarte
 * 翻译：fleurer

@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "State Monad\xE7\xAC\x94\xE8\xAE\xB0\xE4\xBA\x8C"
+title: "State Monad笔记二"
 tags: 
 - FP
 - haskell
 - monad
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 老师：Monad想到什么呢？
 同学：毛茸茸的猫猫!
 

@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "rails3\xE4\xB8\xAD\xE4\xBD\xBF\xE7\x94\xA8facebox"
+title: "rails3中使用facebox"
 tags: 
 - Rails
 - ruby
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 (有两个月没有更新了？这又是例行工事的凑数文。)
 
 <!--more-->

@@ -1,17 +1,18 @@
---- 
+---
 layout: post
 title: typedef unsigned long VALUE;
 tags: 
 - C
 - ruby
 - VM
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 因为swdpress.cn的死掉严重打击积极性，好久没更新了。此文纯凑数。
 
 ruby中除了Fixnum，其余所有类型的值都是引用传递。读《<a href="http://code.google.com/p/rhgchs/">ruby hacking guide</a>》时看到如下的定义：

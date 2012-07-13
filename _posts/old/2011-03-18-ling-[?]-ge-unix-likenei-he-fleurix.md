@@ -1,12 +1,12 @@
---- 
+---
 layout: post
-title: "\xE5\x8F\xA6\xE4\xB8\x80\xE4\xB8\xAAunix-like\xE5\x86\x85\xE6\xA0\xB8, Fleurix"
+title: "另一个unix-like内核, Fleurix"
 tags: 
 - ASM
 - C
 - Kernel
 - Unix
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "杂碎"
 status: publish
 type: post
 published: true
@@ -14,6 +14,7 @@ meta:
   _edit_last: "2"
   _wp_old_slug: ""
 ---
+
 该是在去年五月份，照着网上的教程写了几行helloworld，简简单单的int 13h放在virtualbox里打印出来一段红色的“screw you guys all fucked up~”。随后从这段不得体的汇编开始，慢慢地文件系统、内存管理、输入输出、进程管理等等初具轮廓，到现在一个相对完整的内核，不觉已过了九个月。时间就是个见证成长的东西 :)
 
 <a href="https://github.com/fleurer/fleurix">https://github.com/fleurer/fleurix</a>

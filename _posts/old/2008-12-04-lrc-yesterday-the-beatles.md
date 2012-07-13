@@ -1,15 +1,16 @@
---- 
+---
 layout: post
 title: yesterday - the beatles
 tags: 
 - lyrics
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "杂碎"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 昨天在英语课上成功地糟蹋了这首经典歌曲，愧疚中，把歌词先挂在这里，以后再练练
 
 

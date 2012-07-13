@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE5\x90\x84\xE7\xA7\x8D\xE5\x9E\x83\xE5\x9C\xBE\xE6\x94\xB6\xE9\x9B\x86\xE7\x9A\x84\xE9\x9A\x8F\xE4\xBE\xBF\xE7\xAC\x94\xE8\xAE\xB0"
+title: "各种垃圾收集的随便笔记"
 tags: 
 - GC
 - VM
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 GC多好多好就不多说了。没银弹嘛，什么好处什么坏处都了解下就好 TvT
 
 <h3>引用计数</h3>

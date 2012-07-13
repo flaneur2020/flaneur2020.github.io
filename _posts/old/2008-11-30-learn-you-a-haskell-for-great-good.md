@@ -1,18 +1,19 @@
---- 
+---
 layout: post
-title: "[\xE7\xB4\xA2\xE5\xBC\x95]haskell\xE8\xB6\xA3\xE5\xAD\xA6\xE6\x8C\x87\xE5\x8D\x97"
+title: "[索引]haskell趣学指南"
 tags: 
 - FP
 - haskell
-- "haskell\xE8\xB6\xA3\xE5\xAD\xA6\xE6\x8C\x87\xE5\x8D\x97"
+- "haskell趣学指南"
 - lyah
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 <del datetime="2010-02-03T10:39:58+00:00">update: 译言杯具掉了，转移阵地至<a href="http://swdpress.cn/lyah">http://swdpress.cn/lyah</a></del>
 update：上面的地址也杯具了，当前可用<a href="http://fleurer-lee.com/lyah">http://fleurer-lee.com/lyah</a>
 

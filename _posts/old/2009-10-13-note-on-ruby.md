@@ -1,16 +1,17 @@
---- 
+---
 layout: post
 title: note on ruby
 tags: 
 - ruby
 - trick
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 Ruby和python这两门语言貌似不应该有可比性。C\C++出身的程序员们都喜欢Python带来的生产力，而ruby被发明则是为了取代perl----做为脚本语言。脚本语言么，效率不必太高，要容易书写，容易读貌似倒不是很重要…瞧瞧bash和perl吧。而Ruby强大的表达能力就弥补了可读性的不足，再加上<em><strong>已经</strong></em>足够多的第三方库（gems），可以算是一门理想的语言了。可惜就这门语言而言（不谈rails），在国内（国外github上ruby可是第一语言啊）一直没能很成气候呢（CpyUG这个社区太强大了，ruby在国内就没有对应物）。貌似大家都在搞rails的敏捷开发，没人搞ruby？
 
 呃，跑题了。这两天用ruby写点小玩具，记几个小tricks就是了。玩具而已。玩具而已。

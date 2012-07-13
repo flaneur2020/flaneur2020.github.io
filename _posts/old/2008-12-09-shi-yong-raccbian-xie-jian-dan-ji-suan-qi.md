@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE4\xBD\xBF\xE7\x94\xA8racc\xE7\xBC\x96\xE5\x86\x99\xE7\xAE\x80\xE5\x8D\x95\xE8\xAE\xA1\xE7\xAE\x97\xE5\x99\xA8"
+title: "使用racc编写简单计算器"
 tags: 
 - racc
 - ruby
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 简单试用了下racc，感觉很是不爽。没找到合适的词法分析工具，于是就先用正则过一遍，再交给racc再过一遍，此不爽之一；由于ruby中$1,$2都是变量，为了避免冲突在这里改成了val[0],val[1]，$$变成了result，多打不少字先不说，可读性是非常的差，此不爽之二；vim的代码高亮对它不起作用，嵌入代码会别扭的很，此不爽之三。
 
 牢骚完毕，步入正题。racc作为ruby下的语法分析并代码生成工具，可以使用类似yacc的语法来生成文本分析代码。它需要取一组token，按照bnf范式读出其中的内容，用你自己内嵌的代码来分析它。从取token开始，在yacc貌似是通过yylex()来取得token，而这个yylex函数可以用lex按照正则表达式自动生成。很遗憾，没找到ruby下对应的词法分析工具。不过还好，还有正则表达式可以使用，将token先取出来放到一个array中再让racc一次取一个，也就意味着词法分析和语法分析得分步进行，而不能像yacc+lex那般紧密。

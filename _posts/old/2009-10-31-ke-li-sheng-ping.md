@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE6\x9F\xAF\xE9\x87\x8C\xE7\x94\x9F\xE5\xB9\xB3"
+title: "柯里生平"
 tags: 
 - biography
 - haskell
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 翻译：ssword
 作者：J J O'Connor and E F Robertson
 原文：<a href="http://www.gap-system.org/~history/Biographies/Curry.html">http://www.gap-system.org/~history/Biographies/Curry.html</a>

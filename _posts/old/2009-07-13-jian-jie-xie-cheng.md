@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE7\xAE\x80\xE4\xBB\x8B\xE5\x8D\x8F\xE7\xA8\x8B"
+title: "简介协程"
 tags: 
 - coroutine
 - lua
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 原文：<a href="http://lua-users.org/wiki/CoroutinesTutorial">Coroutines Tutorial</a>
 翻译：ssword
 

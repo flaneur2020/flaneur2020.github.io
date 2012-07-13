@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "\xE6\x8A\x98\xE8\x85\xBE\xE5\x88\x86\xE5\x8C\xBA\xE8\xA1\xA8\xE5\xB0\x8F\xE8\xAE\xB0"
+title: "折腾分区表小记"
 tags: 
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 就在五一放假回家前的两个小时把分区表给弄没了，囧。
 
 侥幸心理，装Ubuntu11.04时候用了老版本的initrd.gz与vmlinuz，引导alternate的iso没问题，但是安装到一半的时候报错，重启就发现grub已经没了。"恢复下分区表就行了吧..."于是万恶的侥幸心理再次得势，拿一张xp安装盘的分区表修复工具扫描并修复了下，进windows下载来<a href="http://tw.archive.ubuntu.com/ubuntu/dists/natty/main/installer-i386/current/images/hd-media/">正确的initrd.gz与vmlinuz</a>，回去继续装11.04。到分区的时候发现几个linux分区都让不认ext4的分区表修复工具给搞没了，整个成了一大块不可用的剩余空间。想起来/home里面几个星期的翻译稿和代码竟都忘了commit，于是冷汗...

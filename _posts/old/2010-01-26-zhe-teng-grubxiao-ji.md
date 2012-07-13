@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "\xE6\x8A\x98\xE8\x85\xBEgrub\xE5\xB0\x8F\xE8\xAE\xB0"
+title: "折腾grub小记"
 tags: 
 - grub
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 蛋疼用PQMagic改了下/swap分区的大小，重启发现mbr没了。
 
 拿手机google下之后，找了张windows me的光盘（初一时候买的盘还能用...orz）引导进入dos，fdisk /mbr，windows原地满血复活...满血，是的，windows又把mbr占了...

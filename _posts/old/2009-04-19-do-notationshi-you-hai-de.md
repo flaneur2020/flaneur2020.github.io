@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "Do-notation\xE6\x9C\x89\xE5\xAE\xB3\xE8\xAE\xBA"
+title: "Do-notation有害论"
 tags: 
 - FP
 - haskell
 - monad
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：<a href="http://syntaxfree.wordpress.com/">Dr. Syntaxfree</a>
 翻译：ssword
 原文：<a href="http://syntaxfree.wordpress.com/2006/12/12/do-notation-considered-harmful/">http://syntaxfree.wordpress.com/2006/12/12/do-notation-considered-harmful/</a>

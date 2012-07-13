@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "\xE6\x90\xAC\xE5\xAE\xB6\xEF\xBC\x8C\xE6\x8E\xA5\xE7\x9D\x80\xE6\x8A\x98\xE8\x85\xBE"
+title: "搬家，接着折腾"
 tags: 
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "杂碎"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 从胡戈戈同学那里买来的合租。有点杯具，在域名开通的时候想到一个更喜欢的，无所谓了，以后一年一换。
 
 新地址：<a href="http://fleurer-lee.com/">http://fleurer-lee.com/</a>

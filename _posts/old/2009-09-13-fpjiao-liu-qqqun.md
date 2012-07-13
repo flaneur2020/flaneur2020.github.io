@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE6\x9D\xAF\xE5\x85\xB7\xE6\xB8\x94\xE6\xB0\x91\xE4\xBA\xA4\xE6\xB5\x81\xE7\xBE\xA4 -_-!"
+title: "杯具渔民交流群 -_-!"
 tags: 
 - FP
 - haskell
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "杂碎"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 58853867
 
 原haskell交流群

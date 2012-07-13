@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE7\x8E\x8B\xE7\x8C\xAB\xE7\x8C\xAB\xE8\xB0\x88Monad"
+title: "王猫猫谈Monad"
 tags: 
 - FP
 - monad
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 <blockquote><div>
 <p class="friend-id">Feather  2009-07-19 21:46:08</p>
 <p class="content">世事恰如迷局, 寻人, 失散, 流落, 皈依, 纷乱无绪, 及至谜底解开, 那人却已站立在你面前.</p>

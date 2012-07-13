@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "\xE7\xAE\x80\xE8\xAF\xB4\xE5\x86\x99\xE4\xBD\x9C"
+title: "简说写作"
 tags: 
 - writing
-- "\xE7\xBF\xBB\xE8\xAF\x91"
+- "翻译"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 作者：Paul Graham
 翻译：fleurer
 原文：<a href="http://www.paulgraham.com/writing44.html">http://www.paulgraham.com/writing44.html</a>

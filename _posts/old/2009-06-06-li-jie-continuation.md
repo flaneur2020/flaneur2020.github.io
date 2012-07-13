@@ -1,16 +1,17 @@
---- 
+---
 layout: post
-title: "\xE7\x90\x86\xE8\xA7\xA3continuation"
+title: "理解continuation"
 tags: 
 - continuation
 - FP
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 当时小，不懂事，初学函数式编程时一头就扎的就是continuation和monad，一直搞不明白就一直放着。上个星期在ShiningRay老师的这篇《<a href="http://shiningray.cn/continuations.html">简介延续“Continuation”</a>》里看到：
 <pre lang="python">
 def call_cc(f,c):

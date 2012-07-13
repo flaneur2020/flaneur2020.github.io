@@ -1,15 +1,16 @@
---- 
+---
 layout: post
-title: "\xE5\xA4\x87\xE4\xBB\xBD\xE4\xB8\x8Bvimrc"
+title: "备份下vimrc"
 tags: 
 - vim
-- "\xE5\xA4\x87\xE5\xBF\x98"
+- "备忘"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 vim嘛，理念就是找到你在输入文本时累人的操作，用简单快捷的操作代替之，没必要多找麻烦。
 
 <pre lang="bash">

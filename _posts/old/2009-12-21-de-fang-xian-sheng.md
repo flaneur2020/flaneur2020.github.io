@@ -1,14 +1,15 @@
---- 
+---
 layout: post
-title: "\xE5\xBE\xB7\xE6\x96\xB9\xE5\x85\x88\xE7\x94\x9F"
+title: "德方先生"
 tags: 
-- "\xE6\x9D\x82\xE7\xA2\x8E"
+- "杂碎"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 东校南门的德方书店前后两间，外间有些小说、名著及新书之类，里屋有历史、哲学、淘来的旧书甚至中华书局的古文。前后唯不见教辅书和励志书，买过什么书大家都心知肚明，自然也明白卖什么书赚钱吧。
 
 “看着学生们一窝蜂进来就心烦，我不喜欢那书，大不了关门。”

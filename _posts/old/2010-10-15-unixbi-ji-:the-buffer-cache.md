@@ -1,12 +1,12 @@
---- 
+---
 layout: post
-title: "unix\xE7\xAC\x94\xE8\xAE\xB0\xEF\xBC\x9Athe Buffer Cache"
+title: "unix笔记：the Buffer Cache"
 tags: 
 - C
 - FS
 - Kernel
 - Unix
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
@@ -14,6 +14,7 @@ meta:
   _wp_old_slug: ""
   _edit_last: "2"
 ---
+
 不知这个该怎么译，缓冲缓存？ = =
 
 Buffer Cache在Unix中不只一套缓存机制，更是系统访问块设备中间不可或缺的一层。在早期的Unix中大约可以扮演三个角色：中断请求队列、访问缓冲、高速缓存。简单起见，这里拿Unix V6讨论。

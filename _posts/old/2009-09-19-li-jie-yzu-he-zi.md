@@ -1,17 +1,18 @@
---- 
+---
 layout: post
-title: "\xE7\x90\x86\xE8\xA7\xA3Y\xE7\xBB\x84\xE5\x90\x88\xE5\xAD\x90"
+title: "理解Y组合子"
 tags: 
 - FP
 - lambda
 - Y-combinator
-- "\xE7\xAC\x94\xE8\xAE\xB0"
+- "笔记"
 status: publish
 type: post
 published: true
 meta: 
   _edit_last: "2"
 ---
+
 众所周知，lambda演算通过递归就可以图灵完备。好，用纯lambda演算写个递归吧。
 
 等等，要递归必须得有名字，而lambda演算里赋予名字的唯一方式就是传递参数。像lisp那样define是不行的，只能这样绕个圈子：
