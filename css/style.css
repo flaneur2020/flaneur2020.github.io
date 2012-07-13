@@ -46,7 +46,7 @@ h4 { font-size: 19px; }
 /* ------------------------------------------------ */
 
 #wrap {
-    width: 800px;
+    max-width: 800px;
     padding: 40px 0 40px 50px;
 }
 
