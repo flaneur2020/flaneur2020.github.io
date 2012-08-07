@@ -28,3 +28,8 @@ task :new_post do
   end
   puts "new file: #{path}"
 end
+
+desc "open the last blog post in gvim"
+task :last do
+  sh "gnome-open #{Dir['_posts/*.md'].last}"
+end
