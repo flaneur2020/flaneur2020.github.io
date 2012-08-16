@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: paper
 title: 基于 Bochs 的操作系统内核实现
 ---
 

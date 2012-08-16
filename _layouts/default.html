@@ -2,7 +2,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
     <link rel="alternate" type="application/rss+xml" href="/atom.xml" /> 
-    <link rel="shortcut icon" type="image/png" href="/img/icon.jpg" />
+    {% if page.icon %}
+      <link rel="shortcut icon" type="image/png" href="{{page.icon}}" />
+    {% else %}
+      <link rel="shortcut icon" type="image/png" href="/img/icon.jpg" />
+    {% endif %}
     <style>
       @import url(/css/font-face.css);
       @import url(/css/reset.css);
@@ -14,13 +18,14 @@
   <body>
     <div id="wrap">
       <div id="hd">
-        <h1>{{ page.title }}</h1>
+        <h1><a href="/index.html">{{ page.title }}</a></h1>
         <span class="desc info">
           {% if page.date %}
           <span class="date">{{ page.date | date_to_string }}</span>
           {% endif %}
-          by <a href="/index.html">fleuria</a>
-          <a href="/about.html">»	</a>
+          <a href="/about.html">\</a>
+          <a href="/index.html">fleuria</a>
+          <a href="/notes.html">-></a>
         </span>
       </div>
 

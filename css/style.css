@@ -1,5 +1,4 @@
 html {
-    background: ;
 }
 
 body {
@@ -73,6 +72,16 @@ sup {
     padding: 0.1em 0.4em 0.1em 0;
 }
 
+#hd a {
+    display: inline-block;
+    color: #222;
+    border-bottom: none;
+}
+
+#hd a:hover {
+    text-decoration: underline;
+}
+
 #hd .info {
     margin: 10px auto;
     display: block;
@@ -82,8 +91,7 @@ sup {
 }
 
 #hd .info a {
-    display: inline-block;
-    color: #222;
+    margin: 0 0.2em 0 0.2em;
 }
 
 /* ------------------------------------------------ */
@@ -96,6 +104,10 @@ sup {
 
 #mn hr {
     height: 2px;
+}
+
+#mn > ul {
+    padding: 0 0 15px 0;
 }
 
 #mn ul#posts {
@@ -113,6 +125,7 @@ sup {
 }
 
 #mn #posts a.more {
+    margin: 0 10px 0 0;
 }
 
 /*= for single */

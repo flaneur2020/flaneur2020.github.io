@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <link rel="alternate" type="application/rss+xml" href="/atom.xml" /> 
+    <link rel="shortcut icon" type="image/png" href="/img/icon.jpg" />
+    <style>
+      @import url(/css/reset.css);
+      @import url(/css/toolkit.css);
+      @import url(/css/page.css);
+    </style>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.tableofcontents.js"></script>
+    <script>
+      $(function(){
+        $('h1:first').after('<ol id="toc"></ol>')
+        $('#toc').tableOfContents($('#mn'), { 
+          startLevel: 2, 
+          depth: 3,
+          levelClass: "toc-depth-%",
+          levelText: "%"
+        });
+      });
+    </script>
+    <title>{{ page.title }}</title>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="mn">
+        {{content}}
+      </div>
+
+      <div id="ft">
+        hosted on github, and powered by jekyll. (<a href="/atom.xml">rss</a>)
+      </div>
+    </div>
+  </body>
+</html>
+
+
