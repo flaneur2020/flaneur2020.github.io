@@ -1,7 +1,7 @@
 ---
 layout: page
 icon: img/icon2.jpg
-title: F/Notes
+title: F::Notes
 ---
 
 都是原先散布的一些Gist，整理在这里。遇到坑就记一下，尽量不要掉进同一个坑第二次。
