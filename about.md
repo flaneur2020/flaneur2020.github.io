@@ -1,6 +1,6 @@
 ---
 layout: post
-title: F/About
+title: F::About
 ---
 
 你好，这里是fleuria的个人blog。
