@@ -31,5 +31,5 @@ end
 
 desc "open the last blog post in gvim"
 task :last do
-  sh "gnome-open #{Dir['_posts/*.md'].last}"
+  sh "gnome-open #{Dir['_posts/*.md'].sort.last}"
 end

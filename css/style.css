@@ -173,8 +173,8 @@ sup {
     padding: 10px 0 10px 0;
 }
 
-#mn #content ul li, ol li {
-    margin-left: 50px;
+#mn #content ul li, #mn #content ol li {
+    margin: 0.2em 2em 0.3em 3em;
 }
 
 #mn #content table th {
