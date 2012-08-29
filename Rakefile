@@ -13,9 +13,8 @@ task :server do
 end
 
 desc "create a new post file to _post"
-task :n => :new_post
-task :new_post do
-  title = ENV['t'] || ENV['T'] || ENV['TITLE'] || 'untitled'
+task :n, :title do |task, args|
+  title ||= args[:title] || ENV['t'] || ENV['T'] || ENV['TITLE'] || 'untitled'
   date_str = Time.now.strftime('%Y-%m-%d')
   path = File.dirname(__FILE__) + "/_posts/#{date_str}-#{title}.md"
   open(path, 'w+') do |f|
@@ -26,10 +25,10 @@ task :new_post do
       ---
     }.strip.split("\n").map{|s| s.strip }.join("\n")
   end
-  puts "new file: #{path}"
+  puts "#{path}"
 end
 
 desc "open the last blog post in gvim"
 task :last do
-  sh "gnome-open #{Dir['_posts/*.md'].sort.last}"
+  puts "#{Dir['_posts/*.md'].sort.last}"
 end
