@@ -3,7 +3,7 @@ layout: post
 title: "保持一致性: Journaling"
 ---
 
-一个比较容易混淆的概念是，Journaling主要负责的是数据一致性的维护，而并不关心数据的恢复。
+一个比较容易混淆的概念是，Journaling主要负责的是数据一致性的维护，而并不特别关心数据的恢复。
 
 上篇post记了些FFS相关的笔记，不过忽略了文件系统的Journaling，在这里单独记一下。
 
