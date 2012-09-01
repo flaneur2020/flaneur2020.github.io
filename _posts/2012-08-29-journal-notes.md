@@ -47,7 +47,7 @@ title: "保持一致性: Journaling"
 
 将文件系统的所有变更追加到一个日志文件中。系统崩溃之后，只要检查日志文件的末尾，即可在一定程度上恢复崩溃时进行的操作，快速地恢复文件系统的一致性。<sup>2</sup>
 
-因为有了Journaling做保证，原先文件系统中的同步写可以得到消除，在某种程度上对性能也是更加有益的。
+Journaling的写入很容易做到连续的大块写，符合磁盘的机械性质。此外因为有了Journaling做保证，原先文件系统中的同步写可以得到消除，在某种程度上对性能也是更加有益的。
 
 ### What To Log
 
@@ -84,9 +84,24 @@ Metadata Logging是一条很中庸的解决方案：
 
 约束的意义在于少数的几条原则之外，任何优化都可以做。
 
-### 实例：BFS
+## 实例：BFS
 
-BFS为日志预留了一块固定大小的区域，以循环缓冲区(Circular Buffer)的形式使用。
+BFS采用Metadata Logging为既有的文件系统提供了Journaling支持，并给出了一个简单的实现(不到1000行，可惜没有开源)。
+
+BFS将以下操作视为事务：
+
++ 创建/删除一个文件或者目录
++ 重命名一个文件
++ 更改文件的大小
++ 创建/更改/删除文件的atrribute
+
+BFS为journal预留了一块固定大小的区域，以循环缓冲区(Circular Buffer)的形式使用。
+
+每条journal的内存布局与磁盘布局如下：
+
+![](/img/bfs-journaling.jpg)
+
+可见每条journal中的数据以块为单位，第一块用以记录数据块的数目以及数据块到盘块地址的映射，后跟修改过的数据块。 
 
 它的接口十分简单，只有3个函数：
 
@@ -99,19 +114,42 @@ BFS为日志预留了一块固定大小的区域，以循环缓冲区(Circular B
 
 + `ssize_t log_write_blocks(bfs_info *bfs, struct log_handle *lh, off_t block_number, const void *data, int number_of_blocks);`
 
-  记录一项新的变更。 
+  记录一项新的变更。
+
+  这里有一条优化是，如果在事务期间同一数据块被多次修改，只保留最后的版本即可。
 
 + `int end_transaction(bfs_info *bfs, struct log_handle *lh);`
 
   结束一个事务，这时会：
 
-  1. 将日志在内存中的Cache写入磁盘
+  1. 必要时，将日志在内存中的Cache写入磁盘
   2. 同时为日志在内存中的每块Cache绑定一个回调函数。
 
      这个回调函数会在这块Cache被写入完成后被调用，用以获知何时整个事务写入完毕。
 
-## Alternative Solutions
+### Batching Transactions(或者Group Commit)
 
+出于性能的考虑，BFS并不会在调用`end_transaction()`时立即将journal写入磁盘，而是将多个事务攒起来，一齐写入。这里只要保证实写在事务写入完毕之后的约束就好了。
+
+## 实例：Ext2
+
+与BFS为一条操作新建事务然后Group Commit的策略不同，ext2只保留一个全局的事务，一段时间内系统的所有元数据的写操作都交给这同一个事务来记录，随后一齐写入。
+
+### Collisions Between Transactions
+
+出于性能考虑，在写入事务期间并不会阻止创建新的事务。如果新的事务需要修改提交中的事务中的数据会怎么办？
+
+这里的一个Workaround是，拷贝一份这块数据的Cache到一块临时的Buffer中，将新的修改都放在这块Buffer上。待前一个事务提交完毕，将这个Buffer中的内容拷贝回数据块对应的Cache即可。
+
+-------------
+
+## References
+
++ Unix Internals
++ the Design and Implementation of 4.4BSD
++ Practical File System Design
++ Journaling the Linux ext2fs Filesystem
++ The Design and Implementation of a Log-Structured File System
 
 -------------
 
