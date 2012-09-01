@@ -165,16 +165,14 @@ sup {
 
 #mn #content ul {
     list-style: circle;
-    padding: 10px 0 10px 0;
 }
 
 #mn #content ol {
     list-style: decimal;
-    padding: 10px 0 10px 0;
 }
 
 #mn #content ul li, #mn #content ol li {
-    margin: 0.2em 2em 0.5em 2em;
+    margin: 0.5em 2em 0.5em 1.5em;
 }
 
 #mn #content table th {
