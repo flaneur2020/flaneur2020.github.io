@@ -3,4 +3,7 @@ pygments: true
 baseurl: http://fleurer.github.com
 auto: false
 destination: ./_site
-title: the old new thing
+title: fleuria lee
+
+author_name: fleuria
+author_email: me.ssword@gmail.com
