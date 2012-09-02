@@ -3,23 +3,23 @@ layout: nil
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- 
- <title>fleuria lee</title>
- <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>{{ site.baseurl }}</id>
- <author>
-   <name>fleuria</name>
-   <email>me.ssword@gmail.com</email>
- </author>
 
- {% for post in site.posts limit:15 %}
- <entry>
-   <title>{{ post.title }}</title>
-   <link href="{{ site.baseurl }}/{{ post.url }}"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>{{ site.baseurl }}/{{ post.id }}</id>
-   <content type="html">{{ post.content | xml_escape }}</content>
- </entry>
- {% endfor %}
- 
+  <title>{{site.title}}</title>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ site.baseurl }}</id>
+  <author>
+    <name>{{site.author_name}}</name>
+    <email>{{site.author_email}}</email>
+  </author>
+
+  {% for post in site.posts limit:15 %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ site.baseurl }}/{{ post.url }}"/>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <id>{{ site.baseurl }}/{{ post.id }}</id>
+    <content type="html">{{ post.content | xml_escape }}</content>
+  </entry>
+  {% endfor %}
+
 </feed>
