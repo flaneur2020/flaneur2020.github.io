@@ -17,3 +17,6 @@ title: F::Notes
 + [Snippets](https://gist.github.com/2005685)
 + [Shell](https://gist.github.com/1611068)
 
+不入流的工作所需:
+
++ [Quixote](https://gist.github.com/gists/3446645)
