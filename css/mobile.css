@@ -1,7 +1,16 @@
 #wrap {
     width: 95%;
+    max-width: 95%;
     padding: 0;
     margin: 2%;
+}
+
+#mn img {
+    max-width: 95%;
+}
+
+#mn {
+    overflow: hidden;
 }
 
 body {
