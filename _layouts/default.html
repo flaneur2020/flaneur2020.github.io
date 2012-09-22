@@ -1,6 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="alternate" type="application/rss+xml" href="/atom.xml" /> 
     {% if page.icon %}
       <link rel="shortcut icon" type="image/png" href="{{page.icon}}" />
@@ -13,6 +14,7 @@
       @import url(/css/toolkit.css);
       @import url(/css/style.css);
     </style>
+    <link rel="stylesheet" media="all and (max-device-width: 799px)" href="/css/mobile.css"> 
     <title>{{ page.title }}</title>
   </head>
   <body>

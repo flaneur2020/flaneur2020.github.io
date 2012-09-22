@@ -1,0 +1,13 @@
+#wrap {
+    width: 95%;
+    padding: 0;
+    margin: 2%;
+}
+
+body {
+    background-image: none;
+}
+
+#ft {
+    margin: 1em 0 0 0;
+}
