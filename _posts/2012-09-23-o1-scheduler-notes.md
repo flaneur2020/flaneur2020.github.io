@@ -41,7 +41,7 @@ O(1) Scheduler中核心的数据结构只有两个，runqueue与优先级数组(
 
 每个CPU对应一个runqueue，每个runqueue包含两个优先级数组，一个是active priority array，装有还没跑完时间片的活跃任务；另一个是expired priority array，装有跑完时间片的任务。当active priority array中的任务跑光了时间片，就把它移动到expired priority，同时重新计算时间片。当active priority array中没有任务了，就简单地将active priority array与expired priority array的指针交换过来。
 
-优先级数组是一组链表的数组，长度为140，也就是最多可以有140条链表了。每个优先级对应一条链表，相同优先级的任务链在同一条链表中，按照Round Robin调度。此外，优先级数组维护着一个bitmap，用以表示某一优先级对应的链表是否为空。这一来查找当前最高优先级的任务时，只需遍历固定大小的bitmap即可，最坏为常数时间。
+优先级数组是一组链表的数组，长度为140，每个优先级对应一条链表，也就是最多可以有140条链表了。相同优先级的任务链在同一条链表中，按照Round Robin调度。此外，优先级数组维护着一个bitmap，用以表示某一优先级对应的链表是否为空。这一来查找当前最高优先级的任务时，只需遍历固定大小的bitmap即可，最坏为常数时间。
 
 由此可见，O(1) Scheduler设定了140个优先级。其中的前100个优先级皆为实时任务保留，后40个优先级供一般任务使用，保证实时任务的优先级永远比一般任务更高。
 
