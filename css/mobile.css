@@ -13,6 +13,10 @@
     overflow: hidden;
 }
 
+#mn li {
+    margin-right: 0;
+}
+
 body {
     background-image: none;
 }
