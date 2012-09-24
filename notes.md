@@ -19,4 +19,6 @@ title: F::Notes
 
 不入流的工作所需:
 
-+ [Quixote](https://gist.github.com/gists/3446645)
++ [Quixote](https://gist.github.com/gists/3446645
++ [厂内资料S](https://gist.github.com/cd24e88e20009a2fabfd)
++ [厂内资料D](https://gist.github.com/1530d67954098bca7f9a)
