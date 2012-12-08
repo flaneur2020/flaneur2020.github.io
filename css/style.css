@@ -47,6 +47,10 @@ sup {
     font-size: smaller;
 }
 
+em {
+    font-style: italic;
+}
+
 /* ------------------------------------------------ */
 
 #wrap {
