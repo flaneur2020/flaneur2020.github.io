@@ -103,7 +103,7 @@ ngx_radix32tree_delete(ngx_radix_tree_t *tree, uint32_t key, uint32_t mask)
   1. 没有子节点
   2. 自身的值为空(`NGX_RADIX_NO_VALUE`)
   3. 并非根节点
-+ 被清理的节点会被niginx放到freelist里面，方便下次利用:
++ 被清理的节点会被nginx放到freelist里面，方便下次利用:
 
 ```
 node->right = tree->free;
