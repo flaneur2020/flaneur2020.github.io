@@ -11,11 +11,11 @@ title: "Quick Note: Radix Tree in Ngnix"
    + 特定key的查找路径总是固定的
    + 树的高度等于key的位数
 
+nginx中默认的模块中，只有 `http/modules/ngx_http_geo_module.c` 用到了 `radix_tree` 。它可以依据ip的范围划定出地理区域。
+
 这里记一下nginx的实现中有趣的地方，为了与教科书上的Radix Tree区分，这里统称为 `radix_tree`。
 
-## Usage
-
-nginx中默认的模块中，只有 `http/modules/ngx_http_geo_module.c` 用到了 `radix_tree` 。它可以依据ip的范围划定出地理区域。
+---------------------
 
 ## Code Notes
 
