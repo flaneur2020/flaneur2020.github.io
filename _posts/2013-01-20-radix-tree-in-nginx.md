@@ -47,7 +47,10 @@ ngx_radix_tree_create(ngx_pool_t *pool, ngx_int_t preallocate)
 
 提升TLB命中率的优化措施，意在减少算法过程中踩过的页面数量，尽量使内存访问局部化到一个页面以内。根节点必然会被访问，那么顺便将根部附近的几个节点安排到同一个页面是合理的。
 
-不过 `There is no sense to to preallocate more than one page， because further preallocation distributes the only bit per page.`<sup>1</sup>，再往下的子节点，如果超出一个页面的界限，就没有必要在这里预分配了。局部化策略并非试图将所有的数据访问局部化，而是将不相关的数据分散开。因为特定key的查找路径总是固定的性质，将这段查找路径中经过的节点安排到同一个页面无疑更加合理。
+不过 `There is no sense to to preallocate more than one page， because further preallocation distributes the only bit per page.`<sup>1</sup>，
+再往下的子节点，如果超出一个页面的界限，就没有必要在这里预分配了。
+因为特定key的查找路径总是固定的性质，将这段查找路径中经过的节点安排到同一个页面无疑更加合理。
+局部化策略并非试图将所有的数据访问局部化，而是将不相关的数据分散开。
 
 `"the only bit per page"` 这句里的 "bit" 单词有点奇怪，考虑到 `radix_tree` 的层数与key的位数相等的性质，我想可以把它当作 "层" 来理解。
 
