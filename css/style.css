@@ -135,7 +135,7 @@ em {
 
 #mn #content {
     font-size: 15px;
-} 
+}
 
 #mn #content > * {
     margin: 12px 0 12px 0;
@@ -146,9 +146,14 @@ em {
 }
 
 #mn #content blockquote {
-    padding: 10px 0 10px 20px;
+    padding: 0 20px 0 20px;
     font-style: italic;
     color: #555;
+    margin: 0;
+}
+
+#mn #content blockquote p {
+    margin: 1em 0 1em 0;
 }
 
 #mn #content img {
