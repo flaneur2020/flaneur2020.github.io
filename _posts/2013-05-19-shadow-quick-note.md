@@ -29,7 +29,7 @@ title: "Quick Note on Shadow Page Table"
 2. pmap: Guest 物理地址 => Host 物理地址
 3. 影子页表: Guest 虚拟地址 => Host 物理地址
 
-影子页表作为内存虚拟化的基础设施，大约相当于 Guest 页表与 pmap 叠加的结果，会被最后交给 cr3 。 但是 Guest 页表会更新，pmap 也会变化，影子页表需要想方设法与它们保持同步，但 "不完整" 的同步也是允许的，影子页表扮演的角色实际上也更接近于 TLB 。比方说在 Guest 页表中存在的一项映射在影子页表中不存在， 这是允许的，到访问这条映射对应的内存时，会发生页面错误, VMM能够捕获它，调整影子页表增加这条映射，这在 Guest 看来仅仅相当于 TLB Miss 而已。
+影子页表作为内存虚拟化的基础设施，大约相当于 Guest 页表与 pmap 叠加的结果，会被最后交给 cr3 。 Guest 页表会更新，pmap 也会变化，影子页表需要想方设法与它们保持同步，但 "不完整" 的同步也是允许的，影子页表扮演的角色实际上也更接近于 TLB 。比方说在 Guest 页表中存在的一项映射在影子页表中不存在， 这是允许的，到访问这条映射对应的内存时，会发生页面错误, VMM能够捕获它，调整影子页表增加这条映射，这在 Guest 看来仅仅相当于 TLB Miss 而已。
 
 ## The Simple Implementation
 
@@ -65,7 +65,7 @@ Linus 曾在邮件里提到，x86 的 TLB 在遇到页面错误时倾向于进�
 
 ## Well, I Still Have Questions
 
-[3] 提到使用写保护跟踪所有 Guest 页表的改动的一个原因是，基于 `invlpg` 的跟踪会导致大量的 Hidden Page Fault。这点依然不是很理解，使用写保护的话，代价会是(大量的?) 修改页表的页面错误，跟 Hidden Page Faults 的开销相比孰优孰劣？
+[2] 提到使用写保护跟踪所有 Guest 页表的改动的一个原因是，基于 `invlpg` 的跟踪会导致大量的 Hidden Page Fault。这点依然不是很理解，使用写保护的话，代价会是(大量的?) 修改页表的页面错误，跟 Hidden Page Faults 的开销相比孰优孰劣？
 
 ## Reference
 
