@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "C的泛型库khash"
-tags: 
+tags:
 - C
 - trick
 - "备忘"
 status: publish
 type: post
 published: true
-meta: 
+meta:
   _edit_last: "2"
 ---
 
@@ -20,7 +20,8 @@ khash.h的内容：
 <a href="http://attractivechaos.awardspace.com/khash.h.html">http://attractivechaos.awardspace.com/khash.h.html</a>
 
 大体可以这么用：
-<pre lang="c">
+
+```
 #include "stdio.h"
 #include "khash.h"
 KHASH_MAP_INIT_STR(str, int) //以“str”这名字初始化一个类型的map，键类型为字符串，值类型为int
@@ -32,7 +33,7 @@ int main() {
 
     if (!ret) kh_del(str, h, k); //如果h中已经存在了这个键，就删除之
     kh_value(h, k) = 10; //设置键“test”对应的值（10）
-    
+
     printf("%d\n", kh_val(h,k)); //kh_val(h,k)即10
 
     k = kh_get(str, h, "test"); //获得“test”对应的索引器k
@@ -41,6 +42,6 @@ int main() {
     kh_destroy(str, h);
     return 0;
 }
-</pre>
+```
 
 终究不如模板来的自然，呵呵~不过也不错了。
