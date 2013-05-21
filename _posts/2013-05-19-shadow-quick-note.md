@@ -35,7 +35,7 @@ title: "Quick Note on Shadow Page Table"
 
 先从影子页表最简单的实现出发，理一下会出现的问题。
 
-采用 Lazy 的同步策略，每次 `mov cr3, pgd` 切换页目录时，将影子页表中的所有表项初始化为 Non Present 。随后 Guest 访问内存会触发页面错误， VMM 捕获它们， 根据目标地址、 Guest 页表和 pmap 更新相应的影子页表项，退出页面错误处理例程之后即可顺利执行下去。到 Guest OS 切换进程时，则丢弃原先的影子页表，从零重新开始。 Guest 对此可以毫不知情，这也被称作 Hidden Page Fault [2]。
+采用 Lazy 的同步策略，每次 `mov cr3, pgd` 切换页目录时，将影子页表中的所有表项初始化为 Non Present 。随后 Guest 访问内存会触发页面错误， VMM 捕获它们， 根据目标地址、 Guest 页表和 pmap 更新相应的影子页表项，退出页面错误处理例程之后即可顺利执行下去。 Guest 对此可以毫不知情，这也被称作 Hidden Page Fault [2]。 到 Guest OS 切换进程时，则丢弃原先的影子页表，从零重新开始。
 
 说起 Hidden Page Fault，还有一种情景是 Host 的页面有可能被换出，Guest 踩到时也会触发页面错误， VMM 这时能把换出的页面读回来，可是物理地址变了，这时需要更新 pmap 中的映射，同时更新相应的影子页表项。
 
