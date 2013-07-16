@@ -16,23 +16,23 @@
       @import url(/css/blog.css);
     </style>
     <link rel="stylesheet" media="all and (max-device-width: 799px)" href="/css/mobile.css">
-    <title>{{ page.title }}</title>
+    {% if page.title %}
+      <title>{{ page.title }}</title>
+    {% else %}
+      <title>{{ site.title }}</title>
+    {% endif %}
   </head>
   <body>
     <div id="wrap">
       <div id="side">
         <h1>{{ site.title }}</h1>
-        <span class="desc">
-          {{ site.description }}
-        </span>
+        <em class="gray"> {{ site.description }} </em>
       </div>
 
       <div id="main">
-        <h1>{{ page.title }}</h1>
+        <h1>{{ page.title }} &nbsp; </h1>
         {% if page.date %}
-          <div class="infomation">
-            <span class="date">{{ page.date | date_to_string }}</span>
-          </div>
+          <em class="date">{{ page.date | date_to_string }}</em>
         {% endif %}
         {{content}}
       </div>
