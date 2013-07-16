@@ -21,13 +21,19 @@
   <body>
     <div id="wrap">
       <div id="side">
-        <h1><a href="/index.html">{{ site.title }}</a></h1>
+        <h1>{{ site.title }}</h1>
         <span class="desc">
           {{ site.description }}
         </span>
       </div>
 
       <div id="main">
+        <h1>{{ page.title }}</h1>
+        {% if page.date %}
+          <div class="infomation">
+            <span class="date">{{ page.date | date_to_string }}</span>
+          </div>
+        {% endif %}
         {{content}}
       </div>
     </div>
