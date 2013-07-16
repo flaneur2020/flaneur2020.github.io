@@ -15,6 +15,7 @@
       @import url(/css/toolkit.css);
       @import url(/css/blog.css);
     </style>
+    <link href='http://fonts.googleapis.com/css?family=Arapey:400italic,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" media="all and (max-device-width: 799px)" href="/css/mobile.css">
     {% if page.title %}
       <title>{{ page.title }}</title>
@@ -25,8 +26,14 @@
   <body>
     <div id="wrap">
       <div id="side">
-        <h1>{{ site.title }}</h1>
-        <em class="gray"> {{ site.description }} </em>
+        <h1> {{ site.title }} </h1>
+        <em> by {{ site.author_name }}</a></em>
+        <ul id="nav">
+          <li><a href="/">home</a></li>
+          <li><a href="/archieve.html">archieve</a></li>
+          <li><a href="/about.html">about</a></li>
+          <li><a href="/links.html">links</a></li>
+        </ul>
       </div>
 
       <div id="main">
