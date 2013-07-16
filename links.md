@@ -11,4 +11,5 @@ title: "Links"
 - [hotteran](http://www.hoterran.info/)
 - [熊叔](http://blog.icybear.net/)
 - [huangz](http://www.huangz.me/)
+- [chain](http://book.douban.com/people/chain233/)
 - tbd
