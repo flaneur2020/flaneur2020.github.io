@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link rel="alternate" type="application/rss+xml" href="/atom.xml" /> 
+    <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
     {% if page.icon %}
       <link rel="shortcut icon" type="image/png" href="{{page.icon}}" />
     {% else %}
@@ -13,31 +13,22 @@
       @import url(/css/font-face.css);
       @import url(/css/reset.css);
       @import url(/css/toolkit.css);
-      @import url(/css/style.css);
+      @import url(/css/blog.css);
     </style>
-    <link rel="stylesheet" media="all and (max-device-width: 799px)" href="/css/mobile.css"> 
+    <link rel="stylesheet" media="all and (max-device-width: 799px)" href="/css/mobile.css">
     <title>{{ page.title }}</title>
   </head>
   <body>
     <div id="wrap">
-      <div id="hd">
-        <h1><a href="/index.html">{{ page.title }}</a></h1>
-        <span class="desc info">
-          {% if page.date %}
-          <span class="date">{{ page.date | date_to_string }}</span>
-          {% endif %}
-          <a href="/about.html">\</a>
-          <a href="/index.html">fleuria</a>
-          <a href="/notes.html">-></a>
+      <div id="side">
+        <h1><a href="/index.html">{{ site.title }}</a></h1>
+        <span class="desc">
+          {{ site.description }}
         </span>
       </div>
 
-      <div id="mn">
+      <div id="main">
         {{content}}
-      </div>
-
-      <div id="ft">
-        hosted on github, and powered by jekyll. (<a href="/atom.xml">rss</a>)
       </div>
     </div>
   </body>
