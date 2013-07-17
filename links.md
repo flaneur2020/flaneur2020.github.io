@@ -12,4 +12,8 @@ title: "Links"
 - [熊叔](http://blog.icybear.net/)
 - [huangz](http://www.huangz.me/)
 - [chain](http://book.douban.com/people/chain233/)
+- [snailw](http://blog.nlogn.cn/)
+- [Davelv](http://www.davelv.net/)
+- [xiaohanyu](http://cnlox.is-programmer.com/)
+- [小K](http://www.douban.com/people/otha/)
 - tbd
