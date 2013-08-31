@@ -125,10 +125,10 @@ ul#posts {
 
 .content > * {
     margin: 12px 0 12px 0;
+    line-height: 1.4em;
 }
 
 .content p {
-    line-height: 1.4em;
 }
 
 .content blockquote {
