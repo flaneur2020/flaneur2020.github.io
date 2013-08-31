@@ -16,4 +16,6 @@ title: "Links"
 - [Davelv](http://www.davelv.net/)
 - [xiaohanyu](http://cnlox.is-programmer.com/)
 - [小K](http://www.douban.com/people/otha/)
+- [飞林沙](http://kym.cnblogs.com/)
+- [年糕](http://www.douban.com/people/73689183/)
 - tbd
