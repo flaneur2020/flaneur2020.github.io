@@ -35,7 +35,7 @@ tbd
 
 - [1]: 或者可控的粒度太粗
 - [2]: 题外话，之前无意搜过一次 Map-Reduce 下遍历图的方法，发现正是三色图遍历算法，Map-Reduce 无副作用的的环境下不得不分成多次才能遍历一个图
-- [3]: cruby 作为最传统的 Mark-Sweep GC 实现，用户无需手工调用 Write Barrier 的幸福时代已经过时了。在为 mruby 编写扩展时，要分外注意调用 Write Barrier，不然可能会有 seg fault 出现。
+- [3]: cruby 那种最传统的 Mark-Sweep GC 实现中用户无需手工调用 Write Barrier 的幸福时代已经远去了。为 mruby 编写扩展时，要分外注意调用 Write Barrier，不然可能会有 seg fault 出现。以及，此 "Write Barrier" 与形容乱许执行的那个内存栅栏一点关系也没有。
 - [4]: https://love2d.org/forums/viewtopic.php?f=3&t=10887
 
 ## References
