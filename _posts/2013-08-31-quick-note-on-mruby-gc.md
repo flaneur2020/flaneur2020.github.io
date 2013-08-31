@@ -3,7 +3,7 @@ layout: post
 title: "Quick note on mruby GC"
 ---
 
-前段时间看了一遍 mruby GC，基本把逻辑理清楚了，在发补丁补了一些注释之余这里简单记一下。
+前段时间看了一遍 mruby GC，基本把逻辑理清楚了，发补丁补了一些注释之余这里简单记一下。
 
 ## 三色 GC
 
@@ -33,7 +33,7 @@ tbd
 
 ## Footnotes
 
-- [1]: 或者可控的粒度过大
+- [1]: 或者可控的粒度太粗
 - [2]: 题外话，之前无意搜过一次 Map-Reduce 下遍历图的方法，发现正是三色图遍历算法，Map-Reduce 无副作用的的环境下不得不分成多次才能遍历一个图
 - [3]: cruby 作为最传统的 Mark-Sweep GC 实现，用户无需手工调用 Write Barrier 的幸福时代已经过时了。在为 mruby 编写扩展时，要分外注意调用 Write Barrier，不然可能会有 seg fault 出现。
 - [4]: https://love2d.org/forums/viewtopic.php?f=3&t=10887
