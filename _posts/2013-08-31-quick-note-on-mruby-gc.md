@@ -68,6 +68,14 @@ cruby 那种最传统的 Mark-Sweep GC 实现中用户无需手工调用 Write B
 
 在扩展中每修改对象的引用，都要分外注意调用 Write Barrier，不然可能会有奇怪的 seg fault 出现，而且单纯靠 core dump 难以定位问题的位置 (但可以定位到漏掉 Write Barrier 的对象类型)。
 
+此外，怀疑这样的代码也存在很小的悲剧概率:
+
+```
+a = mrb_str_new(mrb, "a", 1);
+b = mrb_str_new(mrb, "b", 1);
+mrb_str_concat(mrb, a, b); // GC 并没有扫描 C 栈，内存紧张的话 a 或者 b 被回收怎么办?
+```
+
 ## Footnotes
 
 - [1]: 或者说可控的粒度太粗
