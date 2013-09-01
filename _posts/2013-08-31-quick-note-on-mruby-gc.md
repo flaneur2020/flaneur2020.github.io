@@ -72,7 +72,7 @@ cruby 那种最传统的 Mark-Sweep GC 实现中用户无需手工调用 Write B
 
 - [1]: 或者说可控的粒度太粗
 - [2]: 题外话，之前无意搜过一次 Map-Reduce 下遍历图的方法，发现正是三色图遍历算法，Map-Reduce 无副作用的的环境下不得不分成多次才能遍历一个图
-- [3]: 此 "Write Barrier" 与形容乱许执行的那个内存栅栏一点关系也没有。
+- [3]: 此 "Write Barrier" 与 CPU 乱许执行的那个内存栅栏一点关系也没有。
 - [4]: 将 Write Barrier 标记成灰色的对象单独维护在 `atomic_gray_list` 里的原因还没有很想明白，哪位同学能帮忙解释下？
 - [5]: https://love2d.org/forums/viewtopic.php?f=3&t=10887
 - [6]: 怀疑这个 `gc_full` 不是说内存满了，而是说接下来执行的是一轮 *完整的* GC...
