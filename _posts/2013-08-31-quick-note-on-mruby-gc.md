@@ -66,7 +66,7 @@ mruby 和 lua 都提供了一个分代模式的开关。不同在于 lua 将分�
 
 cruby 那种最传统的 Mark-Sweep GC 实现中用户无需手工调用 Write Barrier 的幸福时代已经远去了。 mruby 的起点比 cruby 高得多，然而对于 cruby 的扩展开发者看来，强制使用 Write Barrier 却需要转变一下思路才好接受。
 
-在扩展中每修改对象的引用，都要分外注意调用 Write Barrier，不然可能会有奇怪的 seg fault 出现，靠 core dump 难以定位问题的位置 (但可以定位到漏掉 Write Barrier 的对象类型)。
+在扩展中每修改对象的引用，都要分外注意调用 Write Barrier，不然可能会有奇怪的 seg fault 出现，而且单纯靠 core dump 难以定位问题的位置 (但可以定位到漏掉 Write Barrier 的对象类型)。
 
 ## Footnotes
 
