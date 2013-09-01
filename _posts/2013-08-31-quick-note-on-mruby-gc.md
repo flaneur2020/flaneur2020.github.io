@@ -60,7 +60,7 @@ mruby 和 lua 都提供了一个分代模式的开关。不同在于 lua 将分�
 
 随着一轮又一轮 Minor GC，老对象会留下的越来越多，一旦超过了老对象的阙值 (`majorgc_old_threshold`)，就该触发 Major GC 了。 这时会触发 `clear_all_old()` 将当前的所有对象重置为白色，并设置一个奇怪的 `gc_full = TRUE;`  [6]。但是等等，`mrb_incremental_gc()` 里面对于 `is_major_gc()` 的判断仅仅是对 GC 完成之后的清理工作，这是怎么回事？
 
-这个问题困惑了我好久。想明白 mruby 是把 Major GC 也做了渐进化处理，这就容易理解多了。 Major GC 就等同于一轮普通的三色 GC，所以在 `mrb_incremental_gc()` 只迈了简单的一小步，而不是立即把所有老对象回收。
+这个问题困惑了我好久。想明白 mruby 是把 Major GC 也做了渐进化处理，这就容易理解多了。 Major GC 就等同于一轮普通的三色 GC，所以在 `mrb_incremental_gc()` 只迈了简单的一小步，而不是立即把所有老对象回收。凭印象，这也是和 lua 实现的一点不同之处。
 
 ## Pitfalls
 
