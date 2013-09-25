@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "dpark-note1-mesos"
+title: "Dpark Note 1: Mesos"
 ---
 
 终于花一周时间理了一遍 dpark 的逻辑，原始的笔记放在了 evernote，刚刚放下一天就不忍直视了，在这里尝试提炼一下。目测把内容堆到一篇 blog 里有些吃力，还是计划分成三篇然后祈祷不要坑掉好了。
