@@ -60,3 +60,9 @@ Mesos 为计算框架设计了两个接口：Scheduler 和 Executor，前者作�
 ## Footnotes
 
 - [1]: 用户执行代码的机器其实是集群的客户端，在逻辑上反而扮演者 Master 的角色。
+
+## Reference
+
+- Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center
+- Spark: Cluster Computing with Working Sets
+
