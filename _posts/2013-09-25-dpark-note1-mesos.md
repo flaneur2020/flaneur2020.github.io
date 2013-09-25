@@ -23,7 +23,7 @@ Mesos 作为集群计算框架的基础设施，统筹计算资源的分配与�
 
 集群中一旦有节点空闲，Mesos 就会统计这个节点内的资源，包装成 Offer 分发给需要资源的计算框架，然而 Mesos 对计算框架的需求并不太清楚，给出的 Offer 并不一定满足计算框架的需求，比如内存太小、CPU太少，Mesos 允许框架拒绝不合适的 Offer，如果被拒绝，它就继续拿这个 Offer 尝试发给其它计算框架。然而对于计算框架而言，拒绝掉 Offer 就意味着需要继续等待一段时间，作为对这段时间的补偿，Mesos总是优先调度等待时间最长的计算框架。就 "公平" 的意义而言，这与 Linux 的 CFS 调度器的思路有点相似。
 
-Mesos 为计算框架设计了两个接口：Scheduler 和 Executor，前者作用于 Master，即执行代码的那台机器 [1]，既是 Mesos 调度器的接口，也是计算框架的任务调度器；后者作用于 Slave，即计算节点，用于执行来自于 Master 分配的任务，当然任务的分配是经过 Mesos 中转的。它们都是被动地接受来自 Mesos 的回调的接口，至于主动调用 Mesos 的接口，是 MesosSchedulerDriver，它可以用来向 Mesos 申请 Offer、提交 Task、返回计算结果等等。
+Mesos 为计算框架设计了两个接口：Scheduler 和 Executor，前者作用于 Master，即执行代码的那台机器 [^1]，既是 Mesos 调度器的接口，也是计算框架的任务调度器；后者作用于 Slave，即计算节点，用于执行来自于 Master 分配的任务，当然任务的分配是经过 Mesos 中转的。它们都是被动地接受来自 Mesos 的回调的接口，至于主动调用 Mesos 的接口，是 MesosSchedulerDriver，它可以用来向 Mesos 申请 Offer、提交 Task、返回计算结果等等。
 
 一个任务的大体生命周期如下：
 
