@@ -143,7 +143,7 @@ runJob() 首先依据 finalRdd 初始化 finalStage，并且定义了一些变�
 
 ## Stage 的提交与生命周期
 
-submitStage(stage) 会递归地检查 Stage 的父 Stage，并将其加入 waiting 状态。直到发现没有 Parent 或者没有执行完毕的叶子 Stage，调用 submitMissingTasks(stage) 为 RDD 的每个 split 创建单独的 Task，并一股脑提交出去，这便是第一批任务。随后就都是在它们执行完毕之后，再提交依赖于它们的子任务了。这些任务的类型会是 ShuffledMapTask，到最后发送的来自 finalStage 的任务是例外情况，类型为 ResultTask，它仅仅起到一个标记的作用，方便到后面对最终计算结果做特殊处理。
+submitStage(stage) 会递归地检查 Stage 的父 Stage，并将其加入 waiting 状态。直到发现没有 Parent 或者没有执行完毕的叶子 Stage，调用 submitMissingTasks(stage) 为 RDD 的每个 split 创建单独的 Task，并一股脑提交出去，这便是第一批任务。随后就都是在它们执行完毕之后，再提交依赖于它们的子任务了。这些任务的类型会是 ShuffledMapTask，到最后发送的来自 finalStage 的任务则属于例外情况，类型为 ResultTask，它仅仅起到一个标记的作用，方便到后面对最终计算结果做特殊处理。
 
 然后就进入了一个以 numFinished != numOutputParts 为不变式、侦听 self.completionEvents 这个消息队列的事件循环，用来维护 Stage 的生命周期。其中关心的事件仅有 Success 和 FetchFailed，前者来自 self.taskEnded(task, reason, result, update)，为 Scheduler 后端触发；后者来自网络异常，处理必要的重试或者报错。事件中带有 task 与 reason 两条信息，通过 task 的 stageId 字段，可以查表得到对应的 Stage 对象。
 
