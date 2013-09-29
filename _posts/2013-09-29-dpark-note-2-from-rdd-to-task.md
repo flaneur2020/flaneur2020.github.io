@@ -92,7 +92,7 @@ class OneToOneDependency(NarrowDependency):
         return [pid]
 ```
 
-ShuffleDependency 不再允许两个任务在同一个节点上执行。它并没有提供 getParents() 方法的实现，到后面不乏针对它的特殊处理。比如 reduceByKey() 操作会按照 key 将数据重新分布，最初的来自于分布式文件系统的数据分布就不再奏效了。
+ShuffleDependency 会打乱数据的分布。它并没有提供 getParents() 方法的实现，到后面不乏针对它的特殊处理。比如 reduceByKey() 操作会按照 key 将数据重新分布，最初的来自于分布式文件系统的数据分布就不再奏效了。
 
 这要求子 RDD 主动向父 RDD 寻求计算的结果，就引出了一个问题：RDD 是静态的，对未来将在哪个节点上执行一无所知，那么子 RDD 中派生出来的任务该怎样寻找目标节点？Spark 的解决方案是给每个 ShuffleDependency 一个唯一的 shuffleId，在 Master 节点开一个简单的 key-value 存储，即 mapOutputTracker，到任务执行完毕之后，会把 (shuffleId, 所在的节点) 注册进去，子 RDD 的任务在获取中间数据之前凭 shuffleId 为 key 查询 Master 即可获得目标节点。
 
