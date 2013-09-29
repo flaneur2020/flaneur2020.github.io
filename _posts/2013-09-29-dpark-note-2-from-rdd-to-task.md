@@ -167,7 +167,7 @@ if isinstance(task, ResultTask):
 ```
 elif isinstance(task, ShuffleMapTask):
     stage = self.idToStage[task.stageId]
-    stage.addOutputLoc(task.partition, evt.result) 
+    stage.addOutputLoc(task.partition, evt.result)
     if not pendingTasks[stage] and all(stage.outputLocs):
         logger.debug("%s finished; looking for newly runnable stages", stage)
         running.remove(stage)
@@ -184,7 +184,7 @@ elif isinstance(task, ShuffleMapTask):
             submitMissingTasks(stage)
 ```
 
-首先登记计算结果所在的节点名，设置 outputLocs[task.partition] = evt.result。待 all(stage.outputLocs) 为真，这个 stage 就执行完毕了，stage.isAvailable() 会变为真，getMissingParentStages(stage) 返回的结果会相应地有所变化。执行完毕之后，会将 stage 移除 running 状态，登记 (shuffleId, 结果所在的节点) 到 mapOutputTracker，通过 getMissingParentStages(stage) 选出下一轮待执行的 stage，并提交。
+首先登记计算结果所在的节点名，设置 outputLocs[task.partition] = evt.result。待 all(stage.outputLocs) 为真，这个 stage 就执行完毕了，stage.isAvailable() 会变为真，getMissingParentStages(stage) 返回的结果会相应地有所变化。执行完毕之后，会将 stage 移除 running 状态，登记 (shuffleId, 结果所在的节点) 到 mapOutputTracker，以 not getMissingParentStages(stage) 为条件在 waiting 集合选出下一轮待执行的 stage，并提交。
 
 留意与 ResultTask 的 evt.result 表示最终计算结果的值不同，在这里 evt.result 中保存的是计算结果所在的节点，配合 shuffleId 可获得文件完整的 URL。因为中间的结果比较大，会在该计算节点上就地保存成文件，在需要时由子任务去主动访问。留意这里的文件并不会保存到分布式文件系统，而是放在 dpark 自己维护的一个 HTTP File Server 里面，允许文件通过全局的 URL 标识。这可能是性能的关键。
 
