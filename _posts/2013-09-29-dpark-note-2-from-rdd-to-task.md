@@ -82,7 +82,7 @@ class RDD:
 
 一个 RDD 可能会在多台机器上并行执行，计算划分的基本粒度就是 Split。每个 Split 可以有自己的 preferredLocations()， 表示优先考虑的节点。比如带有 Replication 的分布式文件系统会把一个数据块冗余地存储在多个节点上，在拥有数据块的节点上执行相关的计算显然最优。因变换产生的 RDD 可以继承父 RDD 的 Split，比如 TextFileRDD 按照文件的块划分了多个 Split 对应多个存储节点，到 MappedRDD 按照相同的 Split 划分就地执行计算是合理的。
 
-RDD 的父 RDD 是谁显而易见，但是经过复杂的变换之后，RDD 中 Split 的 "父 Split" 的是谁就不能一下子说清楚了。 Spark 为此设计了 NarrowDependency 和 ShuffleDependency，并基于它们派生了多种 Dependency 类，主要用來应对两种差异较大的情景：
+RDD 的父 RDD 是谁显而易见，但是经过复杂的变换之后，RDD 中 Split 的 "父 Split" 的是谁就不能一下子说清楚了。 Spark 为此设计了 NarrowDependency 和 ShuffleDependency，并基于它们派生了多种 Dependency 类，分起类来主要是两类情景：
 
 NarrowDependency 约定相互依赖的两个任务允许在同一个节点上执行。它的子类都实现一个 getParents(self, pid) 方法，其中pid 的全称是 partition id, 基本是 RDD 中 splits 数组的下标。比如最简单的 MappedRDD 派生自 DerivedRDD，而 DrivedRDD 与父 RDD 的依赖关系 OneToOneDependency 仅仅将父 RDD 中对应 Split 的下标原样返回：
 
