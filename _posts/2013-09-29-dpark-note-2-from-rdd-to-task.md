@@ -84,7 +84,7 @@ class RDD:
 
 RDD 的父 RDD 是谁显而易见，但是经过复杂的变换之后，RDD 中 Split 的 "父 Split" 的是谁就不能一下子说清楚了。 Spark 为此设计了 NarrowDependency 和 ShuffleDependency，并基于它们派生了多种 Dependency 类，分起类来主要是两类情景：
 
-NarrowDependency 约定相互依赖的两个任务允许在同一个节点上执行。它的子类都实现一个 getParents(self, pid) 方法，其中pid 的全称是 partition id, 基本是 RDD 中 splits 数组的下标。比如最简单的 MappedRDD 派生自 DerivedRDD，而 DrivedRDD 与父 RDD 的依赖关系 OneToOneDependency 仅仅将父 RDD 中对应 Split 的下标原样返回：
+NarrowDependency 约定相互依赖的两个任务允许在同一个节点上执行。它的子类都实现一个 getParents(self, pid) 方法，其中pid 的全称是 partition id [^2], 基本是 RDD 中 splits 数组的下标。比如最简单的 MappedRDD 派生自 DerivedRDD，而 DrivedRDD 与父 RDD 的依赖关系 OneToOneDependency 仅仅将父 RDD 中对应 Split 的下标原样返回：
 
 ```
 class OneToOneDependency(NarrowDependency):
@@ -160,7 +160,7 @@ if isinstance(task, ResultTask):
         lastFinished += 1
 ```
 
-这段逻辑有点绕，我猜测是出于保序以及排重的需求：将各 partition [^2] 的计算结果按照按顺序依次 yield，同时排除因重试导致的多次返回。
+这段逻辑有点绕，我猜测是出于保序以及排重的需求：将各 partition 的计算结果按照按顺序依次 yield，同时排除因重试导致的多次返回。
 
 如果任务类型为 ShuffleMapTask，做的事情更多一些：
 
