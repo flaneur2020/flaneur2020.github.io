@@ -78,9 +78,9 @@ b = mrb_str_new(mrb, "b", 1);
 mrb_str_concat(mrb, a, b); // 内存紧张的话 a 或者 b 被回收了怎么办?
 ```
 
-mruby 对此的应对方案是在 `mrb_state` 结构体中增加了一个数组，用来保存最近新申请对象的引用，每申请一个对象，都会压入这个数组。到 GC 时会首先 mark 这一数组中引用的对象，从而避免了临时对象被回收的问题。它的名字有点奇怪：`arena`，但跟 dlmalloc 等内存分配器中 `arena` 的概念毫无联系。
+mruby 对此的应对方案是在 `mrb_state` 结构体中增加了一个数组，用来保存最近新申请对象的引用，每申请一个对象都会压入这个数组。到 GC 时会首先 mark 这一数组中引用的对象，从而避免了临时对象被回收的问题。当一个函数执行结束，其中的临时对象就不需要额外的保护了，将数组回退到执行之前的状态即可。它的名字有点奇怪：`arena`，但跟 dlmalloc 等内存分配器中 `arena` 的概念毫无联系。
 
-但它带来了一个新的问题，那就是如果一个函数内部申请的对象较多，会导致 arena 数组溢出。因此 C 扩展的开发者需要额外注意，务必配合调用 `mrb_arena_save()` 与 `mrb_arena_restore()`，及时地释放 arena 顶部。Issue [#1533](https://github.com/mruby/mruby/issues/1533) 属于这一问题的例子。
+但它带来了一个新的问题，那就是如果一个函数内部申请的对象较多，会导致 arena 数组溢出。因此 C 扩展的开发者需要额外注意，务必配合调用 `mrb_arena_save()` 与 `mrb_arena_restore()`，及时地回退 arena 。Issue [#1533](https://github.com/mruby/mruby/issues/1533) 属于这一问题的例子。
 
 ## Footnotes
 
