@@ -62,19 +62,25 @@ mruby 和 lua 都提供了一个分代模式的开关。不同在于 lua 将分�
 
 这个问题困惑了我好久。想明白 mruby 是把 Major GC 也做了渐进化处理，这就容易理解多了。 Major GC 就等同于一轮普通的三色 GC，所以在 `mrb_incremental_gc()` 只迈了简单的一小步，而不是立即把所有老对象回收。凭印象，这也是和 lua 实现的一点不同之处。
 
-## Pitfalls
+## Pitfall 1: Write Barrier
 
 cruby 那种最传统的 Mark-Sweep GC 实现中用户无需手工调用 Write Barrier 的幸福时代已经远去了。 mruby 的起点比 cruby 高得多，然而对于 cruby 的扩展开发者看来，强制使用 Write Barrier 却需要转变一下思路才好接受。
 
 在扩展中每修改对象的引用，都要分外注意调用 Write Barrier，不然可能会有奇怪的 seg fault 出现，而且单纯靠 core dump 难以定位问题的位置 (但可以定位到漏掉 Write Barrier 的对象类型)。
 
-此外，怀疑这样的代码也存在很小的悲剧概率:
+## Pitfall 2: Arena
+
+mruby GC 并没有扫描 C 栈，那么对于 C 扩展的开发者而言，怎样避免下面这样的悲剧？
 
 ```
 a = mrb_str_new(mrb, "a", 1);
 b = mrb_str_new(mrb, "b", 1);
-mrb_str_concat(mrb, a, b); // GC 并没有扫描 C 栈，内存紧张的话 a 或者 b 被回收怎么办?
+mrb_str_concat(mrb, a, b); // 内存紧张的话 a 或者 b 被回收了怎么办?
 ```
+
+mruby 对此的应对方案是在 `mrb_state` 结构体中增加了一个数组，用来保存最近新申请对象的引用，每申请一个对象，都会压入这个数组。到 GC 时会首先 mark 这一数组中引用的对象，从而避免了临时对象被回收的问题。它的名字有点奇怪：`arena`，但跟 dlmalloc 等内存分配器中 `arena` 的概念毫无联系。
+
+但它带来了一个新的问题，那就是如果一个函数内部申请的对象较多，会导致 arena 数组溢出。因此 C 扩展的开发者需要额外注意，务必配合调用 `mrb_arena_save()` 与 `mrb_arena_restore()`，及时地释放 arena 顶部。Issue [#1533](https://github.com/mruby/mruby/issues/1533) 属于这一问题的例子。
 
 ## Footnotes
 
