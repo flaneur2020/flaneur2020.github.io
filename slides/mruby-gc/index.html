@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style type="text/css">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body {
+        font-family: 'Droid Serif';
+        font-size: 20px;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      h1 { font-size: 4em; }
+      h2 { font-size: 2em; }
+      h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        -moz-border-radius: 5px;
+        -web-border-radius: 5px;
+        background: #e7e8e2;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# quick introduction mruby GC
+
+
+[fleuria](http://fleurer-lee.com)
+
+me.ssword@gmail.com
+---
+
+layout: false
+.left-column[
+  ## GC in mruby has a higher start point
+]
+.right-column[
+
+- Inheritant the heap layout from CRuby
+
+- Incremental vs Stop the world
+
+- Precise vs Conservative
+
+- Generational Mode
+
+.footnote[.red[*] of course there is no free lunch, we'll touch it later]
+]
+
+---
+
+.left-column[
+  ## the "Stop The World" GC
+]
+.right-column[
+![](img/stop-the-world.png)
+]
+---
+
+
+.left-column[
+  ## Incremental marking
+
+Tri-Color Marking makes the _marking phase_ incremental.
+]
+.right-column[
+![](img/tri-color.jpg)
+
+- in the beginning, all the objects are White.
+- the root objects become Gray
+- while there are gray objects: mark all the children of the gray object, then mark it as black
+- the White objects left behind are garbage
+
+.footnote[.red[*] Rule: Black objects _MUST NOT_ reference white objects]
+]
+---
+
+.left-column[
+## How about the sweeping phase?
+
+Introduce another "white" to make the _sweeping phase_ incremental
+]
+.right-column[
+
+- for the newly allocated object, set it as the "Fresh White"
+
+- for the dead objects after a mark phase, leave it as the "Dead White"
+
+- after each sweep phase, we simply swap the two Whites
+
+As a result..
+
+- We always clean up the dead objects from the previous GC cycle.
+]
+
+---
+.left-column[
+## Summary
+]
+.right-column[
+
+Pros:
+
+- split one GC cycle to several trips, shortten then GC latency
+
+- tunable
+
+- easy to implement: a state machine
+
+Cons:
+
+- make one GC cycle longer, made the life of each object longer, thus consumes more memory
+
+]
+
+
+---
+
+.left-column[
+## Generational GC
+
+the State-of-Art (pronounces "上档次") GC
+]
+.right-column[
+
+Instead of split one GC cycle to several trips, Generational GC shortens a GC cycle, based on the consumption: the young objects live shorter than the old.
+
+- Minor GC: only traverse the Young objects in the mark phase, then only sweep the newly created objects, and leave the Old objects live.
+
+- Major GC: same as a full regular GC cycle, triggered when threshold exceeds.
+
+.footnote[.red[*] well, the Generational GC in mruby is not quite "state-of-art" , but interesting]
+]
+---
+
+.left-column[
+## Generational GC in mruby
+]
+.right-column[
+Reusing the Tri-Color Infrastructure
+
+- treat the Black objects as Old objects after each sweep phase, instead of paint them to White.
+
+- do not sweep the Black object, except in Major GC
+
+Major GC still takes long time ...
+
+- reuse the Tri-Color infrastructure again, Major GC is incremental in mruby..
+]
+---
+
+.left-column[
+## Summary
+]
+.right-column[
+
+Pros:
+
+- take advantage of the Tri-Color infrastructure, introduce this feature with only few code
+
+- shorten the GC cycles, thus we can mark fewer objects in time
+
+- Major GC is also incremental, reduced the latency
+
+Cons:
+
+- not very "State-of-Art": only 2 generations.
+
+- increased the complexity
+
+]
+---
+
+.left-column[
+## Pitfalls for C Extension Developers: Write Barrier
+]
+.right-column[
+
+- Tri-Color GC and Generational GC requires Write Barriers to track the mutation of object references
+
+  - for Tri-Color GC, we should take Write Barrier to ensure Black objects NEVER references White objects.
+
+- So, whenever you modified your object's reference, you SHOULD remember calling write barrier.
+
+    - or strange SEGFAULT will knock your door.
+]
+
+---
+
+.left-column[
+## Pitfalls for C Extension Developers: Arena
+
+]
+.right-column[
+
+mruby does NOT scan C stack like CRuby, how do we protect the newly allocated objects?
+
+```
+a = mrb_str_new(mrb, "a", 1);
+b = mrb_str_new(mrb, "b", 1);
+// if memory is in stress, will a
+// or b be collected in the middle?
+mrb_str_concat(mrb, a, b);
+```
+
+- the newly allocated objects are all pushed into a global C array, thus `arena`, which acts as a manual stack.
+
+- GC will mark arena at first in each GC cycle, to protect the newly allocated objects.
+
+- but the `arena` array is fixed size, we MUST restore it manually if there are huge object allocations, like [issue1533](https://github.com/mruby/mruby/issues/1533)
+
+]
+
+---
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Q & A ?
+
+---
+# Thanks !
+
+
+    </textarea>
+    <script src="http://gnab.github.com/remark/downloads/remark-0.5.7.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var hljs = remark.highlighter.engine;
+    </script>
+    <script src="remark.language.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          highlightStyle: 'monokai',
+          highlightLanguage: 'remark'
+        }) ;
+    </script>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-44561333-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
