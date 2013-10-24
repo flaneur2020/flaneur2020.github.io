@@ -260,7 +260,9 @@ Pros:
 
 - take advantage of the Tri-Color infrastructure, introduce this feature with only few code
 
-- shorten the GC cycles, thus we can mark fewer objects in time
+- we can mark fewer objects in a GC cycle
+
+- recycle is triggered earlier
 
 - Major GC is also incremental, reduced the latency
 
