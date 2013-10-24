@@ -225,7 +225,7 @@ the State-of-Art (pronounces "上档次") GC
 ]
 .right-column[
 
-Instead of split one GC cycle to several trips, Generational GC shortens a GC cycle, based on the consumption: the young objects live shorter than the old.
+Instead of split one GC cycle to several trips, Generational GC shortens most GC cycles, based on the consumption: the young objects live shorter than the old.
 
 - Minor GC: only traverse the Young objects in the mark phase, then only sweep the newly created objects, and leave the Old objects live.
 
