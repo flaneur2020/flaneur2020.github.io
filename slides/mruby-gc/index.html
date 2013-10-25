@@ -241,9 +241,9 @@ Instead of split one GC cycle to several trips, Generational GC shortens most GC
 .right-column[
 Reusing the Tri-Color Infrastructure
 
-- treat the Black objects as Old objects after each sweep phase, instead of paint them to White.
+- treat the Black objects as Old objects after each sweep phase.
 
-- do not sweep the Black object, except in Major GC
+- do not paint the Black objects to White after sweep, except in Major GC
 
 Major GC still takes long time ...
 
