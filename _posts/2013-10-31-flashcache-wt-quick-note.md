@@ -50,8 +50,10 @@ DeviceMapper 提供了一套 bio 转发的机制，flashcache 作为它的框架
 
 `flashcache_wt_uncached_io_callback()` 做的事情比较简单：使对应缓存块失效；调用 `bio_endio()`；释放 `kcached_job` 对象。留意最后的这两行代码：
 
-        if (atomic_dec_and_test(&dmc->nr_jobs))
-                wake_up(&dmc->destroyq);
+```
+if (atomic_dec_and_test(&dmc->nr_jobs))
+    wake_up(&dmc->destroyq);
+```
 
 在 flashcache 退出路径的开始，都会调用 `kcached_client_destroy()`，等待来自 `destroyq` 的事件。目的是为了保证在 flashcache 退出之前处理完进行中的所有 `kcache_job`，避免有 IO 操作没有收到 `bio_endio()`。
 
