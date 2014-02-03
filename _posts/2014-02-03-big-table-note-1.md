@@ -17,7 +17,7 @@ title: "BigTable Note 1: Basic"
 
 BigTable 不支持跨行事务，但是每行的数据读写是原子的，因而得以安全高效地基于行做数据分割。每个行键对应一行数据，行键按字典序排列。每张表按一定行键的范围划分为 Tablet，Tablet 也正是数据分割与负载均衡的基本单位。每张 Tablet 大约为 100mb，当数据增大会自动分裂；当一台节点上的 Tablet 数量增多时，会尝试将 Tablet 的所有权 [1] 迁移到其它节点上。
 
-基于行键按字典序排列并按范围存储的性质，应用得以组织数据的局部性。比如 WebTable 将倒序的域名作为行键（像 com.cnn.www/index.html），这一来分析同一域名之下的地址更加高效。
+基于行键按字典序排列并按范围存储的性质，应用得以组织数据的局部性。比如 WebTable 将倒序的域名作为行键（像 com.cnn.www/index.html），这一来分析同一域名之下的一系列地址更加高效。
 
 [1]: Tablet 的迁移并不一定发生数据的迁移，因为数据总是持久化地保存在 GFS 上为所有节点共享，Tablet 的迁移只需要迁移 Tablet 相关的元信息。
 
@@ -25,8 +25,7 @@ BigTable 不支持跨行事务，但是每行的数据读写是原子的，因�
 
 列键会组织在 Column Family 中，作为基本的访问控制单元。往列中存储数据之前，该列必先加入某个 Column Family。Column Family 中的数据一般类型相同，会被一同压缩。每张表中 Column Family 的数量是有限的，但每个 Column Family 中可以存储无限数量的列。
 
-列键的命名规范为 family:qualifier，其中 family 必须为人类可读的字符，而 qualifier 可以为任意数据。比如 WebTable 中有个 Column Family 为 language，作为该网页唯一的语言标识；另一个有用的 Column Family 为 anchor，用以表示网页中的一个超链接地址，像 anchor:cnnsi.com, anchor:my.look.ca 。直白地说，一个 Column Family 可以在某种程度上视为表中的一个 Key-Value 类型字段。
-
+列键的命名规范为 family:qualifier，其中 family 必须为人类可读的字符，而 qualifier 可以为任意数据。比如 WebTable 中有个 Column Family 为 language，作为该网页唯一的语言标识；另一个有用的 Column Family 为 anchor，用以表示网页中的所有超链接地址，像 anchor:cnnsi.com, anchor:my.look.ca 。直白地说，一个 Column Family 可以在某种程度上视为表中的一个 Key-Value 类型字段。
 
 ## 时间戳
 
