@@ -135,15 +135,15 @@ Promising, but...
 
   - takes N-times longger than hot-restart + preload_app
 
+- two versions co-exists during restarting, we have to take care of keeping schema compatible between deploys.
+
+  - however, we have to keep schema compatible between deploys in most cases
+
 - don't compatible with preload_app
 
   - master process will act as a stateless *supervisor*, instead of a *preloader*
 
-- two versions co-exists during this time, we have to take care of keeping schema compatible between deploys.
-
-  - however, we have to keep schema compatible between deploys in most cases
-
-- do not need `reconnect!` any more
+  - do not need `reconnect!` any more
 
 ---
 
