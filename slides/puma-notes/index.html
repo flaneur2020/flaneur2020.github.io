@@ -13,7 +13,9 @@ layout: true
 class: center, middle, inverse
 ---
 
-# puma quick notes
+# quick note on puma
+
+## preload_app or phased-restart?
 
 [fleuria](http://fleurer-lee.com)
 
@@ -34,6 +36,8 @@ layout: false
 
 - hot-deploy / phased restart
 
+![](img/running-puma.png)
+
 ---
 
 ## But sometimes we just take shit ( aka.*"掉坑"* )
@@ -43,6 +47,7 @@ layout: false
 - then copy & paste their configuration snippets
 
 .footnote[ most time, we just copy solutions but don't take care of *why* ]
+
 
 ---
 
@@ -116,9 +121,66 @@ Promising, but...
 
   - *hot restart*: restart after killed all processes
 
-  - *phased restart*: kills processes one by one, do not block connection, but two versions co-exists, we have to take care of keeping schema compatible between deploys.
+  - *phased restart*: really zero-downtime, keep connections live and do not block
+
+---
+
+## Phased-restart
+  
+- start new then kill old one by one
+
+  - if start a new process failed, do not kill any old worker
+
+- each process is initialized by itself
+
+  - takes N-times longger than hot-restart + preload_app
+
+- don't compatible with preload_app
+
+  - master process will act as a stateless *supervisor*, instead of a *preloader*
+
+- do not need `reconnect!` any more
+
+- two versions co-exists during this time, we have to take care of keeping schema compatible between deploys.
 
 .footnote[ however, we have to keep schema compatible between deploys in most cases ]
+
+
+---
+
+## Phased-restart sample
+
+```
+kill -s SIGUSR1 `cat tmp/pids/puma.pid`
+```
+
+![](img/phased-restart-sample.png)
+
+ 
+---
+
+## Our new configuration
+
+remove `preload_app!` and the reconnections:
+
+```
+RAILS_ROOT = File.expand_path(File.dirname(File.dirname(__FILE__)))
+
+# bind  "unix://#{SHARED_ROOT}/sockets/puma.sock"
+bind "tcp://0.0.0.0:23333"
+pidfile "#{RAILS_ROOT}/tmp/pids/puma.pid"
+state_path "#{RAILS_ROOT}/tmp/pids/puma.state"
+
+# 不在 master 线程装载 bundler 环境
+prune_bundler
+
+# 线程池大小为 8
+threads 8, 8
+
+# 进程池大小为 3，即应用服务器的 CPU 数 + 1
+workers 3
+```
+
 
 ---
 name: inverse
@@ -126,9 +188,19 @@ layout: true
 class: center, middle, inverse
 ---
 
+# Q & A ?
+
+
+---
+
 # We are hiring!
 
 please contact [subdragon@gmail.com](subdragon@gmail.com)
+
+
+---
+
+# Thank you!
 
     </textarea>
     <script src="http://gnab.github.com/remark/downloads/remark-0.5.7.min.js" type="text/javascript"></script>
