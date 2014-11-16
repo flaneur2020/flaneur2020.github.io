@@ -17,7 +17,7 @@ supervisord 是 python 社区里比较常用的工具，能够保证进程在极
 
 *deploy 用户*：
 
-- 用以存放 Web App 代码，拥有 sudo 权限，且 NOPASSWD，用以控制 supervisorctl；
+- 用以存放 Web App 代码，拥有 sudo 权限，且 NOPASSWD，用以执行部署脚本、存放应用代码及依赖、控制 supervisorctl；
 - 主用户组为 deploy，可以保证部署的代码文件的用户组为 deploy；
 - 代码存放在 /home/deploy/www/myapp；
 
