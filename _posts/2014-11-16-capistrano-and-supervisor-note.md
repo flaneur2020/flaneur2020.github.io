@@ -31,8 +31,6 @@ supervisord 是 python 社区里比较常用的工具，能够保证进程在极
 假设项目中有三个 daemon：
 
 ```
-
-
 [program:myapp-puma]
 command=/home/deploy/.rbenv/shims/bundle exec puma -e production -S tmp/pids -C config/puma.rb
 stdout_logfile=/home/deploy/www/myapp/shared/log/puma-1-out.log
@@ -79,7 +77,6 @@ programs=myapp-puma,myapp-sidekiq,myapp-clockwork
 ## deploy.rb
 
 ```
-
 lock '3.2.1'
 
 set :application, 'myapp'
@@ -123,7 +120,7 @@ namespace :deploy do
       sudo "supervisorctl restart myapp:myapp-clockwork"
       sudo "supervisorctl restart myapp:myapp-sidekiq"
       # 通过发送 SIGUSR1 触发 puma 的 phased-restart
-      sudo "supervisorctl start myapp:myapp-puma"      
+      sudo "supervisorctl start myapp:myapp-puma"
       sudo "kill -SIGUSR1 $(cat #{shared_path}/tmp/pids/puma.pid)"
     end
   end
