@@ -143,3 +143,4 @@ end
 capistrano 配合几个常见的插件（如 capistrano-rails, capistrano-rbenv, capistrano-rbenv-install, capistrano-bundler 等 ），即已满足基本的部署需求：安装 ruby；建立部署的目录结构；链接共享文件或目录；部署代码；安装依赖；跑 Asset Pipeline；跑 Migration。剩下唯一需要自己做的就是提供重启、确保 supervisor 配置、确保文件写权限了。
 
 puma 允许通过 SIGUSR1 信号触发 phased-restart， 做到在重启时不中断服务。但 supervisor 并没有提供发送信号的工具命令，仍需要手工发送信号。所以在配置里需要做一个 work around：首先通过  sudo "supervisorctl start myapp:myapp-puma" 确保 puma 活着，然后读取 tmp/pids/puma.pid 发送 SIGUSR1。
+
