@@ -34,7 +34,7 @@ task :generate_notes, :xml do |task, args|
   require 'nokogiri'
   output = open(File.expand_path('../notes.md', __FILE__), 'w')
   output.puts '---'
-  output.puts 'layout: paper'
+  output.puts 'layout: default'
   output.puts 'title: Notes'
   output.puts '---'
   output.puts
@@ -46,7 +46,7 @@ task :generate_notes, :xml do |task, args|
     book.css('annotation').each do |annotation|
       title = annotation.css('title').first.content.split(/的笔记-/)[-1]
       content = annotation.css('content').first.content
-      content = content.gsub(/<原文开始>(.*?)<\/原文结束>/m) do |m|
+      content = content.gsub(/<原文开始.*>(.*?)<\/原文结束>/m) do |m|
         m.gsub(/<原文开始>|<\/原文结束>/, '').lines.map{|l| "> #{l}" } * ""
       end
       output.puts "### #{title}"
