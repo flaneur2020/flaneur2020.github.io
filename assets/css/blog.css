@@ -128,7 +128,8 @@ ul.posts {
 }
 
 .content ul li, .content ol li {
-    margin: 0.2em 2em 0.5em 1.5em;
+    margin: 0 0 0 1.5em;
+    line-height: 1.4em;
 }
 
 .content table th {
