@@ -58,6 +58,12 @@ code {
     font-family: serif;
 }
 
+#col-sidebar em.author {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 18px;
+}
+
 #col-sidebar a {
     line-height: 1.6em;
 }
