@@ -1,7 +1,3 @@
-html {
-    height: 100%;
-}
-
 body {
     background-color: #eee;
     font-family: 'Arapey', serif;
@@ -11,11 +7,9 @@ body {
 
 a {
     color: #8C0000;
-    border-bottom: 1px dotted;
     text-decoration: none;
 }
 
-a:hover { border-bottom: 1px solid; }
 a:visited { color: #551C1C; }
 
 strong {
@@ -25,7 +19,7 @@ strong {
 hr {
     border: none;
     height: 3px;
-    background: #eee url(../img/bg_hr.png);
+    background: #eee url(/images/bg_hr.png);
     display: block;
 }
 
@@ -47,95 +41,62 @@ em {
     font-style: italic;
 }
 
+code {
+    background: #dedede;
+    color: #555;
+}
+
 .gray { color: #555; }
 
 /* ------------------------------------------------ */
 
-#wrap {
-    width: 100%;
-    max-width: 900px;
-    position: relative;
-    bottom: 0;
-    min-height: 100%;
+#col-sidebar {
+    text-align: right;
 }
 
-#side {
-    width: 150px;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    bottom: 0;
-    background-color: #551C1C;
-    color: #bbb;
-    height: 100%;
-    border-right: 1px solid #361212;
-    text-shadow: 1px 1px #222;
-}
-
-#side h1 {
+#col-sidebar h1 {
     font-family: serif;
 }
 
-#side a {
-    color: #bbb;
-    border-bottom: none;
+#col-sidebar a {
     line-height: 1.6em;
-}
-
-#side a:hover {
-    color: #fff;
-    border-bottom: 1px solid #fff;
-}
-
-#side #nav {
-    margin-top: 2.2em;
-}
-
-#main {
-    margin-left: 170px;
-    min-height: 100%;
 }
 
 /* ------------------------------------------------ */
 
-ul#posts {
+ul.posts {
     list-style: none;
     padding: 0 0 15px 0;
 }
 
-#posts li {
+.posts li {
     padding: 0 0 8px 0;
 }
 
-#posts a.title {
+.posts a.title {
     vertical-align: middle;
     font-size: 15px;
     line-height: 20px;
 }
 
-#posts a.more {
+.posts a.more {
     margin: 0 10px 0 0;
 }
 
 /*= for single */
 
-.content {
-    font-size: 15px;
-}
-
 .content > * {
-    margin: 12px 0 12px 0;
-    line-height: 1.4em;
+    margin-bottom: 15px;
 }
 
 .content p {
+    line-height: 1.4em;
 }
 
 .content blockquote {
-    padding: 0 20px 0 20px;
+    margin-top: 15px;
     font-style: italic;
     color: #555;
-    margin: 0;
 }
 
 .content blockquote p {
@@ -144,11 +105,12 @@ ul#posts {
 
 .content img {
     display: inline-block;
-    max-width: 700px;
+    max-width: 100%;
 }
 
 .content pre {
     background: #444;
+    margin-top: 15px;
     color: #fff;
     font-family: monospace;
     font-size: 13px;
@@ -161,12 +123,12 @@ ul#posts {
     list-style: circle;
 }
 
-.content ol {
+.content > ol {
     list-style: decimal;
 }
 
 .content ul li, .content ol li {
-    margin: 0.5em 2em 0.5em 1.5em;
+    margin: 0.2em 2em 0.5em 1.5em;
 }
 
 .content table th {
@@ -178,31 +140,23 @@ ul#posts {
 
 /*= for comments */
 
-#comments {
+.comments {
     padding: 20px 0 0 0;
     font-size: 13px;
 }
 
-#comments h3 {
+.comments h3 {
     display: none;
 }
 
-#comments hr {
+.comments hr {
     height: 1px;
 }
 
-#comments #dsq-pagination, #dsq-sort-by {
+.comments #dsq-pagination, #dsq-sort-by {
     display: none;
 }
 
-#comments .dsq-comment-message {
+.comments .dsq-comment-message {
     font: 12px;
-}
-
-/* ---------------------------------------------- */
-
-#ft {
-    margin: 1em 0.5em 0 -1em;
-    color: #444;
-    font-size: 11px;
 }

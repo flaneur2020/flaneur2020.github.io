@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
-    {% if page.icon %}
-      <link rel="shortcut icon" type="image/png" href="{{page.icon}}" />
-    {% else %}
-      <link rel="shortcut icon" type="image/png" href="/images/icon.jpg" />
-    {% endif %}
-    <style>
-      @import url(/assets/css/font-face.css);
-      @import url(/assets/css/reset.css);
-      @import url(/assets/css/toolkit.css);
-      @import url(/assets/css/blog.css);
-    </style>
-    <link href='http://fonts.googleapis.com/css?family=Arapey:400italic,400' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" media="all and (max-device-width: 799px)" href="/assets/css/mobile.css">
-    {% if page.title %}
-      <title>{{ page.title }}</title>
-    {% else %}
-      <title>{{ site.title }}</title>
-    {% endif %}
-  </head>
-  <body>
-    <div id="wrap">
-      <div id="side">
-        <h1> {{ site.title }} </h1>
-        <em> by {{ site.author_name }}</a></em>
-        <ul id="nav">
-          <li><a href="/">home</a></li>
-          <li><a href="/archive.html">archive</a></li>
-          <li><a href="/about.html">about</a></li>
-          <li><a href="/links.html">links</a></li>
-          <li><a href="/atom.xml">atom</a></li>
-        </ul>
-      </div>
-
-      <div id="main">
-        <h1>{{ page.title }} &nbsp; </h1>
-        {% if page.date %}
-          <em class="date">{{ page.date | date_to_string }}</em>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
+        {% if page.icon %}
+        <link rel="shortcut icon" type="image/png" href="{{page.icon}}" />
+        {% else %}
+        <link rel="shortcut icon" type="image/png" href="/images/icon.jpg" />
         {% endif %}
-        {{content}}
-      </div>
-    </div>
-  </body>
+        <link href='http://fonts.googleapis.com/css?family=Arapey:400italic,400' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/assets/css/reset.css">
+        <link rel="stylesheet" href="/assets/css/blog.css">
+        <script src="/assets/js/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        {% if page.title %}
+        <title>{{ page.title }}</title>
+        {% else %}
+        <title>{{ site.title }}</title>
+        {% endif %}
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="col-sidebar" class="col-xs-2">
+                    <a href="/"><h1> {{ site.title }} </h1></a>
+                    <em class="hidden-xs hidden-sm"> by {{ site.author_name }}</a></em>
+                    <br/>
+                    <br/>
+                    <ul class="hidden-xs hidden-sm">
+                        <li><a href="/">home</a></li>
+                        <li><a href="/archive.html">archive</a></li>
+                        <li><a href="/about.html">about</a></li>
+                        <li><a href="/links.html">links</a></li>
+                        <li><a href="/atom.xml">atom</a></li>
+                    </ul>
+                </div>
+
+                <div id="col-main" class="col-xs-10 col-sm-7 col-md-6">
+                    <h1>{{ page.title }} &nbsp; </h1>
+                  
+                    {{content}}
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
 
