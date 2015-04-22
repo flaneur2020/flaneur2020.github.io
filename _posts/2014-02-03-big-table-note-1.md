@@ -11,7 +11,7 @@ title: "BigTable Note 1: Basic"
 
 为了方便讲解，论文中将 WebTable 作为例子，假定为爬虫爬来的网页数据表：
 
-![](/img/webtable.png)
+![](/images/webtable.png)
 
 ## 行与 Tablet
 

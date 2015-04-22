@@ -99,7 +99,7 @@ BFS为journal预留了一块固定大小的区域，以循环缓冲区(Circular 
 
 每条journal的内存布局与磁盘布局如下：
 
-![](/img/bfs-journaling.jpg)
+![](/images/bfs-journaling.jpg)
 
 可见每条journal中的数据以块为单位，第一块用以记录数据块的数目以及数据块到盘块地址的映射，后跟修改过的数据块。 
 

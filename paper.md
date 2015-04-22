@@ -45,9 +45,9 @@ Bochs 提供了许多配置选项，在项目中，我们可以灵活的选择/�
     # 内存大小
     megs: 128
     # 软盘镜像
-    floppya: 1_44=bin/kernel.img, status=inserted
+    floppya: 1_44=bin/kernel.images, status=inserted
     # 硬盘镜像
-    ata0-master: type=disk, path="bin/rootfs.img", mode=flat, cylinders=2, heads=16, spt=63
+    ata0-master: type=disk, path="bin/rootfs.images", mode=flat, cylinders=2, heads=16, spt=63
     # 引导方式(软盘)
     boot: a
     # 日志输出 
@@ -687,7 +687,7 @@ Buffer Cache相关的结构主要为`struct buf`、`struct devtab`，以及`char
 
 minix v1文件系统主要分为六个部分，如下图：
 
-![](/img/minix_fs_layout.jpg)
+![](/images/minix_fs_layout.jpg)
 
 1. 引导块，总是位于设备的第一个虚拟块，为bootloader所保留；
 1. 超级块，位于第二个虚拟块。它保存了一个文件系统的详细信息，比如inode的数量、zone的最大数量等；
@@ -747,7 +747,7 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
 
 文件是组织虚拟I/O的一种方式，每个文件都可以视作是独立的一段地址空间。fleurix通过`bmap()`(定义于`src/fs/bmap.c`)将文件中的偏移地址翻译为设备的物理块号，而inode在这里就扮演了翻译表的角色。
 
-![](/img/inode_blk_translation.gif)
+![](/images/inode_blk_translation.gif)
 
 如上图，minix v1文件系统采用了传统UNIX文件系统的分组多级中间表，默认只提供7个逻辑块的映射，若文件增长超过7个块的大小，则分配一个块作为中间表，额外提供512个块(即`NINDBLK`，定义于`src/inc/param.h`，等于`BLK / sizeof(unsigned short)`)的映射。如果文件更长，就采用二级中间表，这样最大可以支持262663个块(`7+512+512*512`)的映射，也就是说，单个文件最大限制约为256mb(`MAX_FILESIZ`，定义于`src/inc/param.h`)。
 
@@ -759,7 +759,7 @@ minix文件系统采用位图来表示文件系统中空闲的块，一个位对
 
 前面曾提到，inode结构并没有保存本文件的名字信息。所有文件的文件名，以及文件目录之间的层级关系，都保存在目录类型(`S_IFDIR`，定义于`src/inc/stat.h`)的inode中。每个文件系统的第1个inode都是目录类型。
 
-![](/img/inode_dirent.gif)
+![](/images/inode_dirent.gif)
 
 目录的数据布局与普通文件一致，不同在于数据的内容。目录文件的格式可以视作是`struct dirent`结构的一个数组，表示了一个目录中文件名到inode编号的映射关系。`struect dirent`的声明为：
 
