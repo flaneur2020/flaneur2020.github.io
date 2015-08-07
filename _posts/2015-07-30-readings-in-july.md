@@ -7,10 +7,6 @@ title: "Readings in July"
 
 https://www.evernote.com/l/AATOjsjG24pA2arIYnWYGKrSlT-SNj2_xLk
 
-*On Designing and Deploying Internet-scale Services*
-
-https://www.evernote.com/l/AASLhmNDXjxMUJTQGNUyiSo0CYr7Cexgib0
-
 *Getting Real About Distributed System Reliability*
 
 https://www.evernote.com/l/AARPM5LG4hJMq7SBQuXcAiazkyCuoCYmA1I
