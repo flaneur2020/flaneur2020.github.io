@@ -16,7 +16,7 @@ title: "Isolation Level"
 
 时至今日即使 wikipedia 上也是这四种分类，但是与现实世界已经不符合了[1]：按照 “症状” 划分的四种隔离级别，只适用于描述基于锁实现的并发控制；可是现在市面上的数据库早就都基于 MVCC 实现了，结果是各家数据库依然留着这四个隔离级别的名头，但语义有了不同：
 
-- MySQL 中最低的隔离级别其实是 Read Committed，而且不会出现 Phantom Read；Repeatable Read 其实是 Snapshot Isolation ；只有 Serializable 是完全基于锁的；
+- MySQL 中根本不会出现 Phantom Read；Repeatable Read 其实是 Snapshot Isolation ；只有 Serializable 是完全基于锁的；
 - Postgres 实质上只有两种隔离级别：Read Committed 和 Serializable；而 Serializable 是基于 MVCC 的无锁实现，即 Serializable Snapshot，相比 Snapshot 只牺牲一点性能，但彻底杜绝了出错的可能性；
 
 基于 MVCC 的 Snapshot 隔离级别看起来很美，在开始事务的一刻拍下快照，不会出现 Non-repeatable read 和 Phantom Read；但是它也有它的 “症状” 而导致丢失写，即 Write Skew。大约来看它的性质是：
