@@ -18,3 +18,7 @@ https://www.evernote.com/l/AASxzJ7DsdlNbL6kz3DOlLzRIuOqKBGlV-s
 *How to deploy software*
 
 https://www.evernote.com/l/AAS-ol4x-wFJpoRR2hikG9lG-1P9msurdTQ
+
+*JSON API: 格式*
+
+https://www.evernote.com/l/AATHMVTAu-9Dkoa8A9Kq3qLz2EKemjQzd00
