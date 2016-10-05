@@ -5,7 +5,7 @@ pygments: true
 baseurl: http://fleurer.github.com
 auto: false
 destination: ./_site
-title: 初心
+title: ~
 description: "by fleuria"
 
 author_name: fleuria
