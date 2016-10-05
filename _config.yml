@@ -5,7 +5,7 @@ pygments: true
 baseurl: http://fleurer.github.com
 auto: false
 destination: ./_site
-title: ~
+title: "notes"
 description: "by fleuria"
 
 author_name: fleuria
