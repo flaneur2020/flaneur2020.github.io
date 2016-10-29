@@ -75,7 +75,7 @@ ul.posts {
     padding: 0 0 15px 0;
 }
 
-.posts li {
+.posts > li {
     padding: 0 0 8px 0;
 }
 
