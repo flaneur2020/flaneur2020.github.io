@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Montly Readings #13: September"
+title: "Monthly Readings #13: September"
 ---
 
 *Don’t Share Libraries among Microservices:
