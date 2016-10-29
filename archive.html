@@ -5,9 +5,8 @@ title: Archive
 
 <h1>~</h1>
 
-<ul class="posts">
+<div class="content">
     {% for post in site.posts %}
-    <li> <a class="title" href="{{ post.url }}">{{ post.title }} </a> </li>
+    <p> <a class="title" href="{{ post.url }}">{{ post.title }} </a> </p>
     {% endfor %}
-</ul>
-
+</div>
