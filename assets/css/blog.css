@@ -4,14 +4,15 @@ body {
     font-family: 'Arapey', serif;
     color: #111;
     height: 100%;
+    font-size: 18px;
 }
 
 a {
-    color: #8C0000;
+    color: #0066B2;
     text-decoration: none;
 }
 
-a:visited { color: #551C1C; }
+a:visited { color: #285577; }
 
 strong {
     font-weight: bold;
@@ -65,8 +66,9 @@ code {
     padding-bottom: 18px;
 }
 
-#col-sidebar a {
-    line-height: 1.6em;
+#col-sidebar li {
+    line-height: 1.4em;
+    padding-bottom: 14px;
 }
 
 /* ------------------------------------------------ */
@@ -82,7 +84,6 @@ ul.posts {
 
 .posts a.title {
     vertical-align: middle;
-    font-size: 15px;
     line-height: 20px;
 }
 
@@ -116,7 +117,6 @@ ul.posts {
     margin-top: 15px;
     color: #fff;
     font-family: monospace;
-    font-size: 13px;
     line-height: 19px;
     padding: 0.9em;
     overflow: auto;
@@ -141,12 +141,15 @@ ul.posts {
     text-align: left;
 }
 
+.content {
+    margin-bottom: 55px;
+}
+
 
 /*= for comments */
 
 .comments {
     padding: 20px 0 0 0;
-    font-size: 13px;
 }
 
 .comments h3 {
