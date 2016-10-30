@@ -7,6 +7,6 @@ title: Archive
 
 <div class="content">
     {% for post in site.posts %}
-    <p> <a class="title" href="{{ post.url }}">{{ post.title }} </a> </p>
+    <p> {{ post.date | date_to_string }} <a class="title" href="{{ post.url }}">{{ post.title }} </a> </p>
     {% endfor %}
 </div>
