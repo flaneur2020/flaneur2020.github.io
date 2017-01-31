@@ -26,7 +26,7 @@ hr {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    padding: 2em 0 0.5em 0;
+    padding: 0.5em 0 0.5em 0;
 }
 
 h1 { font-size: 28px; }
@@ -44,7 +44,7 @@ em {
 }
 
 code {
-    background: #dedede;
+    background: #f1f1f1;
     color: #555;
 }
 
@@ -115,7 +115,7 @@ ul.posts {
 
 .content pre {
     background: #444;
-    margin-top: 15px;
+    margin: 15px 0 15px 0;
     color: #fff;
     font-family: monospace;
     line-height: 19px;
