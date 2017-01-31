@@ -53,21 +53,21 @@ code {
 
 /* ------------------------------------------------ */
 
-#col-sidebar {
+.col-sidebar {
     text-align: right;
 }
 
-#col-sidebar h1 {
+.col-sidebar h1 {
     font-family: serif;
 }
 
-#col-sidebar em.author {
+.col-sidebar em.author {
     display: block;
     padding-top: 4px;
     padding-bottom: 18px;
 }
 
-#col-sidebar li {
+.col-sidebar li {
     line-height: 1.4em;
     padding-bottom: 14px;
 }
