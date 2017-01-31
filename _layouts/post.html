@@ -6,7 +6,9 @@ layout: default
 
 <div class="content">
     {% if page.date %}
-      <p class="date"><em>{{ page.date | date_to_string }}</em></p>
+      <p>
+        <em class="gray">{{ page.date | date_to_string }} by {{ site.author_name }} </em>
+      </p>
     {% endif %}
 
     {{content}}

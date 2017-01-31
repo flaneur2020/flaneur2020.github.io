@@ -7,7 +7,10 @@ title: "~"
   <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
 
   <div class="content">
-    <p class="date"><em>{{ post.date | date_to_string }}</em></p>
+    <p>
+      <em class="gray">{{post.date | date_to_string }} by {{ site.author_name }}</em>
+    </p>
+
     {{ post.content }}
   </div>
 {% endfor %}
