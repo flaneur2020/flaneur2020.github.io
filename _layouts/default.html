@@ -31,7 +31,11 @@
                         <li><a href="/atom.xml">atom</a></li>
                     </ul>
 
-                    <h1 class="title-site">{{ site.title }}</h1>
+                    {% if page.title %}
+                      <h1 class="title-site">{{ page.title }}</h1>
+                    {% else %}
+                      <h1 class="title-site">{{ site.title }}</h1>
+                    {% endif %}
                 </div>
             </div>
 

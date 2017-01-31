@@ -53,21 +53,23 @@ code {
 /* ------------------------------------------------ */
 
 .row-header {
-    background: url(/images/bg-blog-header.png) no-repeat 50%;;
+    background: url(/images/bg-blog-header.jpg) no-repeat 50%;;
     background-size: cover;
     margin-bottom: 25px;
-    padding: 1rem 0 3.5rem 0;
+    padding: 1rem 0 1rem 0;
 }
 
 .row-header .list-nav a {
     line-height: 2em;
     color: #f2f2f2;
-    opacity: 0.4;
+    opacity: 0.9;
+    text-shadow: 0.2px 0.2px 0.1px #000;
 }
 
-.row-header .title-site {
+.row-header h1.title-site {
     color: #f2f2f2;
-    padding-top: 2em;
+    padding-top: 8em;
+    text-shadow: 0.5px 0.5px 0.3px #000;
 }
 
 .col-sidebar {
