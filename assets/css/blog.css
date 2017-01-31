@@ -77,23 +77,8 @@ code {
     text-shadow: 0.2px 0.2px 0.1px #000;
 }
 
-.col-sidebar {
-    text-align: right;
-}
-
-.col-sidebar h1 {
-    font-family: serif;
-}
-
-.col-sidebar em.author {
-    display: block;
-    padding-top: 4px;
-    padding-bottom: 18px;
-}
-
-.col-sidebar li {
-    line-height: 1.4em;
-    padding-bottom: 14px;
+.col-main {
+    padding-bottom: 60px;
 }
 
 /* ------------------------------------------------ */
@@ -114,15 +99,13 @@ ul.posts {
 
 /*= for single */
 
-.content > * {
+.content > p {
     margin-bottom: 15px;
-}
-
-.content p {
     line-height: 1.4em;
 }
 
-.content blockquote {
+.content > blockquote {
+    margin-bottom: 15px;
     margin-top: 15px;
     font-style: italic;
     color: #555;
@@ -132,12 +115,15 @@ ul.posts {
     padding: 1em 0 1em 0;
 }
 
-.content img {
+.content > img {
+    margin-bottom: 15px;
     display: inline-block;
     max-width: 100%;
 }
 
 .content pre {
+    margin-bottom: 15px;
+    display: block;
     background: #444;
     margin: 15px 0 15px 0;
     color: #fff;
@@ -147,29 +133,26 @@ ul.posts {
     overflow: auto;
 }
 
-.content ul {
+.content > ul {
+    margin-bottom: 15px;
     list-style: circle;
 }
 
 .content > ol {
+    margin-bottom: 15px;
     list-style: decimal;
 }
 
-.content ul li, .content ol li {
-    margin: 0 0 0 1.5em;
+.content > ul li, .content > ol li {
     line-height: 1.4em;
 }
 
 .content table th {
+    margin-bottom: 15px;
     border: 1px solid #eee;
     padding: 0.5em 0.5em 0.5em 0.5em;
     text-align: left;
 }
-
-.content {
-    margin-bottom: 55px;
-}
-
 
 /*= for comments */
 
