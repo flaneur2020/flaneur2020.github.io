@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Monthly Readings #17"
+title: "Monthly Readings #17: 2017 Jan"
 ---
 
 Semi-Synchronous Replication at Facebook:
