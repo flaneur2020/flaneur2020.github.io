@@ -56,16 +56,7 @@ code {
     background: url(/images/bg-blog-header.jpg) no-repeat 50%;;
     background-size: cover;
     margin-bottom: 1em;
-    padding: 1rem 0 17rem 0;
-    box-shadow: inset 0px 20px 80px -10px #333;
-}
-
-@media screen and (min-width: 64em) and (max-width: 64em) {
-  .row-header { padding: 1rem 0 17rem 0; }
-}
-
-@media screen and (min-width: 42em) and (max-width: 64em) {
-  .row-header { padding: 1rem 0 10rem 0; }
+    padding: 20em 0 1em 0;
 }
 
 @media screen and (max-width: 42em) {
@@ -75,7 +66,14 @@ code {
 .row-header .list-nav a {
     line-height: 2em;
     color: #f2f2f2;
-    opacity: 0.9;
+    opacity: 0.5;
+    text-shadow: 0.2px 0.2px 0.1px #000;
+}
+
+.row-header .list-nav b {
+    line-height: 2em;
+    color: #f2f2f2;
+    opacity: 0.8;
     text-shadow: 0.2px 0.2px 0.1px #000;
 }
 

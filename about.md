@@ -3,5 +3,10 @@ layout: post
 title: About
 ---
 
-- github: http://github.com/fleurer
-- email/gt: me.ssword@gmail.com
+github: http://github.com/fleurer
+
+zhihu: https://www.zhihu.com/people/fleurer
+
+douban: https://www.douban.com/people/fleure/
+
+email/gt: me.ssword@gmail.com
