@@ -20,22 +20,23 @@
         {% endif %}
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row row-header">
                 <div class="col-md-10 col-md-offset-2">
-                    <ul class="list-inline">
+                    <ul class="list-inline list-nav">
                         <li><a href="/">home</a></li>
                         <li><a href="/archive.html">archive</a></li>
                         <li><a href="/about.html">about</a></li>
                         <li><a href="/links.html">links</a></li>
                         <li><a href="/atom.xml">atom</a></li>
                     </ul>
+
+                    <h1 class="title-site">{{ site.title }}</h1>
                 </div>
             </div>
 
             <div class="row">
                 <div class="hidden-xs hidden-sm col-xs-2 col-sm-2 col-md-2 col-sidebar">
-                    <a class="pink" href="/"><h1> {{ site.title }} </h1></a>
                     <div>
                         <ul>
                         </ul>

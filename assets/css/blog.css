@@ -1,5 +1,4 @@
 body {
-    padding: 35px 0 35px 0;
     background-color: #fefefe;
     font-family: 'Alegreya', serif;
     color: #111;
@@ -52,6 +51,24 @@ code {
 .pink { color: deeppink;}
 
 /* ------------------------------------------------ */
+
+.row-header {
+    background: url(/images/bg-blog-header.png) no-repeat 50%;;
+    background-size: cover;
+    margin-bottom: 25px;
+    padding: 1rem 0 3.5rem 0;
+}
+
+.row-header .list-nav a {
+    line-height: 2em;
+    color: #f2f2f2;
+    opacity: 0.4;
+}
+
+.row-header .title-site {
+    color: #f2f2f2;
+    padding-top: 2em;
+}
 
 .col-sidebar {
     text-align: right;
