@@ -53,10 +53,10 @@ code {
 /* ------------------------------------------------ */
 
 .row-header {
-    background: url(/images/bg-blog-header.jpg) no-repeat 50%;;
+    background: url(/images/bg-blog-header.jpg) no-repeat 50%;
     background-size: cover;
     margin-bottom: 1em;
-    padding: 20em 0 1em 0;
+    padding: 12em 0 1em 0;
 }
 
 @media screen and (max-width: 42em) {
