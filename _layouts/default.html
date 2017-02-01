@@ -3,19 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-        <meta property="wb:webmaster" content="d4521ac3c77196f6" />
         <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
-        {% if page.icon %}
-        <link rel="shortcut icon" type="image/png" href="{{page.icon}}" />
-        {% else %}
         <link rel="shortcut icon" type="image/png" href="/images/icon.jpg" />
-        {% endif %}
         <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/reset.css">
         <link rel="stylesheet" href="/assets/css/blog.css">
+        <link rel="stylesheet" href="/assets/css/share.min.css">
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/jquery.share.min.js"></script>
         {% if page.title %}
-        <title>{{ page.title }}</title>
+        <title>{{ page.title }} | {{ site.title }}</title>
         {% else %}
         <title>{{ site.title }}</title>
         {% endif %}
@@ -46,4 +44,3 @@
         </div>
     </body>
 </html>
-

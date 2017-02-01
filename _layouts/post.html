@@ -13,6 +13,16 @@ layout: default
     {{content}}
 </div>
 
+<div class="social-sharing"></div>
+
+<script type="text/javascript">
+$(function(){
+    $('.social-sharing').share({
+        sites: ['weibo', 'wechat', 'douban', 'twitter'],
+    });
+});
+</script>
+
 <!--
 <div class="comments">
     <div id="disqus_thread"></div>

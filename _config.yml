@@ -2,11 +2,10 @@ markdown: redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 pygments: true
-baseurl: http://fleurer.github.com
+baseurl: http://fleurer.github.io
 auto: false
 destination: ./_site
-title: "Night readings"
-description: "by fleuria"
+title: "F叔的学习笔记"
 
 author_name: fleuria
 author_email: me.ssword@gmail.com

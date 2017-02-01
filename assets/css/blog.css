@@ -154,6 +154,10 @@ ul.posts {
     text-align: left;
 }
 
+.social-sharing {
+    padding: 3em 0 3em 0;
+}
+
 /*= for comments */
 
 .comments {
