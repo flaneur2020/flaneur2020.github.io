@@ -179,3 +179,9 @@ ul.posts {
 .comments .dsq-comment-message {
     font: 12px;
 }
+
+/*= social */
+
+.social-share .social-share-icon {
+    margin: 0 8px 0 0;
+}
