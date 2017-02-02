@@ -1,7 +1,7 @@
 body {
     background-color: #fefefe;
     font-family: 'Alegreya', serif;
-    color: #111;
+    color: #555;
     height: 100%;
     font-size: 15px;
 }
@@ -26,6 +26,7 @@ hr {
 
 h1,h2,h3,h4,h5,h6 {
     padding: 0.5em 0 0.5em 0;
+    color: #333;
 }
 
 h1 { font-size: 28px; padding-top: 2em; }
