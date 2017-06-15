@@ -26,7 +26,6 @@ GEM
     pygments.rb (0.3.7)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
-    redcarpet (2.2.2)
     slop (3.4.3)
     syntax (1.0.0)
     yajl-ruby (1.1.0)
@@ -36,8 +35,8 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll
+  kramdown
   pry
-  redcarpet
 
 BUNDLED WITH
    1.13.6
