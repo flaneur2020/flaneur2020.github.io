@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Note on LSH"
+title: "Mining Massive Datasets 学习笔记: LSH"
 ---
 
 
