@@ -29,7 +29,7 @@ h1,h2,h3,h4,h5,h6 {
     color: #333;
 }
 
-h1 { font-size: 28px; padding-top: 2em; }
+h1 { font-size: 28px; padding-top: 3em; }
 h2 { font-size: 25px; }
 h3 { font-size: 20px; }
 h4 { font-size: 18px; }
@@ -54,10 +54,9 @@ code {
 /* ------------------------------------------------ */
 
 .row-header {
-    background: url(/images/bg-blog-header.jpg) no-repeat 50%;
     background-size: cover;
     margin-bottom: 1em;
-    padding: 12em 0 1em 0;
+    padding: 3em 0 0em 0;
 }
 
 @media screen and (max-width: 42em) {
@@ -66,16 +65,10 @@ code {
 
 .row-header .list-nav a {
     line-height: 2em;
-    color: #f2f2f2;
-    opacity: 0.5;
-    text-shadow: 0.2px 0.2px 0.1px #000;
 }
 
 .row-header .list-nav b {
     line-height: 2em;
-    color: #f2f2f2;
-    opacity: 0.8;
-    text-shadow: 0.2px 0.2px 0.1px #000;
 }
 
 .col-main {
@@ -185,4 +178,10 @@ ul.posts {
 
 .social-share .social-share-icon {
     margin: 0 8px 0 0;
+}
+
+/*= mathjax */
+
+li > .MJXc-display {
+    display: inline;
 }
