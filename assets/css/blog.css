@@ -31,9 +31,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h1 { font-size: 28px; padding-top: 2.5em; }
-h2 { font-size: 25px; }
-h3 { font-size: 20px; }
-h4 { font-size: 18px; }
+h2 { font-size: 20px; }
+h3 { font-size: 17px; }
+h4 { font-size: 16px; }
 
 sup {
     vertical-align: super;
