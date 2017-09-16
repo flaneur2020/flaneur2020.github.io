@@ -5,7 +5,7 @@ title: "Monthly Readings #17: 2017 Jan"
 
 Semi-Synchronous Replication at Facebook:
 
-https://www.evernote.com/l/AATV7nQ9kf9OQbS0BNfY2IHjdu99iM4_GXM
+<https://www.evernote.com/l/AATV7nQ9kf9OQbS0BNfY2IHjdu99iM4_GXM>
 
 The Architecture of Schemaless, Uber Engineering’s Trip Datastore Using MySQL
 
