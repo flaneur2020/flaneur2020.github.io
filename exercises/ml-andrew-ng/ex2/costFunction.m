@@ -21,7 +21,8 @@ grad = zeros(size(theta));
 %
 
 
-
+disp('X;'); disp(X);
+pause
 
 
 
