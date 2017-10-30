@@ -112,7 +112,7 @@ for k = 1:num_labels
     %end
 end
 % need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
-rSum = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2)))
+rSum = sum(Theta1(:, 2:end)(:) .^ 2) + sum(Theta2(:, 2:end)(:) .^ 2)
 J = 0 - jSum / m + rSum * lambda / (2 * m)
 end
 
@@ -123,8 +123,8 @@ num_labels = size(Theta2, 1);
 
 p = zeros(size(X, 1), 1);
 
-h1 = sigmoid([ones(m, 1) X] * Theta1');
-h2 = sigmoid([ones(m, 1) h1] * Theta2');
+a1 = sigmoid([ones(m, 1) X] * Theta1');
+a2 = sigmoid([ones(m, 1) a1] * Theta2');
 
-H = h2
+H = a2
 end
