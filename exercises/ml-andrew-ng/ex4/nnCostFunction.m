@@ -112,8 +112,8 @@ for k = 1:num_labels
     %end
 end
 % need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
-r = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))) * lambda / (2 * m)
-J = 0 - jSum / m + r
+rSum = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2)))
+J = 0 - jSum / m + rSum * lambda / (2 * m)
 end
 
 
