@@ -52,6 +52,7 @@ for i = 1:m
         jSum += Yik * log(H(i, :))(k) + (1 - Yik) * log(1 - H(i, :))(k)
     end
 end
+% need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
 r = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))) * lambda / (2 * m)
 
 J = 0 - jSum / m + r
