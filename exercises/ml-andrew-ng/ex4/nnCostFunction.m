@@ -39,23 +39,7 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 
-
-H = feedForward(Theta1, Theta2, X)
-jSum = 0
-for i = 1:m
-    for k = 1:num_labels
-        % disp('size(y)'); disp(size(y))
-        % disp('size(H)'); disp(size(H))
-        % disp('num_labels'); disp(num_labels)
-        % pause
-        Yik = (y(i) == k)
-        jSum += Yik * log(H(i, :))(k) + (1 - Yik) * log(1 - H(i, :))(k)
-    end
-end
-% need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
-r = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))) * lambda / (2 * m)
-
-J = 0 - jSum / m + r
+J = calculateJ(Theta1, Theta2, X, y, lambda)
 
 
 %
@@ -109,6 +93,29 @@ grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
 
 end
+
+
+function J = calculateJ(Theta1, Theta2, X, y, lambda)
+m = size(X, 1);
+num_labels = size(Theta2, 1);
+% calculate the J value
+H = feedForward(Theta1, Theta2, X)
+jSum = 0
+for i = 1:m
+    for k = 1:num_labels
+        % disp('size(y)'); disp(size(y))
+        % disp('size(H)'); disp(size(H))
+        % disp('num_labels'); disp(num_labels)
+        % pause
+        Yik = (y(i) == k)
+        jSum += Yik * log(H(i, :))(k) + (1 - Yik) * log(1 - H(i, :))(k)
+    end
+end
+% need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
+r = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))) * lambda / (2 * m)
+J = 0 - jSum / m + r
+end
+
 
 function H = feedForward(Theta1, Theta2, X)
 m = size(X, 1);
