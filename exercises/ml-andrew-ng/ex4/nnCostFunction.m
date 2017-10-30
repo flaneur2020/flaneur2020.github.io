@@ -52,7 +52,9 @@ for i = 1:m
         jSum += Yik * log(H(i, :))(k) + (1 - Yik) * log(1 - H(i, :))(k)
     end
 end
-J = 0 - jSum / m
+r = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))) * lambda / (2 * m)
+
+J = 0 - jSum / m + r
 
 
 %
