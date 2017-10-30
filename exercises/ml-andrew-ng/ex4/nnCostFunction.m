@@ -39,7 +39,11 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 
-J = calculateJ(Theta1, Theta2, X, y, lambda)
+[A1, A2] = feedForward(Theta1, Theta2, X)
+J = calculateJ(A1, A2, X, y, lambda)
+
+rSum = sum(Theta1(:, 2:end)(:) .^ 2) + sum(Theta2(:, 2:end)(:) .^ 2)
+J = J + rSum * lambda / (2 * m)
 
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
@@ -97,11 +101,13 @@ grad = [Theta1_grad(:) ; Theta2_grad(:)];
 end
 
 
-function J = calculateJ(Theta1, Theta2, X, y, lambda)
+function J = calculateJ(A1, A2, X, y, lambda)
 m = size(X, 1);
-num_labels = size(Theta2, 1);
+num_labels = size(A2, 2);
 % calculate the J value
-H = feedForward(Theta1, Theta2, X)
+% [A1, A2] = feedForward(Theta1, Theta2, X)
+H = A2
+
 jSum = 0
 for k = 1:num_labels
     Hk = H(:, k)
@@ -112,19 +118,16 @@ for k = 1:num_labels
     %end
 end
 % need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
-rSum = sum(Theta1(:, 2:end)(:) .^ 2) + sum(Theta2(:, 2:end)(:) .^ 2)
-J = 0 - jSum / m + rSum * lambda / (2 * m)
+J = 0 - jSum / m
 end
 
 
-function H = feedForward(Theta1, Theta2, X)
+function [A1, A2] = feedForward(Theta1, Theta2, X)
 m = size(X, 1);
 num_labels = size(Theta2, 1);
 
 p = zeros(size(X, 1), 1);
 
-a1 = sigmoid([ones(m, 1) X] * Theta1');
-a2 = sigmoid([ones(m, 1) a1] * Theta2');
-
-H = a2
+A1 = sigmoid([ones(m, 1) X] * Theta1');
+A2 = sigmoid([ones(m, 1) A1] * Theta2');
 end
