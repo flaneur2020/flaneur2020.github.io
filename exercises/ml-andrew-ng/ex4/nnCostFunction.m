@@ -41,7 +41,6 @@ Theta2_grad = zeros(size(Theta2));
 
 J = calculateJ(Theta1, Theta2, X, y, lambda)
 
-
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
@@ -57,6 +56,9 @@ J = calculateJ(Theta1, Theta2, X, y, lambda)
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the
 %               first time.
+
+
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
@@ -101,15 +103,13 @@ num_labels = size(Theta2, 1);
 % calculate the J value
 H = feedForward(Theta1, Theta2, X)
 jSum = 0
-for i = 1:m
-    for k = 1:num_labels
-        % disp('size(y)'); disp(size(y))
-        % disp('size(H)'); disp(size(H))
-        % disp('num_labels'); disp(num_labels)
-        % pause
-        Yik = (y(i) == k)
-        jSum += Yik * log(H(i, :))(k) + (1 - Yik) * log(1 - H(i, :))(k)
-    end
+for k = 1:num_labels
+    Hk = H(:, k)
+    Yk = (y == k)
+    jSum += Yk' * log(Hk) + (1 - Yk)' * log(1 - Hk)
+    % for i = 1:m
+    %     jSum += Yk(i) * log(Hk(i)) + (1 - Yk)(i) * log(1 - Hk(i))
+    %end
 end
 % need to strip the bias vectors, which are Theta1(:, 1) and Theta2(:, 1)
 r = (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2))) * lambda / (2 * m)
