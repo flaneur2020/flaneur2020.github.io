@@ -8,8 +8,8 @@ function [J grad] = nnCostFunction(nn_params, ...
 %   [J grad] = NNCOSTFUNCTON(nn_params, hidden_layer_size, num_labels, ...
 %   X, y, lambda) computes the cost and gradient of the neural network. The
 %   parameters for the neural network are "unrolled" into the vector
-%   nn_params and need to be converted back into the weight matrices. 
-% 
+%   nn_params and need to be converted back into the weight matrices.
+%
 %   The returned parameter grad should be a "unrolled" vector of the
 %   partial derivatives of the neural network.
 %
@@ -24,8 +24,8 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 % Setup some useful variables
 m = size(X, 1);
-         
-% You need to return the following variables correctly 
+
+% You need to return the following variables correctly
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
@@ -38,6 +38,23 @@ Theta2_grad = zeros(size(Theta2));
 %         variable J. After implementing Part 1, you can verify that your
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
+
+
+H = feedForward(Theta1, Theta2, X)
+jSum = 0
+for i = 1:m
+    for k = 1:num_labels
+        % disp('size(y)'); disp(size(y))
+        % disp('size(H)'); disp(size(H))
+        % disp('num_labels'); disp(num_labels)
+        % pause
+        Yik = (y(i) == k)
+        jSum += Yik * log(H(i, :))(k) + (1 - Yik) * log(1 - H(i, :))(k)
+    end
+end
+J = 0 - jSum / m
+
+
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
@@ -51,7 +68,7 @@ Theta2_grad = zeros(size(Theta2));
 %               cost function.
 %
 %         Hint: We recommend implementing backpropagation using a for-loop
-%               over the training examples if you are implementing it for the 
+%               over the training examples if you are implementing it for the
 %               first time.
 %
 % Part 3: Implement regularization with the cost function and gradients.
@@ -88,4 +105,16 @@ Theta2_grad = zeros(size(Theta2));
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
 
+end
+
+function H = feedForward(Theta1, Theta2, X)
+m = size(X, 1);
+num_labels = size(Theta2, 1);
+
+p = zeros(size(X, 1), 1);
+
+h1 = sigmoid([ones(m, 1) X] * Theta1');
+h2 = sigmoid([ones(m, 1) h1] * Theta2');
+
+H = h2
 end
