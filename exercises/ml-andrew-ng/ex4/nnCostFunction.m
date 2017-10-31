@@ -39,6 +39,7 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 
+A1 = X
 [A2, A3, Z2, Z3] = feedForward(Theta1, Theta2, X)
 J = calculateJ(A2, A3, X, y, lambda)
 
@@ -61,7 +62,32 @@ J = J + rSum * lambda / (2 * m)
 %               over the training examples if you are implementing it for the
 %               first time.
 
+Y = zeros(m, num_labels)
+for i = 1:num_labels
+    Y(:, i) = (y == i)
+end
 
+disp('size(X);'); disp(size(X))  % 500 x 400
+disp('size(A2);'); disp(size(A2))  % 5000 x 25
+disp('size(A3);'); disp(size(A3))  % 5000 x 10
+disp('size(Y);'); disp(size(Y))  % 5000 x 10
+disp('size(Theta2);'); disp(size(Theta2))  % 10x26
+disp('size(Z2);'); disp(size(Z2))  % 5000 x 25
+
+
+
+delta_1 = zeros(size(Theta1))
+delta_2 = zeros(size(Theta2))
+disp('size(delta_2);'); disp(size(delta_2))  % 5000 x 25
+for i = 1:m
+    e3 = A3(i, :) - Y(i, :)  % 1 x 10
+    e2 = (e3 * Theta2)(:, 2:end) .* sigmoidGradient(Z2(i, :)) % 1 x 25
+    delta_2 = delta_2 + [zeros(size(delta_2), 1) e3' * A2(i, :)] % 10 x 26
+    delta_1 = delta_1 + [zeros(size(delta_1), 1) e2' * A1(i, :)]
+end
+
+Theta1_grad = delta_1 / m
+Theta2_grad = delta_2 / m
 
 %
 % Part 3: Implement regularization with the cost function and gradients.
