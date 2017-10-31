@@ -39,7 +39,7 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 
-[A1, A2] = feedForward(Theta1, Theta2, X)
+[A1, A2, Z1, Z2] = feedForward(Theta1, Theta2, X)
 J = calculateJ(A1, A2, X, y, lambda)
 
 rSum = sum(Theta1(:, 2:end)(:) .^ 2) + sum(Theta2(:, 2:end)(:) .^ 2)
@@ -122,12 +122,14 @@ J = 0 - jSum / m
 end
 
 
-function [A1, A2] = feedForward(Theta1, Theta2, X)
+function [A1, A2, Z1, Z2] = feedForward(Theta1, Theta2, X)
 m = size(X, 1);
 num_labels = size(Theta2, 1);
 
 p = zeros(size(X, 1), 1);
 
-A1 = sigmoid([ones(m, 1) X] * Theta1');
-A2 = sigmoid([ones(m, 1) A1] * Theta2');
+Z1 = [ones(m, 1) X] * Theta1'
+A1 = sigmoid(Z1);
+Z2 = [ones(m, 1) A1] * Theta2'
+A2 = sigmoid(Z2);
 end
