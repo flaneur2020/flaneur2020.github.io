@@ -67,18 +67,18 @@ for i = 1:num_labels
     Y(:, i) = (y == i);
 end
 
-disp('size(X);'); disp(size(X))  % 500 x 400
-disp('size(A2);'); disp(size(A2))  % 5000 x 25
-disp('size(A3);'); disp(size(A3))  % 5000 x 10
-disp('size(Y);'); disp(size(Y))  % 5000 x 10
-disp('size(Theta2);'); disp(size(Theta2))  % 10x26
-disp('size(Z2);'); disp(size(Z2))  % 5000 x 25
+disp('size(X);'); disp(size(X));  % 500 x 400
+disp('size(A2);'); disp(size(A2));  % 5000 x 25
+disp('size(A3);'); disp(size(A3));  % 5000 x 10
+disp('size(Y);'); disp(size(Y));  % 5000 x 10
+disp('size(Theta2);'); disp(size(Theta2));  % 10x26
+disp('size(Z2);'); disp(size(Z2));  % 5000 x 25
 
 
 
 delta_1 = zeros(size(Theta1));
 delta_2 = zeros(size(Theta2));
-disp('size(delta_2);'); disp(size(delta_2))  % 5000 x 25
+disp('size(delta_2);'); disp(size(delta_2));  % 5000 x 25
 for i = 1:m
     e3 = A3(i, :) - Y(i, :); % 1 x 10
     e2 = (e3 * Theta2)(:, 2:end) .* sigmoidGradient(Z2(i, :)); % 1 x 25
@@ -86,8 +86,7 @@ for i = 1:m
     delta_1 = delta_1 + [e2' * [1 A1(i, :)]];
 end
 
-disp('delta_2'); disp(delta_2);
-
+% disp('delta_2'); disp(delta_2);
 
 Theta1_grad = delta_1 / m;
 Theta2_grad = delta_2 / m;
@@ -135,13 +134,13 @@ m = size(X, 1);
 num_labels = size(A3, 2);
 % calculate the J value
 % [A1, A2] = feedForward(Theta1, Theta2, X)
-H = A3
+H = A3;
 
-jSum = 0
+jSum = 0;
 for k = 1:num_labels
-    Hk = H(:, k)
-    Yk = (y == k)
-    jSum += Yk' * log(Hk) + (1 - Yk)' * log(1 - Hk)
+    Hk = H(:, k);
+    Yk = (y == k);
+    jSum += Yk' * log(Hk) + (1 - Yk)' * log(1 - Hk);
     % for i = 1:m
     %     jSum += Yk(i) * log(Hk(i)) + (1 - Yk)(i) * log(1 - Hk(i))
     %end
