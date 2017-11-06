@@ -23,10 +23,13 @@ disp('size(X)'); disp(size(X)); % 12 x 2
 disp(X);
 disp('size(theta)'); disp(size(theta)); % 2 x 1
 
-h = X * theta - y;  % 12 x 1
-J = (h' * h) / (2 * m);
+err = X * theta - y;  % 12 x 1
+J = (err' * err) / (2 * m);
 J += (theta(2:end, :)' * theta(2:end, :)) * lambda / (2 * m);
 
+
+grad = (X' * err) / m + (theta * lambda / m);
+grad(1) = (err' * X(:, 1)) / m;
 
 
 
@@ -35,6 +38,5 @@ J += (theta(2:end, :)' * theta(2:end, :)) * lambda / (2 * m);
 
 % =========================================================================
 
-grad = grad(:);
 
 end
