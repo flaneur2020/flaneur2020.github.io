@@ -1,5 +1,4 @@
 markdown: kramdown
-pygments: true
 baseurl: http://fleurer.github.io
 auto: false
 destination: ./_site
