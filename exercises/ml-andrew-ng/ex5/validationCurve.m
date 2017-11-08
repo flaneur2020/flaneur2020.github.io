@@ -40,6 +40,14 @@ error_val = zeros(length(lambda_vec), 1);
 %
 
 
+for i = 1:length(lambda_vec)
+    lambda = lambda_vec(i);
+    theta = trainLinearReg(X, y, lambda);
+    error_train(i) = calculateError(X, y, theta);
+    % disp('error_train(i)');disp(error_train(i));
+    error_val(i) = calculateError(Xval, yval, theta);
+end
+
 
 
 
@@ -50,4 +58,10 @@ error_val = zeros(length(lambda_vec), 1);
 
 % =========================================================================
 
+end
+
+
+function [J] = calculateError(X, y, theta)
+  he = X * theta - y; % 12 x 1
+  J = (he' * he) / (2 * length(y));
 end
