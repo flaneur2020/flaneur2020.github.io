@@ -19,9 +19,9 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
-disp('size(X)'); disp(size(X)); % 12 x 2
-disp(X);
-disp('size(theta)'); disp(size(theta)); % 2 x 1
+% disp('size(X)'); disp(size(X)); % 12 x 2
+% disp(X);
+% disp('size(theta)'); disp(size(theta)); % 2 x 1
 
 err = X * theta - y;  % 12 x 1
 J = (err' * err) / (2 * m);
