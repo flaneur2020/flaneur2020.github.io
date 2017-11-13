@@ -15,6 +15,11 @@ sim = 0;
 %               sigma
 %
 %
+% disp('size(x1)'); disp(size(x1)); % 3 x 1
+% disp('size(x2)'); disp(size(x2)); % 3 x 1
+
+xDiff = x1 - x2;  %
+sim = exp((0 - (xDiff' * xDiff)) / (2 * sigma * sigma));
 
 
 
@@ -22,5 +27,4 @@ sim = 0;
 
 
 % =============================================================
-    
 end
