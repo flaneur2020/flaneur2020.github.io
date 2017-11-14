@@ -60,7 +60,7 @@ while ~isempty(email_contents)
     [str, email_contents] = ...
        strtok(email_contents, ...
               [' @$/#.-:&*+=[]?!(){},''">_<;%' char(10) char(13)]);
-   
+
     % Remove any non alphanumeric characters
     str = regexprep(str, '[^a-zA-Z0-9]', '');
 
@@ -97,6 +97,15 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
+    foundIdx = -1;
+    for idx = 1:length(vocabList)
+        if strcmp(vocabList{idx}, str) == 1
+            foundIdx = idx;
+        end
+    end
+    if foundIdx != -1
+        word_indices = [word_indices; foundIdx]
+    end
 
 
 
