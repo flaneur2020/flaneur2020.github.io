@@ -13,9 +13,9 @@ centroids = zeros(K, size(X, 2));
 %               the dataset X
 %
 
-
-
-
+for i = 1:K
+    centroids(i, :) = X(i, :);
+end
 
 
 
