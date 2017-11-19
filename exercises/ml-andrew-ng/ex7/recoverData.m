@@ -23,9 +23,9 @@ X_rec = zeros(size(Z, 1), size(U, 1));
 
 
 for i = 1:rows(Z)
-    U_rec = U(:, 1:K)
-    z = Z(i, :)
-    X_rec(i, :) = z * U_rec'
+    U_rec = U(:, 1:K);
+    z = Z(i, :);
+    X_rec(i, :) = z * U_rec';
 end
 
 
