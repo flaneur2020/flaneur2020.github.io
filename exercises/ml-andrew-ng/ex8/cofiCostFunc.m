@@ -45,16 +45,18 @@ disp('size(Theta)'); disp(size(Theta)) % 3x5
 disp('size(Y)'); disp(size(Y)) % 4x3
 disp('size(R)'); disp(size(R)) % 4x3
 
-jSum = 0;
-for i = 1:num_movies
-    for j = 1:num_users
-        if R(i, j) == 1
-            jSum += (X(i, :) * Theta(j, :)' - Y(i, j)) ^ 2;
-        end
-    end
-end
+% jSum = 0;
+% for i = 1:num_movies
+%    for j = 1:num_users
+%        if R(i, j) == 1
+%            jSum += (X(i, :) * Theta(j, :)' - Y(i, j)) ^ 2;
+%        end
+%    end
+%end
+%J = jSum / 2;
 
-J = jSum / 2;
+h = (X * Theta' - Y) .* (R == 1);
+J = sum(sum(h .* h)) / 2;
 
 
 
