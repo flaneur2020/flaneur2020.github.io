@@ -55,11 +55,14 @@ Theta_grad = zeros(size(Theta));
 %end
 %J = jSum / 2;
 
-Err = (X * Theta' - Y) .* (R == 1); % 4x3
-J = sum(sum(Err .* Err)) / 2;
+Theta_R = sum(sum(Theta .^ 2)) * lambda / 2;
+X_R = sum(sum(X .^ 2)) * lambda / 2;
 
-X_grad = Err * Theta;
-Theta_grad = Err' * X;
+Err = (X * Theta' - Y) .* (R == 1); % 4x3
+J = sum(sum(Err .* Err)) / 2 + Theta_R + X_R;
+
+X_grad = Err * Theta + X * lambda;
+Theta_grad = Err' * X + Theta * lambda;
 
 
 
