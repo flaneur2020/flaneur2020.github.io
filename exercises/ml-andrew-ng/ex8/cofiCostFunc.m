@@ -40,10 +40,10 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
-disp('size(X)'); disp(size(X)); % 4x5
-disp('size(Theta)'); disp(size(Theta)) % 3x5
-disp('size(Y)'); disp(size(Y)) % 4x3
-disp('size(R)'); disp(size(R)) % 4x3
+% disp('size(X)'); disp(size(X)); % 4x5
+% disp('size(Theta)'); disp(size(Theta)) % 3x5
+% disp('size(Y)'); disp(size(Y)) % 4x3
+% disp('size(R)'); disp(size(R)) % 4x3
 
 % jSum = 0;
 % for i = 1:num_movies
@@ -55,11 +55,11 @@ disp('size(R)'); disp(size(R)) % 4x3
 %end
 %J = jSum / 2;
 
-h = (X * Theta' - Y) .* (R == 1);
-J = sum(sum(h .* h)) / 2;
+Err = (X * Theta' - Y) .* (R == 1); % 4x3
+J = sum(sum(Err .* Err)) / 2;
 
-
-
+X_grad = Err * Theta;
+Theta_grad = Err' * X;
 
 
 
