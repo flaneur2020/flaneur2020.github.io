@@ -1,6 +1,7 @@
 ---
 layout: post
 title: About
+permlink: /about
 ---
 
 github: http://github.com/fleurer

@@ -1,47 +1,22 @@
 body {
     background-color: #fefefe;
-    font-family: 'Alegreya', serif;
-    color: #555;
-    height: 100%;
-    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 300;
+    background: #fdfdfd;
 }
 
-a {
-    color: #0066B2;
-    text-decoration: none;
-}
+h1, h2, h3, h4, h5, h6 { font-size: 100%; margin: 40px 0 20px; }
+h1 { font-size: 30px; }
+h2 { font-size: 25px; }
 
+a         { color: #2a7ae2; text-decoration: none; }
+a:hover   { color: #000; text-decoration: underline; }
+a:visited { color: #205caa; }
 
 strong {
     font-weight: bold;
-}
-
-hr {
-    border: none;
-    height: 3px;
-    background: #eee url(/images/bg_hr.png);
-    display: block;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    padding: 0.5em 0 0.5em 0;
-    font-family: 'PT Serif', serif;
-    font-weight: 1000;
-    color: #333;
-}
-
-h1 { font-size: 28px; padding-top: 2.5em; }
-h2 { font-size: 20px; }
-h3 { font-size: 17px; }
-h4 { font-size: 16px; }
-
-sup {
-    vertical-align: super;
-    font-size: smaller;
-}
-
-em {
-    font-style: italic;
 }
 
 code {
@@ -56,7 +31,7 @@ code {
 
 .row-header {
     background-size: cover;
-    margin-bottom: 1em;
+    margin-bottom: 3em;
     padding: 3em 0 0em 0;
 }
 
@@ -94,26 +69,18 @@ ul.posts {
 
 /*= for single */
 
+.content > * { margin: 20px 0; }
+
 .content > p {
     margin-bottom: 15px;
     line-height: 1.4em;
 }
 
-.content > blockquote {
+.content blockquote {
     margin-bottom: 15px;
     margin-top: 15px;
     font-style: italic;
     color: #555;
-}
-
-.content blockquote p {
-    padding: 1em 0 1em 0;
-}
-
-.content > img {
-    margin-bottom: 15px;
-    display: inline-block;
-    max-width: 100%;
 }
 
 .content pre {
@@ -128,18 +95,14 @@ ul.posts {
     overflow: auto;
 }
 
-.content > ul {
-    margin-bottom: 15px;
+.content ul {
     list-style: circle;
+    padding-left: 20px;
 }
 
-.content > ol {
-    margin-bottom: 15px;
+.content ol {
     list-style: decimal;
-}
-
-.content > ul li, .content > ol li {
-    line-height: 1.4em;
+    padding-left: 20px;
 }
 
 .content table th {
@@ -147,10 +110,6 @@ ul.posts {
     border: 1px solid #eee;
     padding: 0.5em 0.5em 0.5em 0.5em;
     text-align: left;
-}
-
-.more {
-    padding: 10em 0 5em 0;
 }
 
 .social-sharing {

@@ -9,7 +9,7 @@ end
 desc "start a local server to preview this site."
 task :s => :server
 task :server do
-  sh "bundle exec jekyll --server --base-url --auto"
+  sh "bundle exec jekyll serve --watch"
 end
 
 desc "create a new post file to _post"

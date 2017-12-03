@@ -1,8 +1,16 @@
-markdown: kramdown
-baseurl: http://fleurer.github.io
-auto: false
-destination: ./_site
-title: "F叔的学习笔记"
+# Site settings
+title: F叔的学习笔记
+email: me.ssword@gmail.com
+description: ""
+baseurl: ""
+author_name: 'fleuria'
 
-author_name: fleuria
-author_email: me.ssword@gmail.com
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge

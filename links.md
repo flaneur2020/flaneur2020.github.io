@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Links"
+permlink: '/links'
 ---
 
 - [KC](http://blog.kingsamchen.com/)
