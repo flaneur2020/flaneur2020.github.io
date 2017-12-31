@@ -10,3 +10,7 @@ Transactions in HBase
 Allocation Efficiency in High-Performance Go Services
 
 <https://www.evernote.com/l/AASvlOb-RpNCp6MIpNDaKE-E_HoxvXoegiE>
+
+阿里电商架构演变之路
+
+<https://www.evernote.com/l/AAR9ySau20BNfoAJWqZuFPXjMpTQiCrt-XI>
