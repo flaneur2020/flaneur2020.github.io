@@ -11,6 +11,10 @@ Allocation Efficiency in High-Performance Go Services
 
 <https://www.evernote.com/l/AASvlOb-RpNCp6MIpNDaKE-E_HoxvXoegiE>
 
+Error handling patterns in Go
+
+<https://www.evernote.com/l/AAR7O4SRR_VOUpP_w83iyN03_R9ymm3o4i4>
+
 阿里电商架构演变之路
 
 <https://www.evernote.com/l/AAR9ySau20BNfoAJWqZuFPXjMpTQiCrt-XI>
