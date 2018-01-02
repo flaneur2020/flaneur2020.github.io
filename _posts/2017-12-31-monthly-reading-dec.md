@@ -13,7 +13,7 @@ Omid, Reloaded: Scalable and Highly-Available Transaction Processing
 
 Phoenix: ACID Transactions
 
-<ttps://www.evernote.com/l/AAQGoMUzXe5BCawhBSy_JpdyhBh2F7fN0jk>
+<https://www.evernote.com/l/AAQGoMUzXe5BCawhBSy_JpdyhBh2F7fN0jk>
 
 Allocation Efficiency in High-Performance Go Services
 
