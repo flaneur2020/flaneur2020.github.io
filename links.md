@@ -4,7 +4,7 @@ title: "Links"
 permlink: '/links'
 ---
 
-- [KC](http://blog.kingsamchen.com/)
+- [KC](https://kingsamchen.github.io/)
 - [chichou](https://blog.chichou.me/)
 - [Lieo](https://www.daozhihun.com/)
 - [Vayn](http://elnode.com/)
