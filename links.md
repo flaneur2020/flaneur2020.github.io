@@ -5,6 +5,8 @@ permlink: '/links'
 ---
 
 - [KC](http://blog.kingsamchen.com/)
+- [chichou](https://blog.chichou.me/)
+- [Lieo](https://www.daozhihun.com/)
 - [Vayn](http://elnode.com/)
 - [Reus](http://www.douban.com/people/reus/)
 - [dutor](http://www.dutor.net/)
@@ -14,9 +16,8 @@ permlink: '/links'
 - [huangz](http://www.huangz.me/)
 - [chain](http://book.douban.com/people/chain233/)
 - [snailw](http://blog.nlogn.cn/)
-- [Davelv](http://www.davelv.net/)
+- [Davelv](https://www.mydavelv.net/)
 - [xiaohanyu](http://cnlox.is-programmer.com/)
-- [小K](http://www.douban.com/people/otha/)
 - [飞林沙](http://kym.cnblogs.com/)
 - [年糕](http://www.douban.com/people/73689183/)
 - tbd
