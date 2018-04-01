@@ -10,6 +10,9 @@ Usage:
 import os.path
 import collections
 from pprint import pprint
+from datetime import datetime
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
 
 
 FundDataPoint = collections.namedtuple('FundDataPoint', ['date', 'price', 'cap', 'pe_ttm'])
@@ -36,7 +39,7 @@ def calculate_fixed_invest_yield_rate(points, start_at, length, amount):
     assert len(invested_points) == length
     for point in invested_points:
         invested_shares += amount / point.price
-    last_price = points[-1].price
+    last_price = invested_points[-1].price
     return ((last_price * invested_shares) - (amount * length)) / (amount * length)
 
 
@@ -54,11 +57,32 @@ def fixed_invest_by_iterations(points, length, amount):
     return rows
 
 
-def main():
+def plot_by_fixed_invest_months_length(length):
     csv_path = os.path.dirname(os.path.abspath(__file__)) + '/hs300_pe_ttm_20180401_171619.csv'
     points_by_month = parse_csv(csv_path)
+
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
     # calculate_fixed_invest_yield_rate(points_by_month, 0, 100, 1000)
-    pprint(fixed_invest_by_iterations(points_by_month, 9, 1000))
+    rows = fixed_invest_by_iterations(points_by_month, 60, 1000)
+    print 'percentage: ', float(sum([1 for r in rows if r['rate'] > 0])) / len(rows)
+    xvals = [datetime.strptime(r['start_date'], '%Y-%m-%d') for r in rows]
+    yvals = [r['rate'] for r in rows]
+    ax1.plot(xvals, yvals, 'b-')
+    # ax.set_yticklabels(['{}%'.format(y*100) for y in yvals])
+    ax1.xaxis.set_major_locator(mdates.YearLocator())
+    ax1.xaxis.set_minor_locator(mdates.MonthLocator())
+    ax1.grid(True)
+
+    xvals = [datetime.strptime(p.date, '%Y-%m-%d') for p in points_by_month]
+    yvals = [p.pe_ttm for p in points_by_month]
+    ax2.plot(xvals, yvals, 'r-')
+    plt.show()
+
+
+def main():
+    plot_by_fixed_invest_months_length(1)
+    plot_by_fixed_invest_months_length(2)
 
 
 if __name__ == '__main__':
