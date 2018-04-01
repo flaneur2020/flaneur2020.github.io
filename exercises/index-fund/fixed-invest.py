@@ -9,7 +9,6 @@ Usage:
 
 import os.path
 import collections
-from pprint import pprint
 from datetime import datetime
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
