@@ -2,18 +2,17 @@ body {
     background-color: #fefefe;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    line-height: 1.3;
+    line-height: 1.4;
     font-weight: 200;
     background: #fdfdfd;
 }
 
-h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: 100; margin: 40px 0 20px; }
-h1 { font-size: 20px; }
-h2 { font-size: 13px; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: 300; }
+h1 { font-size: 20px; margin: 40px 0 20px 0;}
+h2 { font-size: 16px; font-weight: 500; }
 
-a         { color: #2a7ae2; text-decoration: none; }
-a:hover   { color: #000; text-decoration: underline; }
-a:visited { color: #205caa; }
+a         { color: #A30052; text-decoration: none; }
+a:hover   { color: #003DF5; text-decoration: none; }
 
 b { font-weight: 400; }
 
@@ -71,13 +70,6 @@ ul.posts {
 
 /*= for single */
 
-.content > * { margin: 20px 0; }
-
-.content > p {
-    margin-bottom: 15px;
-    line-height: 1.4em;
-}
-
 .content blockquote {
     margin-bottom: 15px;
     margin-top: 15px;
@@ -105,13 +97,6 @@ ul.posts {
 .content ol {
     list-style: decimal;
     padding-left: 20px;
-}
-
-.content table th {
-    margin-bottom: 15px;
-    border: 1px solid #eee;
-    padding: 0.5em 0.5em 0.5em 0.5em;
-    text-align: left;
 }
 
 .social-sharing {
