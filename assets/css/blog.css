@@ -25,6 +25,11 @@ code {
     color: #555;
 }
 
+blockquote {
+    color: #555;
+    font-size: 14px;
+}
+
 .gray { color: #ccc; }
 .pink { color: deeppink;}
 
@@ -69,13 +74,6 @@ ul.posts {
 }
 
 /*= for single */
-
-.content blockquote {
-    margin-bottom: 15px;
-    margin-top: 15px;
-    font-style: italic;
-    color: #555;
-}
 
 .content pre {
     margin-bottom: 15px;
