@@ -64,7 +64,7 @@ class AnnotationExporter(object):
         output += u'title: %s\n' % annotations[0].book_title
         output += u'---\n\n'
         output += u'# 读书笔记: %s\n\n' % annotations[0].book_title
-        output += u"<https://book.douban.com/people/%s/annotation/%s/>" % (user_name, annotations[0].book_id)
+        output += u"<https://book.douban.com/people/%s/annotation/%s/>\n\n" % (user_name, annotations[0].book_id)
         for annotation in annotations:
             output += u'\n## %s\n\n' % annotation.chapter
             output += annotation.render_content_as_markdown()
