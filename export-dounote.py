@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 # coding: utf-8
+import os
 import json
 import requests
 
@@ -40,6 +42,7 @@ class AnnotationExporter(object):
     def export(self, user_name, dir_path='./notes'):
         annotations = self._fetch_all(user_name)
         book_annotations_pairs = self._collect_annotations_by_book(annotations)
+        os.system("rm -rf %s/*.md" % dir_path)
         for book_title, annotations in book_annotations_pairs:
             last_date = annotations[0].date
             gen_path = u"%s/%s.md" % (dir_path, self._cook_target_path(book_title, last_date))

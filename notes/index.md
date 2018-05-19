@@ -5,9 +5,9 @@ title: Book Notes
 
 # Book Notes
 
-[Designing Data-Intensive Applications](/notes/2018-05-13-Designing-Data-Intensive-Applications/) (4) _2018-05-13_
+[聪明的投资者](/notes/2018-05-19-聪明的投资者/) (8) _2018-05-19_
 
-[聪明的投资者](/notes/2018-05-12-聪明的投资者/) (3) _2018-05-12_
+[Designing Data-Intensive Applications](/notes/2018-05-13-Designing-Data-Intensive-Applications/) (4) _2018-05-13_
 
 [投资中最简单的事](/notes/2018-05-04-投资中最简单的事/) (5) _2018-05-04_
 

@@ -50,7 +50,7 @@ task :generate_notes, :xml do |task, args|
         m.gsub(/<原文开始>|<\/原文结束>/, '').lines.map{|l| "> #{l}" } * ""
       end
       output.puts "### #{title}"
-      output.puts 
+      output.puts
       output.puts content
       output.puts
     end
