@@ -5,7 +5,7 @@ title: Designing Data-Intensive Applications
 
 # 读书笔记: Designing Data-Intensive Applications
 
-
+<https://book.douban.com/people/fleure/annotation/26197294/>
 ## Chapter 7: Transactions - Serializable Snapshot Isolation (SSI)
 
 > SSI is fairly new: it was first described in 2008 [40] and is the subject of Michael Cahill's PhD thesis. ... it has the possibility of being fast enough to become the enw default in the future.

@@ -5,7 +5,7 @@ title: NoSQL Distilled
 
 # 读书笔记: NoSQL Distilled
 
-
+<https://book.douban.com/people/fleure/annotation/7952514/>
 ## Migration
 
 <原文开始>Databases with strong schemas, such as relational databases, can be migrated by saving each schema change, plus its data migration, in a version-controlled sequence.</原文结束>

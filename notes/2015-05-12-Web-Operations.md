@@ -5,7 +5,7 @@ title: Web Operations
 
 # 读书笔记: Web Operations
 
-
+<https://book.douban.com/people/fleure/annotation/4316662/>
 ## Where the Cloud Fits( and Why )
 
 <原文开始>On the other hand, many start-up CFOs (including ours) will tell you that it's worth paying a little more to maintain flexibility and degrees of freedom -- which s3 offers. That flexibility matters more than whether those expenses are counted as operating expenses or capital expenses.</原文结束>

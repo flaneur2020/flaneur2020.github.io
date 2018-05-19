@@ -5,7 +5,7 @@ title: Understanding MySQL Internals
 
 # 读书笔记: Understanding MySQL Internals
 
-
+<https://book.douban.com/people/fleure/annotation/1924288/>
 ## Mutually Exclusive Locks (Mutexes)
 
 <原文开始>The frequent calls to pthread_mutex_lock( ) and pthread_mutex_unlock() would cause a performance degradation, and the program- mer would be very likely to make a mistake in the order of calls and cause a deadlock.</原文结束>

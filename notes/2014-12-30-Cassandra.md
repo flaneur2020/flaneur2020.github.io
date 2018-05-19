@@ -5,7 +5,7 @@ title: Cassandra
 
 # 读书笔记: Cassandra
 
-
+<https://book.douban.com/people/fleure/annotation/5332356/>
 ## Performance Tuning
 
 <原文开始>However, it's recommaned that you store that datafiles and the commit logs on sparate hard disks for maximum performance.</原文结束>

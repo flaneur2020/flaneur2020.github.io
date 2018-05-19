@@ -5,7 +5,7 @@ title: The Datacenter as a Computer
 
 # 读书笔记: The Datacenter as a Computer
 
-
+<https://book.douban.com/people/fleure/annotation/4665320/>
 ## Balanced Designs
 
 <原文开始>There is opportunity here to find solutions by software- hardware co-design, while being careful not to arrive at machines that are too complex to program.</原文结束>

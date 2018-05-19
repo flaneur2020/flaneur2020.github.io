@@ -9,6 +9,7 @@ class AnnotationDTO(object):
     def __init__(self, data):
         self.book_title = data['book']['title']
         self.book_url = data['book']['url']
+        self.book_id = data['book']['id']
         self.chapter = data['chapter']
         self.content = data['content']
         self.time = data['time']
@@ -48,7 +49,7 @@ class AnnotationExporter(object):
             gen_path = u"%s/%s.md" % (dir_path, self._cook_target_path(book_title, last_date))
             with open(gen_path, 'w+') as f:
                 print u"render %s" % gen_path
-                md_content = self._render_annotations_of_one_book(annotations)
+                md_content = self._render_annotations_of_one_book(annotations, user_name)
                 f.write(md_content.encode('utf-8'))
         gen_path = '%s/index.md' % dir_path
         with open(gen_path, 'w+') as f:
@@ -56,13 +57,14 @@ class AnnotationExporter(object):
             md_content = self._render_annotations_index(book_annotations_pairs)
             f.write(md_content.encode('utf-8'))
 
-    def _render_annotations_of_one_book(self, annotations):
+    def _render_annotations_of_one_book(self, annotations, user_name):
         output = u''
         output += u'---\n'
         output += u'layout: default\n'
         output += u'title: %s\n' % annotations[0].book_title
         output += u'---\n\n'
         output += u'# 读书笔记: %s\n\n' % annotations[0].book_title
+        output += u"<https://book.douban.com/people/%s/annotation/%s/>" % (user_name, annotations[0].book_id)
         for annotation in annotations:
             output += u'\n## %s\n\n' % annotation.chapter
             output += annotation.render_content_as_markdown()

@@ -5,7 +5,7 @@ title: Site Reliability Engineering
 
 # 读书笔记: Site Reliability Engineering
 
-
+<https://book.douban.com/people/fleure/annotation/26675256/>
 ## The Virtue of Boring 
 
 <原文开始>Essential complexity is the complexity inherent in a given situation that cannot be removed from a problem definition, whereas accidental complexity is more fluid and can be resolved with engineering effort</原文结束>

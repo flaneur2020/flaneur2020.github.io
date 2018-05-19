@@ -5,7 +5,7 @@ title: Akka in Action
 
 # 读书笔记: Akka in Action
 
-
+<https://book.douban.com/people/fleure/annotation/24528141/>
 ## Futures
 
 先记一个坑...
