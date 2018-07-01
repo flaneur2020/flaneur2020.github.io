@@ -8,7 +8,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 { font-size: 100%; }
-h1 { font-size: 1.8em; margin: 40px 0 10px 0; font-weight: 300; }
+h1 { font-size: 1.6em; margin: 2.5em 0 10px 0; }
 h2 { font-size: 1.2em; font-weight: 400; }
 
 a         { color: #A30052; text-decoration: none; }
