@@ -6,12 +6,11 @@ layout: default
   <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
 
   <div class="content">
-
-    {{ post.content }}
-
     <p>
       <span class="gray">{{post.date | date_to_string }} by {{ site.author_name }}</span>
     </p>
+
+    {{ post.content }}
   </div>
 {% endfor %}
 

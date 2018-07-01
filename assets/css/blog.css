@@ -3,13 +3,13 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     line-height: 1.4;
-    font-weight: 200;
     background: #fdfdfd;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: 300; }
-h1 { font-size: 20px; margin: 40px 0 20px 0;}
-h2 { font-size: 16px; font-weight: 500; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+h1 { font-size: 1.8em; margin: 40px 0 10px 0; font-weight: 300; }
+h2 { font-size: 1.2em; font-weight: 400; }
 
 a         { color: #A30052; text-decoration: none; }
 a:hover   { color: #003DF5; text-decoration: none; }
