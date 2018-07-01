@@ -3,8 +3,6 @@ layout: default
 title: Book Notes
 ---
 
-# Book Notes
-
 [聪明的投资者](/notes/2018-05-19-聪明的投资者/) (8) _2018-05-19_
 
 [Designing Data-Intensive Applications](/notes/2018-05-13-Designing-Data-Intensive-Applications/) (4) _2018-05-13_

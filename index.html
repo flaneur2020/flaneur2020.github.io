@@ -2,20 +2,11 @@
 layout: default
 ---
 
-{% for post in site.posts limit:12 %}
-  <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-
-  <div class="content">
+<div class="content">
+    {% for post in site.posts %}
     <p>
-      <span class="gray">{{post.date | date_to_string }} by {{ site.author_name }}</span>
+      <span class="gray">{{ post.date | date: "%Y %m %d" }}</span>
+      <a class="title" href="{{ post.url }}">&nbsp;{{ post.title }}</a>
     </p>
-
-    {{ post.content }}
-  </div>
-{% endfor %}
-
-<br/>
-
-<p class=""><a href="/archive"><b> ... MORE </b></a></p>
-
-<br/>
+    {% endfor %}
+</div>
