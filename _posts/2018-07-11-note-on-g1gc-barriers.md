@@ -70,7 +70,7 @@ Initial Mark 时 G1GC 会记录 region 当前的 top 指针，记做 TAMS（Top 
 
 <img src="/images/g1gc-tams.png"/>
 
-每个 region 有两个 TAMS 指针，也有两个记录对象标记 bitmap，分别指代当前的 nextTAMS，和上一轮标记的 prevTAMS。为什么要放两个指针呢？我猜可能是因为 G1GC 的 Evacuation 并不一定等待 Mark 阶段结束才开始，在 Concurrent Mark 期间也可能进入 Evacuation 阶段，这时会选用 prevTAMS 和 prevBitmap 做为标记信息，它们扮演了一个快照，能回收掉上一轮标记时发现的垃圾对象，在 Concurrent Mark 完成之后再进入 Evacuation 阶段的话，再取当前的 nextTAMS 和 nextBitmap。
+每个 region 有两个 TAMS 指针，表示当前的 nextTAMS 和上一轮标记的 prevTAMS，也有两个记录对象标记的 nextBitmap 和 prevBitmap。为什么要放两个 TAMS 指针和 bitmap 呢？我猜可能是因为 G1GC 的 Evacuation 并不一定等待 Mark 阶段结束才开始，在 Concurrent Mark 期间也可能进入 Evacuation 阶段，这时会选用 prevTAMS 和 prevBitmap 做为标记信息，它们扮演了一个快照，能回收掉上一轮标记时发现的垃圾对象，在 Concurrent Mark 完成之后再进入 Evacuation 阶段的话，再取当前的 nextTAMS 和 nextBitmap。
 
 ## References
 
