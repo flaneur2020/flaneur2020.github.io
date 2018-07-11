@@ -87,6 +87,10 @@ ul.posts {
     overflow: auto;
 }
 
+.content img {
+    max-width: 100%;
+}
+
 .content ul {
     list-style: circle;
     padding-left: 20px;
