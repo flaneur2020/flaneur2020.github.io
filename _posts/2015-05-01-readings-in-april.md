@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Readings in April"
+category: monthly-readings
 ---
 
 试试把 Evernote 里长草的一些笔记搬到博客来。

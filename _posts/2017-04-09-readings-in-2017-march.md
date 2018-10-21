@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #18: 2017 March"
+category: "monthly-readings"
 ---
 
 

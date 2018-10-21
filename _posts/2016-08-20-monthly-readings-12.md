@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #12"
+category: "monthly-readings"
 ---
 
 *Building Timeline: Scaling up to hold your life story*

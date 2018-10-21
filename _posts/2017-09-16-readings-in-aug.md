@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #21: 2017 Augest"
+category: monthly-readings
 ---
 
 Dremel made simple with Parquet

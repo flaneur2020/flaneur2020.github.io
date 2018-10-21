@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #25: 2018 Augest"
+category: "monthly-readings"
 ---
 
 - [Writing Testable Code](https://www.evernote.com/l/AATAiORZsfFNOYMJ2TU2oGDrLSnz3ngCw_4)

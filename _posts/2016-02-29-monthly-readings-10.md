@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #10"
+category: "monthly-readings"
 ---
 
 *How we ended up with microservices*

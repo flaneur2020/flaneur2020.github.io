@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #23: 2018 Jan"
+category: "monthly-readings"
 ---
 
 The USE Method

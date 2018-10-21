@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #22: 2017 Dec"
+category: "monthly-readings"
 ---
 
 Transactions in HBase

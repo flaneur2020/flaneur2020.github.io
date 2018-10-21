@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #15: November"
+category: "monthly-readings"
 ---
 
 *Druid: A Real-time Analytical Data Store*

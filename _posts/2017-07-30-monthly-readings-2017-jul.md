@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #20: 2017 July"
+category: "monthly-readings"
 ---
 
 The power of two random choices

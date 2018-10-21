@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Readings in August"
+category: monthly-readings
 ---
 
 *Cython tutorial*

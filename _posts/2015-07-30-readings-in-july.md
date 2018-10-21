@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Readings in July"
+category: monthly-readings
 ---
 
 *A Note on Distributed Computing*

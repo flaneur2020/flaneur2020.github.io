@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #14: October"
+category: "monthly-readings"
 ---
 
 *FollowFeed: LinkedIn's Feed Made Faster and Smarter*

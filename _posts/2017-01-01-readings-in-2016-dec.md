@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #16: December"
+category: "monthly-readings"
 ---
 
 *Apache Hadoop Goes Realtime at Facebook*:

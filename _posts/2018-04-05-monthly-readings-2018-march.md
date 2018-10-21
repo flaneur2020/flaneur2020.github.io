@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #24: 2018 March"
+category: "monthly-readings"
 ---
 
 - [A container networking overview](https://www.evernote.com/l/AASeeOF9gmFOqIGiv6om-89bs7ruxUS9zug)

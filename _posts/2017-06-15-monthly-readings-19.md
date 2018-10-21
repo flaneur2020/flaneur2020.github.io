@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #19: 2017 Jun"
+category: "monthly-readings"
 ---
 
 Is Kanban a part of Scrum, and is it simply the task board?

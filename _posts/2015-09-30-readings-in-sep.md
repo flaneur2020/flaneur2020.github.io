@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Readings in September"
+category: monthly-readings
 ---
 
 

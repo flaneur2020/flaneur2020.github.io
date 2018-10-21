@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #11"
+category: "monthly-readings"
 ---
 
 *thrift Field Requiredness*

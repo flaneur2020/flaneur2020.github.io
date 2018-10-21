@@ -3,10 +3,21 @@ layout: default
 ---
 
 <div class="content">
-    {% for post in site.posts %}
+  {% for post in site.posts %}
+    {% unless post.category contains "monthly-reading" %}
     <p>
       <span class="gray">{{ post.date | date: "%Y %m %d" }}</span>
       <a class="title" href="{{ post.url }}">&nbsp;{{ post.title }}</a>
     </p>
-    {% endfor %}
+    {% endunless %}
+  {% endfor %}
+
+  <h3 class="gray">monthly readings</h3>
+
+  {% for post in site.categories.monthly-readings %}
+  <p>
+    <span class="gray">{{ post.date | date: "%Y %m %d" }}</span>
+    <a class="title" href="{{ post.url }}">&nbsp;{{ post.title }}</a>
+  </p>
+  {% endfor %}
 </div>

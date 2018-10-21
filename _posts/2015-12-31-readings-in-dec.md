@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Readings in November and December"
+category: "monthly-readings"
 ---
 
 *Just Say No to More End-to-End Tests*

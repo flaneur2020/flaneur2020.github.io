@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Readings in October"
+category: monthly-readings
 ---
 
 *A Critique of the CAP Theorem*
