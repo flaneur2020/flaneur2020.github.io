@@ -103,10 +103,10 @@ Percolator 选择了惰性地回收泄露的锁：其他客户端在 Get() 到�
 ## References
 
 - Large-scale Incremental Processing Using Distributed Transactions and Notifications
-- 类似 percolator 的 hbase 实现：https://github.com/VCNC/haeinsa
 - [Google Percolator 的事务模型](http://andremouche.github.io/transaction/percolator.html)
-- https://www.slideshare.net/GaoYunzhong/study-notes-google-percolator
-- https://blog.octo.com/en/my-reading-of-percolator-architecture-a-google-search-engine-component/
+- 类似 percolator 的 hbase 实现：<https://github.com/VCNC/haeinsa>
+- <https://www.slideshare.net/GaoYunzhong/study-notes-google-percolator>
+- <https://blog.octo.com/en/my-reading-of-percolator-architecture-a-google-search-engine-component/>
 
 ## Footnotes
 
