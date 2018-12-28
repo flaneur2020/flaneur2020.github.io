@@ -22,6 +22,7 @@ task :n, :title do |task, args|
       ---
       layout: post
       title: "#{title}"
+      category: monthly-readings
       ---
     }.strip.split("\n").map{|s| s.strip }.join("\n")
   end
