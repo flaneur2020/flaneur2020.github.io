@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Monthly Readings #26: 2018 Dec"
+category: 'monthly-readings'
 ---
 
 - [Graceful shutdown of pods with Kubernetes](https://www.evernote.com/shard/s4/nl/337881/ade2663d-8cbe-4bae-9827-531a70522989/)
