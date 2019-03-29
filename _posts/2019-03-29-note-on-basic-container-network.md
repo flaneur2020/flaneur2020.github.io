@@ -47,7 +47,7 @@ L2 容器网络的问题很明显：
 
 三容器上下线频次高，但是物理机上下线的频次要少得多。层容器网络方案便是将物理机看作一个网段的网关，外部不需要关心网段内部容器的上下线。至于网关的上下线，通过路由协议或者宿主机上跑的 daemon 来同步路由表。像 flannel 的 host-gw 模式，会在每台物理机上跑 flanneld 侦听 etcd 中路由表的变化，同步到本地路由表：
 
-<img src="/images/note-on-linux-container-network/host-gw.png"/>
+<img src="/images/note-on-linux-container-network/flannel-host-gw.png"/>
 
 ## References
 
