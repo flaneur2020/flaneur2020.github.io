@@ -24,13 +24,36 @@ impl LinkedStack {
         self.head = Some(Box::new(n));
     }
 
-    pub fn pop(&mut self) ->  i32 {
-        0
+    pub fn peek(&mut self) -> Option<i32> {
+        match &self.head {
+            None => None,
+            Some(n) => Some((*n).elem),
+        }
+    }
+
+    pub fn pop(&mut self) -> Option<i32> {
+        if let None = &self.head {
+            return None
+        }
+        let next = mem::replace(&mut self.head, None);
+        let node = next.unwrap();
+        self.head = node.next;
+        Some(node.elem)
     }
 }
+
+// Note:
+// mem::replace 似乎可以将引用对象中的字段 move 给另一个变量；
+// 遇到 annot move out of borrowed content 可以使用它来处理？
+// https://github.com/rust-unofficial/patterns/blob/master/idioms/mem-replace.md
 
 
 #[test]
 fn test_list() {
-    // cargo test -- --nocapture
+    let mut l = LinkedStack::new();
+    l.push(1);
+    l.push(2);
+    assert_eq!(l.peek(), Some(2));
+    assert_eq!(l.pop(), Some(2));
+    assert_eq!(l.pop(), Some(1));
 }
