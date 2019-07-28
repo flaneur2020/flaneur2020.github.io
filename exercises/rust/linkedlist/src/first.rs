@@ -34,10 +34,19 @@ impl LinkedStack {
     pub fn pop(&mut self) -> Option<i32> {
         match mem::replace(&mut self.head, None) {
             None => None,
-            Some(node) => {
-                self.head = node.next;
-                Some(node.elem)
+            Some(boxed_node) => {
+                self.head = boxed_node.next;
+                Some(boxed_node.elem)
             }
+        }
+    }
+}
+
+impl Drop for LinkedStack {
+    fn drop(&mut self) {
+        let mut current = mem::replace(&mut self.head, None);
+        while let Some(mut boxed_node) = current {
+            current = mem::replace(&mut boxed_node.next, None);
         }
     }
 }
@@ -50,6 +59,8 @@ impl LinkedStack {
 // mem::replace 似乎可以将引用对象中的字段 move 给另一个变量；
 // 遇到 cannot move out of borrowed content 可以使用它来处理？
 // https://github.com/rust-unofficial/patterns/blob/master/idioms/mem-replace.md
+//
+// 为什么需要写 Drop？
 
 
 #[test]
