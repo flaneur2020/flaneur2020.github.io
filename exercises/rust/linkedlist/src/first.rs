@@ -32,19 +32,23 @@ impl LinkedStack {
     }
 
     pub fn pop(&mut self) -> Option<i32> {
-        if let None = &self.head {
-            return None
+        match mem::replace(&mut self.head, None) {
+            None => None,
+            Some(node) => {
+                self.head = node.next;
+                Some(node.elem)
+            }
         }
-        let next = mem::replace(&mut self.head, None);
-        let node = next.unwrap();
-        self.head = node.next;
-        Some(node.elem)
     }
 }
 
 // Note:
+//
+// can not move out of borrowed content 是什么意思？
+// &mut self 是一个引用，如果 move 引用中的字段，便会报这个错。
+//
 // mem::replace 似乎可以将引用对象中的字段 move 给另一个变量；
-// 遇到 annot move out of borrowed content 可以使用它来处理？
+// 遇到 cannot move out of borrowed content 可以使用它来处理？
 // https://github.com/rust-unofficial/patterns/blob/master/idioms/mem-replace.md
 
 
