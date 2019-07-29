@@ -44,9 +44,13 @@ impl LinkedStack {
 
 impl Drop for LinkedStack {
     fn drop(&mut self) {
-        let mut current = mem::replace(&mut self.head, None);
+        // let mut current = mem::replace(&mut self.head, None);
+        // while let Some(mut boxed_node) = current {
+        //    current = mem::replace(&mut boxed_node.next, None);
+        // }
+        let mut current = self.head.take();
         while let Some(mut boxed_node) = current {
-            current = mem::replace(&mut boxed_node.next, None);
+            current = boxed_node.next.take();
         }
     }
 }
