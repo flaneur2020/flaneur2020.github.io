@@ -48,11 +48,10 @@ impl<K, V> HashTable<K, V>
         }
     }
 
-    pub fn get(&self, key: K) -> Option<&V> {
+    pub fn find(&self, key: K) -> Option<&V> {
         let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
         let mut current = &self.buckets[bn];
-        while let None = current {
-            let node = current.as_ref().unwrap();
+        while let Some(node) = current.as_ref() {
             if node.key == key {
                 return Some(&node.elem)
             }
@@ -73,8 +72,15 @@ fn calc_hash_bucket<T: Hash>(t: &T, nbuckets: usize) -> usize {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn test_hashtable_insert_and_get() {
+        let mut h: HashTable<u32, String> = HashTable::new();
+        h.insert(1, "123".to_string());
+        h.insert(2, "456".to_string());
+        h.insert(3, "789".to_string());
+        assert_eq!(h.find(1), Some(&("123".to_string())));
+        assert_eq!(h.find(3), Some(&("789".to_string())));
     }
 }
