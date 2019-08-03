@@ -62,6 +62,21 @@ impl<K, V> HashTable<K, V>
 }
 
 
+impl<K, V> Drop for HashTable<K, V>
+    where K: Hash+Eq+Clone,
+          V: Clone
+{
+    fn drop(&mut self) {
+        for bucket in self.buckets.iter_mut() {
+            let mut current = bucket.take();
+            while let Some(mut boxed_node) = current {
+                current = boxed_node.next.take();
+            }
+        }
+    }
+}
+
+
 fn calc_hash_bucket<T: Hash>(t: &T, nbuckets: usize) -> usize {
     let mut s = DefaultHasher::new();
     t.hash(&mut s);
