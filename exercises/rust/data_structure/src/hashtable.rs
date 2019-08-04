@@ -1,5 +1,6 @@
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
+use std::mem;
 
 const BUCKETS_SIZE: usize = 32;
 
@@ -70,6 +71,18 @@ impl<K, V> HashTable<K, V>
         None
     }
 
+    pub fn _find_mut_node(&mut self, key: K) -> Option<&mut Box<Node<K, V>>> {
+        let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
+        let mut current = &mut self.buckets[bn];
+        while let Some(mut node) = current.as_mut() {
+            if node.key == key {
+                return Some(node)
+            }
+            current = &mut node.next;
+        }
+        None
+    }
+
     pub fn remove(&mut self, key: K) -> Option<V> {
         // https://codereview.stackexchange.com/questions/169523/linked-list-with-removal-function-in-rust
         let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
@@ -79,9 +92,11 @@ impl<K, V> HashTable<K, V>
                 None => return None,
                 Some(node) if node.key == key => {
                     let r = Some(node.elem.clone());
-                    // *current 复制移动走了之后，node 的生命周期也结束了，应该不能访问
-                    *current = node.next.take();
-                    return r;
+                    // *current 复制移动走了之后，node 的生命周期也结束了，不能再访问 node
+                    // *current = node.next.take();
+                    let next_node = node.next.take();
+                    let old_node = mem::replace(current, next_node).unwrap();
+                    return Some(old_node.take_elem());
                 },
                 Some(node) => {
                     current = &mut node.next
