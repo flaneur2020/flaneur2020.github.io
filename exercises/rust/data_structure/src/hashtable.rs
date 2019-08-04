@@ -39,7 +39,7 @@ impl<K, V> HashTable<K, V>
         }
     }
 
-    fn insert(&mut self, key: K, elem: V) {
+    pub fn insert(&mut self, key: K, elem: V) {
         match self.find_mut(&key) {
             None => self._prepend(key, elem),
             Some(m) => {
@@ -50,22 +50,12 @@ impl<K, V> HashTable<K, V>
 
     fn _prepend(&mut self, key: K, elem: V) {
         let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
-        self.buckets[bn] = match self.buckets[bn].take() {
-            None => {
-                Some(Box::new(Node {
-                    key: key,
-                    elem: elem,
-                    next: None,
-                }))
-            }
-            Some(boxed_node) => {
-                Some(Box::new(Node {
-                    key: key,
-                    elem: elem,
-                    next: Some(boxed_node)
-                }))
-            }
-        }
+        let head = self.buckets[bn].take();
+        self.buckets[bn] = Some(Box::new(Node {
+            key: key,
+            elem: elem,
+            next: head,
+        }))
     }
 
     pub fn find(&self, key: &K) -> Option<&V> {
