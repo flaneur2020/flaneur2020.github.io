@@ -3,11 +3,12 @@ use std::hash::{Hash, Hasher};
 
 const BUCKETS_SIZE: usize = 32;
 
+#[derive(Debug)]
 pub struct HashTable<K: Hash+Eq+Clone, V: Clone> {
     buckets: Vec<Link<K, V>>,
 }
 
-#[derive(Clone)]
+#[derive(Clone,Debug)]
 struct Node<K: Hash+Eq+Clone, V: Clone> {
     key: K,
     elem: V,
@@ -59,6 +60,25 @@ impl<K, V> HashTable<K, V>
         }
         None
     }
+
+    pub fn remove(&mut self, key: K) -> Option<V> {
+        // https://codereview.stackexchange.com/questions/169523/linked-list-with-removal-function-in-rust
+        let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
+        let mut current = &mut self.buckets[bn];
+        loop {
+            match current {
+                None => return None,
+                Some(node) if node.key == key => {
+                    let r = Some(node.elem.clone());
+                    *current = node.next.take();
+                    return r;
+                },
+                Some(node) => {
+                    current = &mut node.next
+                }
+            }
+        }
+    }
 }
 
 
@@ -98,4 +118,19 @@ mod tests {
         assert_eq!(h.find(1), Some(&("123".to_string())));
         assert_eq!(h.find(3), Some(&("789".to_string())));
     }
+
+    #[test]
+    fn test_hashtable_insert_and_delete() {
+        let mut h: HashTable<u32, String> = HashTable::new();
+        h.insert(1, "123".to_string());
+        h.insert(2, "456".to_string());
+        h.insert(3, "789".to_string());
+        assert_eq!(h.find(3), Some(&("789".to_string())));
+        assert_eq!(h.remove(3), Some("789".to_string()));
+        assert_eq!(h.remove(2), Some("456".to_string()));
+        assert_eq!(h.find(3), None);
+        assert_eq!(h.find(2), None);
+        assert_eq!(h.find(1), Some(&("123".to_string())));
+    }
+
 }
