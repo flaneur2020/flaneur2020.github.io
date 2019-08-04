@@ -17,6 +17,15 @@ struct Node<K: Hash+Eq+Clone, V: Clone> {
 
 type Link<K: Hash, V> = Option<Box<Node<K, V>>>;
 
+impl<K, V> Node<K, V>
+    where K: Hash+Eq+Clone,
+          V: Clone
+{
+    pub fn take_elem(self) -> V {
+        self.elem
+    }
+}
+
 impl<K, V> HashTable<K, V>
     where K: Hash+Eq+Clone,
           V: Clone
@@ -70,6 +79,7 @@ impl<K, V> HashTable<K, V>
                 None => return None,
                 Some(node) if node.key == key => {
                     let r = Some(node.elem.clone());
+                    // *current 复制移动走了之后，node 的生命周期也结束了，应该不能访问
                     *current = node.next.take();
                     return r;
                 },
