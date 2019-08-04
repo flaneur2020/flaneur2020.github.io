@@ -39,7 +39,16 @@ impl<K, V> HashTable<K, V>
         }
     }
 
-    pub fn insert(&mut self, key: K, elem: V) {
+    fn insert(&mut self, key: K, elem: V) {
+        match self.find_mut(&key) {
+            None => self._prepend(key, elem),
+            Some(m) => {
+                mem::replace(m, elem);
+            }
+        }
+    }
+
+    fn _prepend(&mut self, key: K, elem: V) {
         let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
         self.buckets[bn] = match self.buckets[bn].take() {
             None => {
@@ -59,11 +68,11 @@ impl<K, V> HashTable<K, V>
         }
     }
 
-    pub fn find(&self, key: K) -> Option<&V> {
-        let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
+    pub fn find(&self, key: &K) -> Option<&V> {
+        let bn = calc_hash_bucket(key, BUCKETS_SIZE);
         let mut current = &self.buckets[bn];
         while let Some(node) = current.as_ref() {
-            if node.key == key {
+            if node.key == *key {
                 return Some(&node.elem)
             }
             current = &node.next;
@@ -71,15 +80,26 @@ impl<K, V> HashTable<K, V>
         None
     }
 
+    pub fn find_mut(&mut self, key: &K) -> Option<&mut V> {
+        let bn = calc_hash_bucket(key, BUCKETS_SIZE);
+        let mut current = &mut self.buckets[bn];
+        while let Some(node) = current.as_mut() {
+            if node.key == *key {
+                return Some(&mut node.elem)
+            }
+            current = &mut node.next;
+        }
+        None
+    }
 
-    pub fn remove(&mut self, key: K) -> Option<V> {
+    pub fn remove(&mut self, key: &K) -> Option<V> {
         // https://codereview.stackexchange.com/questions/169523/linked-list-with-removal-function-in-rust
-        let bn = calc_hash_bucket(&key, BUCKETS_SIZE);
+        let bn = calc_hash_bucket(key, BUCKETS_SIZE);
         let mut current = &mut self.buckets[bn];
         loop {
             match current {
                 None => return None,
-                Some(node) if node.key == key => {
+                Some(node) if node.key == *key => {
                     // *current 复制移动走了之后，node 的生命周期也结束了，不能再访问 node
                     // *current = node.next.take();
                     let next_node = node.next.take();
@@ -128,8 +148,8 @@ mod tests {
         h.insert(1, "123".to_string());
         h.insert(2, "456".to_string());
         h.insert(3, "789".to_string());
-        assert_eq!(h.find(1), Some(&("123".to_string())));
-        assert_eq!(h.find(3), Some(&("789".to_string())));
+        assert_eq!(h.find(&1), Some(&("123".to_string())));
+        assert_eq!(h.find(&3), Some(&("789".to_string())));
     }
 
     #[test]
@@ -138,12 +158,13 @@ mod tests {
         h.insert(1, "123".to_string());
         h.insert(2, "456".to_string());
         h.insert(3, "789".to_string());
-        assert_eq!(h.find(3), Some(&("789".to_string())));
-        assert_eq!(h.remove(3), Some("789".to_string()));
-        assert_eq!(h.remove(2), Some("456".to_string()));
-        assert_eq!(h.find(3), None);
-        assert_eq!(h.find(2), None);
-        assert_eq!(h.find(1), Some(&("123".to_string())));
+        h.insert(3, "789789".to_string());
+        assert_eq!(h.find(&3), Some(&("789789".to_string())));
+        assert_eq!(h.remove(&3), Some("789789".to_string()));
+        assert_eq!(h.remove(&2), Some("456".to_string()));
+        assert_eq!(h.find(&3), None);
+        assert_eq!(h.find(&2), None);
+        assert_eq!(h.find(&1), Some(&("123".to_string())));
     }
 
 }
