@@ -40,7 +40,7 @@ class AnnotationExporter(object):
     def __init__(self):
         pass
 
-    def export(self, user_name, dir_path='./notes'):
+    def export(self, user_name, dir_path='./booknotes'):
         annotations = self._fetch_all(user_name)
         book_annotations_pairs = self._collect_annotations_by_book(annotations)
         os.system("rm -rf %s/*.md" % dir_path)
@@ -79,7 +79,7 @@ class AnnotationExporter(object):
         for book_title, annotations in book_annotations_pairs:
             last_date = annotations[0].date
             path = self._cook_target_path(book_title, last_date)
-            url = u"/notes/%s/" % path
+            url = u"/booknotes/%s/" % path
             output += u"[%s](%s) (%d) _%s_\n\n" % (book_title, url, len(annotations), last_date)
         return output
 
