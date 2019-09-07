@@ -1,6 +1,4 @@
-# 2019 September
-
-## 时间轮
+# 时间轮
 
 https://blog.acolyer.org/2015/11/23/hashed-and-hierarchical-timing-wheels/
 https://www.confluent.io/blog/apache-kafka-purgatory-hierarchical-timing-wheels/
