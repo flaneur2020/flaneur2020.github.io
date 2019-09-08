@@ -158,6 +158,6 @@ MANIFEST 文件的格式与 Memtable 的 WAL log 的格式相同，log 逻辑上
 
 ## References
 
-- https://catkang.github.io/2017/02/03/leveldb-version.html
-- https://github.com/google/leveldb/blob/master/db/version_set.h
-- https://ayende.com/blog/161698/reviewing-leveldb-part-vii-the-version-is-where-the-levels-are
+- <https://catkang.github.io/2017/02/03/leveldb-version.html>
+- <https://github.com/google/leveldb/blob/master/db/version_set.h>
+- <https://ayende.com/blog/161698/reviewing-leveldb-part-vii-the-version-is-where-the-levels-are>
