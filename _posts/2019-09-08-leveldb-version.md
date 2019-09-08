@@ -7,14 +7,14 @@ leveldb 中的 version 这个名字有点奇怪，实际上 version 指代着 le
 
 Version 相关的类主要是 VersionSet、Version、VersionEdit。其中 Version 表示一个不可变的元信息版本，所有活跃的 Version 都包含在 VersionSet 的双向链表之中。每个 Version 有引用计数，在生命周期结束之后，会将自己从这个双向链表中摘除：
 
-![leveldb-versionset](images/2019-09-08-leveldb-version/leveldb-versionset.png)
+![leveldb-versionset](/images/2019-09-08-leveldb-version/leveldb-versionset.png)
 
 VersionSet 其实是 leveldb 的一个大入口，维护了不少信息。日常的读写操作和 compaction 都需要走 VersionSet 的 current 找到当前 version 中的元信息来找对应的 sstable。
 
 
 
 ```
-  Env* const env_;_
+  Env* const env_;
   const std::string dbname_;
   const Options* const options_;
   TableCache* const table_cache_;
@@ -101,7 +101,7 @@ VersionEdit 的成员：
 
 每个 VersionEdit 会都落日志到 MANIFEST 文件中以备崩溃恢复，可以认为 MANIFEST 文件中的记录与 VersionEdit 总是一一对应的。但是崩溃恢复期间，每次应用 VersionEdit 都生成一份新的 Version 对象是没有太大意义的，VersionSet::Builder 的功能有点类似 StringBuilder，将连续操作合并，合并一系列操作产生最终结果，省去生成中间结果的开销：
 
-![img](images/2019-09-08-leveldb-version/wjxyapo.png)
+![img](/images/2019-09-08-leveldb-version/wjxyapo.png)
 
 VersionEdit 的序列化逻辑位于 EncodeTo，可见 VersionEdit 的序列化格式大致上是个 KV map，其中一部分字段（如 `log_number_`, `comparator_`, `next_file_number_`）用于表示 Version 的快照而非增量修改：
 
@@ -154,7 +154,7 @@ void VersionEdit::EncodeTo(std::string* dst) const {
 
 MANIFEST 文件的格式与 Memtable 的 WAL log 的格式相同，log 逻辑上按 record 进行读写，而物理上按 block 进行组织，每个 record 有个小 header，保存着 checksum、长度和类型。单个 record 的长度可能大于单个 Block，为此对于这类 record 配备了 FIRST、MIDDLE、LAST 三种类型，表示横跨多个 block。每次重启恢复时，会轮转 MANIFEST 文件，使文件编号递增 1，轮转后，会在新 MANIFEST 文件的开头写一份当前 version 元信息的快照（VersionSet::WriteSnapshot）。
 
-![img](images/2019-09-08-leveldb-version/leveldb-log2.png)
+![img](/images/2019-09-08-leveldb-version/leveldb-log2.png)
 
 ## References
 
