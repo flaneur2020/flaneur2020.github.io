@@ -107,49 +107,49 @@ VersionEdit 的序列化逻辑位于 EncodeTo，可见 VersionEdit 的序列化�
 
 ```
 void VersionEdit::EncodeTo(std::string* dst) const {
-        if (has_comparator_) {
-            PutVarint32(dst, kComparator);
-            PutLengthPrefixedSlice(dst, comparator_);
-        }
-        if (has_log_number_) {
-            PutVarint32(dst, kLogNumber);
-            PutVarint64(dst, log_number_);
-        }
-        if (has_prev_log_number_) {
-            PutVarint32(dst, kPrevLogNumber);
-            PutVarint64(dst, prev_log_number_);
-        }
-        if (has_next_file_number_) {
-            PutVarint32(dst, kNextFileNumber);
-            PutVarint64(dst, next_file_number_);
-        }
-        if (has_last_sequence_) {
-            PutVarint32(dst, kLastSequence);
-            PutVarint64(dst, last_sequence_);
-        }
-        for (size_t i = 0; i < compact_pointers_.size(); i++) {
-            PutVarint32(dst, kCompactPointer);
-            PutVarint32(dst, compact_pointers_[i].first);  // level
-            PutLengthPrefixedSlice(dst, compact_pointers_[i].second.Encode());
-        }
-        for (DeletedFileSet::const_iterator iter = deleted_files_.begin();
-        iter != deleted_files_.end();
-            ++iter) {
-            PutVarint32(dst, kDeletedFile);
-            PutVarint32(dst, iter->first);   // level
-            PutVarint64(dst, iter->second);  // file number
-        }
-
-        for (size_t i = 0; i < new_files_.size(); i++) {
-            const FileMetaData& f = new_files_[i].second;
-            PutVarint32(dst, kNewFile);
-            PutVarint32(dst, new_files_[i].first);  // level
-            PutVarint64(dst, f.number);
-            PutVarint64(dst, f.file_size);
-            PutLengthPrefixedSlice(dst, f.smallest.Encode());
-            PutLengthPrefixedSlice(dst, f.largest.Encode());
-        }
+    if (has_comparator_) {
+	PutVarint32(dst, kComparator);
+	PutLengthPrefixedSlice(dst, comparator_);
     }
+    if (has_log_number_) {
+	PutVarint32(dst, kLogNumber);
+	PutVarint64(dst, log_number_);
+    }
+    if (has_prev_log_number_) {
+	PutVarint32(dst, kPrevLogNumber);
+	PutVarint64(dst, prev_log_number_);
+    }
+    if (has_next_file_number_) {
+	PutVarint32(dst, kNextFileNumber);
+	PutVarint64(dst, next_file_number_);
+    }
+    if (has_last_sequence_) {
+	PutVarint32(dst, kLastSequence);
+	PutVarint64(dst, last_sequence_);
+    }
+    for (size_t i = 0; i < compact_pointers_.size(); i++) {
+	PutVarint32(dst, kCompactPointer);
+	PutVarint32(dst, compact_pointers_[i].first);  // level
+	PutLengthPrefixedSlice(dst, compact_pointers_[i].second.Encode());
+    }
+    for (DeletedFileSet::const_iterator iter = deleted_files_.begin();
+    iter != deleted_files_.end();
+	++iter) {
+	PutVarint32(dst, kDeletedFile);
+	PutVarint32(dst, iter->first);   // level
+	PutVarint64(dst, iter->second);  // file number
+    }
+
+    for (size_t i = 0; i < new_files_.size(); i++) {
+	const FileMetaData& f = new_files_[i].second;
+	PutVarint32(dst, kNewFile);
+	PutVarint32(dst, new_files_[i].first);  // level
+	PutVarint64(dst, f.number);
+	PutVarint64(dst, f.file_size);
+	PutLengthPrefixedSlice(dst, f.smallest.Encode());
+	PutLengthPrefixedSlice(dst, f.largest.Encode());
+    }
+}
 ```
 
 MANIFEST 文件的格式与 Memtable 的 WAL log 的格式相同，log 逻辑上按 record 进行读写，而物理上按 block 进行组织，每个 record 有个小 header，保存着 checksum、长度和类型。单个 record 的长度可能大于单个 Block，为此对于这类 record 配备了 FIRST、MIDDLE、LAST 三种类型，表示横跨多个 block。每次重启恢复时，会轮转 MANIFEST 文件，使文件编号递增 1，轮转后，会在新 MANIFEST 文件的开头写一份当前 version 元信息的快照（VersionSet::WriteSnapshot）。
