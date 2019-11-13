@@ -53,6 +53,7 @@ impl<T> DoublyLinkedList<T> {
             self.first = self.last.clone();
         }
     }
+
 }
 
 impl<T: Display> Display for DoublyLinkedList<T> {
