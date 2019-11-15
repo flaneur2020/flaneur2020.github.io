@@ -1,0 +1,17 @@
+{
+    "consumers": [
+        {"name": "fake1", "kind": "fake"},
+        {"name": "fake2", "kind": "fake"},
+        {"name": "fake3", "kind": "fake"},
+        {"name": "fake4", "kind": "fake"}
+    ],
+    "throttling": {
+        "enabled": true,
+        "threshold": 10,
+        "timeWindowMs": 1000
+    },
+    "stats": {
+        "enabled": true,
+        "addr": ":4004"
+    }
+}
