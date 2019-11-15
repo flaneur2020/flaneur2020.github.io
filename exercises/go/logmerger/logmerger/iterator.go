@@ -88,44 +88,6 @@ func (it *CommitedLogIterator) Next() bool {
 	}
 }
 
-// iteratorsHeap is taken advantaged by the MergedIterator
-type iteratorsHeap []LogIterator
-
-func (h iteratorsHeap) Len() int {
-	return len(h)
-}
-
-// nil is always bigger than any other
-func (h iteratorsHeap) Less(i, j int) bool {
-	li := h[i].Current()
-	lj := h[j].Current()
-	if li == nil && lj == nil {
-		return false
-	} else if li == nil && lj != nil {
-		return false
-	} else if li != nil && lj == nil {
-		return true
-	} else {
-		return li.commitToken < lj.commitToken
-	}
-}
-
-func (h iteratorsHeap) Swap(i, j int) {
-	h[i], h[j] = h[j], h[i]
-}
-
-func (h *iteratorsHeap) Push(x interface{}) {
-	*h = append(*h, x.(LogIterator))
-}
-
-func (h *iteratorsHeap) Pop() interface{} {
-	old := *h
-	n := len(old)
-	x := old[n-1]
-	*h = old[0 : n-1]
-	return x
-}
-
 // MergedIterator 取多个 iterator 按外部排序合并。注意，保全序的要求下，
 // 其中任一 Iterator 阻塞会使整个 mergeIterator 阻塞。 初期简单的处理
 // 办法可以是:
@@ -168,6 +130,53 @@ func (mi *MergedIterator) Next() bool {
 	if ok := it.Next(); ok {
 		heap.Push(&mi.h, it)
 	}
+	return true
+}
+
+// StagedIterator 取单个 Iterator 对 N 次迭代做排序，每次迭代
+// 返回 N 次之前的数据
+type StagedIterator struct {
+	h       logsHeap
+	size    int
+	it      LogIterator
+	current *Log
+}
+
+func NewStagedIterator(it LogIterator, size int) *StagedIterator {
+	h := logsHeap([]Log{})
+	heap.Init(&h)
+	return &StagedIterator{
+		h:       h,
+		current: nil,
+		size:    size,
+		it:      it,
+	}
+}
+
+func (it *StagedIterator) Current() *Log {
+	if it.current != nil {
+		return it.current
+	}
+	if ok := it.Next(); !ok {
+		return nil
+	}
+	return it.current
+}
+
+func (st *StagedIterator) Next() bool {
+	// push until the heap is full
+	for len(st.h) < st.size {
+		if ok := st.it.Next(); !ok {
+			return false
+		}
+		heap.Push(&st.h, st.it.Current())
+	}
+	lg := heap.Pop(&st.h).(*Log)
+	st.current = &*lg
+	if ok := st.it.Next(); !ok {
+		return false
+	}
+	heap.Push(&st.h, st.it.Current())
 	return true
 }
 

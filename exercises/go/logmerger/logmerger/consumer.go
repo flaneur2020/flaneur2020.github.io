@@ -1,6 +1,9 @@
 package logmerger
 
 import (
+	"math/rand"
+	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -10,6 +13,14 @@ type LogConsumerStats struct {
 	CommitsTotal         uint64 `json:"commitsTotal"`
 	LastMessageTimestamp int64  `json:"lastMessageTimestamp"`
 }
+
+var (
+	token int64
+	step  int64
+
+	maxSleepInterval int64 = 5
+	maxGap           int64 = 10
+)
 
 // LogConsumer 接口对接消息源，如 Kafka、Binlog 等。
 // LogConsumer 遇到任何错误皆应从上次点位开始继续消费
@@ -24,12 +35,12 @@ type FakeLogConsumer struct {
 	inputc  chan Log
 	outputc chan Log
 
+	producer *FakeProducer
+
 	sleepInterval time.Duration
 	step          int64
 	stats         LogConsumerStats
 }
-
-var currentMockToken int64 = 1000
 
 var _ LogConsumer = &FakeLogConsumer{}
 
@@ -77,5 +88,63 @@ func (c *FakeLogConsumer) Stats() LogConsumerStats {
 }
 
 func (c *FakeLogConsumer) Iterator() LogIterator {
-	return NewCommitedLogIterator(NewChanIterator(c.outputc))
+	var it LogIterator
+	it = NewChanIterator(c.outputc)
+	it = NewCommitedLogIterator(it)
+	// the step is expected to be multiple of 5 * 10
+	return NewStagedIterator(it, 100)
+}
+
+type FakeProducer struct {
+	logc chan Log
+}
+
+func NewFakeProducer() *FakeProducer {
+	return &FakeProducer{logc: make(chan Log, 20)}
+}
+
+func (p *FakeProducer) Output() chan Log {
+	return p.logc
+}
+
+func (p *FakeProducer) Produce() {
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		p.generateDatas()
+	}()
+	go func() {
+		defer wg.Done()
+		p.generateDatas()
+	}()
+	wg.Wait()
+}
+
+func (p *FakeProducer) generateDatas() {
+	for {
+		prepare := incrementToken()
+		sleep(maxSleepInterval)
+
+		p.logc <- Log{kind: "prepare", prepareToken: prepare}
+		sleep(maxSleepInterval)
+
+		commit := incrementToken()
+		sleep(maxSleepInterval)
+
+		p.logc <- Log{kind: "commit", prepareToken: prepare, commitToken: commit}
+		sleep(10 * maxSleepInterval)
+	}
+}
+
+func incrementToken() int64 {
+	return atomic.AddInt64(&token, rand.Int63()%maxGap+1)
+}
+
+func sleep(factor int64) {
+	// 最短睡眠时间：1ms
+	// 最长睡眠时间: factor * 1ms
+	interval := atomic.AddInt64(&step, 3)%factor + 1
+	waitTime := time.Duration(rand.Int63() % interval)
+	time.Sleep(waitTime * time.Millisecond)
 }

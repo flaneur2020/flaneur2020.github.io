@@ -26,6 +26,15 @@ func convertIteratorToSeqs(it LogIterator) []int64 {
 	return seqs
 }
 
+func convertIteratorToSeqsWithLimit(it LogIterator, limit int) []int64 {
+	seqs := []int64{}
+	for ; it.Current() != nil && limit > 0; it.Next() {
+		seqs = append(seqs, it.Current().commitToken)
+		limit--
+	}
+	return seqs
+}
+
 func Test_ChanIterator(t *testing.T) {
 	c1 := makeLogsChan(1, 2, 3)
 
@@ -134,5 +143,19 @@ func Test_ThrottledIterator(t *testing.T) {
 	tit := NewThrottledIterator(it, 1, 1*time.Second)
 	got := convertIteratorToSeqs(tit)
 	want := []int64{1, 3, 5, 7, 7, 7, 7, 8}
+	assert.Equal(t, want, got)
+}
+
+func Test_StagedIterator(t *testing.T) {
+	it := NewChanIterator(makeLogsChan(1, 4, 3, 2, 99, 99, 99, 99))
+	st := NewStagedIterator(it, 4)
+	got := convertIteratorToSeqsWithLimit(st, 4)
+	want := []int64{1, 2, 3, 4}
+	assert.Equal(t, want, got)
+
+	it = NewChanIterator(makeLogsChan(1, 4, 3, 2, 99, 99, 99, 99))
+	st = NewStagedIterator(it, 1)
+	got = convertIteratorToSeqsWithLimit(st, 4)
+	want = []int64{1, 4, 3, 2}
 	assert.Equal(t, want, got)
 }

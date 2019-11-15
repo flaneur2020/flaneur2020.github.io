@@ -54,7 +54,10 @@ func setupLogMerger(opts *LogMergerOptions) *LogMerger {
 	// setup consumers
 	consumers := map[string]logmerger.LogConsumer{}
 	for _, consumerConfig := range opts.Consumers {
-		consumer := logmerger.NewFakeLogConsumer()
+		producer := logmerger.NewFakeProducer()
+		go producer.Produce() // do not care about the fake producers' lifecyle please, it's fake
+
+		consumer := logmerger.NewFakeLogConsumer(producer.Output())
 		consumers[consumerConfig.Name] = consumer
 	}
 
