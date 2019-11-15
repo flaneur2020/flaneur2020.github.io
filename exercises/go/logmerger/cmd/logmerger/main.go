@@ -126,9 +126,11 @@ func (lm *LogMerger) ServeHttp(addr string) {
 func main() {
 	var (
 		configPath string
+		position   int64
 	)
 
 	flag.StringVar(&configPath, "c", "", "config path")
+	flag.Int64Var(&position, "p", -1, "start position")
 	flag.Parse()
 
 	opts := &LogMergerOptions{}
@@ -145,7 +147,7 @@ func main() {
 		go func(name string, c logmerger.LogConsumer) {
 			wg.Add(1)
 			log.Printf("consumer#%s start", name)
-			c.Run(quitConsumersc)
+			c.Run(position, quitConsumersc)
 			c.Close()
 			wg.Done()
 			log.Printf("consumer#%s closed", name)

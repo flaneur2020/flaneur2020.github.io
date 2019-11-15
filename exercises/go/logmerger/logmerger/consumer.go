@@ -16,7 +16,7 @@ type LogConsumerStats struct {
 // LogConsumer 接口对接消息源，如 Kafka、Binlog 等。
 // LogConsumer 遇到任何错误皆应从上次点位开始继续消费
 type LogConsumer interface {
-	Run(quitc chan struct{})
+	Run(poistion int64, quitc chan struct{})
 	Close()
 	Iterator() LogIterator
 	Stats() LogConsumerStats
@@ -43,7 +43,7 @@ func NewFakeLogConsumer() *FakeLogConsumer {
 	}
 }
 
-func (c *FakeLogConsumer) Run(quitc chan struct{}) {
+func (c *FakeLogConsumer) Run(position int64, quitc chan struct{}) {
 	for {
 		select {
 		case <-quitc:
