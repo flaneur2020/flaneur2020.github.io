@@ -147,10 +147,16 @@ func Test_ThrottledIterator(t *testing.T) {
 }
 
 func Test_StagedIterator(t *testing.T) {
-	it := NewChanIterator(makeLogsChan(1, 4, 3, 2, 99, 99, 99, 99))
+	it := NewChanIterator(makeLogsChan(2, 4, 3, 1, 99, 99, 99, 99))
 	st := NewStagedIterator(it, 4)
 	got := convertIteratorToSeqsWithLimit(st, 4)
 	want := []int64{1, 2, 3, 4}
+	assert.Equal(t, want, got)
+
+	it = NewChanIterator(makeLogsChan(2, 4, 3, 1, 99, 99, 99, 99))
+	st = NewStagedIterator(it, 3)
+	got = convertIteratorToSeqsWithLimit(st, 4)
+	want = []int64{2, 1, 3, 4}
 	assert.Equal(t, want, got)
 
 	it = NewChanIterator(makeLogsChan(1, 4, 3, 2, 99, 99, 99, 99))
