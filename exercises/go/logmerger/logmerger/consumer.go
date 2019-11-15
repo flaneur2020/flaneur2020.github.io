@@ -35,8 +35,6 @@ type FakeLogConsumer struct {
 	inputc  chan Log
 	outputc chan Log
 
-	producer *FakeProducer
-
 	sleepInterval time.Duration
 	step          int64
 	stats         LogConsumerStats
