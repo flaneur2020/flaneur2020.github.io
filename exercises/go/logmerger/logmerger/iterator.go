@@ -173,10 +173,6 @@ func (st *StagedIterator) Next() bool {
 	}
 	lg := heap.Pop(&st.h).(*Log)
 	st.current = &*lg
-	if ok := st.it.Next(); !ok {
-		return false
-	}
-	heap.Push(&st.h, st.it.Current())
 	return true
 }
 
