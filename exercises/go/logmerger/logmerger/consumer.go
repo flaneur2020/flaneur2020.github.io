@@ -1,8 +1,6 @@
 package logmerger
 
 import (
-	"math/rand"
-	"sync/atomic"
 	"time"
 )
 
@@ -23,6 +21,7 @@ type LogConsumer interface {
 }
 
 type FakeLogConsumer struct {
+	inputc  chan Log
 	outputc chan Log
 
 	sleepInterval time.Duration
@@ -34,9 +33,10 @@ var currentMockToken int64 = 1000
 
 var _ LogConsumer = &FakeLogConsumer{}
 
-func NewFakeLogConsumer() *FakeLogConsumer {
+func NewFakeLogConsumer(inputc chan Log) *FakeLogConsumer {
 	return &FakeLogConsumer{
-		outputc: make(chan Log, 512),
+		inputc:  inputc,
+		outputc: make(chan Log, 1024),
 
 		sleepInterval: 1 * time.Second,
 		stats:         LogConsumerStats{},
@@ -48,32 +48,16 @@ func (c *FakeLogConsumer) Run(position int64, quitc chan struct{}) {
 		select {
 		case <-quitc:
 			return
-		default:
+		case lg := <-c.inputc:
+			c.stats.LastMessageTimestamp = time.Now().Unix()
+			c.stats.MessagesTotal++
+			if lg.kind == "commit" {
+				c.stats.CommitsTotal++
+			} else if lg.kind == "prepare" {
+				c.stats.PreparesTotal++
+			}
+			c.output(lg, quitc)
 		}
-
-		c.stats.LastMessageTimestamp = time.Now().Unix()
-		c.stats.MessagesTotal++
-
-		prepareToken := c.nextToken()
-		lg := Log{
-			kind:         "prepare",
-			data:         []byte("mock message"),
-			prepareToken: prepareToken,
-		}
-		c.output(lg, quitc)
-
-		c.stats.PreparesTotal++
-		c.randomSleep()
-
-		lg = Log{
-			kind:         "commit",
-			prepareToken: prepareToken,
-			commitToken:  c.nextToken(),
-		}
-		c.output(lg, quitc)
-
-		c.stats.CommitsTotal++
-		c.randomSleep()
 	}
 }
 
@@ -94,14 +78,4 @@ func (c *FakeLogConsumer) Stats() LogConsumerStats {
 
 func (c *FakeLogConsumer) Iterator() LogIterator {
 	return NewCommitedLogIterator(NewChanIterator(c.outputc))
-}
-
-func (c *FakeLogConsumer) nextToken() int64 {
-	maxGap := int64(10)
-	return atomic.AddInt64(&currentMockToken, rand.Int63()%maxGap+1)
-}
-
-func (c *FakeLogConsumer) randomSleep() {
-	rnd := rand.Int63() % 5
-	time.Sleep(time.Duration(rnd) * time.Millisecond)
 }
