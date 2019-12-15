@@ -12,12 +12,15 @@ layout: default
     {% endunless %}
   {% endfor %}
 
-  <h3 class="gray">monthly readings</h3>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 
   {% for post in site.categories.monthly-readings %}
-  <p>
-    <span class="gray">{{ post.date | date: "%Y %m %d" }}</span>
-    <a class="title" href="{{ post.url }}">&nbsp;{{ post.title }}</a>
-  </p>
+    <p class="gray">{{ post.title }}</p>
+
+    {{ post.content }}
   {% endfor %}
 </div>
