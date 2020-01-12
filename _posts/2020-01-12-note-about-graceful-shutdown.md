@@ -9,13 +9,13 @@ Graceful Shutdown 按说是一个 solved problem，尤其是 HTTP 通信，这�
 
 先温习一下 HTTP 短连接场景下 Graceful Shutdown 的流程。gunicorn 的 sync 模式是典型的 prefork 模型，启动多个 worker，父进程初始化 listener，使每个 worker 争抢 accept(listener)。
 
-graceful shutdown 的入口在 arbiter.py 的 stop() 方法，会先关闭 LISTENERS，随后向 worker 们传递 term 信号。
+Graceful shutdown 的入口在 arbiter.py 的 stop() 方法，会先关闭 LISTENERS，随后向 worker 们传递 term 信号。
 
 gunicorn 的每一种 worker 继承自 worker/base.py 的 Worker 类，Worker 基类中定义了 alive 变量，收到 sigterm 时简单将 alive 变量设置为 False 即完成信号处理。
 
 在 worker/sync.py 的 SyncWorker 中，主流程大约是 `run_for_one()` 中的 `while self.alive:... self.accept(listener)`。如果 alive 变为了 False，处理完当前请求后便不再 accept() 新请求，也即退出主循环。
 
-可以简单总结一下 HTTP 短连接的 graceful shutdown 流程：
+可以简单总结一下 HTTP 短连接的 Graceful shutdown 流程：
 
 1. 关掉 listenfd，便能使前端的负载均衡器感知到这个后端要下掉了，再尝试分发请求会 Connection Refused，可以安全选另一个节点重试；
 2. 每个 worker 处理完当前请求后，发现进入退出状态，不再 accept 新请求、退出；
@@ -36,7 +36,7 @@ HTTP/1.1 在响应中有定义一个 Connection: close 的 header，向客户端
 3. 待连接关闭后，退出 worker；
 4. 如果 worker 未能在正常时间内退出，再 kill -9 强杀；
 
-这一流程会存在一个问题：请求前来的时间是不可预期的，如果连接中没有请求前来，则 keep alive timeout 之前走不到 Connection: close 而一直不能退出；如果请求在很久之后才来，这时容易给人 surprise，因为这时执行的仍然是上个版本的老代码。gunicorn 作者提到自己更倾向于开始 graceful shutdown 后，将 idle 状态的连接及时关掉的行为，避免上线一段时间后老代码仍诈尸一下的这种行为。
+这一流程会存在一个问题：请求前来的时间是不可预期的，如果连接中没有请求前来，则 keep alive timeout 之前走不到 Connection: close 而一直不能退出；如果请求在很久之后才来，这时容易给人 surprise，因为这时执行的仍然是上个版本的老代码。gunicorn 作者提到自己更倾向于开始 Graceful shutdown 后，将 idle 状态的连接及时关掉的行为，避免上线一段时间后老代码仍诈尸一下的这种行为。
 
 ## grpc 的 Graceful Shutdown
 
@@ -53,7 +53,7 @@ grpc 的 server 对象内建了一个 [GracefulStop()](https://github.com/grpc/g
 
 个人感觉 RPC 的通信层还是建立在稳定的七层协议上比较稳妥，奈何国内四层长连接通信的 RPC 框架好像比较常见。
 
-四层长连接 RPC 通信的好处是可以在协议层面规定客户端与服务端之间正常的退出行为。假想一个长连接协议中的 graceful shutdown 流程：
+四层长连接 RPC 通信的好处是可以在协议层面规定客户端与服务端之间正常的退出行为。假想一个长连接协议中的 Graceful shutdown 流程：
 
 1. 关闭 listenfd，使客户端不能前来建立新连接；
 2. 服务端从注册中心中反注册自身，客户端收到注册中心推送的变化后，移除关闭老连接；如果担心服务注册信息收敛慢，服务端也可以主动向客户端返回 CLOSED 信息，客户端收到该响应后停止向该连接发送请求，并关闭连接；

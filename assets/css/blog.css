@@ -1,15 +1,15 @@
 body {
     background-color: #fefefe;
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.6;
     background: #fdfdfd;
     -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 { font-size: 100%; }
 h1 { font-size: 1.6em; margin: 2.5em 0 10px 0; }
-h2 { font-size: 1.2em; font-weight: 400; }
+h2 { font-size: 1.2em; font-weight: 400; padding: 0.75em 0 0.25em 0; }
 
 a         { color: #A30052; text-decoration: none; }
 a:hover   { color: #003DF5; text-decoration: none; }
@@ -28,6 +28,10 @@ code {
 blockquote {
     color: #555;
     font-size: 14px;
+}
+
+p {
+    margin-bottom: 15px;
 }
 
 .gray { color: #ccc; }
@@ -124,7 +128,7 @@ ul.posts {
 }
 
 .comments .dsq-comment-message {
-    font: 12px;
+    font: 16px;
 }
 
 /*= social */
