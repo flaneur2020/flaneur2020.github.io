@@ -4,30 +4,16 @@ title: "Monthly Readings #19: 2017 Jun"
 category: "monthly-readings"
 ---
 
-Is Kanban a part of Scrum, and is it simply the task board?
+[Is Kanban a part of Scrum, and is it simply the task board?](https://www.evernote.com/l/AARzQeN-h8pLTYcYQXT4mSc3o-bKqoOL0Ao)
 
-<https://www.evernote.com/l/AARzQeN-h8pLTYcYQXT4mSc3o-bKqoOL0Ao>
+[What is scrum?](https://www.evernote.com/l/AATlTXZAYGFJppz4h3_UOXtUqnbtKSDAfqI)
 
-What is scrum?
+[互联网广告拍卖机制设计](https://www.evernote.com/l/AAQBt8ARkWtPGK0m1N04To7vIz-fLVXbjmM)
 
-<https://www.evernote.com/l/AATlTXZAYGFJppz4h3_UOXtUqnbtKSDAfqI>
+[Monte Carlo Tree Search](https://www.evernote.com/l/AASOQIGeQ-xA4K7Zw0dI9ZOQPq8Ob1_awzc)
 
-互联网广告拍卖机制设计
+[What is the difference between "hill climbing" and "greedy" algorithms?](https://www.evernote.com/l/AAQZ4srFHh5AV4fX5uHNwa23dhaCYRwUg6M)
 
-<https://www.evernote.com/l/AAQBt8ARkWtPGK0m1N04To7vIz-fLVXbjmM>
+[Impossible Engineering Problems Often Aren't](https://www.evernote.com/l/AAQKyUWqRNRMf65MM_O2_uzD460Y9H4hWhk)
 
-Monte Carlo Tree Search
-
-<https://www.evernote.com/l/AASOQIGeQ-xA4K7Zw0dI9ZOQPq8Ob1_awzc>
-
-What is the difference between "hill climbing" and "greedy" algorithms?
-
-<https://www.evernote.com/l/AAQZ4srFHh5AV4fX5uHNwa23dhaCYRwUg6M>
-
-Impossible Engineering Problems Often Aren't
-
-<https://www.evernote.com/l/AAQKyUWqRNRMf65MM_O2_uzD460Y9H4hWhk>
-
-Locality Sensitive Hashing By Spark
-
-<https://www.evernote.com/l/AAQ9tPAfbd1NUphCmSAYeyFLumT80BbS8mw>
+[Locality Sensitive Hashing By Spark](https://www.evernote.com/l/AAQ9tPAfbd1NUphCmSAYeyFLumT80BbS8mw)
