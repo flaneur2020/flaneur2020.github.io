@@ -17,7 +17,7 @@ Producer 可以配置 request.required.acks 来决定消息的持久性程度，
 
 简单画个图：
 
-![](../images/kafka-01-replication.png)
+![](/images/kafka-01-replication.png)
 
 ISR 和 HW 的设计是 MySQL 这类异步复制、半同步复制所没有的，那么，为什么需要引进 ISR 和 HW 机制呢？
 
@@ -25,7 +25,7 @@ ISR 和 HW 的设计是 MySQL 这类异步复制、半同步复制所没有的�
 
 “高水位” 是流式处理系统中常见的名次，含义大约是已存在的数据，但是对读者不可见。对 Kafka Consumer 来讲，有这么几个偏移量：
 
-![](../images/consumer-offsets.png)
+![](/images/consumer-offsets.png)
 
 消费者 Fetch 到的数据可能到 LEO 为止，但只会向用户返回 HW 之前的数据。这里 HW 的意义就在于，能保障用户读到的数据都是持久化到所有 ISR 的，即使 Leader 宕机切换，仍能保障用户读到过的同一下标的消息不会发生改变。*对消息队列这一场景而言，宁愿丢失消息，也不希望消费过的消息在重复消费时发生变化*，如果重复消费同一下标的消息发生了变，消息的单调顺序性对外部系统就不成立了，这意味着数据损坏。
 
