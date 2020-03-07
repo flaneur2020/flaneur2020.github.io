@@ -1,9 +1,8 @@
 ---
 layout: post
-title: "kafka01-replication"
+title: "Kafka 笔记 01: Replication"
 ---
 
-# Kafka 笔记 01: Replication
 Kafka 的数据可靠性完全依赖于复制（Replication）而不依赖于单机的 fsync。简单整理起来，Kafka Replication 大致上是这样的设计：
 
 Partition 是复制的基本单位，每个 Partition 有多个 Replica，其中的一个 Replica 是 Leader， Leader 负责着与 Consumer 之间的所有读写交互，而 Follower 从 Leader 中通过 Fetch RPC 去拉取同步。default.replication.factor 参数决定着一个 Topic 下的 Partition 含有多少个 Replica。
