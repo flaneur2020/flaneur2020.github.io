@@ -4,23 +4,9 @@ layout: default
 
 <div class="content">
   {% for post in site.posts %}
-    {% unless post.category contains "monthly-reading" %}
     <p>
       <span class="gray">{{ post.date | date: "%Y %m %d" }}</span>
       <a class="title" href="{{ post.url }}">&nbsp;{{ post.title }}</a>
     </p>
-    {% endunless %}
-  {% endfor %}
-
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-
-  {% for post in site.categories.monthly-readings %}
-    <p class="gray">{{ post.title }}</p>
-
-    {{ post.content }}
   {% endfor %}
 </div>
