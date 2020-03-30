@@ -21,7 +21,7 @@ Kafka 过去一直保障到 At Least Once 语义，用户生产的消息不会�
 
 事务的实现大致上是一个两阶段提交过程，一是增加 Transaction ID，二是增加事务控制消息，三是增加一个 Transaction Coordinator 组件。
 
-![](/images/kafka-transaction-summary.png.png)
+![](/images/kafka-transaction-summary.png)
 
 ### 事务控制消息
 
