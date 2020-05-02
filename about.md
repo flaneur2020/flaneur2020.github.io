@@ -4,7 +4,7 @@ title: About
 permlink: /about
 ---
 
-关注分布式存储与计算、中间件。
+关注分布式系统、中间件。
 
 github: <http://github.com/fleurer>
 
