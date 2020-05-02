@@ -14,7 +14,7 @@ category: monthly-readings
 
 - [golang 抢占式调度](https://www.evernote.com/l/AARvhc26NTlIVoGYGrlRt98qu0Z9kTNHIgo)
 
-- [Apache Kafka’s Distributed System Firefighter — The Controller Broke(https://www.evernote.com/l/AAT4wYyXWaVEBKy2UmCNrG5O8RaotxVrZxM)
+- [Apache Kafka’s Distributed System Firefighter — The Controller Broker](https://www.evernote.com/l/AAT4wYyXWaVEBKy2UmCNrG5O8RaotxVrZxM)
 
 - [Load balancing and scaling long-lived connections in Kubernetes](https://www.evernote.com/l/AARpe2EuLHdLsakXx_I7Gj3XvnrREl-C5W0)
 
