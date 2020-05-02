@@ -25,6 +25,7 @@ try {
 其中 JedisPool 是一切的入口，随后是从连接池拿连接、执行操作、返还连接三个操作。
 
 ## JedisPool
+
 jedis 直接使用 apache common-pool2 的 GenericObjectPool 来管理连接池。
 
 JedisPool 对象继承自 JedisPoolAbstract，然后 JedisPoolAbstract 继承自 Pool<Jedis>，然后 Pool<Jedis> 中包含 protected 成员 GenericObjectPool<T> internalPool。
@@ -118,7 +119,7 @@ extends BinaryJedis
 
 ## Connection
 
-终于走到连接管理的部分了，可见 Connection 类大致是对 socket 的一个包装：
+走到连接管理的部分，可见 Connection 类大致是对 socket 的一个包装：
 
 ```
 
