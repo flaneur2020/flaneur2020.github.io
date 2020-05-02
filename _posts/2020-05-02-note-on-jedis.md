@@ -122,7 +122,6 @@ extends BinaryJedis
 走到连接管理的部分，可见 Connection 类大致是对 socket 的一个包装：
 
 ```
-
 public class Connection implements Closeable {
 
   private static final byte[][] EMPTY_ARGS = new byte[0][];
@@ -132,7 +131,6 @@ public class Connection implements Closeable {
   private RedisOutputStream outputStream;
   private RedisInputStream inputStream;
   private boolean broken = false;
-
 ```
 
 其中 JedisSocketFactory 会根据对象池的配置来创建 Socket 连接。
