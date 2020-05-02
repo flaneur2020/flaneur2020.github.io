@@ -18,7 +18,7 @@ category: monthly-readings
 
 - [Load balancing and scaling long-lived connections in Kubernetes](https://www.evernote.com/l/AARpe2EuLHdLsakXx_I7Gj3XvnrREl-C5W0)
 
-- [实时 OLAP 系统 Druid](https://www.evernote.com/l/AAQnB1VgDshBXZzEi8RZ4o86HaSjG4EK_6o<Paste>)
+- [实时 OLAP 系统 Druid](https://www.evernote.com/l/AAQnB1VgDshBXZzEi8RZ4o86HaSjG4EK_6o)
 
 - [The Rise and Fall of the OLAP Cube](https://www.evernote.com/l/AARJmN3knP5EsZp4sIxxWQhM-oZeqcvR_cg)
 
