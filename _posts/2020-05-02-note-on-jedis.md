@@ -3,7 +3,7 @@ layout: post
 title: "jedis 代码笔记: JedisPool"
 ---
 
-最近想了解一下不同语言的连接池的实现，redis 协议是里面最简单的，也借着 jedis 的代码来学习一下 java 里的设计。
+最近想了解一下不同语言的连接池的实现，redis 协议是里面最简单的，也借着 jedis 的代码来学习一下 java 里连接池的设计。
 
 ## Jedis API
 
