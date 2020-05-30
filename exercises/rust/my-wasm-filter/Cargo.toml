@@ -1,0 +1,12 @@
+[package]
+name = "my-wasm-filter"
+version = "0.1.0"
+authors = ["Li Yazhou <me.ssword@gmail.com>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+proxy-wasm = "0.1.0"
+primes = "0.3.0"
