@@ -5,6 +5,7 @@ authors = ["Li Yazhou <me.ssword@gmail.com>"]
 edition = "2018"
 
 [lib]
+name = "my_wasm_filter"
 crate-type = ["cdylib"]
 
 [dependencies]
