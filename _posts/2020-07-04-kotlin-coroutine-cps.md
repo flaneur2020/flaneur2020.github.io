@@ -138,4 +138,4 @@ suspend fun auth(token: String, resourceName: String, cont: Continuation<Any?>) 
 
 ## References
 
-- https://medium.com/androiddevelopers/the-suspend-modifier-under-the-hood-b7ce46af624f
+- [The suspend modifier - Under the hood](https://medium.com/androiddevelopers/the-suspend-modifier-under-the-hood-b7ce46af624f)
