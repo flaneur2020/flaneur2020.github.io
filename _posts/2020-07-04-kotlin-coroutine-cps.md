@@ -35,7 +35,7 @@ function auth(token, resourceName, callback) {
 
 1. 调用异步方法，注册回调函数到 io loop；
 2. io loop 确认 io 事件（如收到服务端响应）后，回调注册在 io loop 中的回调函数，在参数中传递异步返回的结果，如果有异常，也同样在回调函数的参数中；
-3. 执行回调函数的逻辑，在回调函数中调用新的异步方法，注册新的回调函数到 io loop。
+3. 回调函数继续调别的回调函数，调用到新的异步方法时注册新的回调函数到 io loop。
 
 真正驱动整个控制流的是 io loop，即调度器。
 
@@ -127,7 +127,7 @@ suspend fun auth(token: String, resourceName: String, cont: Continuation<Any?>) 
 
 画图整理一下大致的流程：
 
-![](/img/kotlin-coroutine-cps.png)
+![](/images/kotlin-coroutine-cps.png)
 
 ## 总结
 
