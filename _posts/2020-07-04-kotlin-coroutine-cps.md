@@ -29,7 +29,7 @@ function auth(token, resourceName, callback) {
 }
 ```
 
-也就是俗称的「callback hell」，这种风格一度曾在 node js 中发扬光大了一把。大致上是将本来函数该返回的值通过参数中的回调函数进行返回。其中「continuation」 词义较未晦涩，实际上大致是「callback」的同义词。
+也就是俗称的「callback hell」，这种风格一度曾在 node js 中发扬光大了一把。大致上是将本来函数该返回的值通过参数中的回调函数进行返回。其中「continuation」 词义较晦涩，实际上它大约就是「callback」的同义词。
 
 流程上大致是：
 
