@@ -134,6 +134,7 @@ suspend fun auth(token: String, resourceName: String, cont: Continuation<Any?>) 
 - kotlin 的协程支持大约是 CPS 变换和 StateMachine 两部分，CPS 变换使同步代码异步化，增加额外的 Continuation 类型的参数，用于函数结果值的返回；
 - 通过 switch / case 配合 label，做到执行点位的记录与暂停；
 - 每个 suspend 方法都会生成一个内部的 StateMachine 类，StateMachine 类中包含函数的所有局部变量，以及暂定点的返回值与异常值，扮演了 yield 语句的功能，即暂停函数的执行，为此需要记录下函数当前的局部变量上下文与执行点位。
+- 被暂停函数的恢复执行，实现上等于将函数的局部变量上下文与点位作为参数，重新调用一次这个函数。
 
 ## References
 
