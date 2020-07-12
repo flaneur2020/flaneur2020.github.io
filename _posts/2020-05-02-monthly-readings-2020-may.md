@@ -1,8 +1,20 @@
 ---
 layout: post
-title: "Monthly Readings: 2020 May"
+title: "Monthly Readings: 2020"
 category: monthly-readings
 ---
+
+## 2020 July
+
+- [golang: Escape analysis and interfaces](https://www.evernote.com/l/AAS-NW40m-5GF6rvTyP6S09Wc0Z90lQ8NZY)
+
+- [Counting with Prometheus](https://www.evernote.com/l/AAS5vZjdmhhKlapck-5S1zs2IMFB7kFeB3Y)
+
+- [HISTOGRAMS AND SUMMARIES](https://www.evernote.com/l/AARudnbX2GRIzYI3skEvamTRKexNS6jTwuQ)
+
+- [Envoy Internals Deep Dive](https://www.evernote.com/l/AARfymSO1apAP6tBX2jxaeUl9deWFQ-EGpQ)
+
+## 2020 May
 
 - [Why Your Spark Apps Are Slow Or Failing, Part II: Data Skew and Garbage Collection](https://www.evernote.com/l/AATFwBI8TCpDEr8xSLFXiQo3_9Glfqy6PT0)
 
