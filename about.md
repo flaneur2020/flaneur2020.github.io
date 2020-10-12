@@ -6,7 +6,7 @@ permlink: /about
 
 关注分布式系统、中间件。
 
-github: <http://github.com/fleurer>
+github: <http://github.com/flaneur2020>
 
 zhihu: <https://www.zhihu.com/people/fleurer>
 
