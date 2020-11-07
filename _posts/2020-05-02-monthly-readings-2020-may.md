@@ -4,6 +4,24 @@ title: "Monthly Readings: 2020"
 category: monthly-readings
 ---
 
+## 2020 Nov
+
+- [Docker and the PID 1 zombie reaping problem](https://www.evernote.com/l/AAQfenceFPhGjY71Mz1tZVhwY-7_zEw4FIk)
+
+- [The Almighty Pause Container](https://www.evernote.com/l/AASGFVik8_BD3rK6pU-S3OeTnyPW3o3NlNY)
+
+- [How to Gracefully Close Channels](https://www.evernote.com/l/AARpO1_V8XRFiaC4ypX8K2SPjP9UEanAyiY)
+
+- [Iptables REDIRECT vs. DNAT vs. TPROXY](https://www.evernote.com/l/AAQn8tDpM8hLzYqsZ2H8kLvgFrBDzGtUrL0)
+
+- [HTTP RPC调用的Connection reset问题调研](https://www.evernote.com/l/AARMqaJHYS5MIaJGfiMjLE7wJlD4gDQR3mQ)
+
+- [Racy conntrack and DNS lookup timeouts](https://www.evernote.com/l/AAQC0UOpI65FO7gFNOtDM9YYQQ6PsRID3lg)
+
+- [Dealing with Maven dependency hell](https://www.evernote.com/l/AASkxKCllWxN9JUPVkiHdZS-KvWDbveMWPQ)
+
+- [Why Many Profilers have Serious Problems (More on Profiling with Signals)](https://www.evernote.com/l/AATVZsyLsr1No6en81Uyepy9BuX_j2zNgBk)
+
 ## 2020 July
 
 - [golang: Escape analysis and interfaces](https://www.evernote.com/l/AAS-NW40m-5GF6rvTyP6S09Wc0Z90lQ8NZY)
