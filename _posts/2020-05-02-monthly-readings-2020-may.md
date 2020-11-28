@@ -6,6 +6,22 @@ category: monthly-readings
 
 ## 2020 Nov
 
+- [Existential issues with metrics](https://www.evernote.com/l/AAREJeNBh2xFnq-hygiB73FIHE2wW9PJSI0)
+
+- [Prometheus TSDB (Part 1): The Head Block](https://www.evernote.com/l/AATV81OTovFMQL7f6Rnl-RgKwsm0N_ERYb0)
+
+- [A Primer on Kubernetes Access Control](https://www.evernote.com/l/AAR9OzK3B9xAdZ57_VCh-73DL_ZA9wovH_4)
+
+- [How does 'kubectl exec' work?](https://www.evernote.com/l/AATEpqVQUDBMmqma2cdWsi_5DTiJjKkIgh4)
+
+- [Raft: Cluster membership changes](https://www.evernote.com/l/AAQ_SGiBX45NMrJCsyXSHrS2bLVR5u7s0eU)
+
+- [Saga Transactions: what's old is new again](https://www.evernote.com/l/AAQepSjz0FVHVJoq7VbYU8HBDgOSUo4cduw)
+
+- [Understanding Channels](https://www.evernote.com/l/AASAtkCjU09KSZO_SnXsHnMQnWZMM5WksHg)
+
+## 2020 Oct
+
 - [Docker and the PID 1 zombie reaping problem](https://www.evernote.com/l/AAQfenceFPhGjY71Mz1tZVhwY-7_zEw4FIk)
 
 - [The Almighty Pause Container](https://www.evernote.com/l/AASGFVik8_BD3rK6pU-S3OeTnyPW3o3NlNY)
