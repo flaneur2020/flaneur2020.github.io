@@ -48,12 +48,12 @@ class AnnotationExporter(object):
             last_date = annotations[0].date
             gen_path = u"%s/%s.md" % (dir_path, self._cook_target_path(book_title, last_date))
             with open(gen_path, 'w+') as f:
-                print u"render %s" % gen_path
+                print(u"render %s" % gen_path)
                 md_content = self._render_annotations_of_one_book(annotations, user_name)
                 f.write(md_content.encode('utf-8'))
         gen_path = '%s/index.md' % dir_path
         with open(gen_path, 'w+') as f:
-            print u"render %s" % gen_path
+            print(u"render %s" % gen_path)
             md_content = self._render_annotations_index(book_annotations_pairs)
             f.write(md_content.encode('utf-8'))
 
@@ -101,11 +101,11 @@ class AnnotationExporter(object):
             annotations_map.setdefault(annotation.book_title, [])
             annotations_map[annotation.book_title].append(annotation)
         pairs = annotations_map.items()
-        sorted_pairs = sorted(pairs, key=lambda (_, l): l[0].time, reverse=True)
+        sorted_pairs = sorted(pairs, key=lambda _, l: l[0].time, reverse=True)
         return sorted_pairs
 
     def _fetch_with_pagination(self, user_name, start, count=100):
-        print '_fetch_with_pagination(%s, %s)' % (user_name, start)
+        print('_fetch_with_pagination(%s, %s)' % (user_name, start))
         resp = requests.get('https://api.douban.com/v2/book/user/%s/annotations?count=%d&start=%d' % (user_name, count, start))
         resp.raise_for_status()
         data = resp.json()
