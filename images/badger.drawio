@@ -1,65 +1,77 @@
-<mxfile host="app.diagrams.net" modified="2021-08-01T06:32:47.000Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" etag="Q3RSYvRpiFiYQ1csb2jP" version="13.5.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-01T06:41:06.058Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" etag="Og3mZ9vnsOvVd0VPs3DB" version="13.5.8" type="github">
   <diagram id="m640i7htxF8INme5xLxX" name="Page-1">
     <mxGraphModel dx="946" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3200" pageHeight="2400" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-1" value="txn.commitAndSend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="160" y="190" width="160" height="50" as="geometry" />
+          <mxGeometry x="310" y="230" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-2" value="orc.newCommitTs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="160" y="270" width="160" height="50" as="geometry" />
+          <mxGeometry x="310" y="310" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="meJpIJ2n8r1vD5dWZhTf-3" target="meJpIJ2n8r1vD5dWZhTf-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-3" value="o.doneRead()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="360" y="270" width="160" height="50" as="geometry" />
+          <mxGeometry x="510" y="310" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-6" value="readMark.Done(txn.readTs)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="560" y="270" width="160" height="50" as="geometry" />
+          <mxGeometry x="710" y="310" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-8" value="o.cleanupCommittedTransactions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="330" y="360" width="210" height="50" as="geometry" />
+          <mxGeometry x="480" y="400" width="210" height="50" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-12" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="meJpIJ2n8r1vD5dWZhTf-16">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="265" y="1160" as="sourcePoint" />
-            <mxPoint x="265" y="800" as="targetPoint" />
+            <mxPoint x="475" y="1200" as="sourcePoint" />
+            <mxPoint x="475" y="840" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-13" value="Get(keyA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="200" y="800" width="130" height="40" as="geometry" />
+          <mxGeometry x="410" y="840" width="130" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="meJpIJ2n8r1vD5dWZhTf-14" value="Set(keyA, 1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="200" y="920" width="130" height="40" as="geometry" />
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-14" value="Set(keyB, keyA + 1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="410" y="960" width="130" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="meJpIJ2n8r1vD5dWZhTf-16" value="tx 1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="237.5" y="640" width="55" height="20" as="geometry" />
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-16" value="事务 1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="447.5" y="680" width="55" height="20" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-17" value="Commit&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="200" y="1000" width="130" height="40" as="geometry" />
+          <mxGeometry x="410" y="1040" width="130" height="40" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-18" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="meJpIJ2n8r1vD5dWZhTf-21">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="555" y="1160" as="sourcePoint" />
-            <mxPoint x="555" y="800" as="targetPoint" />
+            <mxPoint x="765" y="1200" as="sourcePoint" />
+            <mxPoint x="765" y="840" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-20" value="Set(keyA, 1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="490" y="840" width="130" height="40" as="geometry" />
+          <mxGeometry x="700" y="880" width="130" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="meJpIJ2n8r1vD5dWZhTf-21" value="tx 2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="527.5" y="640" width="55" height="20" as="geometry" />
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-21" value="事务 2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="737.5" y="680" width="55" height="20" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-22" value="Commit&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="490" y="920" width="130" height="40" as="geometry" />
+          <mxGeometry x="700" y="960" width="130" height="40" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-23" value="Begin" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="200" y="720" width="130" height="40" as="geometry" />
+          <mxGeometry x="410" y="760" width="130" height="40" as="geometry" />
         </mxCell>
         <mxCell id="meJpIJ2n8r1vD5dWZhTf-24" value="Begin" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="490" y="760" width="130" height="40" as="geometry" />
+          <mxGeometry x="700" y="800" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-26" value="提交失败" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3333;" vertex="1" parent="1">
+          <mxGeometry x="550" y="1050" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-28" value="事务 1 读取 keyA，而 keyA 在事务 2 中被修改，冲突检查失败" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontColor=#FF9999;" vertex="1" parent="1">
+          <mxGeometry x="550" y="1070" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-37" value="提交成功" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#4D9900;" vertex="1" parent="1">
+          <mxGeometry x="840" y="970" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-38" value="提交成功后，此事务的元信息仍在内存中保存一段时间，用于冲突检测" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontColor=#4D9900;" vertex="1" parent="1">
+          <mxGeometry x="850" y="990" width="140" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
