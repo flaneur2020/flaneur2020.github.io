@@ -1,1 +1,28 @@
-<mxfile host="app.diagrams.net" modified="2021-08-01T06:14:50.903Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" version="13.5.8" etag="yF_I5Vn-j-gYTd25a9Z3" type="github"><diagram id="m640i7htxF8INme5xLxX">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-08-01T06:18:59.513Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" etag="VuCStLWGeT9xc76dmT9T" version="13.5.8" type="github">
+  <diagram id="m640i7htxF8INme5xLxX" name="Page-1">
+    <mxGraphModel dx="946" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3200" pageHeight="2400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-1" value="txn.commitAndSend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="160" y="190" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-2" value="orc.newCommitTs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="160" y="270" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="meJpIJ2n8r1vD5dWZhTf-3" target="meJpIJ2n8r1vD5dWZhTf-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-3" value="o.doneRead()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="270" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-6" value="readMark.Done(txn.readTs)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="560" y="270" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="meJpIJ2n8r1vD5dWZhTf-8" value="o.cleanupCommittedTransactions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="335" y="360" width="210" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
