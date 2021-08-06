@@ -5,8 +5,90 @@ import requests
 from datetime import datetime
 
 
+class PageExporter:
+    def __init__(self, url, client):
+        self._client = client
+        self._page = self._client.get_block(url)
+
+    def export_markdown(self, image_dir):
+        title = self._page.title
+        pass
+
+    def export_images(self, image_dir):
+        pass
+
+    def _md_page_header(self):
+        """return the page's header formatted as Front Matter
+
+          Returns:
+            header(Stirng): return Front Matter header
+        """
+        header = "---\n"
+        header += "title: {0}\n".format(self.title)
+        try:
+            header += "date: {0}\n".format(self._format_date())
+        except:
+            header += ""
+        header += '---\n'
+        return header
+
+    def page2md(self, page=None):
+        """change notion's block to markdown string
+        """
+        params = {'tap_count':0,'img_count':0,'num_index':0}
+        md = ""
+        for i, block in enumerate(page.children):
+            try:
+                md += self.block2md(block, params)
+            except Exception as e:
+                print(e)
+        return md
+
+    def block2md(self, block, params, indent=0):
+        md = ""
+        btype = block.type
+
+        if btype == 'header':
+            md += "# " + filter_inline_math(block)
+        elif btype == "sub_header":
+            md += "## " + filter_inline_math(block)
+        elif btype == "sub_sub_header":
+            md += "### " + filter_inline_math(block)
+        elif btype == 'text':
+            md += filter_inline_math(block)
+        elif btype == 'bookmark':
+            md += link_format(block.title, block.link)
+        elif btype == "video" or btype == "file" or btype == "audio" or btype == "pdf" or btype == "gist":
+            md += link_format(block.source, block.source)
+        elif btype == "bulleted_list" or btype == "toggle":
+            md += '- '+filter_inline_math(block)
+        elif btype == "numbered_list":
+            self.md += '1. '+filter_inline_math(block)
+        elif btype == "code":
+            md += "``` "+block.language.lower()+"\n"+block.title+"\n```"
+        elif btype == "equation":
+            md += "$$"+block.latex+"$$"
+        elif btype == "divider":
+            md += "---"
+        elif btype == "to_do":
+            if block.checked:
+                md += "- [x] " + block.title
+            else:
+                md += "- [ ]" + block.title
+        elif btype == "quote":
+            md += "> " + block.title
+        elif btype == "column" or btype == "column_list":
+            md += ""
+        elif block.children and btype != 'page':
+            for child in block.children:
+                md += self.block2md(child, params, indent+1)
+        else:
+            raise Exception("unsupport block type: %s" % btype)
+        return md + "\n\n"
+
+
 class PageBlockExporter:
-    def __init__(self, url, client, blog_mode, image_dir="", download_dir=""):
+    def __init__(self, url, client, blog_mode, main_dir="", image_dir="", download_dir=""):
         self.client = client
         self.page = self.client.get_block(url)
         self.title = self.page.title
@@ -17,33 +99,17 @@ class PageBlockExporter:
         else:
             self.file_name = self.page.title
             self.md = ""
+
+        self.dir = main_dir
+
         self.image_dir = image_dir
         if self.image_dir is "":
-            self.image_dir = os.path.join(self.dir, 'image/')
+            self.image_dir = os.path.join(self.dir, 'images/')
+
         self.download_dir = download_dir
+        if self.download_dir is "":
+            self.download_dir = os.path.join(self.dir, 'download/')
         self.sub_exporters = []
-
-    def create_main_folder(self, directory):
-        """create folder with file name
-
-          Args:
-            directory(Stirng): set empty by default.
-        """
-        self.dir = directory + self.title + '/'
-
-        if not(os.path.isdir(self.dir)):
-            os.makedirs(os.path.join(self.dir))
-
-    def create_folder(self, directory):
-        """create folder with directory
-
-          Args:
-            directory(Stirng): set empty by default.
-        """
-        self.dir = directory
-
-        if not(os.path.isdir(self.dir)):
-            os.makedirs(os.path.join(self.dir))
 
     def create_sub_folder(self):
         """create sub folder with current file name
@@ -93,10 +159,9 @@ class PageBlockExporter:
         open(image_path, 'wb').write(r.content)
         return image_path
 
-    def create_download_foler(self):
+    def ensure_download_foler(self):
         """create download output directory
         """
-        self.download_dir = os.path.join(self.dir, 'download/')
         print(self.download_dir)
         if not(os.path.isdir(self.download_dir)):
             os.makedirs(os.path.join(self.download_dir))
@@ -111,8 +176,7 @@ class PageBlockExporter:
           Returns:
             None
         """
-        if self.download_dir is "":
-            self.create_download_foler()
+        self.ensure_download_foler()
 
         try:
             download_path = self.download_dir + file_name
@@ -222,7 +286,6 @@ class PageBlockExporter:
             self.create_sub_folder()
             sub_url = block.get_browseable_url()
             exporter = PageBlockExporter(sub_url, self.client, self.bmode)
-            exporter.create_folder(self.sub_dir)
             sub_page_path = exporter.create_file()
             try:
                 if "https:" in block.icon:
@@ -335,6 +398,7 @@ def filter_inline_math(block):
         else:
             text += block.title
     return text
+
 
 def filter_source_url(block):
     try:
