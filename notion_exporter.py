@@ -40,7 +40,7 @@ class PageExporter:
             md += self._block2md(block)
         return md
 
-    def block2md(self, block, indent=0):
+    def _block2md(self, block, indent=0):
         md = ""
         btype = block.type
         if btype == 'header':
@@ -52,9 +52,9 @@ class PageExporter:
         elif btype == 'text':
             md += filter_inline_math(block)
         elif btype == 'bookmark':
-            md += link_format(block.title, block.link)
+            md += format_link(block.title, block.link)
         elif btype == "video" or btype == "file" or btype == "audio" or btype == "pdf" or btype == "gist":
-            md += link_format(block.source, block.source)
+            md += format_link(block.source, block.source)
         elif btype == "bulleted_list" or btype == "toggle":
             md += '- '+filter_inline_math(block)
         elif btype == "numbered_list":
@@ -82,7 +82,7 @@ class PageExporter:
         return md + "\n\n"
 
 
-def link_format(name, url):
+def format_link(name, url):
     """make markdown link format string
     """
     return "["+name+"]"+"("+url+")"
