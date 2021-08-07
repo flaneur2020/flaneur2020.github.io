@@ -69,6 +69,7 @@ DEPENDENCIES
   jekyll
   kramdown
   pry
+  rouge
 
 BUNDLED WITH
    2.1.4

@@ -8,8 +8,6 @@ author_name: 'fleuria'
 # Build settings
 markdown: kramdown
 permalink: pretty
-
-highlighter: rouge
 kramdown:
   input: GFM
   auto_ids: true
