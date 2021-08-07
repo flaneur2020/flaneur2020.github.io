@@ -1,9 +1,15 @@
-# https://raw.githubusercontent.com/echo724/notion2md/main/notion2md/exporter.py
+#!/usr/bin/env python
+# coding: utf-8
 
+import sys
+import argparse
 import typing
 import notion.block
 from itertools import takewhile
 from notion.client import NotionClient
+
+
+# https://raw.githubusercontent.com/echo724/notion2md/main/notion2md/exporter.py
 
 
 class PageExporter:
@@ -132,12 +138,35 @@ def filter_source_url(block):
         return block.title
 
 
-if __name__ == "__main__":
+POST_URLS = {
+    "2021-08-01-badger-txn": "https://www.notion.so/fleuria/badger-bdbd1620efd84038afedd9efc708ee66",
+}
+
+
+def main():
+    parser = argparse.ArgumentParser(description="sync blog posts from notion")
+    parser.add_argument(
+        "--post", metavar="P", type=str, nargs=1, required=True, help="the key of post"
+    )
+    args = parser.parse_args()
+    post_name = args.post[0]
+    url = POST_URLS.get(post_name)
+    if not url:
+        print("%s not found" % post_name)
+        sys.exit(1)
+    download_post(post_name, url)
+
+
+def download_post(post_name, url):
     token_v2 = open(".notion-token").read().strip()
     client = NotionClient(token_v2=token_v2)
-
-    url = "https://www.notion.so/fleuria/badger-bdbd1620efd84038afedd9efc708ee66"
     page = typing.cast(notion.block.PageBlock, client.get_block(url))
     exporter = PageExporter(page)
     md = exporter.export_markdown({"layout": "post"})
-    print(md)
+    file_name = "_posts/%s.md" % post_name
+    with open(file_name, "w+") as f:
+        f.write(md)
+
+
+if __name__ == "__main__":
+    main()
