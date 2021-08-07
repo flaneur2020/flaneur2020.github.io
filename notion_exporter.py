@@ -1,18 +1,21 @@
 # https://raw.githubusercontent.com/echo724/notion2md/main/notion2md/exporter.py
 
-import os
-import requests
+import typing
+import notion.block
+from itertools import takewhile
 from notion.client import NotionClient
-from datetime import datetime
 
 
 class PageExporter:
     def __init__(self, url: str, client: NotionClient):
         self._client = client
-        self._page = self._client.get_block(url)
+        self._page = typing.cast(
+            notion.block.Block, self._client.get_block(url))
 
     def export_markdown(self, image_dir):
-        return self._page2md(self._page)
+        blocks = typing.cast(typing.List[notion.block.Block],
+                             list(self._page.children))
+        return self._blocks2md(blocks)
 
     def export_images(self, image_dir):
         pass
@@ -32,11 +35,24 @@ class PageExporter:
         header += "---\n"
         return header
 
-    def _page2md(self, page):
-        """change notion's block to markdown string"""
+    def _blocks2md(self, blocks: typing.List[notion.block.Block]):
+        i = 0
         md = ""
-        for block in page.children:
-            md += self._block2md(block)
+        list_btypes = ["bulleted_list", "numbered_list", "to_do"]
+        while i < len(blocks):
+            block = blocks[i]
+            if block.type in list_btypes:
+                group = list(
+                    takewhile(lambda x: x.type == block.type, blocks[i:]))
+                for block in group:
+                    md += self._block2md(block)
+                    md += "\n"
+                md += "\n"
+                i += len(group)
+            else:
+                md += self._block2md(block)
+                md += "\n\n"
+                i += 1
         return md
 
     def _block2md(self, block, indent=0):
@@ -79,12 +95,17 @@ class PageExporter:
             md += "> " + block.title
         elif btype == "column" or btype == "column_list":
             md += ""
+        elif btype == "table_of_contents":
+            # 忽略 toc
+            pass
+        elif btype == "image":
+            md += "![](%s)" % block.source
         elif block.children and btype != "page":
             for child in block.children:
                 md += self._block2md(child, indent + 1)
         else:
             raise Exception("unsupport block type: %s" % btype)
-        return md + "\n\n"
+        return md
 
 
 def format_link(name, url):
@@ -110,7 +131,7 @@ def join_with_vertical(list):
 def filter_inline_math(block):
     """This function will get inline math code and append it to the text"""
     text = ""
-    elements = block.get("properties")["title"]
+    elements = block.get("properties", {}).get("title", [])
     for i in elements:
         if i[0] == "⁍":
             text += "$$" + i[1][0][1] + "$$"

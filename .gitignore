@@ -6,3 +6,4 @@ octave-workspace
 exercises/leetcode/bin/*
 .jekyll-cache/
 .notion-token
+.vim/
