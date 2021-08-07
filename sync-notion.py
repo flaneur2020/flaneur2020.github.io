@@ -155,7 +155,9 @@ POST_URLS = {
 def main():
     opts = docopt.docopt(__doc__)
     if opts["list"]:
-        for k, v in POST_URLS.items():
+        items = POST_URLS.items()
+        items = sorted(items, key=lambda x: x[0])
+        for k, v in items:
             print("%s -- %s" % (k, v))
     elif opts["sync"]:
         post_name = opts["<POST>"]
