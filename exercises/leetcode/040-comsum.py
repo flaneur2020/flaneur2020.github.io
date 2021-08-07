@@ -1,4 +1,3 @@
-
 def bfs(l, target, prefix, result):
     if target < 0:
         return
@@ -13,5 +12,5 @@ def bfs(l, target, prefix, result):
 
 
 result = []
-bfs(sorted([10,1,2,7,6,1,5]), 8, [], result)
+bfs(sorted([10, 1, 2, 7, 6, 1, 5]), 8, [], result)
 print([list(t) for t in {tuple(l) for l in result}])
