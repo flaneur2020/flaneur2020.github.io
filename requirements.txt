@@ -1,2 +1,3 @@
 requests
+docopt
 git+https://github.com/flaneur2020/notion-py@fix-limit-request-error

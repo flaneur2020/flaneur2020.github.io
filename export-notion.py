@@ -1,13 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+"""sync-notion.py
+
+Usage:
+  sync-notion.py list
+  sync-notion.py sync <POST>
+
+Options:
+  -h --help
+"""
+
 import sys
-import argparse
+import docopt
 import typing
 import notion.block
 from itertools import takewhile
 from notion.client import NotionClient
-
 
 # https://raw.githubusercontent.com/echo724/notion2md/main/notion2md/exporter.py
 
@@ -144,17 +153,17 @@ POST_URLS = {
 
 
 def main():
-    parser = argparse.ArgumentParser(description="sync blog posts from notion")
-    parser.add_argument(
-        "--post", metavar="P", type=str, nargs=1, required=True, help="the key of post"
-    )
-    args = parser.parse_args()
-    post_name = args.post[0]
-    url = POST_URLS.get(post_name)
-    if not url:
-        print("%s not found" % post_name)
-        sys.exit(1)
-    download_post(post_name, url)
+    opts = docopt.docopt(__doc__)
+    if opts["list"]:
+        for k, v in POST_URLS.items():
+            print("%s -- %s" % (k, v))
+    elif opts["sync"]:
+        post_name = opts["<POST>"]
+        url = POST_URLS.get(post_name)
+        if not url:
+            print("%s not found" % post_name)
+            sys.exit(1)
+        download_post(post_name, url)
 
 
 def download_post(post_name, url):

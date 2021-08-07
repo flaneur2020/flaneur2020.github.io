@@ -7,7 +7,7 @@ badger 是 dgraph 开源的 LSMTree 的 KV 引擎，它相比 leveldb 有 KV 分
 
 badger 实现了 Serializable Snapshot 隔离级别（简称 SSI）的乐观并发控制的事务，相比 Snapshot 隔离级别（简称 SI），SSI 除了跟踪写操作进行冲突检测，也会对事务中的读操作进行跟踪，在 Commit 时进行冲突检查，当前事务读取过的数据，如果在事务执行的期间被其他事务修改过，则会提交失败：
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/e85ff920-1c7e-458a-a469-cacd03065c67/Screen_Shot_2021-08-01_at_2.41.19_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T071618Z&X-Amz-Expires=86400&X-Amz-Signature=bcf4706531d9251cad5f53a6c60eff39571cce2b845dc3df20b9e1f65af2fc5a&X-Amz-SignedHeaders=host)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/e85ff920-1c7e-458a-a469-cacd03065c67/Screen_Shot_2021-08-01_at_2.41.19_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T072711Z&X-Amz-Expires=86400&X-Amz-Signature=445b7396aa09a4251f9718279e7fb33e45c5da5ec712874283e05993b937265d&X-Amz-SignedHeaders=host)
 
 ## 事务的生命周期
 
@@ -25,7 +25,7 @@ badger 实现了 Serializable Snapshot 隔离级别（简称 SSI）的乐观并�
 
 这里授时得到的时间戳并非物理时间，而是逻辑上的：所有的数据变化均来自事务提交的时刻，因此仅当事务提交时使时间戳递增。
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/83208fc6-33e6-4d5a-9e62-d6826027869f/Screen_Shot_2021-08-01_at_3.36.02_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T071618Z&X-Amz-Expires=86400&X-Amz-Signature=366216b72bb8a20f8283ef53918a433d481c5f44a2a722f1686da6417ffde096&X-Amz-SignedHeaders=host)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/83208fc6-33e6-4d5a-9e62-d6826027869f/Screen_Shot_2021-08-01_at_3.36.02_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T072711Z&X-Amz-Expires=86400&X-Amz-Signature=fd18b3ffe6cc545bcbc0d455ade7adafdfb17a7ab2cf5cc1ec6a6e10134563f2&X-Amz-SignedHeaders=host)
 
 以上面的图为例，事务 4 在提交时需要与事务 3 和事务 1 进行冲突检测，因为事务 3 和事务 1 的提交时间位于事务 4 的开始与提交之间，事务 3 和事务 1 写入的 key 如果与事务 4 读写的 key 列表存在重叠，则认为存在冲突。
 
@@ -60,7 +60,7 @@ func (o *oracle) readTs() uint64 {
 
 这里有一个细节，前面提到时间戳的递增发生于事务的提交，会存在一个时间戳递增了但写入仍未落盘的时间窗口，导致事务在这时开始的话，会读到旧数据而非时间戳后的快照。解决办法就是启动事务前，先等待当前时间戳的事务完成写入。
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/933136ee-8f63-4d3e-bf55-9aea57d49a26/Screen_Shot_2021-08-01_at_4.22.41_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T071618Z&X-Amz-Expires=86400&X-Amz-Signature=80851b6ac5481502b7f93d918340f3382e752d2017287211b5ba77b7ce0b15fc&X-Amz-SignedHeaders=host)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/933136ee-8f63-4d3e-bf55-9aea57d49a26/Screen_Shot_2021-08-01_at_4.22.41_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T072713Z&X-Amz-Expires=86400&X-Amz-Signature=93af2179de57259aebb446e917f794d2b724cfb64f706e6025e61bc0554b5768&X-Amz-SignedHeaders=host)
 
 txnMark 字段是 WaterMark 结构体类型，它内部会维护一个堆数据结构，可以用于跟踪事务的时间戳区段的变化通知。
 
@@ -197,7 +197,7 @@ func (o *oracle) newCommitTs(txn *Txn) uint64 {
 
 前面提到事务在提交时会结合 committedTxns 数组中的信息进行冲突检测。committedTxns 数组记录近期的已提交事务的信息，显然是不能无限增长的。那么何时可以对 committedTxns 数组进行清理呢？标准就是最早的活跃的事务的开始时间戳，如果历史事务的提交时间戳早于当前活跃的事务的开始时间戳，冲突检查时就不需要考虑它了，也就可以在 committedTxns 中回收它了。
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c63aad24-2a89-4405-937a-053f182fe09d/Screen_Shot_2021-08-01_at_5.34.54_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T071621Z&X-Amz-Expires=86400&X-Amz-Signature=c71df49fe58fdc7b030eceeded47745031a8794e6e68f594ee183d89cdd8469d&X-Amz-SignedHeaders=host)
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c63aad24-2a89-4405-937a-053f182fe09d/Screen_Shot_2021-08-01_at_5.34.54_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210807%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210807T072713Z&X-Amz-Expires=86400&X-Amz-Signature=b15ae5909c913440e8b2874489084f51d3ed5f4de9abd4812d1047d9b0a114f9&X-Amz-SignedHeaders=host)
 
 ``` go
 func (o *oracle) cleanupCommittedTransactions() { // Must be called under o.Lock
