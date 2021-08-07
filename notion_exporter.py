@@ -7,33 +7,19 @@ from notion.client import NotionClient
 
 
 class PageExporter:
-    def __init__(self, url: str, client: NotionClient):
-        self._client = client
-        self._page = typing.cast(
-            notion.block.Block, self._client.get_block(url))
+    def __init__(self, page: notion.block.PageBlock):
+        self._page = page
 
-    def export_markdown(self, image_dir):
-        blocks = typing.cast(typing.List[notion.block.Block],
-                             list(self._page.children))
-        return self._blocks2md(blocks)
+    def export_markdown(self, meta={}):
+        md = "---\n"
+        md += "title: %s\n" % self._page.title
+        for k, v in meta.items():
+            md += "%s: %s\n" % (k, v)
+        md += "---\n\n"
 
-    def export_images(self, image_dir):
-        pass
-
-    def _md_page_header(self, title, date):
-        """return the page's header formatted as Front Matter
-
-        Returns:
-          header(Stirng): return Front Matter header
-        """
-        header = "---\n"
-        header += "title: {0}\n".format(title)
-        try:
-            header += "date: {0}\n".format(date)
-        except:
-            header += ""
-        header += "---\n"
-        return header
+        blocks = typing.cast(typing.List[notion.block.Block], list(self._page.children))
+        md += self._blocks2md(blocks).strip()
+        return md
 
     def _blocks2md(self, blocks: typing.List[notion.block.Block]):
         i = 0
@@ -42,8 +28,7 @@ class PageExporter:
         while i < len(blocks):
             block = blocks[i]
             if block.type in list_btypes:
-                group = list(
-                    takewhile(lambda x: x.type == block.type, blocks[i:]))
+                group = list(takewhile(lambda x: x.type == block.type, blocks[i:]))
                 for block in group:
                     md += self._block2md(block)
                     md += "\n"
@@ -152,6 +137,7 @@ if __name__ == "__main__":
     client = NotionClient(token_v2=token_v2)
 
     url = "https://www.notion.so/fleuria/badger-bdbd1620efd84038afedd9efc708ee66"
-    exporter = PageExporter(url, client)
-    md = exporter.export_markdown("./images/")
+    page = typing.cast(notion.block.PageBlock, client.get_block(url))
+    exporter = PageExporter(page)
+    md = exporter.export_markdown({"layout": "post"})
     print(md)
