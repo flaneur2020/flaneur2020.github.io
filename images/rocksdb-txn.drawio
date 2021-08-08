@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-08T14:41:35.301Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" etag="pTNE77-ixjOYzR6ie2DK" version="14.9.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-08T15:17:40.522Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" etag="75nO1QAARJUJYX98ZPDT" version="14.9.3" type="github">
   <diagram id="8KGm0N4p7uLPsV3gt4K9" name="Page-1">
     <mxGraphModel dx="2272" dy="839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -71,16 +71,16 @@
           <mxGeometry x="-780" y="380" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-8" value="TryLock()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="-560" y="740" width="200" height="30" as="geometry" />
+          <mxGeometry x="-560" y="800" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-9" value="BeginTransaction()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
           <mxGeometry x="-780" y="420" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-11" value="WritePreparedTxn" style="html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="-560" y="840" width="200" height="40" as="geometry" />
+          <mxGeometry x="-550" y="900" width="200" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Xe59qDCcCS6_xqgz3qhU-13" value="Commit()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="-560" y="880" width="200" height="30" as="geometry" />
+        <mxCell id="Xe59qDCcCS6_xqgz3qhU-13" value="CommitInternal()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="-550" y="940" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-15" value="WritePreparedTxnDB" style="html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="-560" y="380" width="200" height="40" as="geometry" />
@@ -119,10 +119,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-26" value="WriteCommittedTxn" style="html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="-780" y="840" width="200" height="40" as="geometry" />
+          <mxGeometry x="-770" y="900" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-27" value="Commit()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="-780" y="880" width="200" height="30" as="geometry" />
+          <mxGeometry x="-560" y="740" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-28" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Xe59qDCcCS6_xqgz3qhU-8" target="Xe59qDCcCS6_xqgz3qhU-26">
           <mxGeometry width="160" relative="1" as="geometry">
@@ -131,16 +131,22 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Xe59qDCcCS6_xqgz3qhU-29" value="WriteCommittedTxn" style="html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="-340" y="840" width="200" height="40" as="geometry" />
+          <mxGeometry x="-330" y="900" width="200" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Xe59qDCcCS6_xqgz3qhU-30" value="Commit()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="-340" y="880" width="200" height="30" as="geometry" />
+        <mxCell id="Xe59qDCcCS6_xqgz3qhU-30" value="CommitInternal()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="-330" y="940" width="200" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Xe59qDCcCS6_xqgz3qhU-31" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;entryX=0.55;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Xe59qDCcCS6_xqgz3qhU-29">
+        <mxCell id="Xe59qDCcCS6_xqgz3qhU-31" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;entryX=0.55;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.55;exitY=1.133;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="Xe59qDCcCS6_xqgz3qhU-8" target="Xe59qDCcCS6_xqgz3qhU-29">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-460" y="770" as="sourcePoint" />
             <mxPoint x="-450" y="850" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="Xe59qDCcCS6_xqgz3qhU-33" value="CommitInternal()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="-770" y="940" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xe59qDCcCS6_xqgz3qhU-34" value="Prepare()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="-560" y="770" width="200" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
