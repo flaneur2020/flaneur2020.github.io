@@ -32,25 +32,51 @@ class PageExporter:
             md += "%s: %s\n" % (k, v)
         md += "---\n\n"
 
-        blocks = typing.cast(typing.List[notion.block.Block], list(self._page.children))
+        blocks = self._convert_children_to_blocks(self._page.children)
         md += self._blocks2md(blocks).strip()
         return md
 
-    def _blocks2md(self, blocks: typing.List[notion.block.Block]):
+    def _convert_children_to_blocks(
+        self, children: notion.block.Children
+    ) -> typing.List[notion.block.Block]:
+        blocks = typing.cast(typing.List[notion.block.Block], list(children))
+        return blocks
+
+    def _flatten_blocks_with_children(
+        self,
+        blocks: typing.List[notion.block.Block],
+        indent: int = 0,
+    ) -> typing.List[typing.Tuple[notion.block.Block, int]]:
+        result = []
+        for block in blocks:
+            result.append((block, indent))
+            if block.children:
+                children_blocks = self._convert_children_to_blocks(
+                    block.children)
+                result.extend(
+                    self._flatten_blocks_with_children(
+                        children_blocks, indent + 1)
+                )
+        return result
+
+    def _blocks2md(self, blocks: typing.List[notion.block.Block], indent: int = 0):
         i = 0
         md = ""
         list_btypes = ["bulleted_list", "numbered_list", "to_do"]
-        while i < len(blocks):
-            block = blocks[i]
+        block_with_indents = self._flatten_blocks_with_children(blocks)
+        while i < len(block_with_indents):
+            block, indent = block_with_indents[i]
             if block.type in list_btypes:
-                group = list(takewhile(lambda x: x.type == block.type, blocks[i:]))
-                for block in group:
-                    md += self._block2md(block)
+                list_blocks = list(
+                    takewhile(lambda x: x.type == blocks[i].type, blocks[i:])
+                )
+                for block in list_blocks:
+                    md += self._block2md(block, indent)
                     md += "\n"
                 md += "\n"
-                i += len(group)
+                i += len(list_blocks)
             else:
-                md += self._block2md(block)
+                md += self._block2md(block, indent)
                 md += "\n\n"
                 i += 1
         return md
@@ -100,12 +126,11 @@ class PageExporter:
             pass
         elif btype == "image":
             md += "![](%s)" % block.source
-        elif block.children and btype != "page":
-            for child in block.children:
-                md += self._block2md(child, indent + 1)
         else:
             raise Exception("unsupport block type: %s" % btype)
-        return md
+
+        indent_spaces = "  " * indent
+        return indent_spaces + md
 
 
 def format_link(name, url):
@@ -149,6 +174,7 @@ def filter_source_url(block):
 
 POST_URLS = {
     "2021-08-01-badger-txn": "https://www.notion.so/fleuria/badger-bdbd1620efd84038afedd9efc708ee66",
+    "2021-08-14-rocksdb-txn": "https://www.notion.so/fleuria/rocksdb-a1bd4ae158be4b77b37e75bb210e105f",
 }
 
 
