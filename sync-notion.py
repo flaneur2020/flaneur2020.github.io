@@ -50,7 +50,7 @@ class PageExporter:
         result = []
         for block in blocks:
             result.append((block, indent))
-            if block.children:
+            if block.children and len(block.children) > 0:
                 children_blocks = self._convert_children_to_blocks(
                     block.children)
                 result.extend(
@@ -62,19 +62,24 @@ class PageExporter:
     def _blocks2md(self, blocks: typing.List[notion.block.Block], indent: int = 0):
         i = 0
         md = ""
-        list_btypes = ["bulleted_list", "numbered_list", "to_do"]
+        list_btypes = [
+            notion.block.BulletedListBlock,
+            notion.block.NumberedListBlock,
+            notion.block.TodoBlock,
+        ]
         block_with_indents = self._flatten_blocks_with_children(blocks)
         while i < len(block_with_indents):
             block, indent = block_with_indents[i]
-            if block.type in list_btypes:
-                list_blocks = list(
-                    takewhile(lambda x: x.type == blocks[i].type, blocks[i:])
+            if type(block) in list_btypes:
+                list_items = list(
+                    takewhile(lambda x: type(x[0]) in list_btypes,
+                              block_with_indents[i:])
                 )
-                for block in list_blocks:
+                for block, indent in list_items:
                     md += self._block2md(block, indent)
                     md += "\n"
                 md += "\n"
-                i += len(list_blocks)
+                i += len(list_items)
             else:
                 md += self._block2md(block, indent)
                 md += "\n\n"
@@ -129,7 +134,7 @@ class PageExporter:
         else:
             raise Exception("unsupport block type: %s" % btype)
 
-        indent_spaces = "  " * indent
+        indent_spaces = "    " * indent
         return indent_spaces + md
 
 
