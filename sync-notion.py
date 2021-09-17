@@ -221,8 +221,8 @@ def download_image(source_url, images_dir, images_base_url):
     print("downloading image %s" % download_path)
     resp = requests.get(source_url, allow_redirects=True)
     os.makedirs(images_dir, exist_ok=True)
-    with open(download_path, "w+") as f:
-        f.write(str(resp.content))
+    with open(download_path, "wb+") as f:
+        f.write(resp.content)
     return True, image_url
 
 
