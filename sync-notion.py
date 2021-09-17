@@ -11,10 +11,14 @@ Options:
   -h --help
 """
 
+import os
+import requests
 import sys
 import docopt
 import typing
 import notion.block
+from urllib.parse import urlparse
+import os.path
 from itertools import takewhile
 from notion.client import NotionClient
 
@@ -22,8 +26,10 @@ from notion.client import NotionClient
 
 
 class PageExporter:
-    def __init__(self, page: notion.block.PageBlock):
+    def __init__(self, page: notion.block.PageBlock, images_dir: str, images_base_url: str):
         self._page = page
+        self._images_dir = images_dir
+        self._images_base_url = images_base_url
 
     def export_markdown(self, meta={}):
         md = "---\n"
@@ -85,6 +91,21 @@ class PageExporter:
                 md += "\n\n"
                 i += 1
         return md
+
+    def _image_to_md_with_download(self, source_url):
+        url_path = urlparse(source_url).path
+        filename = url_path.split('/')[-1]
+        download_path = os.path.join(self._images_dir, filename)
+        image_url = os.path.join(self._images_base_url, filename)
+        if os.path.exists(download_path):
+            print("existed image %s" % download_path)
+            return '![](%s)' % image_url
+        print("downloading image %s" % download_path)
+        resp = requests.get(source_url, allow_redirects=True)
+        os.makedirs(self._images_dir, exist_ok=True)
+        with open(download_path, 'w+') as f:
+            f.write(str(resp.content))
+        return '![](%s)' % image_url
 
     def _block2md(self, block, indent=0):
         md = ""
@@ -185,7 +206,7 @@ POST_URLS = {
 
 
 def main():
-    opts = docopt.docopt(__doc__)
+    opts = docopt.docopt(str(__doc__))
     if opts["list"]:
         items = POST_URLS.items()
         items = sorted(items, key=lambda x: x[0])
@@ -204,7 +225,8 @@ def download_post(post_name, url):
     token_v2 = open(".notion-token").read().strip()
     client = NotionClient(token_v2=token_v2)
     page = typing.cast(notion.block.PageBlock, client.get_block(url))
-    exporter = PageExporter(page)
+    images_dir = "images/%s/" % post_name
+    exporter = PageExporter(page, images_dir, '/' + images_dir)
     md = exporter.export_markdown({"layout": "post"})
     file_name = "_posts/%s.md" % post_name
     with open(file_name, "w+") as f:
