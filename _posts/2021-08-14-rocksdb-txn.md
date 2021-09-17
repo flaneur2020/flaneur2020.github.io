@@ -435,7 +435,7 @@ void PointLockManager::UnLock(PessimisticTransaction* txn,
 
 ## 悲观并发控制：死锁探测
 
-死锁探测做的事情是跟踪事务之间的锁依赖关系，通过 BFS 遍历判断里面是否有环，有环就会形成死锁，死锁探测会阻止这类成环的锁出现。rocksdb 中 deadlock_detect 默认是关闭的状态，关闭死锁探测时，仍可以通过锁超时机制从死锁中恢复回来。
+死锁探测做的事情是跟踪事务之间的锁依赖关系，通过 BFS 遍历判断里面是否有环，提前阻止这类成环的上锁操作。rocksdb 中 deadlock_detect 默认是关闭的状态，关闭主动的死锁探测时，仍可以通过锁超时机制从死锁中恢复回来。
 
 死锁探测发生在 AcquireWithTimeout 函数中：
 
@@ -467,17 +467,17 @@ void PointLockManager::UnLock(PessimisticTransaction* txn,
   HashMap<TransactionID, int> rev_wait_txn_map_;
   // Maps from waiter -> waitee.
   HashMap<TransactionID, TrackedTrxInfo> wait_txn_map_;
-  DeadlockInfoBuffer dlock_buffer_;
+  DeadlockInfoBuffer dlock_buffer_
 ```
 
-rev_wait_txn_map_ 似乎用于剪枝，跟踪每个事务 ID 的等待者的个数，如果等待者数为 0，那么一定是不会存在死锁依赖的，就不必走后面的图遍历了。反过来如果等待数 > 1，也不一定有死锁依赖，仍需要遍历一遍才知道。
+其中 rev_wait_txn_map_ 似乎用于剪枝，跟踪每个事务 ID 的等待者的个数，如果等待者数为 0，那么一定是不会存在死锁依赖的，就不必走后面的图遍历了。反过来如果等待数 > 1，也不一定有死锁依赖，仍需要遍历一遍才知道。
 
-wait_txn_map_ 是 BFS 遍历的目标对象，在 IncrementWaiters 中，会从当前事务等待的 wait_ids 开始对 wait_txn_map_ 进行遍历，如果遍历到当前事务的 ID，则认为有环存在。
+wait_txn_map_ 字段是 BFS 遍历的目标对象，在 IncrementWaiters 中，会从当前事务等待的 wait_ids 开始对 wait_txn_map_ 进行遍历，如果遍历到当前事务的 ID，则认为有环存在。
 
 BFS 部分的逻辑如下：
 
 ``` c++
-   for (int tail = 0, head = 0; head < txn->GetDeadlockDetectDepth(); head++) {
+  for (int tail = 0, head = 0; head < txn->GetDeadlockDetectDepth(); head++) {
     int i = 0;
     if (next_ids) {
       for (; i < static_cast<int>(next_ids->size()) &&
@@ -508,13 +508,13 @@ BFS 部分的逻辑如下：
   }
 ```
 
-这里使用了两个最大长度为 deadlock_detect_depth_ 数组 queue_values[] 和 queue_parents[] 以及 head 和 tail 两个下标来作为 BFS 队列，tail 代表队列的尾部，head 代表头部，当 head 追上 tail 时遍历结束。当找到死锁依赖时，结合根据 queue_parents[] 中的信息，记录到 dlock_buffer_ 中用于辅助诊断。
+这里使用了两个最大长度为 deadlock_detect_depth_ 数组 queue_values[] 以及 head 和 tail 两个下标来作为 BFS 队列，tail 代表队列的尾部，head 代表头部，当 head 追上 tail 时遍历结束。当找到死锁依赖时，结合根据 queue_parents[] 中的信息，记录形成死锁的路径到 dlock_buffer_ 中用于辅助诊断。
 
 ## 总结
 
 - 在 OptimisticTransaction 中，rocksdb 直接使用 MemTable 来获取 Key 的最新 Sequence 号，用于 Commit 时的冲突探测，判断事务期间 Key 有没有被其他事务写入过
 - 在 PessimisticTransactionDB 中，rocksdb 在 LockManager 中基于 CondVar 和 mutex 实现的行锁语义，每个 Key 对应一把行锁，获取行锁时若存在锁冲突，则等待 CondVar 通知
-- 死锁冲突是一个锁依赖关系图的 BFS，寻找锁依赖之间是否存在环，如果存在，则认为会存在死锁，则提前阻止上锁，rocksdb 默认没有开启死锁探测，如有发生死锁，仍可以通过锁超时恢复
+- 死锁冲突是一个锁依赖关系图的 BFS，寻找锁依赖之间是否存在环，如果存在，则认为会存在死锁，则提前阻止上锁，rocksdb 默认没有开启死锁探测，如有发生死锁仍可以通过锁超时恢复
 
 ## References
 
