@@ -180,6 +180,7 @@ def filter_source_url(block):
 POST_URLS = {
     "2021-08-01-badger-txn": "https://www.notion.so/fleuria/badger-bdbd1620efd84038afedd9efc708ee66",
     "2021-08-14-rocksdb-txn": "https://www.notion.so/fleuria/rocksdb-a1bd4ae158be4b77b37e75bb210e105f",
+    "2021-09-06-crdb-txn": "https://www.notion.so/fleuria/crdb-b54fc0cff91244a9acebd87d4ea6329c",
 }
 
 
