@@ -15,9 +15,9 @@ permlink: '/atom.xml'
   {% for post in site.posts limit:15 %}
   <entry>
     <title>{{ post.title }}</title>
-    <link href="{{ site.baseurl }}/{{ post.url }}"/>
+    <link href="{{ site.baseurl }}{{ post.url }}"/>
     <updated>{{ post.date | date_to_xmlschema }}</updated>
-    <id>{{ site.baseurl }}/{{ post.id }}</id>
+    <id>{{ site.baseurl }}{{ post.id }}</id>
     <content type="html">{{ post.content | xml_escape }}</content>
   </entry>
   {% endfor %}
