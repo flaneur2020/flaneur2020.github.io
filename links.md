@@ -8,6 +8,7 @@ permlink: '/links'
 - [chichou](https://blog.chichou.me/)
 - [Lieo](https://www.daozhihun.com/)
 - [Vayn](http://elnode.com/)
+- [谷月轩](https://silverrainz.me)
 - [Reus](http://www.douban.com/people/reus/)
 - [dutor](http://www.dutor.net/)
 - [Reflector](http://xudifsd.org/blog/)
