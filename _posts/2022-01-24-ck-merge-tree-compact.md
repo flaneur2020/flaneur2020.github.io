@@ -1,6 +1,6 @@
 ---
-title: ck 的 MergeTree: Compact
 layout: post
+title: "ck 的 MergeTree: Compact"
 ---
 
 对 MergeTree 这个名词先入为主地以为是 leveldb 的那种 LSM，然而在 ck 的 MergeTree 里一概没找着那些熟悉的东西，看蒙了一段时间。
