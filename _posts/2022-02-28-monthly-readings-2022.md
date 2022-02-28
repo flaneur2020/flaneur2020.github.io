@@ -21,7 +21,7 @@ title: "Monthly Readings: 2022"
 
 - [Inside Presto Optimizer](https://www.evernote.com/shard/s4/sh/a48cc914-4d4e-b2cd-2342-add895e98834/9fa427ce561b720cf9d72a7976814055)
 
-# Feb
+## Feb
 
 - [Security/How Bitwarden encrypts your data](https://www.evernote.com/shard/s4/sh/7efecaf5-3318-8a0d-c332-21d691e3b086/104f13b753f77fbe5059ec05e8173d90)
 
