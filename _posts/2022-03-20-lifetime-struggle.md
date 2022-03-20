@@ -1,12 +1,12 @@
 ---
-title: lifetime 恐惧自我治疗
+title: lifetime 恐惧自救
 layout: post
 ---
 
 lifetime annotation 语法让我感到比较别扭的地方是：
 
 1. 它不是真正的类型，因为不能像真的类型那样实例化，但是它可以像传递一个真实类型一样传递到泛型的类型参数中，而且也确实是实打实的 Subtyping 有协变逆变
-1. 它也可以是类似 Trait 那样作为类型约束，除了可以约束其他的 lifetime annotation 比如 `'a: 'b`，也可以和普通的类型做约束比如 `T: 'a`它也可以是类似 Trait 那样作为类型约束，除了可以约束其他的 lifetime annotation 比如 `'a: 'b`，也可以和普通的类型做约束比如 `T: 'a`它也可以是类似 Trait 那样作为类型约束，除了可以约束其他的 lifetime annotation 比如 `'a: 'b`，也可以和普通的类型做约束比如 `T: 'a`它也可以是类似 Trait 那样作为类型约束，除了可以约束其他的 lifetime annotation 比如 `'a: 'b`，也可以和普通的类型做约束比如 `T: 'a`
+1. 它也可以是类似 Trait 那样作为类型约束，除了可以约束其他的 lifetime annotation 比如 `'a: 'b`，也可以和普通的类型做约束比如 `T: 'a`
 
 这个设定还能够勉强接受。不过除此之外，lifetime 时不时跟其他一些奇怪的语法一同出现，每到这时候仍总是感到恐惧。
 
@@ -18,7 +18,7 @@ lifetime annotation 语法让我感到比较别扭的地方是：
 
 ## Ref<’a, T: 'a>
 
-这个例子来自 [https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types](https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types)：这个例子来自 [https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types](https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types)：这个例子来自 [https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types](https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types)：
+这个例子来自 [https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types](https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html#lifetime-bounds-on-references-to-generic-types)：
 
 ``` rust
 struct Ref<'a, T>(&'a T);
@@ -43,7 +43,7 @@ note: ...so that the reference type `&'a T` does not outlive the data it points 
 
 为什么需要对这里的泛型参数增加 lifetime 约束？
 
-因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。
+因为 T 可能是一个包含引用的结构体，比如 `Lexer<’a>`，虽然有这个 Lexer 的 ownership，但是它里面有对外的引用；也可能它就是一个引用类型比如 `&PlainText`。在这时，`T: ‘a` 可以用于声明 T 这个类型的生命周期一定在 `‘a` 的范围之内。
 
 ## Cow<’a, B: ‘a + ToOwned + ?Sized>
 
@@ -59,11 +59,11 @@ where
 }
 ```
 
-跟前一个例子一样，这里有对泛型参数中的 B 指定 `‘a` 来约束它的生命周期在 `’a` 之内。跟前一个例子一样，这里有对泛型参数中的 B 指定 `‘a` 来约束它的生命周期在 `’a` 之内。跟前一个例子一样，这里有对泛型参数中的 B 指定 `‘a` 来约束它的生命周期在 `’a` 之内。跟前一个例子一样，这里有对泛型参数中的 B 指定 `‘a` 来约束它的生命周期在 `’a` 之内。跟前一个例子一样，这里有对泛型参数中的 B 指定 `‘a` 来约束它的生命周期在 `’a` 之内。
+跟前一个例子一样，这里有对泛型参数中的 B 指定 `‘a` 来约束它的生命周期在 `’a` 之内。
 
-这个代码里主要是 `?Sized` 这个东西看不懂，先查一把。这个代码里主要是 `?Sized` 这个东西看不懂，先查一把。这个代码里主要是 `?Sized` 这个东西看不懂，先查一把。
+这个代码里主要是 `?Sized` 这个东西看不懂，先查一把。
 
-`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：
+`Sized` trait 意思是类型在编译器可以知道长度，所有的类型参数都有一个默认的 `Sized` bound。`?Sized` 表示放开这个 bound，允许接受非定长的类型。非定长的类型主要来自 Slice 和 Trait Object，比如 `dyn MyTrait` 和 `[u8]` 这种。非定长的类型不能在栈上保存，比如：
 
 ``` rust
 // Can't be stored on the stack directly
@@ -73,7 +73,7 @@ struct MySuperSlice {
 }
 ```
 
-但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。
+但是非定长类型的引用仍是定长的，可以在栈上传递，比如 `&’a B`、`&dyn MyTrait`, `&[u8]`。`Cow<’a, B>` 中的 B 之所以允许 `?Sized`，是因为 enum 的 Borrowed 部分的内容是对 B 的引用。如果没有声明 `?Sized` 的话，就不能对 `[u8]` 使用 `Cow<>` 了。
 
 ## box_disaplayable<’a, T: Display + ‘a>
 
@@ -87,7 +87,7 @@ fn box_displayable<T: Display>(t: T) -> Box<dyn Display> {
 
 这段代码为什么不能编译通过？
 
-跟前面的例子一样，原因还是 T 可能是包含引用的结构体，也可能是个对引用类型实现的 trait 比如 `impl Display for &MyType`。在 move 时，需要确保它 move 后仍在 lifetime 范围内。跟前面的例子一样，原因还是 T 可能是包含引用的结构体，也可能是个对引用类型实现的 trait 比如 `impl Display for &MyType`。在 move 时，需要确保它 move 后仍在 lifetime 范围内。跟前面的例子一样，原因还是 T 可能是包含引用的结构体，也可能是个对引用类型实现的 trait 比如 `impl Display for &MyType`。在 move 时，需要确保它 move 后仍在 lifetime 范围内。
+跟前面的例子一样，原因还是 T 可能是包含引用的结构体，也可能是个对引用类型实现的 trait 比如 `impl Display for &MyType`。在 move 时，需要确保它 move 后仍在 lifetime 范围内。
 
 ``` rust
 error[E0310]: the parameter type `T` may not live long enough
@@ -107,7 +107,7 @@ note: ...so that the type `T` will meet its required lifetime bounds
 
 ## for<’a>
 
-[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：
+[http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/) 这个例子比较好，我有一个 `ChuckSum` trait，里面包了一个 `calc` 的方法，有 Xor 和 Add 两种算法实现：
 
 ``` rust
 trait Checksum<R:Read> {
@@ -141,7 +141,7 @@ impl <R:Read> Checksum<R> for Add {
 }
 ```
 
-很合理。有多种不同的算法，均取满足 `Read` trait 的参数，计算 checksum。很合理。有多种不同的算法，均取满足 `Read` trait 的参数，计算 checksum。很合理。有多种不同的算法，均取满足 `Read` trait 的参数，计算 checksum。
+很合理。有多种不同的算法，均取满足 `Read` trait 的参数，计算 checksum。
 
 根据参数中指定的算法来计算一个文件的 checksum：
 
@@ -197,11 +197,11 @@ For more information about this error, try `rustc --explain E0597`.
 
 为什么还会报错 borrowed value does not live long enough 呢？
 
-因为按这个 lifetime 约束，calc 的参数的 lifetime 需要比 `‘a` 大，但是 buf 这个变量的生命周期是小于 `‘a` 的，因此报错了。因为按这个 lifetime 约束，calc 的参数的 lifetime 需要比 `‘a` 大，但是 buf 这个变量的生命周期是小于 `‘a` 的，因此报错了。因为按这个 lifetime 约束，calc 的参数的 lifetime 需要比 `‘a` 大，但是 buf 这个变量的生命周期是小于 `‘a` 的，因此报错了。因为按这个 lifetime 约束，calc 的参数的 lifetime 需要比 `‘a` 大，但是 buf 这个变量的生命周期是小于 `‘a` 的，因此报错了。因为按这个 lifetime 约束，calc 的参数的 lifetime 需要比 `‘a` 大，但是 buf 这个变量的生命周期是小于 `‘a` 的，因此报错了。
+因为按这个 lifetime 约束，calc 的参数的 lifetime 需要比 `‘a` 大，但是 buf 这个变量的生命周期是小于 `‘a` 的，因此报错了。
 
 引用类型可以是 Generic Trait 的类型参数，这本身是没毛病的，不过有了引用就需要有 lifetime，rust 过去在一个函数中出现的 lifetime annotation 只能都来自于函数的 lifetime generic parameter 的声明。如果使用函数的 lifetime ‘a 来标注泛型参数中的引用，就会出现上面的报错。
 
-使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。
+使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。
 
 可以做一个 work around，就是单独定义一个函数，通过函数的 lifetime 标记确保引用的生命周期一致，也就没有问题了：
 
@@ -211,7 +211,7 @@ fn calc_checksum<'a>(buf: &'a [u8], mut c: impl Checksum<&'a [u8]>) -> Vec<u8> {
 }
 ```
 
-每个类似的调用点都单独封装一个函数的做法比较丑。为此 rust 引进了 HRTB 语法，也就是这个 `for <’a>`。这样改：每个类似的调用点都单独封装一个函数的做法比较丑。为此 rust 引进了 HRTB 语法，也就是这个 `for <’a>`。这样改：每个类似的调用点都单独封装一个函数的做法比较丑。为此 rust 引进了 HRTB 语法，也就是这个 `for <’a>`。这样改：
+每个类似的调用点都单独封装一个函数的做法比较丑。为此 rust 引进了 HRTB 语法，也就是这个 `for <’a>`。这样改：
 
 ``` rust
 fn calc_file_with_checksum(_path: String, mut checksumer: impl for<'a> Checksum<&'a [u8]>) -> Vec<u8> {
@@ -232,7 +232,7 @@ __注意定义结构体时，泛型参数要不要加上 lifetime 约束？__
 
 __在使用的 Trait 里，有没有泛型参数可能传入引用？__
 
-这类参数通过调用所在的函数的 lifetime 进行约束是没有意义的，它需要的 lifetime 一定会比函数的 lifetime ‘a 要小。这时可以通过 `for<’a>` 对 Trait 类型本身做约束，函数本身可以不需要 lifetime 参数。这类参数通过调用所在的函数的 lifetime 进行约束是没有意义的，它需要的 lifetime 一定会比函数的 lifetime ‘a 要小。这时可以通过 `for<’a>` 对 Trait 类型本身做约束，函数本身可以不需要 lifetime 参数。这类参数通过调用所在的函数的 lifetime 进行约束是没有意义的，它需要的 lifetime 一定会比函数的 lifetime ‘a 要小。这时可以通过 `for<’a>` 对 Trait 类型本身做约束，函数本身可以不需要 lifetime 参数。
+这类参数通过调用所在的函数的 lifetime 进行约束是没有意义的，它需要的 lifetime 一定会比函数的 lifetime ‘a 要小。这时可以通过 `for<’a>` 对 Trait 类型本身做约束，函数本身可以不需要 lifetime 参数。
 
 ## References
 

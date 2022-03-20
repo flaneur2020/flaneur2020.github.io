@@ -107,7 +107,8 @@ class PageExporter:
                 md += "\n"
                 i += len(list_items)
             else:
-                md += self._block2md(block, indent, images_map)
+                block_md = self._block2md(block, indent, images_map)
+                md += block_md
                 md += "\n\n"
                 i += 1
         return md
@@ -116,13 +117,13 @@ class PageExporter:
         md = ""
         btype = block.type
         if btype == "header":
-            md += "# " + filter_inline_math(block)
+            md += "# " + block.title
         elif btype == "sub_header":
-            md += "## " + filter_inline_math(block)
+            md += "## " + block.title
         elif btype == "sub_sub_header":
-            md += "### " + filter_inline_math(block)
+            md += "### " + block.title
         elif btype == "text":
-            md += filter_inline_math(block)
+            md += block.title
         elif btype == "bookmark":
             md += format_link(block.title, block.link)
         elif (
@@ -134,9 +135,9 @@ class PageExporter:
         ):
             md += format_link(block.source, block.source)
         elif btype == "bulleted_list" or btype == "toggle":
-            md += "- " + filter_inline_math(block)
+            md += "- " + block.title
         elif btype == "numbered_list":
-            md += "1. " + filter_inline_math(block)
+            md += "1. " + block.title
         elif btype == "code":
             md += "``` " + block.language.lower() + "\n" + block.title + "\n```"
         elif btype == "equation":
