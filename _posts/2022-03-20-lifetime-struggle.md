@@ -26,7 +26,7 @@ struct Ref<'a, T>(&'a T);
 
 据说会报这个错（不过我没在本地复现成功，大概 rust 编译器新增加了省略规则）：
 
-``` plain text
+``` rust
 error[E0309]: the parameter type `T` may not live long enough
  --> src/lib.rs:1:19
   |
