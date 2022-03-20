@@ -211,7 +211,7 @@ fn calc_checksum<'a>(buf: &'a [u8], mut c: impl Checksum<&'a [u8]>) -> Vec<u8> {
 }
 ```
 
-每个类似的调用点都单独封装一个函数的做法比较丑。为此 rust 引进了 HRTB 语法，也就是这个 `for <’a>`。这样改：
+每个类似的调用点都单独封装一个函数的做法比较丑。为此 rust 引进了 HRTB （Higher Rank Trait Bound）语法，也就是这个 `for <’a>`。这样改：
 
 ``` rust
 fn calc_file_with_checksum(_path: String, mut checksumer: impl for<'a> Checksum<&'a [u8]>) -> Vec<u8> {
@@ -228,7 +228,7 @@ fn calc_file_with_checksum(_path: String, mut checksumer: impl for<'a> Checksum<
 
 __注意定义结构体时，泛型参数要不要加上 lifetime 约束？__
 
-泛型参数会容易在心智上默认它是一个 owned 类型，如果它与引用沾上关系，需要理解这个泛型参数即使是一个 owned 类型，里面仍可能有引用的字段存在，也就与 lifetime 是有关，如果有编译报错，就考虑一下是不是需要为它增加 lifetime 约束。
+泛型参数会容易在心智上默认它是一个 owned 类型，如果它与引用沾上关系，需要理解这个泛型参数即使是一个 owned 类型，里面仍可能有引用的字段存在，也就会与 lifetime 有关，如果有编译报错，就考虑一下是不是需要为它增加 lifetime 约束，使泛型参数的 lifetime 满足结构体的 lifetime 约束。
 
 __在使用的 Trait 里，有没有泛型参数可能传入引用？__
 
