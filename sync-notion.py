@@ -232,6 +232,7 @@ POST_URLS = {
     "2021-09-06-crdb-txn": "https://www.notion.so/fleuria/crdb-b54fc0cff91244a9acebd87d4ea6329c",
     "2022-01-24-ck-merge-tree-compact": "https://www.notion.so/fleuria/ck-MergeTree-Compact-7c58abf22088414590b8ba6aa0a56eaa",
     "2022-01-25-ck-replacing-merge-tree": "https://www.notion.so/fleuria/ReplacingMergeTree-CollapsingMergeTree-beeb77a6e5e045368d10baf557f64b87",
+    "2022-03-20-lifetime-struggle": "https://www.notion.so/fleuria/lifetime-734773ef3d954d3a990253f909ecdbb7",
 }
 
 
