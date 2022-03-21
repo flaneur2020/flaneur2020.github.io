@@ -8,9 +8,9 @@ lifetime annotation 语法让我感到比较别扭的地方是：
 1. 它不是真正的类型，因为不能像真的类型那样实例化，但是它可以像传递一个真实类型一样传递到泛型的类型参数中，而且也确实是实打实的 Subtyping 有协变逆变
 1. 它也可以是类似 Trait 那样作为类型约束，除了可以约束其他的 lifetime annotation 比如 `'a: 'b`，也可以和普通的类型做约束比如 `T: 'a`
 
-这个设定还能够勉强接受。不过除此之外，lifetime 时不时跟其他一些奇怪的语法一同出现，每到这时候仍总是感到恐惧。
+这个设定还能够接受。不过除此之外，lifetime 时不时跟其他一些奇怪的语法一同出现，每到这时候仍总是感到恐惧。
 
-想克服一下对 lifetime 的恐惧，尝试：1. 面对一下；2. 整理分析一下。
+想克服一下对 lifetime 的恐惧：1. 面对一下；2. 整理分析一下。
 
 粗略整理了一把不懂的代码之后，发现 lifetime 相关不懂的语法好像主要集中在跟各种泛型参数乃至 trait 约束放在一起时候。
 
@@ -201,7 +201,7 @@ For more information about this error, try `rustc --explain E0597`.
 
 引用类型可以是 Generic Trait 的类型参数，这本身是没毛病的，不过有了引用就需要有 lifetime，rust 过去在一个函数中出现的 lifetime annotation 只能都来自于函数的 lifetime generic parameter 的声明。如果使用函数的 lifetime ‘a 来标注泛型参数中的引用，就会出现上面的报错。
 
-使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲是不正确的。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。
+使用函数的 lifetime ‘a 来标记 `Checksum<&[u8]>` 中的引用，从生命周期的角度上讲并不正确。`Checksum<&[u8]>` 中引用的 lifetime 只跟它的调用点有关，两个不同的调用点，它的 lifetime 会有所不同。
 
 可以做一个 work around，就是单独定义一个函数，通过函数的 lifetime 标记确保引用的生命周期一致，也就没有问题了：
 
@@ -226,20 +226,20 @@ fn calc_file_with_checksum(_path: String, mut checksumer: impl for<'a> Checksum<
 
 结构体与函数的 lifetime 标识还比较容易理解，但是泛型的参数仍有可能代入引用类型，这是很容易忘记的一个地方。此外，在定义泛型结构体或者 Trait 时是没有办法预见泛型参数的 lifetime 的，在这时候比较容易遇到意外，总结下来：
 
-__注意定义结构体时，泛型参数要不要加上 lifetime 约束？__
+__定义结构体时，泛型参数要不要加上 lifetime 约束？__
 
-泛型参数会容易在心智上默认它是一个 owned 类型，如果它与引用沾上关系，需要理解这个泛型参数即使是一个 owned 类型，里面仍可能有引用的字段存在，也就会与 lifetime 有关，如果有编译报错，就考虑一下是不是需要为它增加 lifetime 约束，使泛型参数的 lifetime 满足结构体的 lifetime 约束。
+泛型参数会容易在心智上默认它是一个 owned 类型，如果它与引用沾上关系，需要理解到这个泛型参数即使是一个 owned 类型，里面仍可能有引用的字段存在，也就会与 lifetime 有关，如果有编译报错，就考虑一下是不是需要为它增加 lifetime 约束，使泛型参数的 lifetime 满足结构体的 lifetime 约束。
 
 __在使用的 Trait 里，有没有泛型参数可能传入引用？__
 
-这类参数通过调用所在的函数的 lifetime 进行约束是没有意义的，它需要的 lifetime 一定会比函数的 lifetime ‘a 要小。这时可以通过 `for<’a>` 对 Trait 类型本身做约束，函数本身可以不需要 lifetime 参数。
+这类参数通过调用所在的函数的 lifetime 进行约束是没有意义的，它需要的 lifetime 一定会比函数的 lifetime ‘a 要小，也就满足不了函数的 lifetime 的约束。这时可以通过 `for<’a>` 对 Trait 类型本身做约束，函数本身可以不需要 lifetime 参数。
 
 ## References
 
 - [https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html](https://carols10cents.github.io/book/ch19-02-advanced-lifetimes.html)
 - [https://ttys3.dev/post/rust-trait-lifetime-bounds/](https://ttys3.dev/post/rust-trait-lifetime-bounds/)
 - [https://doc.rust-lang.org/nomicon/hrtb.html](https://doc.rust-lang.org/nomicon/hrtb.html)
-- [https://doc.rust-lang.org/nomicon/exotic-sizes.html#:~:text=Rust supports Dynamically Sized Types,DSTs are not normal types](https://doc.rust-lang.org/nomicon/exotic-sizes.html#:~:text=Rust%20supports%20Dynamically%20Sized%20Types,DSTs%20are%20not%20normal%20types)
+- [https://doc.rust-lang.org/nomicon/exotic-sizes.html](https://doc.rust-lang.org/nomicon/exotic-sizes.html#:~:text=Rust%20supports%20Dynamically%20Sized%20Types,DSTs%20are%20not%20normal%20types)
 - [https://medium.com/nearprotocol/understanding-rust-lifetimes-e813bcd405fa](https://medium.com/nearprotocol/understanding-rust-lifetimes-e813bcd405fa)
 - [https://github.com/pretzelhammer/rust-blog/blob/master/posts/common-rust-lifetime-misconceptions.md](https://github.com/pretzelhammer/rust-blog/blob/master/posts/common-rust-lifetime-misconceptions.md)
 - [http://zderadicka.eu/higher-rank/](http://zderadicka.eu/higher-rank/)
