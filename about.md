@@ -12,4 +12,6 @@ zhihu: <https://www.zhihu.com/people/fleurer>
 
 douban: <https://www.douban.com/people/fleure/>
 
-email/gt: me.ssword@gmail.com
+notion: <https://fleuria.notion.site/flaneur-s-Wiki-103e66b84cc24b28828e7c6726815182>
+
+email/gt: me.ssword#gmail.com
