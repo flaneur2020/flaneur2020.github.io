@@ -3,7 +3,7 @@ task :default => :generate
 
 task :g => :generate
 task :generate do
-  sh "bundle exec jekyll"
+  sh "bundle exec jekyll build"
 end
 
 desc "start a local server to preview this site."
