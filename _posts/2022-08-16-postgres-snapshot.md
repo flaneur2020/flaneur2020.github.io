@@ -1,5 +1,5 @@
 ---
-title: Postgres Snapshot
+title: Snapshot in Postgres
 layout: post
 ---
 
