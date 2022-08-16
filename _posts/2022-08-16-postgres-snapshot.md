@@ -14,14 +14,14 @@ Postgres 没有 MySQL 那种 UNDO log，多版本数据（Tuple）会直接存�
 
 比如有一个插入并 commit 的 tuple：
 
-``` plain text
+```
 | xmin | xmax | band  | fans  |
 | 023  | 0    | tfboy | 9000w |
 ```
 
 在一个新的事务中删除后：
 
-``` plain text
+```
 | xmin | xmax | band  | fans  |
 | 023  | 024  | tfboy | 9000w |
 ```
@@ -30,7 +30,7 @@ Postgres 没有 MySQL 那种 UNDO log，多版本数据（Tuple）会直接存�
 
 如果在一个新的事务中更新这个 Tuple 呢？Postgres 这里会将更新操作看作删除 + 插入：
 
-``` plain text
+```
 | xmin | xmax | band  | fans   |
 | 023  | 024  | tfboy | 9000w  |
 | 024  | 0    | tfboy | 10000w |
