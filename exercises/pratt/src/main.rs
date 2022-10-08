@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::rc::Rc;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 enum TokenKind {
@@ -102,6 +103,7 @@ impl PrefixParselet for NumericParselet {
     }
 }
 
+#[derive(Debug, Clone)]
 struct InfixParselet {
     pub precedence: i32,
 }
@@ -129,14 +131,14 @@ impl InfixParselet {
 
 struct Parser<'a> {
     tokener: Tokener<'a>,
-    prefixlets: HashMap<TokenKind, Box<dyn PrefixParselet>>,
+    prefixlets: HashMap<TokenKind, Rc<dyn PrefixParselet>>,
     infixlets: HashMap<TokenKind, InfixParselet>,
 }
 
 impl<'a> Parser<'a> {
     fn new(tokens: &'a [Token<'a>]) -> Self {
-        let mut prefixlets: HashMap<TokenKind, Box<dyn PrefixParselet>> = HashMap::new();
-        prefixlets.insert(TokenKind::Numeric, Box::new(NumericParselet));
+        let mut prefixlets: HashMap<TokenKind, Rc<dyn PrefixParselet>> = HashMap::new();
+        prefixlets.insert(TokenKind::Numeric, Rc::new(NumericParselet));
 
         let mut infixlets = HashMap::new();
         infixlets.insert(TokenKind::Add, InfixParselet::new(10));
@@ -154,7 +156,8 @@ impl<'a> Parser<'a> {
         let token = self.tokener.next()?;
         let prefixlet = self.prefixlets
             .get(&token.kind())
-            .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string()))?;
+            .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string()))?
+            .clone();
 
         let left = prefixlet.parse_expr(self, token)?;
 
