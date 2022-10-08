@@ -1,6 +1,6 @@
-use collections::HashMap;
+use std::collections::HashMap;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 enum TokenKind {
     Numeric,
     Add,
@@ -47,6 +47,7 @@ enum Expr {
 
 enum ParserError {
     EOF,
+    NotImplemented,
     UnexpectedToken(String, String),
 }
 
@@ -67,7 +68,7 @@ impl<'a> Tokener<'a> {
         Ok(&self.tokens[self.pos])
     }
 
-    fn consume<'b>(mut self, expect: Token<'b>) -> Result<&'a Token<'a>, ParserError> {
+    fn consume<'b>(&mut self, expect: Token<'b>) -> Result<&'a Token<'a>, ParserError> {
         let got = self.peek()?;
         if got != &expect {
             return Err(ParserError::UnexpectedToken(format!("{:?}", got), format!("{:?}", expect)));
@@ -75,25 +76,25 @@ impl<'a> Tokener<'a> {
         self.next()
     }
 
-    fn next(mut self) -> Result<&'a Token<'a>, ParserError> {
+    fn next(&mut self) -> Result<&'a Token<'a>, ParserError> {
         let token = self.peek()?;
         self.pos += 1;
         Ok(token)
     }
 }
 
-trait Parserlet {
-    fn parse_expr<'a>(&self, tokener: &'a Tokener<'a>) -> Result<Expr, ParserError>;
-}
-
 struct InfixParserlet {
     pub precedence: i32,
-    pub is_right_assoc: bool,
 }
 
 impl InfixParserlet {
-    fn new(precedence: i32, is_right_assoc: bool) -> Self {
-        Self { precedence, is_right_assoc }
+    fn new(precedence: i32) -> Self {
+        Self { precedence }
+    }
+
+    fn parse_expr(&self, parser: &mut Parser, left: Expr, token: Token) -> Result<Expr, ParserError> {
+        let right = parser.parse_expr(self.precedence)?;
+        Ok(Expr::Add(Box::new(left), Box::new(right)))
     }
 }
 
@@ -104,19 +105,20 @@ struct Parser<'a> {
 
 impl<'a> Parser<'a> {
     fn new(tokens: &'a [Token<'a>]) -> Self {
-        let infixlets = HashMap::new();
-        infixlets.insert(TokenKind::Add, InfixParserlet::new(10, false));
-        infixlets.insert(TokenKind::Sub, InfixParserlet::new(10, false));
-        infixlets.insert(TokenKind::Mul, InfixParserlet::new(20, false));
-        infixlets.insert(TokenKind::Div, InfixParserlet::new(20, false));
+        let mut infixlets = HashMap::new();
+        infixlets.insert(TokenKind::Add, InfixParserlet::new(10));
+        infixlets.insert(TokenKind::Sub, InfixParserlet::new(10));
+        infixlets.insert(TokenKind::Mul, InfixParserlet::new(20));
+        infixlets.insert(TokenKind::Div, InfixParserlet::new(20));
         Self {
             tokener: Tokener::new(tokens),
             infixlets,
         }
     }
 
-    fn parse(mut self, precedence: i32) -> Result<Expr, ParserError>{
+    fn parse_expr(&mut self, precedence: i32) -> Result<Expr, ParserError>{
         let token = self.tokener.next();
+        Err(ParserError::NotImplemented)
     }
 }
 
