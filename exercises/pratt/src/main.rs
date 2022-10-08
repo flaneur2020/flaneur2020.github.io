@@ -38,6 +38,7 @@ impl<'a> Token<'a> {
     }
 }
 
+#[derive(Clone, Debug)]
 enum Expr {
     Numeric(f64),
     Add(Box<Expr>, Box<Expr>),
@@ -86,16 +87,17 @@ impl<'a> Tokener<'a> {
 }
 
 trait PrefixParselet {
-    fn parse_expr<'a>(&self, parser: &'a mut Parser<'a>, token: &'a Token<'a>) -> Result<Expr, ParserError>;
+    fn parse_expr<'a>(&self, parser: &'a mut Parser<'_>, token: &'a Token<'_>) -> Result<Expr, ParserError>;
 }
 
 struct NumericParselet;
 
 impl PrefixParselet for NumericParselet {
-    fn parse_expr<'a>(&self, _parser: &'a mut Parser<'a>, token: &'a Token<'a>) -> Result<Expr, ParserError> {
+    fn parse_expr<'a>(&self, _parser: &'a mut Parser<'_>, token: &'a Token<'_>) -> Result<Expr, ParserError> {
         match token {
             Token::Numeric(s) => {
-                let n = s.parse::<f64>().or_else(|_| Err(ParserError::BadNumber(format!("bad num: {:?}", s))))?;
+                let n = s.parse::<f64>()
+                    .or_else(|_| Err(ParserError::BadNumber(format!("bad num: {:?}", s))))?;
                 Ok(Expr::Numeric(n))
             },
             _ => Err(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string())),
@@ -113,7 +115,7 @@ impl InfixParselet {
         Self { precedence }
     }
 
-    fn parse_expr<'a>(&self, parser: &'a mut Parser<'a>, left: Expr, token: Token) -> Result<Expr, ParserError> {
+    fn parse_expr<'a>(&self, parser: &'a mut Parser<'_>, left: Expr, token: &'a Token<'_>) -> Result<Expr, ParserError> {
         let right = parser.parse_expr(self.precedence)?;
         match token.kind() {
             TokenKind::Add => Ok(Expr::Add(Box::new(left), Box::new(right))),
@@ -152,16 +154,23 @@ impl<'a> Parser<'a> {
         }
     }
 
-    fn parse_expr(&'a mut self, precedence: i32) -> Result<Expr, ParserError>{
+    fn parse_expr(&mut self, precedence: i32) -> Result<Expr, ParserError>{
         let token = self.tokener.next()?;
         let prefixlet = self.prefixlets
             .get(&token.kind())
             .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string()))?
             .clone();
 
-        let left = prefixlet.parse_expr(self, token)?;
-
-        Err(ParserError::NotImplemented)
+        let mut left = prefixlet.parse_expr(self, token)?;
+        while precedence < self.get_precedence()? {
+            let token = self.tokener.next()?;
+            let infixlet = self.infixlets
+                .get(&token.kind())
+                .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Infix".to_string()))?
+                .clone();
+            left = infixlet.parse_expr(self, left, token)?;
+        }
+        Ok(left)
     }
 
     fn get_precedence(&self) -> Result<i32, ParserError> {
