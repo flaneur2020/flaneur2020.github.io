@@ -48,6 +48,7 @@ enum Expr {
 enum ParserError {
     EOF,
     NotImplemented,
+    BadNumber(String),
     UnexpectedToken(String, String),
 }
 
@@ -83,33 +84,60 @@ impl<'a> Tokener<'a> {
     }
 }
 
-struct InfixParserlet {
+trait PrefixParselet {
+    fn parse_expr<'a>(&self, parser: &mut Parser, token: &'a Token<'a>) -> Result<Expr, ParserError>;
+}
+
+struct NumericParselet;
+
+impl PrefixParselet for NumericParselet {
+    fn parse_expr<'a>(&self, _parser: &mut Parser, token: &'a Token<'a>) -> Result<Expr, ParserError> {
+        match token {
+            Token::Numeric(s) => {
+                let n = s.parse::<f64>().or_else(|_| Err(ParserError::BadNumber(format!("bad num: {:?}", s))))?;
+                Ok(Expr::Numeric(n))
+            },
+            _ => Err(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string())),
+        }
+    }
+}
+
+struct InfixParselet {
     pub precedence: i32,
 }
 
-impl InfixParserlet {
+impl InfixParselet {
     fn new(precedence: i32) -> Self {
         Self { precedence }
     }
 
     fn parse_expr(&self, parser: &mut Parser, left: Expr, token: Token) -> Result<Expr, ParserError> {
         let right = parser.parse_expr(self.precedence)?;
-        Ok(Expr::Add(Box::new(left), Box::new(right)))
+        match token.kind() {
+            TokenKind::Add => Ok(Expr::Add(Box::new(left), Box::new(right))),
+            TokenKind::Sub => Ok(Expr::Sub(Box::new(left), Box::new(right))),
+            TokenKind::Mul => Ok(Expr::Mul(Box::new(left), Box::new(right))),
+            TokenKind::Div => Ok(Expr::Div(Box::new(left), Box::new(right))),
+            _ => Err(ParserError::UnexpectedToken(format!("{:?}", token), "infix operator".to_string())),
+        }
     }
 }
 
 struct Parser<'a> {
     tokener: Tokener<'a>,
-    infixlets: HashMap<TokenKind, InfixParserlet>,
+    infixlets: HashMap<TokenKind, InfixParselet>,
 }
 
 impl<'a> Parser<'a> {
     fn new(tokens: &'a [Token<'a>]) -> Self {
+        let mut prefixlets: HashMap<TokenKind, Box<dyn PrefixParselet>> = HashMap::new();
+        prefixlets.insert(TokenKind::Numeric, Box::new(NumericParselet));
+
         let mut infixlets = HashMap::new();
-        infixlets.insert(TokenKind::Add, InfixParserlet::new(10));
-        infixlets.insert(TokenKind::Sub, InfixParserlet::new(10));
-        infixlets.insert(TokenKind::Mul, InfixParserlet::new(20));
-        infixlets.insert(TokenKind::Div, InfixParserlet::new(20));
+        infixlets.insert(TokenKind::Add, InfixParselet::new(10));
+        infixlets.insert(TokenKind::Sub, InfixParselet::new(10));
+        infixlets.insert(TokenKind::Mul, InfixParselet::new(20));
+        infixlets.insert(TokenKind::Div, InfixParselet::new(20));
         Self {
             tokener: Tokener::new(tokens),
             infixlets,
