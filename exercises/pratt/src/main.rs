@@ -1,3 +1,17 @@
+use collections::HashMap;
+
+#[derive(Debug, Clone, PartialEq)]
+enum TokenKind {
+    Numeric,
+    Add,
+    Sub,
+    Mul,
+    Div,
+    LParen,
+    RParen,
+}
+
+
 #[derive(Debug, Clone, PartialEq)]
 enum Token<'a> {
     Numeric(&'a str),
@@ -7,6 +21,20 @@ enum Token<'a> {
     Div,
     LParen,
     RParen,
+}
+
+impl<'a> Token<'a> {
+    fn kind(&self) -> TokenKind {
+        match self {
+            Token::Numeric(_) => TokenKind::Numeric,
+            Token::Add => TokenKind::Add,
+            Token::Sub => TokenKind::Sub,
+            Token::Mul => TokenKind::Mul,
+            Token::Div => TokenKind::Div,
+            Token::LParen => TokenKind::LParen,
+            Token::RParen => TokenKind::RParen,
+        }
+    }
 }
 
 enum Expr {
@@ -22,12 +50,12 @@ enum ParserError {
     UnexpectedToken(String, String),
 }
 
-struct Parser<'a> {
+struct Tokener<'a> {
     tokens: &'a [Token<'a>],
     pos: usize,
 }
 
-impl<'a> Parser<'a> {
+impl<'a> Tokener<'a> {
     fn new(tokens: &'a [Token<'a>]) -> Self {
         Self { tokens, pos: 0 }
     }
@@ -51,6 +79,44 @@ impl<'a> Parser<'a> {
         let token = self.peek()?;
         self.pos += 1;
         Ok(token)
+    }
+}
+
+trait Parserlet {
+    fn parse_expr<'a>(&self, tokener: &'a Tokener<'a>) -> Result<Expr, ParserError>;
+}
+
+struct InfixParserlet {
+    pub precedence: i32,
+    pub is_right_assoc: bool,
+}
+
+impl InfixParserlet {
+    fn new(precedence: i32, is_right_assoc: bool) -> Self {
+        Self { precedence, is_right_assoc }
+    }
+}
+
+struct Parser<'a> {
+    tokener: Tokener<'a>,
+    infixlets: HashMap<TokenKind, InfixParserlet>,
+}
+
+impl<'a> Parser<'a> {
+    fn new(tokens: &'a [Token<'a>]) -> Self {
+        let infixlets = HashMap::new();
+        infixlets.insert(TokenKind::Add, InfixParserlet::new(10, false));
+        infixlets.insert(TokenKind::Sub, InfixParserlet::new(10, false));
+        infixlets.insert(TokenKind::Mul, InfixParserlet::new(20, false));
+        infixlets.insert(TokenKind::Div, InfixParserlet::new(20, false));
+        Self {
+            tokener: Tokener::new(tokens),
+            infixlets,
+        }
+    }
+
+    fn parse(mut self, precedence: i32) -> Result<Expr, ParserError>{
+        let token = self.tokener.next();
     }
 }
 
