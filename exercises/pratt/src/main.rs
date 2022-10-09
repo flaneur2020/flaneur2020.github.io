@@ -38,7 +38,7 @@ impl<'a> Token<'a> {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 enum Expr {
     Numeric(f64),
     Add(Box<Expr>, Box<Expr>),
@@ -219,7 +219,20 @@ mod tests {
             Token::Numeric("5"),
         ];
         let mut p = Parser::new(&tokens);
-        p.parse_expr(0)?;
+        let expr = p.parse_expr(0)?;
+        assert_eq!(expr, Expr::Sub(
+            Box::new(Expr::Add(
+                Box::new(Expr::Numeric(1.0)),
+                Box::new(Expr::Div(
+                    Box::new(Expr::Mul(
+                        Box::new(Expr::Numeric(2.0)),
+                        Box::new(Expr::Numeric(3.0)),
+                    )),
+                    Box::new(Expr::Numeric(4.0)),
+                )),
+            )),
+            Box::new(Expr::Numeric(5.0)),
+        ));
         Ok(())
     }
 }
