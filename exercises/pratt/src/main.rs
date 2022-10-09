@@ -47,6 +47,7 @@ enum Expr {
     Div(Box<Expr>, Box<Expr>),
 }
 
+#[derive(Debug)]
 enum ParserError {
     EOF,
     NotImplemented,
@@ -65,7 +66,7 @@ impl<'a> Tokener<'a> {
     }
 
     fn peek(&self) -> Result<&'a Token<'a>, ParserError> {
-        if self.pos > self.tokens.len() {
+        if self.pos >= self.tokens.len() {
             return Err(ParserError::EOF);
         } 
         Ok(&self.tokens[self.pos])
@@ -161,20 +162,33 @@ impl<'a> Parser<'a> {
             .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string()))?
             .clone();
 
+        println!("parse_expr token: {:?}", token);
+        println!("----");
         let mut left = prefixlet.parse_expr(self, token)?;
+        println!("===");
         while precedence < self.get_precedence()? {
-            let token = self.tokener.next()?;
+            let token = match self.tokener.next() {
+                Ok(token) => token,
+                Err(ParserError::EOF) => break,
+                Err(e) => return Err(e),
+            };
+            println!("t: {:?}", token);
             let infixlet = self.infixlets
                 .get(&token.kind())
                 .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Infix".to_string()))?
                 .clone();
             left = infixlet.parse_expr(self, left, token)?;
         }
+        println!("ok: {:?}", left);
         Ok(left)
     }
 
     fn get_precedence(&self) -> Result<i32, ParserError> {
-        let token = self.tokener.peek()?;
+        let token = match self.tokener.peek() {
+            Ok(token) => token,
+            Err(ParserError::EOF) => return Ok(0),
+            Err(e) => return Err(e),
+        };
         let precedence = self.infixlets.get(&token.kind())
             .map(|i| i.get_precedence())
             .unwrap_or(0);
@@ -191,7 +205,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_parse_tokens() {
+    fn test_parse_tokens() -> Result<(), ParserError> {
         // 1 + 2 * 3 / 4 - 5
         let tokens = vec![
             Token::Numeric("1"),
@@ -204,5 +218,8 @@ mod tests {
             Token::Sub,
             Token::Numeric("5"),
         ];
+        let mut p = Parser::new(&tokens);
+        p.parse_expr(0)?;
+        Ok(())
     }
 }
