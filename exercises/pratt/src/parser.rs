@@ -14,7 +14,7 @@ enum TokenKind {
 
 
 #[derive(Debug, Clone, PartialEq)]
-enum Token<'a> {
+pub enum Token<'a> {
     Numeric(&'a str),
     Add,
     Sub,
@@ -23,6 +23,7 @@ enum Token<'a> {
     LParen,
     RParen,
 }
+
 
 impl<'a> Token<'a> {
     fn kind(&self) -> TokenKind {
@@ -108,7 +109,7 @@ impl PrefixParselet for NumericParselet {
 
 #[derive(Debug, Clone)]
 struct InfixParselet {
-    pub precedence: i32,
+    precedence: i32,
 }
 
 impl InfixParselet {
@@ -132,14 +133,14 @@ impl InfixParselet {
     }
 }
 
-struct Parser<'a> {
+pub struct Parser<'a> {
     tokener: Tokener<'a>,
     prefixlets: HashMap<TokenKind, Rc<dyn PrefixParselet>>,
     infixlets: HashMap<TokenKind, InfixParselet>,
 }
 
 impl<'a> Parser<'a> {
-    fn new(tokens: &'a [Token<'a>]) -> Self {
+    pub fn new(tokens: &'a [Token<'a>]) -> Self {
         let mut prefixlets: HashMap<TokenKind, Rc<dyn PrefixParselet>> = HashMap::new();
         prefixlets.insert(TokenKind::Numeric, Rc::new(NumericParselet));
 
@@ -162,24 +163,19 @@ impl<'a> Parser<'a> {
             .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string()))?
             .clone();
 
-        println!("parse_expr token: {:?}", token);
-        println!("----");
         let mut left = prefixlet.parse_expr(self, token)?;
-        println!("===");
         while precedence < self.get_precedence()? {
             let token = match self.tokener.next() {
                 Ok(token) => token,
                 Err(ParserError::EOF) => break,
                 Err(e) => return Err(e),
             };
-            println!("t: {:?}", token);
             let infixlet = self.infixlets
                 .get(&token.kind())
                 .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Infix".to_string()))?
                 .clone();
             left = infixlet.parse_expr(self, left, token)?;
         }
-        println!("ok: {:?}", left);
         Ok(left)
     }
 
@@ -194,10 +190,6 @@ impl<'a> Parser<'a> {
             .unwrap_or(0);
         Ok(precedence)
     }
-}
-
-fn main() {
-    println!("Hello, world!");
 }
 
 #[cfg(test)]
