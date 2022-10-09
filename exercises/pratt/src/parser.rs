@@ -24,7 +24,6 @@ pub enum Token<'a> {
     RParen,
 }
 
-
 impl<'a> Token<'a> {
     fn kind(&self) -> TokenKind {
         match self {
@@ -40,7 +39,7 @@ impl<'a> Token<'a> {
 }
 
 #[derive(Clone, Debug, PartialEq)]
-enum Expr {
+pub enum Expr {
     Numeric(f64),
     Add(Box<Expr>, Box<Expr>),
     Sub(Box<Expr>, Box<Expr>),
@@ -49,7 +48,7 @@ enum Expr {
 }
 
 #[derive(Debug)]
-enum ParserError {
+pub enum ParserError {
     EOF,
     NotImplemented,
     BadNumber(String),
@@ -156,7 +155,7 @@ impl<'a> Parser<'a> {
         }
     }
 
-    fn parse_expr(&mut self, precedence: i32) -> Result<Expr, ParserError>{
+    pub fn parse_expr(&mut self, precedence: i32) -> Result<Expr, ParserError>{
         let token = self.tokener.next()?;
         let prefixlet = self.prefixlets
             .get(&token.kind())
