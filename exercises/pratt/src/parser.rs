@@ -49,10 +49,10 @@ pub enum Expr {
 
 #[derive(Debug)]
 pub enum ParserError {
+    EOF,
     NotImplemented,
     BadNumber(String),
     UnexpectedToken(String, String),
-    UnexpectedEOF(String),
 }
 
 struct Tokener<'a> {
@@ -65,30 +65,25 @@ impl<'a> Tokener<'a> {
         Self { tokens, pos: 0 }
     }
 
-    fn peek(&self) -> Option<&'a Token<'a>> {
+    fn peek(&self) -> Result<&'a Token<'a>, ParserError> {
         if self.pos >= self.tokens.len() {
-            return None
+            return Err(ParserError::EOF);
         } 
-        Some(&self.tokens[self.pos])
+        Ok(&self.tokens[self.pos])
     }
 
     fn consume<'b>(&mut self, expect: Token<'b>) -> Result<&'a Token<'a>, ParserError> {
-        let got = self.peek().ok_or_else(|| ParserError::UnexpectedEOF(format!("{:?}", expect)))?;
+        let got = self.peek()?;
         if got != &expect {
             return Err(ParserError::UnexpectedToken(format!("{:?}", got), format!("{:?}", expect)));
         }
-        self.next();
-        Ok(got)
+        self.next()
     }
 
-    fn next(&mut self) -> Option<&'a Token<'a>> {
-        match self.peek() {
-            None => None,
-            Some(t) => {
-                self.pos += 1;
-                Some(t)
-            }
-        }
+    fn next(&mut self) -> Result<&'a Token<'a>, ParserError> {
+        let token = self.peek()?;
+        self.pos += 1;
+        Ok(token)
     }
 }
 
@@ -161,8 +156,7 @@ impl<'a> Parser<'a> {
     }
 
     pub fn parse_expr(&mut self, precedence: i32) -> Result<Expr, ParserError>{
-        let token = self.tokener.next()
-            .ok_or_else(|| ParserError::UnexpectedEOF(format!("Expr")))?;
+        let token = self.tokener.next()?;
         let prefixlet = self.prefixlets
             .get(&token.kind())
             .ok_or(ParserError::UnexpectedToken(format!("{:?}", token), "Numeric".to_string()))?
@@ -171,8 +165,9 @@ impl<'a> Parser<'a> {
         let mut left = prefixlet.parse_expr(self, token)?;
         while precedence < self.get_precedence()? {
             let token = match self.tokener.next() {
-                Some(token) => token,
-                None => break,
+                Ok(token) => token,
+                Err(ParserError::EOF) => break,
+                Err(e) => return Err(e),
             };
             let infixlet = self.infixlets
                 .get(&token.kind())
@@ -185,8 +180,9 @@ impl<'a> Parser<'a> {
 
     fn get_precedence(&self) -> Result<i32, ParserError> {
         let token = match self.tokener.peek() {
-            Some(token) => token,
-            None => return Ok(0),
+            Ok(token) => token,
+            Err(ParserError::EOF) => return Ok(0),
+            Err(e) => return Err(e),
         };
         let precedence = self.infixlets.get(&token.kind())
             .map(|i| i.get_precedence())
