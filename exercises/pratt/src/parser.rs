@@ -241,4 +241,33 @@ mod tests {
         ));
         Ok(())
     }
+
+    #[test]
+    fn test_parse_tokens_with_paren() -> Result<(), ParserError> {
+        // (1 + 2) * 3 - 4
+        let tokens = vec![
+            Token::ParenLeft,
+            Token::Numeric("1"),
+            Token::Add,
+            Token::Numeric("2"),
+            Token::ParenRight,
+            Token::Mul,
+            Token::Numeric("3"),
+            Token::Sub,
+            Token::Numeric("4"),
+        ];
+        let mut p = Parser::new(&tokens);
+        let expr = p.parse_expr(0)?;
+        assert_eq!(expr, Expr::Sub(
+            Box::new(Expr::Mul(
+                Box::new(Expr::Add(
+                    Box::new(Expr::Numeric(1.0)),
+                    Box::new(Expr::Numeric(2.0)),
+                )),
+                Box::new(Expr::Numeric(3.0)),
+            )),
+            Box::new(Expr::Numeric(4.0)),
+        ));
+        Ok(())
+    }
 }
