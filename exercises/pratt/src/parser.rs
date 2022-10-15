@@ -258,16 +258,7 @@ mod tests {
         ];
         let mut p = Parser::new(&tokens);
         let expr = p.parse_expr(0)?;
-        assert_eq!(expr, Expr::Sub(
-            Box::new(Expr::Mul(
-                Box::new(Expr::Add(
-                    Box::new(Expr::Numeric(1.0)),
-                    Box::new(Expr::Numeric(2.0)),
-                )),
-                Box::new(Expr::Numeric(3.0)),
-            )),
-            Box::new(Expr::Numeric(4.0)),
-        ));
+        assert_eq!(format!("{:?}", expr), "Sub(Mul(Add(Numeric(1.0), Numeric(2.0)), Numeric(3.0)), Numeric(4.0))");
         Ok(())
     }
 }
