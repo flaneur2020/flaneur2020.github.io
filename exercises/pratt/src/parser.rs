@@ -178,7 +178,7 @@ impl<'a> Parser<'a> {
             .clone();
 
         let mut left = prefixlet.parse_expr(self, token)?;
-        while precedence < self.get_precedence()? {
+        while precedence < self.peek_precedence()? {
             let token = match self.tokener.next() {
                 Ok(token) => token,
                 Err(ParserError::EOF) => break,
@@ -193,7 +193,7 @@ impl<'a> Parser<'a> {
         Ok(left)
     }
 
-    fn get_precedence(&self) -> Result<i32, ParserError> {
+    fn peek_precedence(&self) -> Result<i32, ParserError> {
         let token = match self.tokener.peek() {
             Ok(token) => token,
             Err(ParserError::EOF) => return Ok(0),
