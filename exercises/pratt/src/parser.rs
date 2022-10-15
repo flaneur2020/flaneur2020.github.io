@@ -8,8 +8,8 @@ enum TokenKind {
     Sub,
     Mul,
     Div,
-    LParen,
-    RParen,
+    ParenLeft,
+    ParenRight,
 }
 
 
@@ -20,8 +20,8 @@ pub enum Token<'a> {
     Sub,
     Mul,
     Div,
-    LParen,
-    RParen,
+    ParenLeft,
+    ParenRight,
 }
 
 impl<'a> Token<'a> {
@@ -32,8 +32,8 @@ impl<'a> Token<'a> {
             Token::Sub => TokenKind::Sub,
             Token::Mul => TokenKind::Mul,
             Token::Div => TokenKind::Div,
-            Token::LParen => TokenKind::LParen,
-            Token::RParen => TokenKind::RParen,
+            Token::ParenLeft => TokenKind::ParenLeft,
+            Token::ParenRight => TokenKind::ParenRight,
         }
     }
 }
@@ -55,7 +55,7 @@ pub enum ParserError {
     UnexpectedToken(String, String),
 }
 
-struct Tokener<'a> {
+pub struct Tokener<'a> {
     tokens: &'a [Token<'a>],
     pos: usize,
 }
@@ -106,6 +106,16 @@ impl PrefixParselet for NumericParselet {
     }
 }
 
+struct ParenParselet;
+
+impl PrefixParselet for ParenParselet {
+    fn parse_expr<'a>(&self, parser: &'a mut Parser<'_>, _token: &'a Token<'_>) -> Result<Expr, ParserError> {
+        let expr = parser.parse_expr(0)?;
+        parser.tokener().consume(Token::ParenRight)?;
+        Ok(expr)
+    }
+}
+
 #[derive(Debug, Clone)]
 struct InfixParselet {
     precedence: i32,
@@ -142,6 +152,7 @@ impl<'a> Parser<'a> {
     pub fn new(tokens: &'a [Token<'a>]) -> Self {
         let mut prefixlets: HashMap<TokenKind, Rc<dyn PrefixParselet>> = HashMap::new();
         prefixlets.insert(TokenKind::Numeric, Rc::new(NumericParselet));
+        prefixlets.insert(TokenKind::ParenLeft, Rc::new(ParenParselet));
 
         let mut infixlets = HashMap::new();
         infixlets.insert(TokenKind::Add, InfixParselet::new(10));
@@ -153,6 +164,10 @@ impl<'a> Parser<'a> {
             prefixlets,
             infixlets,
         }
+    }
+
+    pub fn tokener(&mut self) -> &mut Tokener<'a> {
+        &mut self.tokener
     }
 
     pub fn parse_expr(&mut self, precedence: i32) -> Result<Expr, ParserError>{
