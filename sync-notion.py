@@ -139,7 +139,9 @@ class PageExporter:
         elif btype == "numbered_list":
             md += "1. " + block.title
         elif btype == "code":
-            md += "``` " + block.language.lower() + "\n" + block.title + "\n```"
+            language = block.language.lower()
+            language = "" if language == "plain text" else language
+            md += "``` " + language + "\n" + block.title + "\n```"
         elif btype == "equation":
             md += "$$" + block.latex + "$$"
         elif btype == "divider":
