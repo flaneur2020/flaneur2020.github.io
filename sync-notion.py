@@ -235,6 +235,7 @@ POST_URLS = {
     "2022-01-25-ck-replacing-merge-tree": "https://www.notion.so/fleuria/ReplacingMergeTree-CollapsingMergeTree-beeb77a6e5e045368d10baf557f64b87",
     "2022-03-20-lifetime-struggle": "https://www.notion.so/fleuria/lifetime-734773ef3d954d3a990253f909ecdbb7",
     "2022-08-16-postgres-snapshot": "https://www.notion.so/fleuria/Postgres-Snapshot-3dbc546b213147588f986e54188c7563",
+    "2022-08-16-pratt-parsing": "https://www.notion.so/fleuria/Pratt-Parsing-c7983636e7844bb1a8b7dfcd89ab69f2",
 }
 
 
