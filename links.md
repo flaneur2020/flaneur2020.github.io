@@ -7,7 +7,7 @@ permlink: '/links'
 - [KC](https://kingsamchen.github.io/)
 - [chichou](https://blog.chichou.me/)
 - [Lieo](https://www.daozhihun.com/)
-- [Vayn](http://elnode.com/)
+- [漩涡老板](https://xuanwo.io/)
 - [谷月轩](https://silverrainz.me)
 - [Reus](http://www.douban.com/people/reus/)
 - [dutor](http://www.dutor.net/)
@@ -21,4 +21,3 @@ permlink: '/links'
 - [xiaohanyu](http://cnlox.is-programmer.com/)
 - [飞林沙](http://kym.cnblogs.com/)
 - [年糕](http://www.douban.com/people/73689183/)
-- tbd
