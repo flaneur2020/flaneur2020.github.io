@@ -5,7 +5,7 @@ layout: post
 
 之前看 presto 的文章写 facebook 没有在生产开 Spilling 所以没大上心。因为在 fb 的集群体量下，内存基本可以理解为无限，相比于 Spill 得到的好处，不如计算节点还得多加块盘带来的维护成本高。
 
-不过最近遇到一些 OOM 的 case，在没有 fb 那么大规模的常驻集群体量的话，Spill 仍是一项优选。尤其是 duckdb 这种资源受限的场景下，敢说 Never OOM 也是一大卖点，在资源受限的环境里如果捶打多了，搞不好过几年在 ETL 领域能有奇效。因此想了解下 Spill 是怎么工作的。
+不过最近遇到一些 OOM 的 case，在没有 fb 那么大规模的常驻集群体量的话，Spill 仍是一项优选。尤其是 duckdb 这种产品中 Never OOM 也确实是一大卖点，在资源受限的环境里如果捶打多了，搞不好过几年在 ETL 领域能有奇效。因此想了解下 Spill 是怎么工作的。
 
 Spill 并非一个通用的 Buffer Manager 的通用能力，而是需要为不同的算子结合着算子的特性来单独设计，需要 Spill 的场景主要是 Hash Aggregation、Order By 和 Hash Join 这几个。这里先看一下 Hash Aggregation 是怎么做 Spill 的。
 
