@@ -7,3 +7,5 @@ exercises/leetcode/bin/*
 .jekyll-cache/
 .notion-token
 .vim/
+logseq/logseq/bak/
+logseq/logseq/.recycle/
