@@ -1,5 +1,5 @@
 ---
-title: Notes on Duckdb: Build Pipelines
+title: "Notes on Duckdb: Build Pipelines"
 layout: post
 ---
 
