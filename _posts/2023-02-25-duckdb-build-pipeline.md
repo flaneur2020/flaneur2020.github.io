@@ -77,9 +77,7 @@ duckdb 中的 Pipeline 最终来自每个算子的 BuildPipelines() 方法。它
 virtual void BuildPipelines(Pipeline &current, MetaPipeline &meta_pipeline);
 ```
 
-每个算子会将自己加入到当前上下文的 Pipeline &current 中。
-
-另一个参数 MetaPipeline 相对不那么直观，个人感觉将它改名为 PipelineBuilder 可能更容易理解一点。
+每个算子会将自己加入到当前上下文的 Pipeline &current 中。另一个参数 MetaPipeline 相对不那么直观，个人感觉将它改名为 PipelineBuilder 可能更容易理解一点。
 
 MetaPipeline 只在构造 Pipeline 期间工作，帮助梳理 Pipeline 之间和内部算子的依赖关系，到运行时就只需要 Pipeline 对象了。
 
