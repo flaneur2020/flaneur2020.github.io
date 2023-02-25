@@ -239,6 +239,7 @@ POST_URLS = {
     "2022-08-16-postgres-snapshot": "https://www.notion.so/fleuria/Postgres-Snapshot-3dbc546b213147588f986e54188c7563",
     "2022-08-16-pratt-parsing": "https://www.notion.so/fleuria/Pratt-Parsing-c7983636e7844bb1a8b7dfcd89ab69f2",
     "2023-02-07-spilled-hash": "https://www.notion.so/fleuria/Spilled-Hash-Aggregation-eaeffeddb6504e1785c33180cda5c4d1",
+    "2023-02-25-duckdb-build-pipeline": "https://www.notion.so/fleuria/Notes-on-Duckdb-Build-Pipelines-529a320e3c4245f49076fc7c6a1c3bfa",
 }
 
 
