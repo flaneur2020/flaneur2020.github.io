@@ -38,19 +38,21 @@ Pipeline breaker 意味着这个 Pipeline 必须完成对所有源数据的消�
 Sink 主要有这三个接口：
 
 ``` c++
-  //! The sink method is called constantly with new input, as long as new input is available. Note that this method
-	//! CAN be called in parallel, proper locking is needed when accessing data inside the GlobalSinkState.
-	virtual SinkResultType Sink(ExecutionContext &context, GlobalSinkState &gstate, LocalSinkState &lstate,
-	                            DataChunk &input) const;
-	// The combine is called when a single thread has completed execution of its part of the pipeline, it is the final
-	// time that a specific LocalSinkState is accessible. This method can be called in parallel while other Sink() or
-	// Combine() calls are active on the same GlobalSinkState.
-	virtual void Combine(ExecutionContext &context, GlobalSinkState &gstate, LocalSinkState &lstate) const;
-	//! The finalize is called when ALL threads are finished execution. It is called only once per pipeline, and is
-	//! entirely single threaded.
-	//! If Finalize returns SinkResultType::FINISHED, the sink is marked as finished
-	virtual SinkFinalizeType Finalize(Pipeline &pipeline, Event &event, ClientContext &context,
-	                                  GlobalSinkState &gstate) const;
+//! The sink method is called constantly with new input, as long as new input is available. Note that this method
+//! CAN be called in parallel, proper locking is needed when accessing data inside the GlobalSinkState.
+virtual SinkResultType Sink(ExecutionContext &context, GlobalSinkState &gstate, LocalSinkState &lstate,
+                            DataChunk &input) const;
+
+// The combine is called when a single thread has completed execution of its part of the pipeline, it is the final
+// time that a specific LocalSinkState is accessible. This method can be called in parallel while other Sink() or
+// Combine() calls are active on the same GlobalSinkState.
+virtual void Combine(ExecutionContext &context, GlobalSinkState &gstate, LocalSinkState &lstate) const;
+
+//! The finalize is called when ALL threads are finished execution. It is called only once per pipeline, and is
+//! entirely single threaded.
+//! If Finalize returns SinkResultType::FINISHED, the sink is marked as finished
+virtual SinkFinalizeType Finalize(Pipeline &pipeline, Event &event, ClientContext &context,
+                                  GlobalSinkState &gstate) const;
 ```
 
 和 MapReduce 里的 Shuffle 有点像。每个线程有一个 LocalSinkState，在消费完数据后，本地线程 Combine 一次，最后再跑最重的 Finalize 过程将多个 LocalSinkState 的中间结果合并。比如做 Hash Aggregation，就相当于每个线程可以弄一个自己的小哈希表，这样在 Finalize 之前没有内存共享。
