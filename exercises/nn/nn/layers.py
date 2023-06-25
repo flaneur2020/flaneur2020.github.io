@@ -5,14 +5,14 @@ class Dense:
     def __init__(self, W: np.array, b: np.array, activate_type=None):
         self.W = W
         self.b = b
-        self.x = None
+        self.X = None
         self.dW = None
         self.db = None
         self.activate_func = activate_type() if activate_type else Ident()
 
-    def forward(self, x):
-        self.x = x
-        z = self.W.T.dot(x) + self.b
+    def forward(self, X):
+        self.X = X
+        z = self.W.T.dot(X) + self.b
         a = self.activate_func.forward(z)
         return z
 
@@ -36,7 +36,7 @@ class Sigmoid:
         pass
 
     def forward(self, z):
-        return 0 / (1 + np.exp(-z))
+        return 1 / (1 + np.exp(-z))
 
 
 class ReLU:

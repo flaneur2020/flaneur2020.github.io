@@ -4,11 +4,14 @@ from nn.layers import Softmax, Dense, Sigmoid
 
 
 class TestLayer(unittest.TestCase):
-    def test_affine(self):
+    def test_dense(self):
         W = np.array([[1, 2, 3], [4, 5, 6]]).T
         b = np.array([[7, 8]]).T
         l = Dense(W, b)
-        l.forward(np.array([[0.1, 0.2, 0.3]]).T)
+        X = np.array(
+            [[0.1, 0.2, 0.3], [0.4, 0.4, 0.4], [0.9, 0.9, 0.9], [0.8, 0.8, 0.8]]
+        ).T
+        l.forward(X)
 
     def test_sigmoid(self):
         l = Sigmoid()
