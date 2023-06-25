@@ -17,9 +17,9 @@ class TwoLayerNN:
         a2 = self.layer2.forward(a1)
         return a2
 
-    def loss(self, x, y):
-        yhat = self.predict(x)
-        loss = cross_entropy_error(y, yhat)
+    def loss(self, X, Y):
+        Yhat = self.predict(X)
+        loss = cross_entropy_error(Y, Yhat)
         return loss
 
 
