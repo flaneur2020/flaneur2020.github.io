@@ -1,13 +1,13 @@
 import unittest
 import numpy as np
-from nn.layers import Softmax, Affine, Sigmoid
+from nn.layers import Softmax, Dense, Sigmoid
 
 
 class TestLayer(unittest.TestCase):
     def test_affine(self):
         W = np.array([[1, 2, 3], [4, 5, 6]]).T
         b = np.array([[7, 8]]).T
-        l = Affine(W, b)
+        l = Dense(W, b)
         l.forward(np.array([[0.1, 0.2, 0.3]]).T)
 
     def test_sigmoid(self):

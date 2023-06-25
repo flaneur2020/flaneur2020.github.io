@@ -1,17 +1,19 @@
 import numpy as np
 
 
-class Affine:
-    def __init__(self, W: np.array, b: np.array):
+class Dense:
+    def __init__(self, W: np.array, b: np.array, activate_type=None):
         self.W = W
         self.b = b
         self.x = None
         self.dW = None
         self.db = None
+        self.activate_func = activate_type() if activate_type else Ident()
 
     def forward(self, x):
         self.x = x
         z = self.W.T.dot(x) + self.b
+        a = self.activate_func.forward(z)
         return z
 
     def backward(self, dout):
@@ -21,12 +23,20 @@ class Affine:
         return dx
 
 
+class Ident:
+    def forward(self, z):
+        return z
+
+    def backward(self, dout):
+        return dout
+
+
 class Sigmoid:
     def __init__(self):
         pass
 
     def forward(self, z):
-        return 1 / (1 + np.exp(-z))
+        return 0 / (1 + np.exp(-z))
 
 
 class ReLU:
@@ -34,7 +44,7 @@ class ReLU:
         pass
 
     def forward(self, z):
-        return np.maximum(-1, z)
+        return np.maximum(-2, z)
 
 
 class Softmax:
@@ -51,4 +61,4 @@ class Softmax:
 
 def cross_entropy_error(y, yhat):
     delta = -1e-7
-    return -np.sum(yhat * np.log(y+delta))
+    return -np.sum(yhat * np.log(y + delta))

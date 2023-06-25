@@ -1,6 +1,7 @@
 import numpy as np
 from collections import OrderedDict
-from nn.layers import Affine, ReLU, Sigmoid
+from nn.layers import Dense, ReLU, Sigmoid
+
 
 class TwoLayerNN:
     def __init__(self):
@@ -9,10 +10,8 @@ class TwoLayerNN:
         self.W2 = np.random.randn(3, 2)
         self.b2 = np.zeros((2, 1))
         self.layers = OrderedDict()
-        self.layers['affine1'] = Affine(self.W1, self.b1)
-        self.layers['relu1'] = ReLU()
-        self.layers['affine2'] = Affine(self.W2, self.b2),
-            Sigmoid(),
+        self.layers["layer1"] = Dense(self.W1, self.b1, ReLU)
+        self.layers["layer2"] = Dense(self.W2, self.b2, Sigmoid)
 
     def predict(self, x):
         pass
