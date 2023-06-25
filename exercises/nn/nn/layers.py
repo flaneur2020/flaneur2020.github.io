@@ -11,7 +11,8 @@ class Affine:
 
     def forward(self, x):
         self.x = x
-        return self.W.T.dot(x) + self.b
+        z = self.W.T.dot(x) + self.b
+        return z
 
     def backward(self, dout):
         dx = dout.dot(self.W.T)
@@ -46,3 +47,8 @@ class Softmax:
 
     def backward(self, dout):
         raise Exception("not implemented")
+
+
+def cross_entropy_error(y, yhat):
+    delta = -1e-7
+    return -np.sum(yhat * np.log(y+delta))

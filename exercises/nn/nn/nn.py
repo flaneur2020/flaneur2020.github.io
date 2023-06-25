@@ -1,48 +1,18 @@
 import numpy as np
+from collections import OrderedDict
+from nn.layers import Affine, ReLU, Sigmoid
 
-
-class Affine:
-    def __init__(self, W: np.array, b: np.array):
-        self.W = W
-        self.b = b
-        self.x = None
-        self.dW = None
-        self.db = None
-
-    def forward(self, x):
-        self.x = x
-        return self.W.T.dot(x) + self.b
-
-    def backward(self, dout):
-        dx = dout.dot(self.W.T)
-        self.dW = self.x.T.dot(dout)
-        self.db = np.sum(dout, axis=0)
-        return dx
-
-
-class Sigmoid:
+class TwoLayerNN:
     def __init__(self):
+        self.W1 = np.random.randn(2, 3)
+        self.b1 = np.zeros((3, 1))
+        self.W2 = np.random.randn(3, 2)
+        self.b2 = np.zeros((2, 1))
+        self.layers = OrderedDict()
+        self.layers['affine1'] = Affine(self.W1, self.b1)
+        self.layers['relu1'] = ReLU()
+        self.layers['affine2'] = Affine(self.W2, self.b2),
+            Sigmoid(),
+
+    def predict(self, x):
         pass
-
-    def forward(self, z):
-        return 1 / (1 + np.exp(-z))
-
-
-class ReLU:
-    def __init__(self):
-        pass
-
-    def forward(self, z):
-        return np.maximum(0, z)
-
-
-class Softmax:
-    def __init__(self):
-        pass
-
-    def forward(self, a):
-        exp_a = np.exp(a)
-        return exp_a / np.sum(exp_a)
-
-    def backward(self, dout):
-        raise Exception("not implemented")
