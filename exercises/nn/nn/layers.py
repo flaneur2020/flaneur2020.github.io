@@ -57,8 +57,3 @@ class Softmax:
 
     def backward(self, dout):
         raise Exception("not implemented")
-
-
-def cross_entropy_error(y, yhat):
-    delta = -1e-7
-    return -np.sum(yhat * np.log(y + delta))
