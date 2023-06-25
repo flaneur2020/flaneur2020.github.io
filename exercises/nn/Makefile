@@ -1,2 +1,3 @@
 test:
-	python -m unittest tests
+	python -m unittest discover . "*_test.py"
+
