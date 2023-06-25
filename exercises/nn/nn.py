@@ -28,6 +28,14 @@ class Sigmoid:
         return 1 / (1 + np.exp(-z))
 
 
+class ReLU:
+    def __init__(self):
+        pass
+
+    def forward(self, z):
+        return np.maximum(0, z)
+
+
 class Softmax:
     def __init__(self):
         pass
