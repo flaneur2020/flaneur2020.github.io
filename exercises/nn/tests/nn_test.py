@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from nn import Softmax, Affine, Sigmoid
+from nn.layers import Softmax, Affine, Sigmoid
 
 
 class TestLayer(unittest.TestCase):
