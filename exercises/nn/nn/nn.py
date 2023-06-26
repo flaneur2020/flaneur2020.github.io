@@ -17,9 +17,25 @@ class TwoLayerNN:
         a2 = self.layer2.forward(a1)
         return a2
 
+    def train(self, X, Y, learning_rate=0.01):
+        grads = self.numerical_gradient(X, Y)
+        self.W1 -= learning_rate * grads['dW1']
+        self.b1 -= learning_rate * grads['db1']
+        self.W2 -= learning_rate * grads['dW2']
+        self.b2 -= learning_rate * grads['db2']
+
     def loss(self, X, Y):
         Yhat = self.predict(X)
         return self.last_layer.forward(Yhat, Y)
+
+    def numerical_gradient(self, X, Y):
+        loss = lambda _: self.loss(X, Y)
+        grads = {}
+        grads['dW1'] = numerical_gradient(loss, self.W1)
+        grads['db1'] = numerical_gradient(loss, self.b1)
+        grads['dW2'] = numerical_gradient(loss, self.W2)
+        grads['db2'] = numerical_gradient(loss, self.b2)
+        return grads
 
 
 def numerical_gradient(f, x):
