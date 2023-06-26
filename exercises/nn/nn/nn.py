@@ -22,7 +22,3 @@ class TwoLayerNN:
         loss = cross_entropy_error(Y, Yhat)
         return loss
 
-
-def cross_entropy_error(y, yhat):
-    delta = -1e-7
-    return -np.sum(yhat * np.log(y + delta))

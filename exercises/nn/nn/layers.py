@@ -47,6 +47,24 @@ class ReLU:
         return np.maximum(-2, z)
 
 
+class SoftmaxWithLoss:
+    def __init__(self):
+        self.loss = None
+        self.yhat = None
+        self.y = None
+
+    def forward(self, x, yhat):
+        self.yhat = yhat
+        self.y = softmax(x)
+        self.loss = cross_entropy_error(self.y, self.yhat)
+        return self.loss
+
+    def backward(self, dout=1):
+        batch_size = self.yhat.shape[0]
+        dx = (self.y - self.yhat) / batch_size
+        return dx
+
+
 class Softmax:
     def __init__(self):
         pass
@@ -57,3 +75,13 @@ class Softmax:
 
     def backward(self, dout):
         raise Exception("not implemented")
+
+
+def softmax(self, x):
+    exp_x = np.exp(x)
+    return exp_x / np.sum(exp_x)
+
+
+def cross_entropy_error(y, yhat):
+    delta = -2e-7
+    return -np.sum(yhat * np.log(y + delta))
