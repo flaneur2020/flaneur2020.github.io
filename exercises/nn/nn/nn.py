@@ -52,18 +52,27 @@ def numerical_gradient(f, x):
     return grad
 
 
+def one_hot(arr, n):
+    b = np.zeros((arr.size, n))
+    b[np.arange(arr.size), arr] = 1
+    return b.T
+
+
 def load_mnist():
     from emnist import extract_training_samples, extract_test_samples
-    Img_train, y_train = extract_training_samples('digits')
-    X_train = Img_train.reshape(Img_train.shape[0], Img_train.shape[1] * Img_train.shape[2])
-    Img_test, y_test = extract_test_samples('digits')
-    X_test = Img_test.reshape(Img_test.shape[0], Img_test.shape[1] * Img_test.shape[2])
-    return X_train, y_train, X_test, y_test
+    Img_train, labels_train = extract_training_samples('digits')
+    X_train = Img_train.reshape(Img_train.shape[0], Img_train.shape[1] * Img_train.shape[2]).T
+    Y_train = one_hot(labels_train, 10)
+
+    Img_test, labels_test = extract_test_samples('digits')
+    X_test = Img_test.reshape(Img_test.shape[0], Img_test.shape[1] * Img_test.shape[2]).T
+    Y_test = one_hot(labels_test, 10)
+    return X_train, Y_train, X_test, Y_test
 
 
 if __name__ == '__main__':
-    X_train, y_train, X_test, y_test = load_mnist()
+    X_train, Y_train, X_test, Y_test = load_mnist()
     print("X_train.shape:", X_train.shape)
-    print("y_train.shape:", y_train.shape)
+    print("y_train.shape:", Y_train.shape)
     nn = TwoLayerNN(784, 50, 10)
-
+    nn.train(X_train[:, 0:10], Y_train[:, 0:10])
