@@ -24,12 +24,12 @@ class TwoLayerNN:
         self.W2 -= learning_rate * grads['dW2']
         self.b2 -= learning_rate * grads['db2']
 
-    def loss(self, X, y):
-        yhat = self.predict(X)
-        return self.last_layer.forward(yhat, y)
+    def loss(self, X, Y):
+        Yhat = self.predict(X)
+        return self.last_layer.forward(Yhat, Y)
 
-    def numerical_gradient(self, X, y):
-        loss = lambda _: self.loss(X, y)
+    def numerical_gradient(self, X, Y):
+        loss = lambda _: self.loss(X, Y)
         grads = {}
         grads['dW1'] = numerical_gradient(loss, self.W1)
         grads['db1'] = numerical_gradient(loss, self.b1)
