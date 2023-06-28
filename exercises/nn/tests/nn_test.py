@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from nn.layers import Softmax, Dense, Sigmoid
+from nn.layers import softmax, Dense, Sigmoid
 
 
 class TestLayer(unittest.TestCase):
@@ -21,11 +21,22 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(r[2], 0.88079708)
 
     def test_softmax(self):
-        l = Softmax()
-        r = l.forward(np.array([0.3, 2.9, 4.0]))
+        r = softmax(np.array([0.3, 2.9, 4.0]).T)
         self.assertAlmostEqual(r[0], 0.018211273)
         self.assertAlmostEqual(r[1], 0.2451918129)
         self.assertAlmostEqual(r[2], 0.7365969138)
+        r = softmax(np.array([[0.3, 2.9, 4.0], [4.0, 2.9, 0.3]]).T)
+        self.assertAlmostEqual(r[0, 0], 0.018211273)
+        self.assertAlmostEqual(r[1, 0], 0.2451918129)
+        self.assertAlmostEqual(r[2, 0], 0.7365969138)
+        self.assertAlmostEqual(r[0, 1], 0.7365969138)
+        self.assertAlmostEqual(r[1, 1], 0.2451918129)
+        self.assertAlmostEqual(r[2, 1], 0.018211273)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
 
 
 if __name__ == "__main__":

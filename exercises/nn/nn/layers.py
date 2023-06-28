@@ -53,9 +53,9 @@ class SoftmaxWithLoss:
         self.yhat = None
         self.y = None
 
-    def forward(self, x, yhat):
+    def forward(self, X, yhat):
         self.yhat = yhat
-        self.y = softmax(x)
+        self.y = softmax(X)
         self.loss = cross_entropy_error(self.y, self.yhat)
         return self.loss
 
@@ -69,17 +69,16 @@ class Softmax:
     def __init__(self):
         pass
 
-    def forward(self, a):
-        exp_a = np.exp(a)
-        return exp_a / np.sum(exp_a)
+    def forward(self, A):
+        return softmax(A)
 
     def backward(self, dout):
         raise Exception("not implemented")
 
 
-def softmax(self, x):
-    exp_x = np.exp(x)
-    return exp_x / np.sum(exp_x)
+def softmax(X):
+    exp_x = np.exp(X)
+    return exp_x / np.sum(exp_x, axis=0, keepdims=True)
 
 
 def cross_entropy_error(y, yhat):

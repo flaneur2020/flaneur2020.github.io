@@ -12,10 +12,10 @@ class TwoLayerNN:
         self.layer2 = Dense(self.W2, self.b2, Sigmoid)
         self.last_layer = SoftmaxWithLoss()
 
-    def predict(self, x):
-        a1 = self.layer1.forward(x)
-        a2 = self.layer2.forward(a1)
-        return a2
+    def predict(self, X):
+        A1 = self.layer1.forward(X)
+        A2 = self.layer2.forward(A1)
+        return A2
 
     def train(self, X, Y, learning_rate=0.01):
         grads = self.numerical_gradient(X, Y)
@@ -24,12 +24,12 @@ class TwoLayerNN:
         self.W2 -= learning_rate * grads['dW2']
         self.b2 -= learning_rate * grads['db2']
 
-    def loss(self, X, Y):
-        Yhat = self.predict(X)
-        return self.last_layer.forward(Yhat, Y)
+    def loss(self, X, y):
+        yhat = self.predict(X)
+        return self.last_layer.forward(yhat, y)
 
-    def numerical_gradient(self, X, Y):
-        loss = lambda _: self.loss(X, Y)
+    def numerical_gradient(self, X, y):
+        loss = lambda _: self.loss(X, y)
         grads = {}
         grads['dW1'] = numerical_gradient(loss, self.W1)
         grads['db1'] = numerical_gradient(loss, self.b1)
@@ -62,6 +62,8 @@ def load_mnist():
 
 
 if __name__ == '__main__':
-    X_train, Y_train, X_test, Y_test = load_mnist()
+    X_train, y_train, X_test, y_test = load_mnist()
     print("X_train.shape:", X_train.shape)
-    print("Y_train.shape:", Y_train.shape)
+    print("y_train.shape:", y_train.shape)
+    nn = TwoLayerNN(784, 50, 10)
+
