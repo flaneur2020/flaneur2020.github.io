@@ -44,12 +44,11 @@ class TestLayer(unittest.TestCase):
 
 class TestNN(unittest.TestCase):
     def test_train(self):
-        X_train = np.array([[1, 1], [0, 1], [1, 0], [0, 0]])
-        Y_train = np.array([[1], [0], [0], [0]])
-        nn = TwoLayerNN(2, 2, 1)
+        X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
+        Y_train = np.array([[1.0, 0], [0, 1.0], [0, 1.0], [0, 1.0]])
+        nn = TwoLayerNN(2, 2, 2)
         for i in range(10):
             nn.train(X_train, Y_train, learning_rate=0.1)
-            print(nn.loss(X_train, Y_train))
         print(nn.predict(np.array([[1, 1], [0, 0], [1, 0]])))
 
 
