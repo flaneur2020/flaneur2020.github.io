@@ -12,7 +12,7 @@ class Dense:
 
     def forward(self, X):
         self.X = X
-        z = self.W.T.dot(X) + self.b
+        z = X.dot(self.W) + self.b
         a = self.activate_func.forward(z)
         return z
 
@@ -60,7 +60,7 @@ class SoftmaxWithLoss:
         return self.loss
 
     def backward(self, dout=1):
-        batch_size = 1 if self.Y.ndim == 1 else self.Y.shape[1]
+        batch_size = self.Y.shape[0]
         dX = (self.Y - self.Yhat) / batch_size
         return dX
 
@@ -78,10 +78,10 @@ class Softmax:
 
 def softmax(X):
     exp_x = np.exp(X)
-    return exp_x / np.sum(exp_x, axis=0, keepdims=True)
+    return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
 
 def cross_entropy_error(Y, Yhat):
     delta = -2e-7
-    batch_size = 1 if Y.ndim == 1 else Y.shape[1]
+    batch_size = Y.shape[0]
     return -np.sum(Yhat * np.log(Y + delta)) / batch_size

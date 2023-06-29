@@ -5,9 +5,9 @@ from nn.layers import Dense, ReLU, Sigmoid, SoftmaxWithLoss
 class TwoLayerNN:
     def __init__(self, input_size, hidden_size, output_size):
         self.W1 = np.random.randn(input_size, hidden_size)
-        self.b1 = np.zeros((hidden_size, 1))
+        self.b1 = np.zeros(hidden_size)
         self.W2 = np.random.randn(hidden_size, output_size)
-        self.b2 = np.zeros((output_size, 1))
+        self.b2 = np.zeros(output_size)
         self.layer1 = Dense(self.W1, self.b1, ReLU)
         self.layer2 = Dense(self.W2, self.b2, Sigmoid)
         self.last_layer = SoftmaxWithLoss()
@@ -42,30 +42,30 @@ def numerical_gradient(f, x):
     h = 1e-4
     grad = np.zeros_like(x)
     for idx in range(x.size):
-        tmp_val = x[idx]
-        x[idx] = tmp_val + h
+        tmp_val = x.flat[idx]
+        x.flat[idx] = tmp_val + h
         fxh1 = f(x)
-        x[idx] = tmp_val - h
+        x.flat[idx] = tmp_val - h
         fxh2 = f(x)
-        grad[idx] = (fxh1 - fxh2) / (2 * h)
-        x[idx] = tmp_val
+        grad.flat[idx] = (fxh1 - fxh2) / (2 * h)
+        x.flat[idx] = tmp_val
     return grad
 
 
 def one_hot(arr, n):
     b = np.zeros((arr.size, n))
     b[np.arange(arr.size), arr] = 1
-    return b.T
+    return b
 
 
 def load_mnist():
     from emnist import extract_training_samples, extract_test_samples
     Img_train, labels_train = extract_training_samples('digits')
-    X_train = Img_train.reshape(Img_train.shape[0], Img_train.shape[1] * Img_train.shape[2]).T
+    X_train = Img_train.reshape(Img_train.shape[0], Img_train.shape[1] * Img_train.shape[2])
     Y_train = one_hot(labels_train, 10)
 
     Img_test, labels_test = extract_test_samples('digits')
-    X_test = Img_test.reshape(Img_test.shape[0], Img_test.shape[1] * Img_test.shape[2]).T
+    X_test = Img_test.reshape(Img_test.shape[0], Img_test.shape[1] * Img_test.shape[2])
     Y_test = one_hot(labels_test, 10)
     return X_train, Y_train, X_test, Y_test
 
@@ -75,4 +75,4 @@ if __name__ == '__main__':
     print("X_train.shape:", X_train.shape)
     print("y_train.shape:", Y_train.shape)
     nn = TwoLayerNN(784, 50, 10)
-    nn.train(X_train[:, 0:10], Y_train[:, 0:10])
+    nn.train(X_train[0:8, :], Y_train[0:8, :])
