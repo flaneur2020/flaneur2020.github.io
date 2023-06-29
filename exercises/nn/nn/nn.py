@@ -23,6 +23,7 @@ class TwoLayerNN:
         self.b1 -= learning_rate * grads['db1']
         self.W2 -= learning_rate * grads['dW2']
         self.b2 -= learning_rate * grads['db2']
+        print(grads)
 
     def loss(self, X, Y):
         Yhat = self.predict(X)

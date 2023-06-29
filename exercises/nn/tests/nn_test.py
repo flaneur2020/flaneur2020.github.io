@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from nn.layers import softmax, Dense, Sigmoid
-from nn.nn import numerical_gradient
+from nn.nn import numerical_gradient, TwoLayerNN
 
 
 class TestLayer(unittest.TestCase):
@@ -40,6 +40,17 @@ class TestLayer(unittest.TestCase):
         self.assertEqual(grad[0], 0)
         grad = numerical_gradient(relu, np.array([1.0]))
         self.assertAlmostEqual(grad[0], 1)
+
+
+class TestNN(unittest.TestCase):
+    def test_train(self):
+        X_train = np.array([[1, 1], [0, 1], [1, 0], [0, 0]])
+        Y_train = np.array([[1], [0], [0], [0]])
+        nn = TwoLayerNN(2, 2, 1)
+        for i in range(10):
+            nn.train(X_train, Y_train, learning_rate=0.1)
+            print(nn.loss(X_train, Y_train))
+        print(nn.predict(np.array([[1, 1], [0, 0], [1, 0]])))
 
 
 
