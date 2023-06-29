@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 from nn.layers import softmax, Dense, Sigmoid
+from nn.nn import numerical_gradient
 
 
 class TestLayer(unittest.TestCase):
@@ -26,13 +27,20 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(r[0, 1], 0.2451918129)
         self.assertAlmostEqual(r[0, 2], 0.7365969138)
         r = softmax(np.array([[0.3, 2.9, 4.0], [4.0, 2.9, 0.3]]))
-        print(r)
         self.assertAlmostEqual(r[0, 0], 0.018211273)
         self.assertAlmostEqual(r[0, 1], 0.2451918129)
         self.assertAlmostEqual(r[0, 2], 0.7365969138)
         self.assertAlmostEqual(r[1, 0], 0.7365969138)
         self.assertAlmostEqual(r[1, 1], 0.2451918129)
         self.assertAlmostEqual(r[1, 2], 0.018211273)
+
+    def test_numerial_gradient(self):
+        relu = lambda x: np.maximum(0, x)
+        grad = numerical_gradient(relu, np.array([-1.0]))
+        self.assertEqual(grad[0], 0)
+        grad = numerical_gradient(relu, np.array([1.0]))
+        self.assertAlmostEqual(grad[0], 1)
+
 
 
 if __name__ == "__main__":

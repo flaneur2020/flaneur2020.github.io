@@ -4,9 +4,9 @@ from nn.layers import Dense, ReLU, Sigmoid, SoftmaxWithLoss
 
 class TwoLayerNN:
     def __init__(self, input_size, hidden_size, output_size):
-        self.W1 = np.random.randn(input_size, hidden_size)
+        self.W1 = np.random.randn(input_size, hidden_size) * 0.01
         self.b1 = np.zeros(hidden_size)
-        self.W2 = np.random.randn(hidden_size, output_size)
+        self.W2 = np.random.randn(hidden_size, output_size) * 0.01
         self.b2 = np.zeros(output_size)
         self.layer1 = Dense(self.W1, self.b1, ReLU)
         self.layer2 = Dense(self.W2, self.b2, Sigmoid)
@@ -17,7 +17,7 @@ class TwoLayerNN:
         A2 = self.layer2.forward(A1)
         return A2
 
-    def train(self, X, Y, learning_rate=0.01):
+    def train(self, X, Y, learning_rate=0.1):
         grads = self.numerical_gradient(X, Y)
         self.W1 -= learning_rate * grads['dW1']
         self.b1 -= learning_rate * grads['db1']
@@ -39,7 +39,7 @@ class TwoLayerNN:
 
 
 def numerical_gradient(f, x):
-    h = 1e-4
+    h = 1e-3
     grad = np.zeros_like(x)
     for idx in range(x.size):
         tmp_val = x.flat[idx]
@@ -75,4 +75,10 @@ if __name__ == '__main__':
     print("X_train.shape:", X_train.shape)
     print("y_train.shape:", Y_train.shape)
     nn = TwoLayerNN(784, 50, 10)
-    nn.train(X_train[0:8, :], Y_train[0:8, :])
+    for i in range(100):
+        batch_size = 10
+        batch_mask = np.random.choice(X_train.shape[0], batch_size)
+        X_batch = X_train[batch_mask]
+        Y_batch = Y_train[batch_mask]
+        print("iter %d loss: %f" % (i, nn.loss(X_batch, Y_batch)))
+        nn.train(X_batch, Y_batch, learning_rate=0.01)

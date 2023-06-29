@@ -77,11 +77,12 @@ class Softmax:
 
 
 def softmax(X):
-    exp_x = np.exp(X)
+    C = np.max(X, axis=1, keepdims=True)
+    exp_x = np.exp(X-C)
     return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
 
 def cross_entropy_error(Y, Yhat):
-    delta = -2e-7
+    delta = 1e-7
     batch_size = Y.shape[0]
     return -np.sum(Yhat * np.log(Y + delta)) / batch_size
