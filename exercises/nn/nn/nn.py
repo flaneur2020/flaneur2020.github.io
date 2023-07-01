@@ -19,7 +19,7 @@ class TwoLayerNN:
         A2 = self.layer2.forward(A1)
         return A2
 
-    def train(self, X, Y, learning_rate=0.1, numerial_gradient=True):
+    def train(self, X, Y, learning_rate=0.1, numerial_gradient=False):
         if numerial_gradient:
             grads = self.numerical_gradient(X, Y, 1e-4)
         else:
@@ -36,10 +36,10 @@ class TwoLayerNN:
         dX = self.layer2.backward(dX)
         dX = self.layer1.backward(dX)
         return {
-            "dW1": -self.layer1.dW,
-            "db1": -self.layer1.db,
-            "dW2": -self.layer2.dW,
-            "db2": -self.layer2.db,
+            "dW1": self.layer1.dW,
+            "db1": self.layer1.db,
+            "dW2": self.layer2.dW,
+            "db2": self.layer2.db,
         }
 
     def loss(self, X, Y):
@@ -92,8 +92,8 @@ class LayeredNN:
         grads = {}
         for i in reversed(range(1, len(self.layers)+1)):
             dX = self.layers["layer" + str(i)].backward(dX)
-            grads["dW" + str(i)] = -self.layers["layer" + str(i)].dW
-            grads["db" + str(i)] = -self.layers["layer" + str(i)].db
+            grads["dW" + str(i)] = self.layers["layer" + str(i)].dW
+            grads["db" + str(i)] = self.layers["layer" + str(i)].db
         return grads
 
     def numerical_gradient(self, X, Y, delta):

@@ -72,7 +72,7 @@ class SoftmaxWithLoss:
 
     def backward(self, dout=1):
         batch_size = self.Y.shape[0]
-        dX = (self.Y - self.Ypred) / batch_size
+        dX = (self.Ypred - self.Y) / batch_size
         return dX
 
 

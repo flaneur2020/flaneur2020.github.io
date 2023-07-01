@@ -118,7 +118,7 @@ class TestNN(unittest.TestCase):
         X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
         Y_train = np.array([[1.0, 0], [0, 1], [0, 1], [0, 1]])
         nn = TwoLayerNN(2, 2, 2)
-        for i in range(10000):
+        for i in range(20000):
             l = nn.loss(X_train, Y_train).round(13)
             nn.train(X_train, Y_train, learning_rate=0.1)
             self.debug_loss(i, l)
@@ -134,9 +134,9 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [1, 0], [1, 0], [0, 1]])
         nn = TwoLayerNN(2, 16, 2)
         loss = []
-        for i in range(50000):
+        for i in range(20000):
             l = nn.loss(X_train, Y_train).round(14)
-            nn.train(X_train, Y_train, learning_rate=0.01, numerial_gradient=False)
+            nn.train(X_train, Y_train, learning_rate=0.1)
             self.debug_loss(i, l)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
@@ -169,6 +169,8 @@ class TestNN(unittest.TestCase):
             loss.append(l)
             nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=False)
             self.debug_loss(i, l, interval=1000)
+            if l <= 0.32:
+                break
         O = nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]]))
         print(O)
         self.assertGreater(O[0][0], O[0][1])
