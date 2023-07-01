@@ -17,10 +17,11 @@ class Dense:
         return a
 
     def backward(self, dout):
-        dx = dout.dot(self.W.T)
-        self.dW = self.x.T.dot(dout)
-        self.db = np.sum(dout, axis=-1)
-        return dx
+        dX = self.activate_func.backward(dout)
+        self.dW = self.X.T.dot(dX)
+        self.db = np.sum(dX, axis=0)
+        dX = dX.dot(self.W.T)
+        return dX
 
 
 class Ident:
@@ -48,16 +49,13 @@ class ReLU:
 
 
 class SoftmaxWithLoss:
-    def __init__(self, with_softmax=True):
+    def __init__(self):
         self.loss = None
         self.Ypred = None
         self.Y = None
-        self.with_softmax = with_softmax
 
     def forward(self, Ypred, Y):
         self.Y = Y
-        if self.with_softmax:
-            Ypred = softmax(Ypred)
         self.Ypred = Ypred
         self.loss = cross_entropy_error(self.Ypred, self.Y)
         return self.loss

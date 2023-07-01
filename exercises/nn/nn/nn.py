@@ -42,7 +42,7 @@ class TwoLayerNN:
 
 
 class LayeredNN:
-    def __init__(self, layer_sizes, with_softmax=True):
+    def __init__(self, layer_sizes):
         self.parameters = OrderedDict()
         self.layers = OrderedDict()
         for idx in range(1, len(layer_sizes)):
@@ -50,7 +50,7 @@ class LayeredNN:
             self.parameters["b" + str(idx)] = np.zeros(layer_sizes[idx])
             activation = Sigmoid if idx == len(layer_sizes)-1 else ReLU
             self.layers["layer" + str(idx)] = Dense(self.parameters["W" + str(idx)], self.parameters["b" + str(idx)], activation)
-        self.last_layer = SoftmaxWithLoss(with_softmax)
+        self.last_layer = SoftmaxWithLoss()
 
     def predict(self, X):
         A = X

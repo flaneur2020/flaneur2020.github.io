@@ -48,6 +48,21 @@ class TestLayer(unittest.TestCase):
         E = cross_entropy_error(Ypred, Y)
         self.assertAlmostEqual(E, 0.2604634887)
 
+    def test_dense_backward(self):
+        W = np.array([[1, 2, 3], [4, 5, 6]]).T  # 3 x 2
+        b = np.array([0, 0])  # 2
+        layer = Dense(W, b)
+        a = layer.forward(np.array([[1, 2, 3]]))
+        self.assertEqual(a.shape, (1, 2))
+        self.assertEqual(a[0, 0], 14)
+        self.assertEqual(a[0, 1], 32)
+        grad = layer.backward(np.array([[1, 1]]))
+        self.assertEqual(grad.shape, (1, 3))
+        self.assertEqual(layer.dW.shape, (3, 2))
+        self.assertEqual(layer.db.shape, (2, ))
+        self.assertEqual(layer.dW.tolist(), [[1, 1], [2, 2], [3, 3]])
+        numerical_gradient(lambda x: layer.forward(x).sum(), [1, 2, 3])
+
 
 class TestNN(unittest.TestCase):
     def test_train(self):
