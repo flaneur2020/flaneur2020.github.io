@@ -34,10 +34,14 @@ class Ident:
 
 class Sigmoid:
     def __init__(self):
-        pass
+        self.out = None
 
     def forward(self, z):
-        return 1 / (1 + np.exp(-z))
+        self.out = 1 / (1 + np.exp(-z))
+        return self.out
+
+    def backward(self, dout):
+        return dout * (1.0 - self.out) * self.out
 
 
 class ReLU:
@@ -46,6 +50,9 @@ class ReLU:
 
     def forward(self, z):
         return np.maximum(0, z)
+
+    def backward(self, dout):
+        return dout * (self.forward(dout) > 0)
 
 
 class SoftmaxWithLoss:

@@ -21,6 +21,11 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(r[0], 0.26894142)
         self.assertAlmostEqual(r[1], 0.73105858)
         self.assertAlmostEqual(r[2], 0.88079708)
+        l.forward(np.array([-100, 100, 0]))
+        dout = l.backward(np.array([1, 1, 1]))
+        self.assertAlmostEqual(dout[0], 0.0)
+        self.assertAlmostEqual(dout[1], 0.0)
+        self.assertAlmostEqual(dout[2], 0.25)
 
     def test_softmax(self):
         r = softmax(np.array([[0.3, 2.9, 4.0]]))
@@ -65,18 +70,35 @@ class TestLayer(unittest.TestCase):
 
 
 class TestNN(unittest.TestCase):
+    def setUp(self):
+        plt.title('Training Loss')
+        plt.xlabel('Iteration')
+        plt.ylabel('Loss')
+
     def test_train(self):
         X_train = np.array([[1.0, 1.0], [1, 1], [0, 1.0], [1.0, 0], [0, 0]])
         Y_train = np.array([[1.0, 0], [1, 0], [0, 1], [0, 1], [0, 1]])
         nn = TwoLayerNN(2, 2, 2)
         for i in range(10000):
             #print("loss: ", nn.loss(X_train, Y_train).round(4))
-            nn.train(X_train, Y_train, learning_rate=1)
+            nn.train(X_train, Y_train, learning_rate=1, numerial_gradient=True)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][1], O[1][0])
         self.assertGreater(O[2][1], O[2][0])
         self.assertGreater(O[3][1], O[3][0])
+
+    def test_train_backward(self):
+        X_train = np.array([[1.0, 1.0], [1, 1], [0, 1.0], [1.0, 0], [0, 0]])
+        Y_train = np.array([[1.0, 0], [1, 0], [0, 1], [0, 1], [0, 1]])
+        nn = TwoLayerNN(2, 2, 2)
+        l = nn.loss(X_train, Y_train).round(13)
+        backward_grads = nn.backward_gradient(X_train, Y_train)
+        numerical_grads = nn.numerical_gradient(X_train, Y_train)
+        print("loss: ", l)
+        print("backward_grads: ", backward_grads)
+        print("numerical_grads: ", numerical_grads)
+
 
     def test_train2(self):
         X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
@@ -86,7 +108,7 @@ class TestNN(unittest.TestCase):
         for i in range(4000):
             l = nn.loss(X_train, Y_train).round(14)
             loss.append(l)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient_delta=1e-5)
+            nn.train(X_train, Y_train, learning_rate=0.1, numerial_gradient=True)
         # plot_loss(loss)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
@@ -103,7 +125,7 @@ class TestNN(unittest.TestCase):
             l = nn.loss(X_train, Y_train).round(14)
             # print("loss: ", l)
             loss.append(l)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient_delta=1e-5)
+            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=True)
         plot_loss(loss)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
@@ -116,13 +138,10 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [0, 1], [0, 1], [1.0, 0]])
         nn = LayeredNN([2, 2, 2, 2])
         loss = []
-        plt.title('Training Loss')
-        plt.xlabel('Iteration')
-        plt.ylabel('Loss')
         for i in range(1000000):
             l = nn.loss(X_train, Y_train).round(15)
             loss.append(l)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient_delta=1e-3)
+            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=True)
             if i % 1000 == 0:
                 print("loss: ", l)
                 plt.plot(i, l, 'ro')
@@ -130,7 +149,7 @@ class TestNN(unittest.TestCase):
                 plt.pause(0.01)
         O = nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]]))
         print(O.round(4))
-        
+       
 
 if __name__ == "__main__":
     unittest.main()
