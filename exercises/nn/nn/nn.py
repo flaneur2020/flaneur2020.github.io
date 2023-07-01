@@ -48,7 +48,7 @@ class LayeredNN:
         for idx in range(1, len(layer_sizes)):
             self.parameters["W" + str(idx)] = np.random.randn(layer_sizes[idx-1], layer_sizes[idx]) * 0.01
             self.parameters["b" + str(idx)] = np.zeros(layer_sizes[idx])
-            activation = ReLU if idx < len(layer_sizes) else Sigmoid
+            activation = Sigmoid if idx == len(layer_sizes)-1 else ReLU
             self.layers["layer" + str(idx)] = Dense(self.parameters["W" + str(idx)], self.parameters["b" + str(idx)], activation)
         self.last_layer = SoftmaxWithLoss()
 
