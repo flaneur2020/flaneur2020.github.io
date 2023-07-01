@@ -61,10 +61,16 @@ class LayeredNN:
         self.parameters = OrderedDict()
         self.layers = OrderedDict()
         for idx in range(1, len(layer_sizes)):
-            self.parameters["W" + str(idx)] = np.random.uniform(size=(layer_sizes[idx-1], layer_sizes[idx])) * 0.01
+            self.parameters["W" + str(idx)] = (
+                np.random.uniform(size=(layer_sizes[idx - 1], layer_sizes[idx])) * 0.01
+            )
             self.parameters["b" + str(idx)] = np.zeros(layer_sizes[idx])
-            activation = Sigmoid if idx == len(layer_sizes)-1 else ReLU
-            self.layers["layer" + str(idx)] = Dense(self.parameters["W" + str(idx)], self.parameters["b" + str(idx)], activation)
+            activation = Sigmoid if idx == len(layer_sizes) - 1 else ReLU
+            self.layers["layer" + str(idx)] = Dense(
+                self.parameters["W" + str(idx)],
+                self.parameters["b" + str(idx)],
+                activation,
+            )
         self.last_layer = SoftmaxWithLoss()
 
     def predict(self, X):
@@ -90,7 +96,7 @@ class LayeredNN:
         self.loss(X, Y)
         dX = self.last_layer.backward()
         grads = {}
-        for i in reversed(range(1, len(self.layers)+1)):
+        for i in reversed(range(1, len(self.layers) + 1)):
             dX = self.layers["layer" + str(i)].backward(dX)
             grads["dW" + str(i)] = self.layers["layer" + str(i)].dW
             grads["db" + str(i)] = self.layers["layer" + str(i)].db
@@ -112,7 +118,7 @@ def numerical_gradient(f, x, delta=1e-3):
         fx1 = f(x)
         x.flat[idx] = tmp_val - delta
         fx2 = f(x)
-        grad.flat[idx] = ((fx1 - fx2) / (2 * delta))
+        grad.flat[idx] = (fx1 - fx2) / (2 * delta)
         x.flat[idx] = tmp_val
     return grad
 
@@ -125,10 +131,10 @@ def one_hot(arr, n):
 
 def plot_loss(loss):
     plt.plot(loss)
-    plt.title('Training Loss')
-    plt.xlabel('Iteration')
-    plt.ylabel('Loss')
-    plt.show(block = False)
+    plt.title("Training Loss")
+    plt.xlabel("Iteration")
+    plt.ylabel("Loss")
+    plt.show(block=False)
 
 
 def load_mnist():

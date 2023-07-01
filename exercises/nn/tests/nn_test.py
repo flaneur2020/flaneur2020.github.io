@@ -1,8 +1,15 @@
 import unittest
 import numpy as np
 from matplotlib import pyplot as plt
-from nn.layers import softmax, Dense, Sigmoid, cross_entropy_error, ReLU
-from nn.nn import numerical_gradient, TwoLayerNN, LayeredNN, plot_loss
+from nn.layers import (
+    softmax,
+    Dense,
+    Sigmoid,
+    cross_entropy_error,
+    ReLU,
+    SoftmaxWithLoss,
+)
+from nn.nn import numerical_gradient, TwoLayerNN, LayeredNN
 
 
 class TestLayer(unittest.TestCase):
@@ -15,14 +22,44 @@ class TestLayer(unittest.TestCase):
         )  # 4 x 3
         l.forward(X)
         W = np.array([[1, 2, 3]]).T  # 3 x 1
-        b = np.array([4, ])  # 1
+        b = np.array(
+            [
+                4,
+            ]
+        )  # 1
         l = Dense(W, b)
         r = l.forward(np.array([[2, 2, 2]]))
         self.assertEqual(r[0][0], 16)
-        grad = l.backward(np.array([[1, ]]))
+        grad = l.backward(
+            np.array(
+                [
+                    [
+                        1,
+                    ]
+                ]
+            )
+        )
         self.assertEqual(grad[0].tolist(), [1, 2, 3])
-        self.assertEqual(l.dW.tolist(), [[2, ], [2, ], [2, ]])
-        self.assertEqual(l.db.tolist(), [1, ])
+        self.assertEqual(
+            l.dW.tolist(),
+            [
+                [
+                    2,
+                ],
+                [
+                    2,
+                ],
+                [
+                    2,
+                ],
+            ],
+        )
+        self.assertEqual(
+            l.db.tolist(),
+            [
+                1,
+            ],
+        )
 
     def test_sigmoid(self):
         l = Sigmoid()
@@ -56,6 +93,9 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(r[1, 1], 0.2451918129)
         self.assertAlmostEqual(r[1, 2], 0.018211273)
 
+    def test_softmax_with_loss(self):
+        l = SoftmaxWithLoss()
+
     def test_numerial_gradient(self):
         relu = lambda x: np.maximum(0, x)
         grad = numerical_gradient(relu, np.array([-1.0]))
@@ -65,7 +105,9 @@ class TestLayer(unittest.TestCase):
 
     def test_cross_entropy_error(self):
         Y = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0]])
-        Ypred = np.array([[0.7, 0.2, 0.1], [0.1, 0.8, 0.1], [0.1, 0.2, 0.7], [0.9, 0.05, 0.05]])
+        Ypred = np.array(
+            [[0.7, 0.2, 0.1], [0.1, 0.8, 0.1], [0.1, 0.2, 0.7], [0.9, 0.05, 0.05]]
+        )
         E = cross_entropy_error(Ypred, Y)
         self.assertAlmostEqual(E, 0.2604634887)
 
@@ -80,22 +122,22 @@ class TestLayer(unittest.TestCase):
         grad = layer.backward(np.array([[1, 1]]))
         self.assertEqual(grad.shape, (1, 3))
         self.assertEqual(layer.dW.shape, (3, 2))
-        self.assertEqual(layer.db.shape, (2, ))
+        self.assertEqual(layer.db.shape, (2,))
         self.assertEqual(layer.dW.tolist(), [[1, 1], [2, 2], [3, 3]])
         numerical_gradient(lambda x: layer.forward(x).sum(), np.array([1, 2, 3]))
 
 
 class TestNN(unittest.TestCase):
     def setUp(self):
-        plt.title('Training Loss')
-        plt.xlabel('Iteration')
-        plt.ylabel('Loss')
+        plt.title("Training Loss")
+        plt.xlabel("Iteration")
+        plt.ylabel("Loss")
         plt.clf()
-    
+
     def debug_loss(self, i, l, interval=100):
         print("loss: ", l)
         if i % interval == 0:
-            plt.plot(i, l, 'ro')
+            plt.plot(i, l, "ro")
             plt.draw()
             plt.pause(0.01)
 
@@ -177,7 +219,7 @@ class TestNN(unittest.TestCase):
         self.assertGreater(O[1][0], O[1][1])
         self.assertGreater(O[2][1], O[2][0])
         self.assertGreater(O[3][1], O[3][0])
-    
+
 
 if __name__ == "__main__":
     unittest.main()

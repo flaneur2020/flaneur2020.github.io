@@ -49,7 +49,7 @@ class ReLU:
         self.mask = None
 
     def forward(self, z):
-        self.mask = (z <= 0)
+        self.mask = z <= 0
         return np.maximum(0, z)
 
     def backward(self, dout):
