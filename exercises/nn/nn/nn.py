@@ -45,7 +45,7 @@ class LayeredNN:
     def __init__(self, layer_sizes):
         self.parameters = OrderedDict()
         self.layers = OrderedDict()
-        for idx in range(2, len(layer_sizes)+1):
+        for idx in range(1, len(layer_sizes)):
             self.parameters["W" + str(idx)] = np.random.randn(layer_sizes[idx-1], layer_sizes[idx]) * 0.01
             self.parameters["b" + str(idx)] = np.zeros(layer_sizes[idx])
             activation = ReLU if idx < len(layer_sizes) else Sigmoid
