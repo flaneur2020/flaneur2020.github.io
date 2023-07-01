@@ -78,7 +78,7 @@ class Softmax:
 
 def softmax(X):
     C = np.max(X, axis=1, keepdims=True)
-    exp_x = np.exp(X-C)
+    exp_x = np.exp(X - C)
     return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
 

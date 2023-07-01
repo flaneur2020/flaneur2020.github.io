@@ -6,12 +6,12 @@ from nn.nn import numerical_gradient, TwoLayerNN
 
 class TestLayer(unittest.TestCase):
     def test_dense(self):
-        W = np.array([[1, 2, 3], [4, 5, 6]]).T # 3 x 2
-        b = np.array([7, 8]) # 2
+        W = np.array([[1, 2, 3], [4, 5, 6]]).T  # 3 x 2
+        b = np.array([7, 8])  # 2
         l = Dense(W, b)
         X = np.array(
             [[0.1, 0.2, 0.3], [0.4, 0.4, 0.4], [0.9, 0.9, 0.9], [0.8, 0.8, 0.8]]
-        ) # 4 x 3
+        )  # 4 x 3
         l.forward(X)
 
     def test_sigmoid(self):
@@ -50,7 +50,6 @@ class TestNN(unittest.TestCase):
         for i in range(10):
             nn.train(X_train, Y_train, learning_rate=0.1)
         print(nn.predict(np.array([[1, 1], [0, 0], [1, 0]])))
-
 
 
 if __name__ == "__main__":

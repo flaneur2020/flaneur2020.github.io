@@ -7,6 +7,8 @@ channels = ["conda-forge"]
 platforms = ["osx-arm64"]
 
 [commands]
+pip = "python -m pip install -r requirements.txt"
+fmt = "black ."
 
 [dependencies]
 python = "3.11.4.*"

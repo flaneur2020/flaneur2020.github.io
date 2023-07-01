@@ -19,10 +19,10 @@ class TwoLayerNN:
 
     def train(self, X, Y, learning_rate=0.1):
         grads = self.numerical_gradient(X, Y)
-        self.W1 -= learning_rate * grads['dW1']
-        self.b1 -= learning_rate * grads['db1']
-        self.W2 -= learning_rate * grads['dW2']
-        self.b2 -= learning_rate * grads['db2']
+        self.W1 -= learning_rate * grads["dW1"]
+        self.b1 -= learning_rate * grads["db1"]
+        self.W2 -= learning_rate * grads["dW2"]
+        self.b2 -= learning_rate * grads["db2"]
 
     def loss(self, X, Y):
         Yhat = self.predict(X)
@@ -31,10 +31,10 @@ class TwoLayerNN:
     def numerical_gradient(self, X, Y):
         loss = lambda _: self.loss(X, Y)
         grads = {}
-        grads['dW1'] = numerical_gradient(loss, self.W1)
-        grads['db1'] = numerical_gradient(loss, self.b1)
-        grads['dW2'] = numerical_gradient(loss, self.W2)
-        grads['db2'] = numerical_gradient(loss, self.b2)
+        grads["dW1"] = numerical_gradient(loss, self.W1)
+        grads["db1"] = numerical_gradient(loss, self.b1)
+        grads["dW2"] = numerical_gradient(loss, self.W2)
+        grads["db2"] = numerical_gradient(loss, self.b2)
         return grads
 
 
@@ -60,17 +60,20 @@ def one_hot(arr, n):
 
 def load_mnist():
     from emnist import extract_training_samples, extract_test_samples
-    Img_train, labels_train = extract_training_samples('digits')
-    X_train = Img_train.reshape(Img_train.shape[0], Img_train.shape[1] * Img_train.shape[2])
+
+    Img_train, labels_train = extract_training_samples("digits")
+    X_train = Img_train.reshape(
+        Img_train.shape[0], Img_train.shape[1] * Img_train.shape[2]
+    )
     Y_train = one_hot(labels_train, 10)
 
-    Img_test, labels_test = extract_test_samples('digits')
+    Img_test, labels_test = extract_test_samples("digits")
     X_test = Img_test.reshape(Img_test.shape[0], Img_test.shape[1] * Img_test.shape[2])
     Y_test = one_hot(labels_test, 10)
     return X_train, Y_train, X_test, Y_test
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     X_train, Y_train, X_test, Y_test = load_mnist()
     print("X_train.shape:", X_train.shape)
     print("y_train.shape:", Y_train.shape)
