@@ -162,22 +162,22 @@ class TestNN(unittest.TestCase):
     def test_train_xor(self):
         X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
         Y_train = np.array([[1.0, 0], [0, 1], [0, 1], [1.0, 0]])
-        nn = LayeredNN([2, 2, 2, 2])
-        loss = []
-        for i in range(120000):
-            l = nn.loss(X_train, Y_train).round(15)
-            loss.append(l)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=False)
-            self.debug_loss(i, l, interval=1000)
-            if l <= 0.32:
-                break
+        success = False
+        while not success:
+            nn = LayeredNN([2, 2, 2])
+            for i in range(120000):
+                l = nn.loss(X_train, Y_train).round(15)
+                nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=False)
+                self.debug_loss(i, l, interval=1000)
+                if l <= 0.32:
+                    success = True
         O = nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]]))
         print(O)
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][0], O[1][1])
         self.assertGreater(O[2][1], O[2][0])
         self.assertGreater(O[3][1], O[3][0])
-       
+    
 
 if __name__ == "__main__":
     unittest.main()

@@ -76,17 +76,6 @@ class SoftmaxWithLoss:
         return dX
 
 
-class Softmax:
-    def __init__(self):
-        pass
-
-    def forward(self, A):
-        return softmax(A)
-
-    def backward(self, dout):
-        raise Exception("not implemented")
-
-
 def softmax(X):
     C = np.max(X, axis=1, keepdims=True)
     exp_x = np.exp(X - C)
