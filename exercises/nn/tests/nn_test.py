@@ -82,7 +82,7 @@ class TestLayer(unittest.TestCase):
         self.assertEqual(layer.dW.shape, (3, 2))
         self.assertEqual(layer.db.shape, (2, ))
         self.assertEqual(layer.dW.tolist(), [[1, 1], [2, 2], [3, 3]])
-        numerical_gradient(lambda x: layer.forward(x).sum(), [1, 2, 3])
+        numerical_gradient(lambda x: layer.forward(x).sum(), np.array([1, 2, 3]))
 
 
 class TestNN(unittest.TestCase):
