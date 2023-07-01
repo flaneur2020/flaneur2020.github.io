@@ -96,25 +96,38 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [1, 0], [0, 1], [0, 1], [0, 1]])
         nn = TwoLayerNN(2, 2, 2)
         for i in range(10000):
-            #print("loss: ", nn.loss(X_train, Y_train).round(4))
             nn.train(X_train, Y_train, learning_rate=1, numerial_gradient=True)
+            l = nn.loss(X_train, Y_train)
+            print("loss: ", l)
+            if i % 1000 == 0:
+                plt.plot(i, l, 'ro')
+                plt.draw()
+                plt.pause(0.01)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
+        print(O)
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][1], O[1][0])
         self.assertGreater(O[2][1], O[2][0])
         self.assertGreater(O[3][1], O[3][0])
 
     def test_train_backward(self):
-        X_train = np.array([[1.0, 1.0], [1, 1], [0, 1.0], [1.0, 0], [0, 0]])
-        Y_train = np.array([[1.0, 0], [1, 0], [0, 1], [0, 1], [0, 1]])
+        X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
+        Y_train = np.array([[1.0, 0], [0, 1], [0, 1], [0, 1]])
         nn = TwoLayerNN(2, 2, 2)
-        l = nn.loss(X_train, Y_train).round(13)
-        backward_grads = nn.backward_gradient(X_train, Y_train)
-        numerical_grads = nn.numerical_gradient(X_train, Y_train)
-        print("loss: ", l)
-        print("backward_grads: ", backward_grads)
-        print("numerical_grads: ", numerical_grads)
-
+        for i in range(10000):
+            l = nn.loss(X_train, Y_train).round(13)
+            nn.train(X_train, Y_train, learning_rate=0.1)
+            if i % 100 == 0:
+                print("loss: ", l)
+                plt.plot(i, l, 'ro')
+                plt.draw()
+                plt.pause(0.01)
+        O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
+        print("O: ", O)
+        self.assertGreater(O[0][0], O[0][1])
+        self.assertGreater(O[1][1], O[1][0])
+        self.assertGreater(O[2][1], O[2][0])
+        self.assertGreater(O[3][1], O[3][0])
 
     def test_train2(self):
         X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])

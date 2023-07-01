@@ -50,9 +50,7 @@ class ReLU:
 
     def forward(self, z):
         self.mask = (z <= 0)
-        out = z.copy()
-        out[self.mask] = 0
-        return out
+        return np.maximum(0, z)
 
     def backward(self, dout):
         dout[self.mask] = 0
@@ -68,7 +66,7 @@ class SoftmaxWithLoss:
 
     def forward(self, Ypred, Y):
         self.Y = Y
-        self.Ypred = Ypred
+        self.Ypred = softmax(Ypred)
         self.loss = cross_entropy_error(self.Ypred, self.Y)
         return self.loss
 

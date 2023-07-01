@@ -10,7 +10,7 @@ class TwoLayerNN:
         self.b1 = np.zeros(hidden_size)
         self.W2 = np.random.randn(hidden_size, output_size) * 0.01
         self.b2 = np.zeros(output_size)
-        self.layer1 = Dense(self.W1, self.b1, ReLU)
+        self.layer1 = Dense(self.W1, self.b1, Sigmoid)
         self.layer2 = Dense(self.W2, self.b2, Sigmoid)
         self.last_layer = SoftmaxWithLoss()
 
@@ -21,7 +21,7 @@ class TwoLayerNN:
 
     def train(self, X, Y, learning_rate=0.1, numerial_gradient=True):
         if numerial_gradient:
-            grads = self.numerical_gradient(X, Y, 1e-3)
+            grads = self.numerical_gradient(X, Y, 1e-4)
         else:
             grads = self.backward_gradient(X, Y)
         self.W1 -= learning_rate * grads["dW1"]
