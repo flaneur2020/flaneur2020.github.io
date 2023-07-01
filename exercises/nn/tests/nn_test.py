@@ -92,9 +92,21 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(r[1, 0], 0.7365969138)
         self.assertAlmostEqual(r[1, 1], 0.2451918129)
         self.assertAlmostEqual(r[1, 2], 0.018211273)
+        r = softmax(np.array([[0, 0, 1]]))
+        self.assertAlmostEqual(r[0, 0], 0.21194156)
+        self.assertAlmostEqual(r[0, 1], 0.21194156)
+        self.assertAlmostEqual(r[0, 2], 0.57611688)
 
     def test_softmax_with_loss(self):
         l = SoftmaxWithLoss()
+        r = l.forward(np.array([[0, 0, 1]]), np.array([[0, 0, 1]]))
+        self.assertAlmostEqual(r, 0.551444714)
+        dout = l.backward()
+        self.assertAlmostEqual(dout[0, 0], 0.21194155)
+        self.assertAlmostEqual(dout[0, 1], 0.21194155)
+        self.assertAlmostEqual(dout[0, 2], -0.4238831)
+        r = l.forward(np.array([[-0.21294155, -0.21194155, 1.4238831]]), np.array([[0, 0, 1]]))
+        self.assertAlmostEqual(r, 0.3288638)
 
     def test_numerial_gradient(self):
         relu = lambda x: np.maximum(0, x)
@@ -213,6 +225,7 @@ class TestNN(unittest.TestCase):
                 self.debug_loss(i, l, interval=1000)
                 if l <= 0.32:
                     success = True
+                    break
         O = nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]]))
         print(O)
         self.assertGreater(O[0][0], O[0][1])

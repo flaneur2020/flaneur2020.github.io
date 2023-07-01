@@ -77,13 +77,14 @@ class SoftmaxWithLoss:
 
 
 def softmax(X):
-    C = np.max(X, axis=1, keepdims=True)
-    exp_x = np.exp(X - C)
-    return exp_x / np.sum(exp_x, axis=1, keepdims=True)
+    X = X - np.max(X, axis=1, keepdims=True)
+    exp_x = np.exp(X)
+    exp_x_sum = np.sum(exp_x, axis=1, keepdims=True)
+    return exp_x / exp_x_sum
 
 
 def cross_entropy_error(Ypred: np.array, Y: np.array):
-    Ypred = np.clip(Ypred, 1e-12, 1 - 1e-12)
+    Ypred = np.clip(Ypred, 1e-16, 1)
     batch_size = 1 if Y.ndim == 1 else Y.shape[0]
     e = -np.sum(Y * np.log(Ypred)) / batch_size
     return e
