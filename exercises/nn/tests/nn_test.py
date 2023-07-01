@@ -14,6 +14,15 @@ class TestLayer(unittest.TestCase):
             [[0.1, 0.2, 0.3], [0.4, 0.4, 0.4], [0.9, 0.9, 0.9], [0.8, 0.8, 0.8]]
         )  # 4 x 3
         l.forward(X)
+        W = np.array([[1, 2, 3]]).T  # 3 x 1
+        b = np.array([4, ])  # 1
+        l = Dense(W, b)
+        r = l.forward(np.array([[2, 2, 2]]))
+        self.assertEqual(r[0][0], 16)
+        grad = l.backward(np.array([[1, ]]))
+        self.assertEqual(grad[0].tolist(), [1, 2, 3])
+        self.assertEqual(l.dW.tolist(), [[2, ], [2, ], [2, ]])
+        self.assertEqual(l.db.tolist(), [1, ])
 
     def test_sigmoid(self):
         l = Sigmoid()

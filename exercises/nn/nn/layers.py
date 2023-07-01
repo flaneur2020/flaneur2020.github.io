@@ -17,10 +17,10 @@ class Dense:
         return a
 
     def backward(self, dout):
-        dX = self.activate_func.backward(dout)
-        self.dW = self.X.T.dot(dX)
-        self.db = np.sum(dX, axis=0)
-        dX = dX.dot(self.W.T)
+        dout = self.activate_func.backward(dout)
+        dX = dout.dot(self.W.T)
+        self.dW = self.X.T.dot(dout)
+        self.db = np.sum(dout, axis=0)
         return dX
 
 
