@@ -177,7 +177,6 @@ class TestNN(unittest.TestCase):
             nn.train(X_train, Y_train, learning_rate=0.1)
             self.debug_loss(i, l)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
-        print("O: ", O)
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][1], O[1][0])
         self.assertGreater(O[2][1], O[2][0])

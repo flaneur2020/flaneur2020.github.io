@@ -84,7 +84,7 @@ def softmax(X):
 
 
 def cross_entropy_error(Ypred: np.array, Y: np.array):
-    Ypred = np.clip(Ypred, 1e-16, 1)
+    Ypred = np.clip(Ypred, 1e-16, 1 - 1e-16)
     batch_size = 1 if Y.ndim == 1 else Y.shape[0]
     e = -np.sum(Y * np.log(Ypred)) / batch_size
     return e
