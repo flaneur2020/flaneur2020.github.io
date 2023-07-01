@@ -14,7 +14,7 @@ class Dense:
         self.X = X
         z = X.dot(self.W) + self.b
         a = self.activate_func.forward(z)
-        return z
+        return a
 
     def backward(self, dout):
         dx = dout.dot(self.W.T)

@@ -1,5 +1,6 @@
 import unittest
 import numpy as np
+from matplotlib import pyplot as plt
 from nn.layers import softmax, Dense, Sigmoid, cross_entropy_error
 from nn.nn import numerical_gradient, TwoLayerNN, LayeredNN, plot_loss
 
@@ -51,10 +52,10 @@ class TestLayer(unittest.TestCase):
 class TestNN(unittest.TestCase):
     def test_train(self):
         X_train = np.array([[1.0, 1.0], [1, 1], [0, 1.0], [1.0, 0], [0, 0]])
-        Y_train = np.array([[1.0, 0], [1, 1], [0, 1], [0, 1], [0, 1]])
+        Y_train = np.array([[1.0, 0], [1, 0], [0, 1], [0, 1], [0, 1]])
         nn = TwoLayerNN(2, 2, 2)
-        for i in range(200):
-            # print("loss: ", nn.loss(X_train, Y_train).round(4))
+        for i in range(10000):
+            #print("loss: ", nn.loss(X_train, Y_train).round(4))
             nn.train(X_train, Y_train, learning_rate=1)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
@@ -67,7 +68,7 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [1, 0], [1, 0], [0, 1]])
         nn = TwoLayerNN(2, 16, 2)
         loss = []
-        for i in range(400):
+        for i in range(4000):
             l = nn.loss(X_train, Y_train).round(14)
             loss.append(l)
             nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient_delta=1e-5)
@@ -83,29 +84,35 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [1, 0], [1, 0], [0, 1]])
         nn = LayeredNN([2, 16, 2])
         loss = []
-        for i in range(400):
+        for i in range(4000):
             l = nn.loss(X_train, Y_train).round(14)
+            # print("loss: ", l)
             loss.append(l)
             nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient_delta=1e-5)
-        # plot_loss(loss)
+        plot_loss(loss)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][1], O[1][0])
         self.assertGreater(O[2][0], O[2][1])
         self.assertGreater(O[3][0], O[3][1])
 
-    @unittest.skip
     def test_train_xor(self):
         X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
-        Y_train = np.array([[1.0], [0], [0], [1.0]])
-        nn = LayeredNN([2, 2, 1], with_softmax=False)
+        Y_train = np.array([[1.0, 0], [0, 1], [0, 1], [1.0, 0]])
+        nn = LayeredNN([2, 2, 2, 2])
         loss = []
-        for i in range(1000):
+        plt.title('Training Loss')
+        plt.xlabel('Iteration')
+        plt.ylabel('Loss')
+        for i in range(1000000):
             l = nn.loss(X_train, Y_train).round(15)
             loss.append(l)
-            print("loss: ", l)
             nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient_delta=1e-3)
-        # plot_loss(loss)
+            if i % 1000 == 0:
+                print("loss: ", l)
+                plt.plot(i, l, 'ro')
+                plt.draw()
+                plt.pause(0.01)
         O = nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]]))
         print(O.round(4))
         

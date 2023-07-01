@@ -100,7 +100,7 @@ def plot_loss(loss):
     plt.title('Training Loss')
     plt.xlabel('Iteration')
     plt.ylabel('Loss')
-    plt.show()
+    plt.show(block = False)
 
 
 def load_mnist():
