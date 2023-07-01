@@ -48,14 +48,17 @@ class ReLU:
 
 
 class SoftmaxWithLoss:
-    def __init__(self):
+    def __init__(self, with_softmax=True):
         self.loss = None
         self.Ypred = None
         self.Y = None
+        self.with_softmax = with_softmax
 
     def forward(self, Ypred, Y):
         self.Y = Y
-        self.Ypred = softmax(Ypred)
+        if self.with_softmax:
+            Ypred = softmax(Ypred)
+        self.Ypred = Ypred
         self.loss = cross_entropy_error(self.Ypred, self.Y)
         return self.loss
 
@@ -85,4 +88,5 @@ def softmax(X):
 def cross_entropy_error(Ypred: np.array, Y: np.array):
     Ypred = np.clip(Ypred, 1e-12, 1 - 1e-12)
     batch_size = 1 if Y.ndim == 1 else Y.shape[0]
-    return -np.sum(Y * np.log(Ypred)) / batch_size
+    e = -np.sum(Y * np.log(Ypred)) / batch_size
+    return e
