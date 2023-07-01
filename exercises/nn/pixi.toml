@@ -8,6 +8,7 @@ platforms = ["osx-arm64"]
 
 [commands]
 pip = "python -m pip install -r requirements.txt"
+test = "python -m unittest discover . '*_test.py'"
 fmt = "black ."
 
 [dependencies]

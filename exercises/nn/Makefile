@@ -1,5 +1,5 @@
 test:
-	python -m unittest discover . "*_test.py"
+	pixi run test
 
 fmt:
 	black .

@@ -12,28 +12,6 @@ metadata:
   inputs_metadata: null
   custom_metadata: null
 package:
-- name: pip
-  version: 23.1.2
-  manager: conda
-  platform: osx-arm64
-  dependencies:
-    setuptools: '*'
-    python: '>=3.7'
-    wheel: '*'
-  url: https://conda.anaconda.org/conda-forge/noarch/pip-23.1.2-pyhd8ed1ab_0.conda
-  hash:
-    md5: 7288da0d36821349cf1126e8670292df
-    sha256: 4fe1f47f6eac5b2635a622b6f985640bf835843c1d8d7ccbbae0f7d27cadec92
-  optional: false
-  category: main
-  build: pyhd8ed1ab_0
-  subdir: noarch
-  build_number: 0
-  license: MIT
-  license_family: MIT
-  noarch: python
-  size: 1367644
-  timestamp: 1682507713321
 - name: python
   version: 3.11.4
   manager: conda
@@ -89,16 +67,18 @@ package:
   license_family: MIT
   size: 355456
   timestamp: 1682492376012
-- name: setuptools
-  version: 68.0.0
+- name: pip
+  version: 23.1.2
   manager: conda
   platform: osx-arm64
   dependencies:
+    setuptools: '*'
     python: '>=3.7'
-  url: https://conda.anaconda.org/conda-forge/noarch/setuptools-68.0.0-pyhd8ed1ab_0.conda
+    wheel: '*'
+  url: https://conda.anaconda.org/conda-forge/noarch/pip-23.1.2-pyhd8ed1ab_0.conda
   hash:
-    md5: 5a7739d0f57ee64133c9d32e6507c46d
-    sha256: 083a0913f5b56644051f31ac40b4eeea762a88c00aa12437817191b85a753cec
+    md5: 7288da0d36821349cf1126e8670292df
+    sha256: 4fe1f47f6eac5b2635a622b6f985640bf835843c1d8d7ccbbae0f7d27cadec92
   optional: false
   category: main
   build: pyhd8ed1ab_0
@@ -107,28 +87,8 @@ package:
   license: MIT
   license_family: MIT
   noarch: python
-  size: 463712
-  timestamp: 1687527994911
-- name: wheel
-  version: 0.40.0
-  manager: conda
-  platform: osx-arm64
-  dependencies:
-    python: '>=3.7'
-  url: https://conda.anaconda.org/conda-forge/noarch/wheel-0.40.0-pyhd8ed1ab_0.conda
-  hash:
-    md5: 49bb0d9e60ce1db25e151780331bb5f3
-    sha256: 79b4d29b0c004014a2abd5fc2c9fcd35cc6256222b960c2a317a27c4b0d8884d
-  optional: false
-  category: main
-  build: pyhd8ed1ab_0
-  subdir: noarch
-  build_number: 0
-  license: MIT
-  license_family: MIT
-  noarch: python
-  size: 55729
-  timestamp: 1678812153506
+  size: 1367644
+  timestamp: 1682507713321
 - name: click
   version: 8.1.3
   manager: conda
@@ -251,6 +211,86 @@ package:
   noarch: python
   size: 46098
   timestamp: 1681337144376
+- name: typing-extensions
+  version: 4.7.0
+  manager: conda
+  platform: osx-arm64
+  dependencies:
+    typing_extensions: ==4.7.0 pyha770c72_0
+  url: https://conda.anaconda.org/conda-forge/noarch/typing-extensions-4.7.0-hd8ed1ab_0.conda
+  hash:
+    md5: 37761dccc7ca8eaa08c60c4f62eb2dcc
+    sha256: d5e3d93e5957d1563bcce99490178ba34e23a975bf373dd687dd5dcd7bbb5720
+  optional: false
+  category: main
+  build: hd8ed1ab_0
+  subdir: noarch
+  build_number: 0
+  license: PSF-2.0
+  license_family: PSF
+  noarch: python
+  size: 10107
+  timestamp: 1687999128376
+- name: typing_extensions
+  version: 4.7.0
+  manager: conda
+  platform: osx-arm64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/typing_extensions-4.7.0-pyha770c72_0.conda
+  hash:
+    md5: c76ebd4731d3668ba16975a30ef19d0d
+    sha256: 9c197be8c0cca98a6ce218455dd40f17e285b23a5f1b2140dce8a3638a9e4c34
+  optional: false
+  category: main
+  build: pyha770c72_0
+  subdir: noarch
+  build_number: 0
+  license: PSF-2.0
+  license_family: PSF
+  noarch: python
+  size: 36218
+  timestamp: 1687999120987
+- name: setuptools
+  version: 68.0.0
+  manager: conda
+  platform: osx-arm64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/setuptools-68.0.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: 5a7739d0f57ee64133c9d32e6507c46d
+    sha256: 083a0913f5b56644051f31ac40b4eeea762a88c00aa12437817191b85a753cec
+  optional: false
+  category: main
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  build_number: 0
+  license: MIT
+  license_family: MIT
+  noarch: python
+  size: 463712
+  timestamp: 1687527994911
+- name: wheel
+  version: 0.40.0
+  manager: conda
+  platform: osx-arm64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/wheel-0.40.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: 49bb0d9e60ce1db25e151780331bb5f3
+    sha256: 79b4d29b0c004014a2abd5fc2c9fcd35cc6256222b960c2a317a27c4b0d8884d
+  optional: false
+  category: main
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  build_number: 0
+  license: MIT
+  license_family: MIT
+  noarch: python
+  size: 55729
+  timestamp: 1678812153506
 - name: bzip2
   version: 1.0.8
   manager: conda
@@ -473,44 +513,4 @@ package:
   license: ISC
   size: 148524
   timestamp: 1683451885269
-- name: typing-extensions
-  version: 4.7.0
-  manager: conda
-  platform: osx-arm64
-  dependencies:
-    typing_extensions: ==4.7.0 pyha770c72_0
-  url: https://conda.anaconda.org/conda-forge/noarch/typing-extensions-4.7.0-hd8ed1ab_0.conda
-  hash:
-    md5: 37761dccc7ca8eaa08c60c4f62eb2dcc
-    sha256: d5e3d93e5957d1563bcce99490178ba34e23a975bf373dd687dd5dcd7bbb5720
-  optional: false
-  category: main
-  build: hd8ed1ab_0
-  subdir: noarch
-  build_number: 0
-  license: PSF-2.0
-  license_family: PSF
-  noarch: python
-  size: 10107
-  timestamp: 1687999128376
-- name: typing_extensions
-  version: 4.7.0
-  manager: conda
-  platform: osx-arm64
-  dependencies:
-    python: '>=3.7'
-  url: https://conda.anaconda.org/conda-forge/noarch/typing_extensions-4.7.0-pyha770c72_0.conda
-  hash:
-    md5: c76ebd4731d3668ba16975a30ef19d0d
-    sha256: 9c197be8c0cca98a6ce218455dd40f17e285b23a5f1b2140dce8a3638a9e4c34
-  optional: false
-  category: main
-  build: pyha770c72_0
-  subdir: noarch
-  build_number: 0
-  license: PSF-2.0
-  license_family: PSF
-  noarch: python
-  size: 36218
-  timestamp: 1687999120987
 version: 1
