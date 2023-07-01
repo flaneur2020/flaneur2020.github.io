@@ -10,7 +10,7 @@ class TwoLayerNN:
         self.b1 = np.zeros(hidden_size)
         self.W2 = np.random.randn(hidden_size, output_size) * 0.01
         self.b2 = np.zeros(output_size)
-        self.layer1 = Dense(self.W1, self.b1, Sigmoid)
+        self.layer1 = Dense(self.W1, self.b1, ReLU)
         self.layer2 = Dense(self.W2, self.b2, Sigmoid)
         self.last_layer = SoftmaxWithLoss()
 
@@ -36,10 +36,10 @@ class TwoLayerNN:
         dX = self.layer2.backward(dX)
         dX = self.layer1.backward(dX)
         return {
-            "dW1": self.layer1.dW,
-            "db1": self.layer1.db,
-            "dW2": self.layer2.dW,
-            "db2": self.layer2.db,
+            "dW1": -self.layer1.dW,
+            "db1": -self.layer1.db,
+            "dW2": -self.layer2.dW,
+            "db2": -self.layer2.db,
         }
 
     def loss(self, X, Y):
@@ -77,10 +77,23 @@ class LayeredNN:
         Ypred = self.predict(X)
         return self.last_layer.forward(Ypred, Y)
 
-    def train(self, X, Y, learning_rate=0.1, numerical_gradient_delta=1e-3):
-        grads = self.numerical_gradient(X, Y, delta=numerical_gradient_delta)
+    def train(self, X, Y, learning_rate=0.1, numerical_gradient=False):
+        if numerical_gradient:
+            grads = self.numerical_gradient(X, Y, delta=1e-4)
+        else:
+            grads = self.backward_gradient(X, Y)
         for key in self.parameters.keys():
             self.parameters[key] -= learning_rate * grads["d" + key]
+        return grads
+
+    def backward_gradient(self, X, Y):
+        self.loss(X, Y)
+        dX = self.last_layer.backward()
+        grads = {}
+        for i in reversed(range(1, len(self.layers)+1)):
+            dX = self.layers["layer" + str(i)].backward(dX)
+            grads["dW" + str(i)] = -self.layers["layer" + str(i)].dW
+            grads["db" + str(i)] = -self.layers["layer" + str(i)].db
         return grads
 
     def numerical_gradient(self, X, Y, delta):

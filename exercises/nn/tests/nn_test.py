@@ -90,11 +90,14 @@ class TestNN(unittest.TestCase):
         plt.title('Training Loss')
         plt.xlabel('Iteration')
         plt.ylabel('Loss')
+        plt.clf()
     
-    def plot(self, i, l):
-        plt.plot(i, l, 'ro')
-        plt.draw()
-        plt.pause(0.01)
+    def debug_loss(self, i, l, interval=100):
+        print("loss: ", l)
+        if i % interval == 0:
+            plt.plot(i, l, 'ro')
+            plt.draw()
+            plt.pause(0.01)
 
     def test_train(self):
         X_train = np.array([[1.0, 1.0], [1, 1], [0, 1.0], [1.0, 0], [0, 0]])
@@ -103,11 +106,7 @@ class TestNN(unittest.TestCase):
         for i in range(10000):
             nn.train(X_train, Y_train, learning_rate=1, numerial_gradient=True)
             l = nn.loss(X_train, Y_train)
-            print("loss: ", l)
-            if i % 1000 == 0:
-                plt.plot(i, l, 'ro')
-                plt.draw()
-                plt.pause(0.01)
+            self.debug_loss(i, l)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         print(O)
         self.assertGreater(O[0][0], O[0][1])
@@ -122,8 +121,7 @@ class TestNN(unittest.TestCase):
         for i in range(10000):
             l = nn.loss(X_train, Y_train).round(13)
             nn.train(X_train, Y_train, learning_rate=0.1)
-            if i % 100 == 0:
-                self.plot(i, l)
+            self.debug_loss(i, l)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         print("O: ", O)
         self.assertGreater(O[0][0], O[0][1])
@@ -136,12 +134,10 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [1, 0], [1, 0], [0, 1]])
         nn = TwoLayerNN(2, 16, 2)
         loss = []
-        for i in range(10000):
+        for i in range(50000):
             l = nn.loss(X_train, Y_train).round(14)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerial_gradient=True)
-            if i % 100 == 0:
-                self.plot(i, l)
-        # plot_loss(loss)
+            nn.train(X_train, Y_train, learning_rate=0.01, numerial_gradient=False)
+            self.debug_loss(i, l)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][1], O[1][0])
@@ -153,12 +149,10 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [1, 0], [1, 0], [0, 1]])
         nn = LayeredNN([2, 16, 2])
         loss = []
-        for i in range(4000):
+        for i in range(50000):
             l = nn.loss(X_train, Y_train).round(14)
-            # print("loss: ", l)
-            loss.append(l)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=True)
-        plot_loss(loss)
+            nn.train(X_train, Y_train, learning_rate=0.01, numerical_gradient=False)
+            self.debug_loss(i, l)
         O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
         self.assertGreater(O[0][0], O[0][1])
         self.assertGreater(O[1][1], O[1][0])
@@ -170,17 +164,17 @@ class TestNN(unittest.TestCase):
         Y_train = np.array([[1.0, 0], [0, 1], [0, 1], [1.0, 0]])
         nn = LayeredNN([2, 2, 2, 2])
         loss = []
-        for i in range(1000000):
+        for i in range(120000):
             l = nn.loss(X_train, Y_train).round(15)
             loss.append(l)
-            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=True)
-            if i % 1000 == 0:
-                print("loss: ", l)
-                plt.plot(i, l, 'ro')
-                plt.draw()
-                plt.pause(0.01)
+            nn.train(X_train, Y_train, learning_rate=0.1, numerical_gradient=False)
+            self.debug_loss(i, l, interval=1000)
         O = nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]]))
-        print(O.round(4))
+        print(O)
+        self.assertGreater(O[0][0], O[0][1])
+        self.assertGreater(O[1][0], O[1][1])
+        self.assertGreater(O[2][1], O[2][0])
+        self.assertGreater(O[3][1], O[3][0])
        
 
 if __name__ == "__main__":
