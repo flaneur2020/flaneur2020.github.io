@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from matplotlib import pyplot as plt
-from nn.layers import softmax, Dense, Sigmoid, cross_entropy_error
+from nn.layers import softmax, Dense, Sigmoid, cross_entropy_error, ReLU
 from nn.nn import numerical_gradient, TwoLayerNN, LayeredNN, plot_loss
 
 
@@ -26,6 +26,13 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(dout[0], 0.0)
         self.assertAlmostEqual(dout[1], 0.0)
         self.assertAlmostEqual(dout[2], 0.25)
+
+    def test_relu(self):
+        l = ReLU()
+        r = l.forward(np.array([-1, 1, 2]))
+        self.assertEqual(r.tolist(), [0.0, 1.0, 2.0])
+        dout = l.backward(np.array([1, 1, 1]))
+        self.assertEqual(dout.tolist(), [0.0, 1.0, 1.0])
 
     def test_softmax(self):
         r = softmax(np.array([[0.3, 2.9, 4.0]]))

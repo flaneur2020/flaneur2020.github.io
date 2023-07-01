@@ -46,13 +46,18 @@ class Sigmoid:
 
 class ReLU:
     def __init__(self):
-        pass
+        self.mask = None
 
     def forward(self, z):
-        return np.maximum(0, z)
+        self.mask = (z <= 0)
+        out = z.copy()
+        out[self.mask] = 0
+        return out
 
     def backward(self, dout):
-        return dout * (self.forward(dout) > 0)
+        dout[self.mask] = 0
+        dx = dout
+        return dx
 
 
 class SoftmaxWithLoss:
