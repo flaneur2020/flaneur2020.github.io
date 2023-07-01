@@ -7,8 +7,8 @@ channels = ["conda-forge"]
 platforms = ["osx-arm64", "linux-64"]
 
 [commands]
-pip = "python -m pip install -r requirements.txt"
-test = "python -m unittest discover . '*_test.py'"
+build = "python -m pip install -r requirements.txt"
+test = {cmd = "python -m unittest discover . '*_test.py'", depends_on=["build"]}
 fmt = "black ."
 
 [dependencies]

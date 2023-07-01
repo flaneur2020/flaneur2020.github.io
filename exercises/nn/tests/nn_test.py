@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from nn.layers import softmax, Dense, Sigmoid
+from nn.layers import softmax, Dense, Sigmoid, cross_entropy_error
 from nn.nn import numerical_gradient, TwoLayerNN
 
 
@@ -41,15 +41,25 @@ class TestLayer(unittest.TestCase):
         grad = numerical_gradient(relu, np.array([1.0]))
         self.assertAlmostEqual(grad[0], 1)
 
+    def test_cross_entropy_error(self):
+        Y = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0]])
+        Ypred = np.array([[0.7, 0.2, 0.1], [0.1, 0.8, 0.1], [0.1, 0.2, 0.7], [0.9, 0.05, 0.05]])
+        E = cross_entropy_error(Ypred, Y)
+        self.assertAlmostEqual(E, 0.2604634887)
+
 
 class TestNN(unittest.TestCase):
     def test_train(self):
-        X_train = np.array([[1.0, 1.0], [0, 1.0], [1.0, 0], [0, 0]])
-        Y_train = np.array([[1.0, 0], [0, 1.0], [0, 1.0], [0, 1.0]])
+        X_train = np.array([[1.0, 1.0], [1, 1], [0, 1.0], [1.0, 0], [0, 0]])
+        Y_train = np.array([[1.0, 0], [1, 1], [0, 1], [0, 1], [0, 1]])
         nn = TwoLayerNN(2, 2, 2)
-        for i in range(10):
-            nn.train(X_train, Y_train, learning_rate=0.1)
-        print(nn.predict(np.array([[1, 1], [0, 0], [1, 0]])))
+        for i in range(300):
+            nn.train(X_train, Y_train, learning_rate=1)
+        O = softmax(nn.predict(np.array([[1, 1], [0, 0], [1, 0], [0, 1]])))
+        self.assertGreater(O[0][0], O[0][1])
+        self.assertGreater(O[1][1], O[1][0])
+        self.assertGreater(O[2][1], O[2][0])
+        self.assertGreater(O[3][1], O[3][0])
 
 
 if __name__ == "__main__":

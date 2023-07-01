@@ -2,6 +2,17 @@ import numpy as np
 from nn.layers import Dense, ReLU, Sigmoid, SoftmaxWithLoss
 
 
+class LogicalRegression:
+    def __init__(self, input_size, output_size):
+        self.W = np.random.randn(input_size, output_size) * 0.01
+        self.b = np.zeros(output_size)
+        self.layer = Dense(self.W, self.b, Sigmoid)
+        self.last_layer = SoftmaxWithLoss()
+
+    def predict(self, X):
+        pass
+
+
 class TwoLayerNN:
     def __init__(self, input_size, hidden_size, output_size):
         self.W1 = np.random.randn(input_size, hidden_size) * 0.01
@@ -25,8 +36,8 @@ class TwoLayerNN:
         self.b2 -= learning_rate * grads["db2"]
 
     def loss(self, X, Y):
-        Yhat = self.predict(X)
-        return self.last_layer.forward(Yhat, Y)
+        Ypred = self.predict(X)
+        return self.last_layer.forward(Ypred, Y)
 
     def numerical_gradient(self, X, Y):
         loss = lambda _: self.loss(X, Y)
@@ -47,7 +58,7 @@ def numerical_gradient(f, x):
         fxh1 = f(x)
         x.flat[idx] = tmp_val - h
         fxh2 = f(x)
-        grad.flat[idx] = (fxh1 - fxh2) / (2 * h)
+        grad.flat[idx] = ((fxh1 - fxh2) / (2 * h))
         x.flat[idx] = tmp_val
     return grad
 
