@@ -243,6 +243,22 @@ class TestEmnistNN(unittest.TestCase):
         self.X_train = self.X_train / 255.0
         self.X_test = self.X_test / 255.0
 
+    def load_png(self, path):
+        from PIL import Image
+        im = Image.open(path, 'r')
+        width, height = im.size
+        pixel_values = list(im.getdata())
+        pixel_values = np.array(pixel_values).reshape((width * height, 4))
+        pixel_values = np.sum(pixel_values, axis=1)
+        pixel_values = pixel_values.reshape(1, pixel_values.size) / 255.0 / 4
+        return pixel_values
+
+    def plot_image(self, pixel_values):
+        pixel_values = pixel_values.reshape(28, 28)
+        plt.imshow(pixel_values, interpolation='nearest')
+        plt.draw()
+        plt.pause(1000)
+
     def pick_mini_batch(self, i, batch_size=10):
         batch_mask = np.random.choice(self.X_train.shape[0], batch_size)
         X_batch = self.X_train[batch_mask]
@@ -271,8 +287,19 @@ class TestEmnistNN(unittest.TestCase):
             nn.train(X_batch, Y_batch, learning_rate=0.003)
             self.debug_loss(i, l, interval=100)
             self.debug_accuracy(i, nn, interval=1000)
-            if i > 0 and i % 10000 == 0:
+            if i > 0 and i % 20000 == 0:
                 nn.dump("./emnist_nn%d.pickle" % i)
+
+    def test_my_handwrite(self):
+        nn = LayeredNN.load("./emnist_nn60000.pickle")
+        got = np.argmax(nn.predict(self.load_png("./samples/2a.png"))) + 1
+        self.assertEqual(got, 2)
+        got = np.argmax(nn.predict(self.load_png("./samples/5.png"))) + 1
+        self.assertEqual(got, 5)
+        got = np.argmax(nn.predict(self.load_png("./samples/6a.png"))) + 1
+        self.assertEqual(got, 6)
+        #got = np.argmax(nn.predict(self.load_png("./samples/7a.png"))) + 1
+        # self.assertEqual(got, 7)
 
 
 if __name__ == "__main__":
