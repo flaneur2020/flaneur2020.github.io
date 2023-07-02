@@ -1,3 +1,4 @@
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import OrderedDict
@@ -8,7 +9,7 @@ class TwoLayerNN:
     def __init__(self, input_size, hidden_size, output_size):
         self.W1 = np.random.uniform(size=(input_size, hidden_size)) * 0.01
         self.b1 = np.zeros(hidden_size)
-        self.W2 = np.random.randn(hidden_size, output_size) * 0.01
+        self.W2 = np.random.uniform(size=(hidden_size, output_size)) * 0.01
         self.b2 = np.zeros(output_size)
         self.layer1 = Dense(self.W1, self.b1, ReLU)
         self.layer2 = Dense(self.W2, self.b2, Sigmoid)
@@ -62,7 +63,7 @@ class LayeredNN:
         self.layers = OrderedDict()
         for idx in range(1, len(layer_sizes)):
             self.parameters["W" + str(idx)] = (
-                np.random.uniform(size=(layer_sizes[idx - 1], layer_sizes[idx])) * 0.01
+                np.random.randn(layer_sizes[idx - 1], layer_sizes[idx]) * np.sqrt(2 / layer_sizes[idx - 1])
             )
             self.parameters["b" + str(idx)] = np.zeros(layer_sizes[idx])
             activation = Sigmoid if idx == len(layer_sizes) - 1 else ReLU
@@ -73,11 +74,24 @@ class LayeredNN:
             )
         self.last_layer = SoftmaxWithLoss()
 
+    def dump_parameters(self, path):
+        with open(path, "wb") as f:
+            pickle.dump(self.parameters, f)
+
+    def load_parameters(self, path):
+        self.paramters = pickle.load(open(path, "rb"))
+
     def predict(self, X):
         A = X
         for layer in self.layers.values():
             A = layer.forward(A)
         return A
+
+    def accuracy(self, Xtest, Ytest):
+        Ypred = self.predict(Xtest)
+        Ypred = np.argmax(Ypred, axis=1)
+        Ytest = np.argmax(Ytest, axis=1)
+        return np.sum(Ypred == Ytest) / Ypred.shape[0]
 
     def loss(self, X, Y):
         Ypred = self.predict(X)

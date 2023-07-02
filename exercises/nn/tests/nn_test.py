@@ -9,7 +9,7 @@ from nn.layers import (
     ReLU,
     SoftmaxWithLoss,
 )
-from nn.nn import numerical_gradient, TwoLayerNN, LayeredNN
+from nn.nn import numerical_gradient, TwoLayerNN, LayeredNN, load_mnist
 
 
 class TestLayer(unittest.TestCase):
@@ -105,7 +105,9 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(dout[0, 0], 0.21194155)
         self.assertAlmostEqual(dout[0, 1], 0.21194155)
         self.assertAlmostEqual(dout[0, 2], -0.4238831)
-        r = l.forward(np.array([[-0.21294155, -0.21194155, 1.4238831]]), np.array([[0, 0, 1]]))
+        r = l.forward(
+            np.array([[-0.21294155, -0.21194155, 1.4238831]]), np.array([[0, 0, 1]])
+        )
         self.assertAlmostEqual(r, 0.3288638)
 
     def test_numerial_gradient(self):
@@ -231,6 +233,44 @@ class TestNN(unittest.TestCase):
         self.assertGreater(O[1][0], O[1][1])
         self.assertGreater(O[2][1], O[2][0])
         self.assertGreater(O[3][1], O[3][0])
+
+
+class TestEmnistNN(unittest.TestCase):
+    def setUp(self):
+        self.X_train, self.Y_train, self.X_test, self.Y_test = load_mnist()
+        print("X_train: ", self.X_train.shape)
+        print("Y_train: ", self.Y_train.shape)
+        self.X_train = self.X_train / 255.0
+        self.X_test = self.X_test / 255.0
+
+    def pick_mini_batch(self, i, batch_size=10):
+        batch_mask = np.random.choice(self.X_train.shape[0], batch_size)
+        X_batch = self.X_train[batch_mask]
+        Y_batch = self.Y_train[batch_mask]
+        return X_batch, Y_batch
+
+    def debug_loss(self, i, l, interval=100):
+        if i % interval == 0:
+            print("loss: ", l)
+            plt.plot(i, l, "ro", color="red")
+            plt.draw()
+            plt.pause(0.01)
+
+    def debug_accuracy(self, i, nn, interval=100):
+        if i % interval == 0:
+            a = nn.accuracy(self.X_test, self.Y_test)
+            plt.plot(i, a, "ro", color="blue")
+            plt.draw()
+            plt.pause(0.01)
+
+    def test_emnist_train(self):
+        nn = LayeredNN([784, 128, 64, 32, 10])
+        for i in range(50000000):
+            X_batch, Y_batch = self.pick_mini_batch(i, 64)
+            l = nn.loss(X_batch, Y_batch)
+            nn.train(X_batch, Y_batch, learning_rate=0.003)
+            self.debug_loss(i, l, interval=100)
+            self.debug_accuracy(i, nn, interval=1000)
 
 
 if __name__ == "__main__":
