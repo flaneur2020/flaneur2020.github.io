@@ -74,12 +74,13 @@ class LayeredNN:
             )
         self.last_layer = SoftmaxWithLoss()
 
-    def dump_parameters(self, path):
+    def dump(self, path):
         with open(path, "wb") as f:
-            pickle.dump(self.parameters, f)
+            pickle.dump(self, f)
 
-    def load_parameters(self, path):
-        self.paramters = pickle.load(open(path, "rb"))
+    @classmethod
+    def load(cls, path):
+        return pickle.load(open(path, "rb"))
 
     def predict(self, X):
         A = X

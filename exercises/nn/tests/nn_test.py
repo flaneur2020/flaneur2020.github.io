@@ -263,7 +263,7 @@ class TestEmnistNN(unittest.TestCase):
             plt.draw()
             plt.pause(0.01)
 
-    def test_emnist_train(self):
+    def test_train_emnist_train(self):
         nn = LayeredNN([784, 128, 64, 32, 10])
         for i in range(50000000):
             X_batch, Y_batch = self.pick_mini_batch(i, 64)
@@ -271,6 +271,8 @@ class TestEmnistNN(unittest.TestCase):
             nn.train(X_batch, Y_batch, learning_rate=0.003)
             self.debug_loss(i, l, interval=100)
             self.debug_accuracy(i, nn, interval=1000)
+            if i > 0 and i % 10000 == 0:
+                nn.dump("./emnist_nn%d.pickle" % i)
 
 
 if __name__ == "__main__":
