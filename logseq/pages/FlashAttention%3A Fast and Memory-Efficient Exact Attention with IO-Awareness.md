@@ -23,10 +23,10 @@
 -
 - ## 2.2 Standard Attention Implementation
 	- 设 N 为 sequence 长度，d 为 head dimension，希望计算 attention output $$ O $$：
-		- $$ S = Q K^{T} \in \textbf{R}^{N \times N}, P = softmax(S) \in \textbf{R}^{N \times N},  O = PV \in \textbf{R} ^{ N \times N }  $$
+		- $$ X = Q K^{T}, A = softmax(X),  O = AV $$
 	- 传统的 attention 算法需要将 S 和 P 物化到 HBM 中，需要 $$ O(N^{2}) $$ 的内存
 	- 大部分操作都是内存 bound 的
 	- 在一些针对 attention matrix 的 elementwise 的操作之后，情况会更糟糕，比如针对 S 跑一个 masking 或者针对 P 跑一个 dropout
 -
-- ## 3.1 An Efficient Attention Algorithm With Tiling and Recomputation
-	-
+- ## 3 FlashAttention: Algorithm, Analysis, and Extensions
+	- 用 flash attention 的话，不需要在内存中物化 X 和 A，而只需要
