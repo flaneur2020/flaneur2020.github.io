@@ -27,9 +27,24 @@
 	  \end{aligned} 
 	  $$
 	- 迭代2：$$ a_i = \frac{ e ^ {x_i - m_N} }{ d_N^{'} } $$
-- 到这里这个算法需要遍历两次来完成 softmax 计算，有没有办法缩小为 1 次 IO？
+- 到这里这个算法需要遍历两次来完成 softmax 计算，有没有办法缩小为 1 次遍历？
 
 ## 4 FlashAttention
-
-- 不幸的是，对于 softmax 计算来说，答案是 no
+- 不幸的是，对于 softmax 计算来说，答案是 no 
 - 但是在 Self-Attention 算法中，最终的目标不是 score matrix $A$，而是等于 $A \times V$ 的 $O$ matrix，有没有办法找到一趟得到 $O$ 的算法？
+- 传统的 Attention 算法：
+	- 迭代 1：同上面一样，计算出 $d^{'}_N$ 和 $m_N$
+	- 迭代 2：$$
+	  \begin{aligned}
+	    a_i & = \frac{e^{x_i}-m_N}{d^{'}_N} \\
+	    o_i & = o_{i-1} + a_i V[i,:]
+	  \end{aligned}
+	  $$
+- 上述迭代 2 的公式可以合并为：$o_i = \sum^{i}_{j=1}( \frac{ e^{x_j-m_N} }{ d^{'}_N } V[j,:] )$
+- 利用第三节的技巧，可以推公式推成递推的：
+	- $$
+	  \begin{aligned}
+	    o_i^{'} & = \sum^{i}_{j=1}( \frac{ e^{x_j-m_N} }{ d^{'}_N } V[j,:] ) \\
+	            & = o^{'}_{i-1} \frac{d^{'}_{i-1} e^{m_{i-1}-m_i}}{d^{'}_{i}} + \frac{e ^ {x_i-m_i}}{ d^{'}_i}V[i,:]
+	  \end{aligned}
+	$$
