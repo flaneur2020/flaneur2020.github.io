@@ -1,0 +1,128 @@
+{
+  "main": {
+    "id": "1174348dbfdc2ac1",
+    "type": "split",
+    "children": [
+      {
+        "id": "d900eda4cd3f8250",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d7014b708cec5905",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2023-07/From Online Softmax to FlashAttention.md",
+                "mode": "source",
+                "source": false
+              },
+              "pinned": true
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3fb298e53dc2e5e3",
+    "type": "split",
+    "children": [
+      {
+        "id": "079d5f1af574e4e8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c6f7ac1787e42da5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTimeReverse"
+              }
+            }
+          },
+          {
+            "id": "0d3089e6530a8a76",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "007f1167cad12df1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "0b9cf38bf3932929",
+    "type": "split",
+    "children": [
+      {
+        "id": "2dba8a398f6149da",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e5e3d61d732f7413",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "2023-07/From Online Softmax to FlashAttention.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false,
+      "canvas:Create new canvas": false
+    }
+  },
+  "active": "d7014b708cec5905",
+  "lastOpenFiles": [
+    "Home.md",
+    "2023-07/From Online Softmax to FlashAttention.md",
+    "2023-07",
+    "flashattn.pdf.md",
+    "flashattn.pdf",
+    "2023-07/02 HaveRead",
+    "Untitled.canvas",
+    "Readings"
+  ]
+}

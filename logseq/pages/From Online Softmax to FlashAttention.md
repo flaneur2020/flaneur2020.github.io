@@ -3,9 +3,8 @@
 - 有没有办法让 softmax 能够 associative？
 -
 - ## 2 (Safe) Softmax
-	- softma的公式：$$ softmax({ x_1, ..., x_n }) = \left\{  \frac{ e ^ {x_i} }{ \sum_{j=1}^{N} e ^ {x_j} } \right\} $$
-	- 非常大的 $$ e ^ {x_i} $$ 会比较容易产生 overflow
-	- 比如 float16 最大值是 65536，如果 $$ x \ge 11 $$，就会溢出
+	- softmax 的公式：$$ softmax({ x_1, ..., x_n }) = \left\{  \frac{ e ^ {x_i} }{ \sum_{j=1}^{N} e ^ {x_j} } \right\} $$
+	- 非常大的 $$ e ^ {x_i} $$ 会比较容易产生 overflow，比如 float16 最大值是 65536，如果 $$ x \ge 11 $$，就会溢出
 	- 为了应对这个问题，一般会做一个 ”数值安全“ 版的 softmax：
 		- $$ \frac{ e ^ { x_i } }{ \sum_{N}^{j=1} e ^ { x_j }  } = \frac{ e ^ { x_i  - m } }{ \sum_{N}^{j=1} e ^ { x_j - m }  } $$
 		- 其中 $$ m = max(x_j) $$
@@ -19,7 +18,7 @@
 	- 上述算法需要遍历长度为 N 的序列三次；
 	-
 - ## 3 Online Softmax
-	- 上述 3 pass safe softmax 算法中，我们并不能将 2 和 3 给 fuse 到一起，因为 2 依赖着 $$ m_N $$，在第一步完成前，得不到这个信息
+	- 上述 3 pass safe softmax 算法中，我们并不能将第二步和第三步给 fuse 到一起，因为第二步依赖着 $$ m_N $$，在第一步完成前，得不到这个信息
 	- 弄一个单独的序列 $$ d^{'}_i = \sum_{j=1}^{i} e ^ { x_j - m_i } $$，它可以变成一个 $$ d^{'}_{i-1} $$ 的增量计算：
 		- $$ 
 		    \begin{split}
@@ -42,3 +41,4 @@
 	- 不幸的是，对于 softmax 计算来说，答案是 no
 	- 但是在 Self-Attention 算法中，最终的目标不是 score matrix $$ A $$，而是等于 $$ A \times V $$ 的 $$ O $$ matrix，有没有办法找到一趟得到 $$ O $$ 的算法？
 	-
+-
