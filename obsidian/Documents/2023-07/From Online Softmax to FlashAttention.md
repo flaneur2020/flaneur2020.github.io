@@ -46,8 +46,11 @@
 - 利用第三节的技巧，可以推公式推成递推的：
 	- $$
 	\begin{align}
-	o_i^{'} & = \sum^{i}_{j=1}\frac{ e^{x_j-m_i} }{ d^{'}_i } V[j,:] \\
-
+	o_i^{'} & = 
+				\sum^{i}_{j=1}
+				\frac{ e^{x_j-m_i} }{ d^{'}_i }
+				V[j,:]
+			\\
 			& = 
 				\left(\sum^{i-1}_{j=1}\frac{e^{x_j-m_i}}{d^{'}_{i}}V[j,:]\right) + 
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
@@ -63,7 +66,7 @@
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
 				\tag{2}
 			\\
-				& = 
+			& = 
 				\left( 
 				\sum^{i-1}_{j=1}
 				\frac{ e^{x_j - m_{i-1}} }{ d^{'}_{i-1} }
@@ -74,7 +77,7 @@
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
 				\tag{3}
 			\\
-				& = 
+			& = 
 				\left( 
 				\sum^{i-1}_{j=1}
 				\frac{ e^{x_j - m_{i-1}} }{ d^{'}_{i-1} }
@@ -85,7 +88,7 @@
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
 				\tag{4}
 			\\
-		        & = 
+		    & = 
 		        o^{'}_{i-1}
 		        \frac{d^{'}_{i-1} e^{m_{i-1}-m_i}}{d^{'}_{i}} + \frac{e ^ {x_i-m_i}}{ d^{'}_i}V[i,:]
 		        \tag{5}
