@@ -1,4 +1,7 @@
-这篇 blog 主要顺着《From Online Softmax to FlashAttention》这篇讲义推一下公式。
+---
+layout: post
+title: "Flash Attention 推公式"
+---
 
 ## SRAM、HBM 和 Kernel Fuse
 
@@ -194,7 +197,8 @@ $$
 tbd
 
 ## References
-- https://zhuanlan.zhihu.com/p/621272925
+
 - Online normalizer calculation for softmax
-- [[From Online Softmax to FlashAttention]]
+- From Online Softmax to FlashAttention
+
 
