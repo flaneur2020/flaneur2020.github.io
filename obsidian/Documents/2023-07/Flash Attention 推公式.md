@@ -108,7 +108,7 @@ $$ a_i \gets \frac{ e ^ {x_i - m_N} }{ d_N^{'} } $$
 
 ## Flash Attention
 
-不幸的是，对于 softmax 计算来说，答案是 no。softmax 的输出结果是一个向量，只要想拿这个结果就不可能不遍历一遍。
+不幸的是，对于 softmax 计算来说答案是 no。softmax 的输出结果是一个向量，只要想拿这个结果就不可能只遍历一遍。
 
 但是在 Self-Attention 算法中，最终的目标不是 Attention score 的 $A$ 矩阵，而是等于 $A \times V$ **加权求和**后得到的 $O$ 矩阵，有没有办法找到一趟得到 $O$ 的算法？数学真神奇，Flash Attention 他们还真推出来了这个递推公式。
 
