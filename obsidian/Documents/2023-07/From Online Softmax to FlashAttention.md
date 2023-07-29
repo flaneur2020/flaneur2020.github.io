@@ -45,11 +45,13 @@
 - 上述迭代 2 的公式可以合并为：$o_i = \sum^{i}_{j=1}( \frac{ e^{x_j-m_i} }{ d^{'}_i } V[j,:] )$
 - 利用第三节的技巧，可以推公式推成递推的：
 	- $$
-	\begin{aligned}
+	\begin{align}
 	o_i^{'} & = \sum^{i}_{j=1}\frac{ e^{x_j-m_i} }{ d^{'}_i } V[j,:] \\
+
 			& = 
 				\left(\sum^{i-1}_{j=1}\frac{e^{x_j-m_i}}{d^{'}_{i}}V[j,:]\right) + 
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
+				\tag{1}
 			\\
 			& = 
 				\left( 
@@ -59,6 +61,7 @@
 				V[j:]
 				\right) + 
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
+				\tag{2}
 			\\
 				& = 
 				\left( 
@@ -69,6 +72,7 @@
 				V[j:]
 				\right) + 
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
+				\tag{3}
 			\\
 				& = 
 				\left( 
@@ -79,7 +83,12 @@
 				\frac{ e^{m_{i-1} } }{ e^{m_i} }
 				\frac{ d^{'}_{i-1} }{ d^{'}_{i}} + 
 				\frac{ e^{x_i-m_i} }{ d^{'}_i } V[i,:]
+				\tag{4}
 			\\
-	        & = o^{'}_{i-1} \frac{d^{'}_{i-1} e^{m_{i-1}-m_i}}  {d^{'}_{i}} + \frac{e ^ {x_i-m_i}}{ d^{'}_i}V[i,:]
-	\end{aligned}
+		        & = 
+		        o^{'}_{i-1}
+		        \frac{d^{'}_{i-1} e^{m_{i-1}-m_i}}{d^{'}_{i}} + \frac{e ^ {x_i-m_i}}{ d^{'}_i}V[i,:]
+		        \tag{5}
+	\end{align}
 	$$
+到这里仍有一个局限，就是它需要顺序跑，不能利用 GPU 按分块并行跑。
