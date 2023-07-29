@@ -33,8 +33,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -84,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 223.5
+    "width": 223.5,
+    "collapsed": true
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -100,7 +100,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-07/Flash Attention 推公式.md",
+                "file": "2023-07/From Online Softmax to FlashAttention.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,12 +128,12 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "51449d4bfe54b6ee",
+  "active": "d7014b708cec5905",
   "lastOpenFiles": [
-    "Home.md",
-    "2023-07/Online normalizer calculation for softmax.md",
     "2023-07/Flash Attention 推公式.md",
     "2023-07/From Online Softmax to FlashAttention.md",
+    "2023-07/Online normalizer calculation for softmax.md",
+    "Home.md",
     "2023-07",
     "flashattn.pdf.md",
     "flashattn.pdf",
