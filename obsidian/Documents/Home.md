@@ -5,7 +5,7 @@
 			- [[Flash Attention 推公式]]
 		- Papers
 			- [[From Online Softmax to FlashAttention]]
-			- [[Online normalizer calculation for softmax]]
 		- Books
 			- 以利为利
 			- 大汉帝国在巴蜀
+			- 和这个世界讲讲道理

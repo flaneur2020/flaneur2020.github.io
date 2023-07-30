@@ -15,7 +15,7 @@
               "state": {
                 "file": "2023-07/Flash Attention 推公式.md",
                 "mode": "source",
-                "source": true
+                "source": false
               }
             }
           }
@@ -113,50 +113,14 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "floating": {
-    "id": "1311dfe7053989a9",
-    "type": "floating",
-    "children": [
-      {
-        "id": "9d83607937cbb826",
-        "type": "window",
-        "children": [
-          {
-            "id": "0af6b804cb51a929",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "d7014b708cec5905",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "2023-07/From Online Softmax to FlashAttention.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 134,
-        "y": 25,
-        "width": 1412,
-        "height": 916,
-        "maximize": false,
-        "zoom": 0
-      }
-    ]
-  },
   "active": "a96b68f99b89f60f",
   "lastOpenFiles": [
     "2023-07/From Online Softmax to FlashAttention.md",
+    "Home.md",
     "2023-07/Flash Attention 推公式.md",
     "2023-07/Softmax tiling.md",
+    "Online normalizer calculation for softmax.md",
     "2023-07/images",
-    "Home.md",
     "2023-07/images/Flash Attention - gpu memory hierarchy.png",
     "2023-07/Online normalizer calculation for softmax.md",
     "2023-07",

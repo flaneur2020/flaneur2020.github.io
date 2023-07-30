@@ -119,11 +119,19 @@ $$ a_i \gets \frac{ e ^ {x_i - m_N} }{ d_N^{'} } $$
 
 $O$ 矩阵中的一行是 $V$ 和 Softmax 结果的加权求和：
 
-$$ o_i \gets \sum^{i}_{j=1}( \frac{ e^{x_j-m_i} }{ d_N } V[j,:] ) $$
+$$
+  o_i \gets 
+  \sum^{N}_{j=1}
+  ( 
+  \frac{ e^{x_j-m_N} }{ d_N }
+  V[j,:]
+  )
+$$
 
 利用上面 Online Softmax 一样的技巧，单独引进一个 $o^{'}$ 序列，让它利用局部的 $m_i$ 和 $d^{'}_{i}$ 参与计算：
 
 $$ o^{'}_i \gets \sum^{i}_{j=1}( \frac{ e^{x_j-m_i} }{ d^{'}_i } V[j,:] ) $$
+
 易知对于 N，$o_N$ 等于 $o^{'}_N$。
 
 然后就是在这个公式中，想办法凑一个 $\sum^{i-1}_{j=1}(\frac{e^{x_j-m_{i-1}}}{d^{'}_{i}}V[j,:])$ 出来替换为 $o^{'}_{i-1}$：
