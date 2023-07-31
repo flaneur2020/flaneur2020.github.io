@@ -8,4 +8,8 @@
 		- Books
 			- 以利为利
 			- 大汉帝国在巴蜀
+	- August
+		- Papers
+			- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
+		- Books
 			- 和这个世界讲讲道理
