@@ -1,0 +1,39 @@
+http://highscalability.com/blog/2023/7/16/lessons-learned-running-presto-at-meta-scale.html
+
+- 本文来自 Meta 的 Production Engineer Team
+- Deploying New Presto Releases
+	- meta 跑着很多 presto 集群
+	- 每个月至少一次甚至两次升级 presto，需要降低 presto 升级对用户查询的影响
+	- query failure 在 batch 场景下还不算事儿，重试就行了，但是有很多是用户发了一个请求等结果
+	- 解决方案很简单，所有的 presto 集群都在一个 load balancer 后面，当一个集群要升级前，它会将自己标记为 drained 状态；升级完后再加回来；
+	- automation 会保证每个 region 都有足够数量的 presto 集群存在；
+- Automating Standup And Decommission Of Presto Clusters
+	- 集群数量少的时候，上下线、切换手工管理的过来，后来集群多了，专门做了 automation；
+	- 每个集群做了标准化的配置，在集群 ready 后，会跑一定数量的 test query；
+- Automated Debugging And Remediations
+	- 会做很多 tooling 和 automation 来让 oncall 变得 easy
+	- 最近几年做了很多 “analyzer” 来帮助 oncall 高效地定位、分析 root cause；
+	- monitoring system 会在 user facing 有受影响时产生报警，然后触发 anaylzer；
+	- 一系列的信息会收集到 scuba 中；
+	- analyzer 会基于这些信息来判断 root-cause；
+	- 有些时候能够使 debugging 完全自动化而无需人介入；
+- Bad Host Detection
+	- 很多时候 query issue 是机器导致的，比如有些没有覆盖到的宿主机问题报警、奇怪的 jvm bug 有时候影响 query 执行；
+	- 通过策略自动踢掉有问题的宿主机；
+- Debugging Queueing Issues
+	- 每个 Presto Cluster 支持在 max concurrency 时将 Query 排队；
+	- 在 meta，可以将特定的 query 路由到其他的集群来最大化资源占用；
+	- 几个系统会结合下述信息来做决策：
+		- presto 集群的当前 queuing 状态；
+		- 不同数据中心的硬件分布；
+		- 数据局部性；
+	- 这些因素使得 queuing 的问题变得比较难查；
+- Load Balancer Robustness
+	- gateway 做了一个 throttling feature，能够在负载高时拒绝一些 query；
+	- 流控会基于来自 per user、per source、per IP 等维度的 query 数量；
+	- 另外作者也做了 auto scaling，如果流量高，可以单独把 gateway 给 scale 上去；
+- What advice would we give a team scaling up their own Data Lakehouse using Presto?
+	- 搞一组 easy-to understand 的 SLA；
+	- 做监控，自动化 debugging 过程；人工的 investigation 是不 scalable 的；
+	- Good load balancing；
+	- 做好配置管理；配置应当能够热加载；

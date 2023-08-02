@@ -9,7 +9,11 @@
 			- 以利为利
 			- 大汉帝国在巴蜀
 	- August
-		- Papers
+		- Night Jobs
+			- [[Positional Encoding]]
+		- Readings
 			- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
+			- [[Lessons Learned Running Presto At Meta Scale]]
+			- [[Transformer Architecture：The Positional Encoding]]
 		- Books
-			- 和这个世界讲讲道理
+			- [[学生为什么不喜欢学习]]

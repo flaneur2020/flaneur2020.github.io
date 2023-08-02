@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "2023-08/Transformer Architecture：The Positional Encoding.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Home.md",
+                "file": "2023-08/Transformer Architecture：The Positional Encoding.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,8 +115,15 @@
   },
   "active": "a96b68f99b89f60f",
   "lastOpenFiles": [
-    "2023-08/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
+    "2023-08/Positional Encoding.md",
     "Home.md",
+    "2023-08/Transformer Architecture：The Positional Encoding.md",
+    "2023-08/attachments/positional-encoding-binary-sample.png",
+    "2023-08/学生为什么不喜欢学习.md",
+    "2023-08/Lessons Learned Running Presto At Meta Scale.md",
+    "2023-08/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
+    "2023-08/attachments/Pasted image 20230731221933.png",
+    "2023-08/attachments",
     "2023-07/Flash Attention 推公式.md",
     "2023-08",
     "2023-07/From Online Softmax to FlashAttention.md",

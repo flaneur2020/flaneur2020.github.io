@@ -10,4 +10,8 @@ https://vllm.ai/
 	- dynamic：它的体积取决于 sequence length，这是难以预测的，因此高效地管理 KV Cache 很有挑战；作者观察在一个系统重往往有 60%~80% 的内存是浪费的，因为碎片化和 over-reservation；
 - 为了应对这些问题，作者引进了 Paged Attention。它受传统的虚拟内存和分页机制的启发。
 - 与传统的 Attention 算法不同，Paged Attention 允许在非连续的内存空间中存储连续的 KV。
-- PagedAttention 将 kv cache 分成 Block
+- PagedAttention 将 kv cache 分成 Block；
+	- ![[Pasted image 20230731221933.png]]
+- paged attention 还有一个好处，就是高效的 memory sharing；
+	- 比如在 parallel sampling 中，多个 output sequence 从同一个 prompt 中生成；
+	- 
