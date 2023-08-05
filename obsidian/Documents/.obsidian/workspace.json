@@ -13,13 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-08/学生为什么不喜欢学习.md",
+                "file": "2023-08/Self-Attention and Positional Encoding.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "91648481cbca5c59",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2023-08/Positional Encoding.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-08/学生为什么不喜欢学习.md",
+                "file": "2023-08/Positional Encoding.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,11 +126,15 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "a96b68f99b89f60f",
+  "active": "91648481cbca5c59",
   "lastOpenFiles": [
+    "2023-08/Self-Attention and Positional Encoding.md",
     "2023-08/Positional Encoding.md",
-    "2023-08/Transformer Architecture：The Positional Encoding.md",
     "Home.md",
+    "2023-08/Transformer Architecture：The Positional Encoding.md",
+    "2023-08/attachments/Pasted image 20230805215850.png",
+    "2023-08/attachments/Pasted image 20230805215526.png",
+    "2023-08/Master Positional Encoding - Part I.md",
     "2023-08/学生为什么不喜欢学习.md",
     "2023-08/Lessons Learned Running Presto At Meta Scale.md",
     "2023-08/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",

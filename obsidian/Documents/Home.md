@@ -15,5 +15,6 @@
 			- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
 			- [[Lessons Learned Running Presto At Meta Scale]]
 			- [[Transformer Architecture：The Positional Encoding]]
+			- [[Self-Attention and Positional Encoding]]
 		- Books
 			- [[学生为什么不喜欢学习]]
