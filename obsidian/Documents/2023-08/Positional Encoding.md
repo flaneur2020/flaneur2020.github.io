@@ -43,10 +43,10 @@ $$
 PE_{clock}(k) = \begin{bmatrix}
 sin(2 \pi k) \\
 cos(2 \pi k) \\
-sin(2 \pi k / 3600) \\
-cos(2 \pi k / 3600) \\
-sin(2 \pi k / 3600 * 12) \\
-cos(2 \pi k / 3600 * 12) \\
+sin(\frac{2 \pi k}{3600}) \\
+cos(\frac{2 \pi k}{3600}) \\
+sin(\frac{2 \pi k}{3600 * 12}) \\
+cos(\frac{2 \pi k}{3600 * 12}) \\
 \end{bmatrix}
 _{6 \times 1}
 \end{equation}
