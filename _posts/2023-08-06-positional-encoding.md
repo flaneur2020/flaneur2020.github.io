@@ -56,6 +56,7 @@ cos(2 \pi k / 3600 * 12) \\
 _{6 \times 1}
 \end{equation}
 $$
+
 在秒针转动时，分针与时针也会轻微转动，不过秒针、分针、时针的频率会按依次递减。比如秒针每转动 3600 圈，分针才会转完一圈，分针转完 12 圈，时针转完一圈。
 
 如果要增加维度，就加入天、星期、月、年等更高的单位就可以了。
@@ -79,7 +80,7 @@ $$
 
 关于位置编码的另一个 Intuition 是二进制，比如：
 
-| num    | binary (big endian) |  
+| num    | binary (big endian) |
 | ------ | ------ |
 | 1      | 1000   |
 | 2      | 0100   |
@@ -146,6 +147,6 @@ plt.show()
 
 ## References
 
-- [1]:  https://kazemnejad.com/blog/transformer_architecture_positional_encoding/
-- [2]: https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3
-- [3]: https://notesonai.com/Positional+Encoding
+1. https://kazemnejad.com/blog/transformer_architecture_positional_encoding/
+2. https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3
+3. https://notesonai.com/Positional+Encoding
