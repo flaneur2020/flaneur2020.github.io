@@ -17,8 +17,8 @@ cos(\frac{k}{10000^{2/d}}) \\
 sin(\frac{k}{10000^{4/d}}) \\
 cos(\frac{k}{10000^{4/d}}) \\
 \vdots \\
-sin(\frac{k}{10000^{ (d - 2) / 2d}}) \\
-cos(\frac{k}{10000^{ (d - 2) / 2d}})
+sin(\frac{k}{10000^{ (d - 2) / d}}) \\
+cos(\frac{k}{10000^{ (d - 2) / d}})
 \end{bmatrix}
 _{d \times 1}
 \end{equation}
