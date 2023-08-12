@@ -16,5 +16,9 @@
 			- [[Lessons Learned Running Presto At Meta Scale]]
 			- [[Transformer Architecture：The Positional Encoding]]
 			- [[Self-Attention and Positional Encoding]]
+			- [[Understanding Snowflake Cloud Services Costs]]
+			- [[Aggregating Millions of Groups Fast in Apache Arrow DataFusion]]
 		- Books
 			- [[学生为什么不喜欢学习]]
+			- 中国城市大比拼
+			- 人类世的资本论
