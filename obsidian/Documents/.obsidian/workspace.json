@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-08/Understanding Snowflake Cloud Services Costs.md",
+                "file": "Home.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-08/Understanding Snowflake Cloud Services Costs.md",
+                "file": "Home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,13 +115,13 @@
   },
   "active": "a96b68f99b89f60f",
   "lastOpenFiles": [
+    "2023-08/Understanding Snowflake Cloud Services Costs.md",
     "Home.md",
     "2023-08/Aggregating Millions of Groups Fast in Apache Arrow DataFusion.md",
     "2023-08/attachments/Pasted image 20230812103517.png",
     "2023-08/attachments/Pasted image 20230812101704.png",
     "2023-08/attachments/Pasted image 20230812095415.png",
     "Farewell to the Era of Cheap EC2 Spot Instances.md",
-    "2023-08/Understanding Snowflake Cloud Services Costs.md",
     "2023-08/Lessons Learned Running Presto At Meta Scale.md",
     "2023-08/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
     "2023-08/Positional Encoding.md",

@@ -11,6 +11,7 @@
 	- August
 		- Night Jobs
 			- [[Positional Encoding]]
+			- Neural Networks: Zero to Hero - Lecture 1: building micrograd
 		- Readings
 			- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
 			- [[Lessons Learned Running Presto At Meta Scale]]
