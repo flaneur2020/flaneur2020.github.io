@@ -1,0 +1,35 @@
+name: Build quartz
+description: ""
+inputs:
+  content_path:
+    description: the content path
+    required: true
+  output_path:
+    description: the output path
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v3
+
+    - uses: actions/checkout@v3
+      with:
+        repository: jackyzha0/quartz
+        ref: v4
+        path: quartz
+
+    - name: copy content
+      shell: bash
+      run: cp -r ${input.content_path}/ quartz/content/
+
+    - name: Build quartz
+      shell: bash
+      run: |
+        cd quartz
+        npm install --global
+        npx quartz build
+
+    - name: Copy output
+      shell: bash
+      run: cp -r quartz/public/** ${input.output_path}/
