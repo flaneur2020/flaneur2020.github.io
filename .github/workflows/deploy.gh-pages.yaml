@@ -23,11 +23,6 @@ jobs:
       - name: Build
         uses: actions/jekyll-build-pages@v1
 
-      - name: chmod ./_site
-        run: |
-          ls -la ./_site
-          chmod 777 ./_site
-
       - name: Build quartz
         uses: ./.github/actions/build-quartz
         with:
