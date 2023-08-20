@@ -1,7 +1,10 @@
 name: Build Jekyll site
 on:
- push:
-   branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
 permissions:
   contents: read
   pages: write
