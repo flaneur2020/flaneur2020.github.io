@@ -29,7 +29,7 @@ runs:
         cd quartz
         npm install
         npx quartz build
-        ls -la quartz/public/**
+        ls -la ./public/**
 
     - name: Copy output
       shell: bash
