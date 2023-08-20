@@ -21,7 +21,7 @@ runs:
 
     - name: copy content
       shell: bash
-      run: cp -r ${{ input.content_path }}/ quartz/content/
+      run: cp -r ${{ inputs.content_path }}/ quartz/content/
 
     - name: Build quartz
       shell: bash
