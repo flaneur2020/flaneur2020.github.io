@@ -29,7 +29,8 @@ runs:
         cd quartz
         npm install
         npx quartz build
+        ls -la quartz/public/**
 
     - name: Copy output
       shell: bash
-      run: cp -r quartz/public/** ${{ inputs.output_path }} /
+      run: cp -r quartz/public/** ${{ inputs.output_path }}/
