@@ -24,7 +24,7 @@ jobs:
         uses: actions/jekyll-build-pages@v1
 
       - name: Build quartz
-        uses: ./actions/build-quartz
+        uses: ./.github/actions/build-quartz
         with:
           content_path: ./obsidian/Documents
           output_path: ./_site/quartz
