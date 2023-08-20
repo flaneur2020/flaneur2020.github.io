@@ -1,7 +1,10 @@
 name: Build Jekyll site
 on:
- push:
-   branches: ["main"]
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
 permissions:
   contents: read
   pages: write
@@ -13,10 +16,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Build
         uses: actions/jekyll-build-pages@v1
+
+      - name: Build quartz
+        uses: ./.github/actions/build-quartz
+        with:
+          content_path: ./obsidian/Documents
+          output_path: ./_site/quartz
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
