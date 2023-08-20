@@ -36,5 +36,5 @@ runs:
     - name: Copy output
       shell: bash
       run: |
-        ls -la ${{ inputs.output_path }}/
+        mkdir -p ${{ inputs.output_path }}/
         cp -r quartz/public/** ${{ inputs.output_path }}/
