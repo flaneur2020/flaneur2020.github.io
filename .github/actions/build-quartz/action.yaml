@@ -27,7 +27,7 @@ runs:
       shell: bash
       run: |
         cd quartz
-        npm install --global
+        npm install
         npx quartz build
 
     - name: Copy output
