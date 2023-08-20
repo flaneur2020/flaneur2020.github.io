@@ -11,6 +11,7 @@
 	- August
 		- Night Jobs
 			- [[Positional Encoding]]
+			- [[Weight Quantization]]
 			- Neural Networks: Zero to Hero - Lecture 1: building micrograd
 		- Readings
 			- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
@@ -19,7 +20,13 @@
 			- [[Self-Attention and Positional Encoding]]
 			- [[Understanding Snowflake Cloud Services Costs]]
 			- [[Aggregating Millions of Groups Fast in Apache Arrow DataFusion]]
+			- [[How is LLAMA.cpp possible]]
+			- [[Introduction to Weight Quantization]]
+			- [[A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes]]
+			- [[Fun and Hackable Tensors in Rust, From Scratch]]
 		- Books
 			- [[学生为什么不喜欢学习]]
 			- 中国城市大比拼
 			- 人类世的资本论
+			- [[甲午战争前后的晚清政局]]
+

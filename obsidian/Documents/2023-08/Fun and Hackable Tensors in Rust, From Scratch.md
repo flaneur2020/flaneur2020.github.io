@@ -1,0 +1,1 @@
+https://getcode.substack.com/p/fun-and-hackable-tensors-in-rust

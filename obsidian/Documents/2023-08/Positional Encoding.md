@@ -142,6 +142,6 @@ plt.show()
 
 ## References
 
-- [1]:  https://kazemnejad.com/blog/transformer_architecture_positional_encoding/
-- [2]: https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3
-- [3]: https://notesonai.com/Positional+Encoding
+- [^1] https://kazemnejad.com/blog/transformer_architecture_positional_encoding/
+- [^2] https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3
+- [^3] https://notesonai.com/Positional+Encoding

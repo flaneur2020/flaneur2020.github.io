@@ -5,14 +5,19 @@
   "graph",
   "backlink",
   "canvas",
+  "outgoing-link",
   "page-preview",
+  "daily-notes",
+  "templates",
   "note-composer",
   "command-palette",
   "slash-command",
   "editor-status",
   "bookmarks",
   "markdown-importer",
+  "outline",
   "word-count",
   "slides",
-  "file-recovery"
+  "file-recovery",
+  "publish"
 ]

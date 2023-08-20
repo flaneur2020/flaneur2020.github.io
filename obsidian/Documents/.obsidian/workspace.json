@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "sqs",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 223.5
+    "width": 274.5
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -95,6 +95,28 @@
                 "unlinkedCollapsed": true
               }
             }
+          },
+          {
+            "id": "b93aed57f8f6452d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Home.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "413afa1cff3181ea",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Home.md"
+              }
+            }
           }
         ]
       }
@@ -110,30 +132,43 @@
       "command-palette:Open command palette": false,
       "markdown-importer:Open format converter": false,
       "canvas:Create new canvas": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "daily-notes:Open today's daily note": false,
+      "publish:Publish changes...": false,
+      "templates:Insert template": false
     }
   },
   "active": "a96b68f99b89f60f",
   "lastOpenFiles": [
-    "2023-08/Understanding Snowflake Cloud Services Costs.md",
-    "Home.md",
-    "2023-08/Aggregating Millions of Groups Fast in Apache Arrow DataFusion.md",
-    "2023-08/attachments/Pasted image 20230812103517.png",
-    "2023-08/attachments/Pasted image 20230812101704.png",
-    "2023-08/attachments/Pasted image 20230812095415.png",
-    "Farewell to the Era of Cheap EC2 Spot Instances.md",
-    "2023-08/Lessons Learned Running Presto At Meta Scale.md",
-    "2023-08/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
-    "2023-08/Positional Encoding.md",
-    "2023-08/attachments/positional-encoding-distances.png",
-    "2023-08/attachments/pe-matrix.png",
-    "2023-08/attachments/positional-encoding-matrix.png.png",
-    "2023-08/attachments/Pasted image 20230731221933.png",
-    "2023-08/attachments/positional-encoding-binary-sample.png",
-    "2023-08/attachments/Pasted image 20230805215526.png",
-    "2023-08/attachments/Pasted image 20230805215850.png",
-    "2023-08/Self-Attention and Positional Encoding.md",
+    "2023-08/A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes.md",
+    "2023-08/How is LLAMA.cpp possible.md",
     "2023-08/学生为什么不喜欢学习.md",
+    "2023-08/Introduction to Weight Quantization.md",
+    "Home.md",
+    "2023-08/attachments/Pasted image 20230820121916.png",
+    "2023-08/Weight Quantization.md",
+    "Pasted image 20230820121032.png",
+    "2023-08/attachments/Pasted image 20230820120348.png",
+    "Pasted image 20230820120303.png",
+    "2023-08/Positional Encoding.md",
+    "2023-08/甲午战争前后的晚清政局.md",
+    "2023-08/attachments/Pasted image 20230820110835.png",
+    "2023-08/attachments/Pasted image 20230820110252.png",
+    "2023-08/attachments/Pasted image 20230820104025.png",
+    "2023-08/attachments/Pasted image 20230820103151.png",
+    "2023-08/attachments/Pasted image 20230820103145.png",
+    "2023-08/attachments/Pasted image 20230820102618.png",
+    "2023-08/Aggregating Millions of Groups Fast in Apache Arrow DataFusion.md",
+    "2023-08/Fun and Hackable Tensors in Rust, From Scratch.md",
+    "2023-08/Lessons Learned Running Presto At Meta Scale.md",
+    "2023-08/Understanding Snowflake Cloud Services Costs.md",
+    "Untitled.canvas",
+    "2022/2022-06/SQS Notes.md",
+    "2022",
+    "2022/2022-06",
+    "Farewell to the Era of Cheap EC2 Spot Instances.md",
+    "2023-08/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
+    "2023-08/Self-Attention and Positional Encoding.md",
     "2023-08/Transformer Architecture：The Positional Encoding.md",
     "2023-08/Master Positional Encoding - Part I.md",
     "2023-08/attachments",
@@ -148,7 +183,6 @@
     "flashattn.pdf.md",
     "flashattn.pdf",
     "2023-07/02 HaveRead",
-    "Untitled.canvas",
     "Readings"
   ]
 }
