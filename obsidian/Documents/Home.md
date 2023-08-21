@@ -14,16 +14,19 @@
 			- [[Weight Quantization]]
 			- Neural Networks: Zero to Hero - Lecture 1: building micrograd
 		- Readings
-			- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
-			- [[Lessons Learned Running Presto At Meta Scale]]
-			- [[Transformer Architecture：The Positional Encoding]]
-			- [[Self-Attention and Positional Encoding]]
-			- [[Understanding Snowflake Cloud Services Costs]]
-			- [[Aggregating Millions of Groups Fast in Apache Arrow DataFusion]]
-			- [[How is LLAMA.cpp possible]]
-			- [[Introduction to Weight Quantization]]
-			- [[A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes]]
-			- [[Fun and Hackable Tensors in Rust, From Scratch]]
+			- LLM
+				- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
+				- [[Transformer Architecture：The Positional Encoding]]
+				- [[How is LLAMA.cpp possible]]
+				- [[Self-Attention and Positional Encoding]]
+				-  [[Introduction to Weight Quantization]]
+				- [[Fun and Hackable Tensors in Rust, From Scratch]]
+				- [[A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes]]
+			- Infra
+				- [[Lessons Learned Running Presto At Meta Scale]]
+				- [[Understanding Snowflake Cloud Services Costs]]
+				- [[Aggregating Millions of Groups Fast in Apache Arrow DataFusion]]
+				- [[ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates]]
 		- Books
 			- [[学生为什么不喜欢学习]]
 			- 中国城市大比拼
