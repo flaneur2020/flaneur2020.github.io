@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "2023-08/Infra/ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Home.md",
+                "file": "2023-08/Infra/ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Home.md",
+                "file": "2023-08/Infra/ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Home.md"
+                "file": "2023-08/Infra/ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates.md"
               }
             }
           }
@@ -140,6 +140,10 @@
   },
   "active": "a96b68f99b89f60f",
   "lastOpenFiles": [
+    "Pasted image 20230821211029.png",
+    "2023-08/attachments/Pasted image 20230821210742.png",
+    "Home.md",
+    "2023-08/LLM/A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes.md",
     "2023-08/attachments/Pasted image 20230821172420.png",
     "2023-08/LLM/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
     "2023-08/LLM/Weight Quantization.md",
@@ -149,7 +153,6 @@
     "2023-08/LLM/Introduction to Weight Quantization.md",
     "2023-08/LLM/How is LLAMA.cpp possible.md",
     "2023-08/LLM/Fun and Hackable Tensors in Rust, From Scratch.md",
-    "2023-08/LLM/A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes.md",
     "2023-08/LLM",
     "2023-08/Infra/Understanding Snowflake Cloud Services Costs.md",
     "2023-08/Infra/Lessons Learned Running Presto At Meta Scale.md",
@@ -168,7 +171,6 @@
     "2023-08/Self-Attention and Positional Encoding.md",
     "2023-08/Positional Encoding.md",
     "2023-08/Lessons Learned Running Presto At Meta Scale.md",
-    "2023-08/Introduction to Weight Quantization.md",
     "2023-08/attachments/Pasted image 20230820121916.png",
     "Pasted image 20230820121032.png",
     "2023-08/attachments/Pasted image 20230820120348.png",
@@ -177,7 +179,6 @@
     "2023-08/attachments/Pasted image 20230820110252.png",
     "2023-08/attachments/Pasted image 20230820104025.png",
     "2023-08/attachments/Pasted image 20230820103151.png",
-    "2023-08/attachments/Pasted image 20230820103145.png",
     "Untitled.canvas",
     "2022",
     "2022/2022-06",
