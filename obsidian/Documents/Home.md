@@ -12,7 +12,6 @@
 		- Night Jobs
 			- [[Positional Encoding]]
 			- [[Weight Quantization]]
-			- Neural Networks: Zero to Hero - Lecture 1: building micrograd
 		- Readings
 			- LLM
 				- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
@@ -21,6 +20,7 @@
 				- [[Self-Attention and Positional Encoding]]
 				-  [[Introduction to Weight Quantization]]
 				- [[Fun and Hackable Tensors in Rust, From Scratch]]
+				- [[Tensor, Storage, Strides 張量如何存放在記憶體上？]]
 				- [[A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes]]
 			- Infra
 				- [[Lessons Learned Running Presto At Meta Scale]]
@@ -30,6 +30,34 @@
 		- Books
 			- [[学生为什么不喜欢学习]]
 			- 中国城市大比拼
-			- 人类世的资本论
+			- ~~人类世的资本论~~
 			- [[甲午战争前后的晚清政局]]
+			- [[奇迹的黄昏]]
+	- September
+		- Night Jobs
+			- Tensor
+			- gguf
+			- [[Speculative Sampling]]
+			- [[k-quants]]
+		- Code Snippets
+			- [[ggml_load_llama]]
+		- Readings
+			- How Instacart Optimized Snowflake Costs by 50%
+			- [[ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis]]
+			- [[Quantize Llama models with GGML and llama.cpp]]
+			- [[The case for 4-bit precision - k-bit Inference Scaling Laws]]
+			- [[Difference between view, reshape, transpose and permute in PyTorch]]
+			- [[The State of Async Rust - Runtimes]]
+			- Cloud
+				- [[On The Future Of Cloud Services And BYOC]]
+			- CUDA
+				- [[Introduction to CUDA]]
+				- [[An Introduction to GPU Programming in Julia]]
+				- [[CUDA Programming with Julia]]
+		- Books
+			- 创造：用非传统方式做有价值的事
+			- 全民基本收入
+			- 探路之役
+			- 苦难辉煌
+
 
