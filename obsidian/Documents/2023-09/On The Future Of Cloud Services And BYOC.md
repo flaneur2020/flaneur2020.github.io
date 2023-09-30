@@ -5,9 +5,9 @@
 	- 在自己的账号中管理数据，有更低的成本；
 	- 更便宜，更低的 TCO；
 - 但是 BYOC 会失去：
-	- Serverless/ Resource Pooling
-	- Operational efficiency
-	- A clear responsibility boundary.
+	- Serverless/ Resource Pooling（赞同）
+	- Operational efficiency（不是很赞同）
+	- A clear responsibility boundary. （有道理）
 
 ## The promise of security
 

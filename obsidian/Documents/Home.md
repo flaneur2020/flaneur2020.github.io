@@ -50,10 +50,11 @@
 			- [[The State of Async Rust - Runtimes]]
 			- Cloud
 				- [[On The Future Of Cloud Services And BYOC]]
-			- CUDA
+			- GPU
 				- [[Introduction to CUDA]]
 				- [[An Introduction to GPU Programming in Julia]]
 				- [[CUDA Programming with Julia]]
+				- [[Massively Parallel Fun with GPUs - Accelerating Tensors in Rust]]
 		- Books
 			- 创造：用非传统方式做有价值的事
 			- 全民基本收入

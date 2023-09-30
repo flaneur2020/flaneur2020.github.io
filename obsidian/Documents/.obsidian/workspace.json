@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-09/CUDA Programming with Julia.md",
+                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-09/CUDA Programming with Julia.md",
+                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-09/CUDA Programming with Julia.md",
+                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-09/CUDA Programming with Julia.md"
+                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md"
               }
             }
           }
@@ -140,13 +140,16 @@
   },
   "active": "3b91ce4e64b65a35",
   "lastOpenFiles": [
-    "2023-09/On The Future Of Cloud Services And BYOC.md",
     "Home.md",
+    "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
+    "2023-09/On The Future Of Cloud Services And BYOC.md",
+    "2023-09/The State of Async Rust - Runtimes.md",
+    "2023-09/Speculative Sampling.md",
+    "2023-09/k-quants.md",
     "2023-09/CUDA Programming with Julia.md",
     "2023-09/images/Pasted image 20230929213623.png",
     "2023-09/An Introduction to GPU Programming in Julia.md",
     "2023-09/ggml_load_llama.md",
-    "2023-09/The State of Async Rust - Runtimes.md",
     "Understanding the BYOC Deployment Model.md",
     "2023-09/Difference between view, reshape, transpose and permute in PyTorch.md",
     "2023-09/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
@@ -155,13 +158,11 @@
     "Selective Column Reduction for DataLake Storage Cost Efficiency.md",
     "2023-09/Introduction to CUDA.md",
     "2023-09/images/Pasted image 20230922144441.png",
-    "2023-09/k-quants.md",
     "2023-08/LLM/Tensor, Storage, Strides 張量如何存放在記憶體上？.md",
     "2023-09/Quantize Llama models with GGML and llama.cpp.md",
     "2023-09/images/Pasted image 20230917150649.png",
     "QX_4 quantization.md",
     "2023-09/images/Pasted image 20230917141643.png",
-    "2023-09/Speculative Sampling.md",
     "2023-09/images/Pasted image 20230912154754.png",
     "2023-09/images",
     "Accelerating Language Model Decoding with Speculative.md",
@@ -177,7 +178,6 @@
     "2023-08/attachments/Pasted image 20230821211029.png",
     "2023-08/LLM/A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes.md",
     "2023-08/LLM/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
-    "2023-08/LLM/Weight Quantization.md",
     "2023-08/LLM",
     "2023-08/Infra",
     "2023-08/Books",
