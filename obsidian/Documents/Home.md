@@ -35,21 +35,23 @@
 			- [[奇迹的黄昏]]
 	- September
 		- Night Jobs
-			- Tensor
-			- gguf
-			- [[Speculative Sampling]]
-			- [[k-quants]]
-		- Code Snippets
-			- [[ggml_load_llama]]
+			- LLM
+				- Tensor
+				- gguf
+				- [[Speculative Sampling]]
+				- [[k-quants]]
+			- GPU Accelerator
 		- Readings
-			- How Instacart Optimized Snowflake Costs by 50%
-			- [[ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis]]
-			- [[Quantize Llama models with GGML and llama.cpp]]
-			- [[The case for 4-bit precision - k-bit Inference Scaling Laws]]
-			- [[Difference between view, reshape, transpose and permute in PyTorch]]
-			- [[The State of Async Rust - Runtimes]]
-			- Cloud
+			- Cloud & Infra
 				- [[On The Future Of Cloud Services And BYOC]]
+				- How Instacart Optimized Snowflake Costs by 50%
+				- [[ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis]]
+				- [[The State of Async Rust - Runtimes]]
+			- LLM
+				- [[Quantize Llama models with GGML and llama.cpp]]
+				- [[The case for 4-bit precision - k-bit Inference Scaling Laws]]
+				- [[Difference between view, reshape, transpose and permute in PyTorch]]
+				- [[ggml_load_llama]]
 			- GPU
 				- [[Introduction to CUDA]]
 				- [[An Introduction to GPU Programming in Julia]]
@@ -60,5 +62,18 @@
 			- 全民基本收入
 			- 探路之役
 			- 苦难辉煌
+	- October
+		- Night Job
+			- ROPE
+			- Quantization
+			- MatMul in WebGPU
+			- [[ggml 看代码]]
+			- [[Optimized GEMM]]
+		- Readings
+			- [[Rotary Embeddings - A Relative Revolution]]
+			- [[Quantization for Neural Networks]]
+			- [[What's a data vault]]
+			- [[Using Metal and Rust to make FFT even faster]]
+			- [[Implementing Matrix Multiplication with WebGPU in Safari]]
 
 

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
+                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
+                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
+                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md"
+                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md"
               }
             }
           }
@@ -141,6 +141,26 @@
   "active": "3b91ce4e64b65a35",
   "lastOpenFiles": [
     "Home.md",
+    "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
+    "2023-10/ggml 看代码.md",
+    "2023-10/Optimized GEMM.md",
+    "2023-10/Using Metal and Rust to make FFT even faster.md",
+    "2023-10/images/Pasted image 20231017130749.png",
+    "2023-10/What's a data vault.md",
+    "2023-10/images/Pasted image 20231016122558.png",
+    "2023-10/BLISlab - A Sandbox for Optimizing GEMM.md",
+    "2023-10/images/Screenshot 2023-10-12 at 11.13.39.png",
+    "Screenshot 2023-10-12 at 11.07.26.png",
+    "2023-10/images/Screenshot 2023-10-12 at 11.06.57.png",
+    "2023-10/images",
+    "2023-10/ggml_mul_mat.md",
+    "2023-10/Quantization for Neural Networks.md",
+    "LLama2.cpp.md",
+    "2023-10/ggml_load_llama.md",
+    "2023-10/Rotary Embeddings - A Relative Revolution.md",
+    "2023-10/8-BIT OPTIMIZERS VIA BLOCK-WISE QUANTIZATION.md",
+    "2023-10",
+    "2023-09-30.md",
     "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
     "2023-09/On The Future Of Cloud Services And BYOC.md",
     "2023-09/The State of Async Rust - Runtimes.md",
@@ -149,43 +169,23 @@
     "2023-09/CUDA Programming with Julia.md",
     "2023-09/images/Pasted image 20230929213623.png",
     "2023-09/An Introduction to GPU Programming in Julia.md",
-    "2023-09/ggml_load_llama.md",
     "Understanding the BYOC Deployment Model.md",
     "2023-09/Difference between view, reshape, transpose and permute in PyTorch.md",
     "2023-09/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
     "2023-09/How JIT Compilers are Implemented and Fast - Pypy, LuaJIT, Graal and More.md",
     "2023-09/ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis.md",
-    "Selective Column Reduction for DataLake Storage Cost Efficiency.md",
-    "2023-09/Introduction to CUDA.md",
     "2023-09/images/Pasted image 20230922144441.png",
-    "2023-08/LLM/Tensor, Storage, Strides 張量如何存放在記憶體上？.md",
-    "2023-09/Quantize Llama models with GGML and llama.cpp.md",
     "2023-09/images/Pasted image 20230917150649.png",
-    "QX_4 quantization.md",
     "2023-09/images/Pasted image 20230917141643.png",
     "2023-09/images/Pasted image 20230912154754.png",
     "2023-09/images",
-    "Accelerating Language Model Decoding with Speculative.md",
-    "2023-09/Accelerating Language Model Decoding with Speculative.md",
     "2023-09",
-    "2023-08/Infra/ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates.md",
-    "2023-08/attachments/Pasted image 20230826114709.png",
-    "2023-08/attachments/Pasted image 20230826114059.png",
-    "2023-08/attachments/Pasted image 20230826113931.png",
-    "2023-08/attachments/Pasted image 20230826113536.png",
-    "2023-08/Books/奇迹的黄昏.md",
-    "2023-08/Infra/Lessons Learned Running Presto At Meta Scale.md",
-    "2023-08/attachments/Pasted image 20230821211029.png",
-    "2023-08/LLM/A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes.md",
-    "2023-08/LLM/vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention.md",
     "2023-08/LLM",
     "2023-08/Infra",
     "2023-08/Books",
     "Untitled.canvas",
     "2022",
     "2022/2022-06",
-    "2023-08/attachments",
-    "2023-08",
-    "2023-07/images"
+    "2023-08/attachments"
   ]
 }
