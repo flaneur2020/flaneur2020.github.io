@@ -30,6 +30,7 @@ fn compute_exp_once(
                 | wgpu::BufferUsages::COPY_DST
                 | wgpu::BufferUsages::COPY_SRC,
         });
+        // the cpu buffer to receive the result
         let staging_buffer = device.create_buffer(&wgpu::BufferDescriptor {
             label: None,
             size: buf_size,
