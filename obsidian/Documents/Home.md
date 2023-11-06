@@ -69,11 +69,21 @@
 			- MatMul in WebGPU
 			- [[ggml 看代码]]
 			- [[Optimized GEMM]]
+		- Books
+			- [[社会为什么对年轻人冷酷无情]]
+			- 大规模并行处理器程序设计
 		- Readings
 			- [[Rotary Embeddings - A Relative Revolution]]
 			- [[Quantization for Neural Networks]]
 			- [[What's a data vault]]
 			- [[Using Metal and Rust to make FFT even faster]]
 			- [[Implementing Matrix Multiplication with WebGPU in Safari]]
-
+	- Nov
+		- Night
+			- GPU accelerated LLM inference
+		- Books
+			- 千脑智脑
+			- 教育的浪费
+		- Readings
+			- [[Through the Ages - Apple CPU Architecture]]
 

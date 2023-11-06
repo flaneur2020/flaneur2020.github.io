@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
+                "file": "2023-11/Through the Ages - Apple CPU Architecture.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
+                "file": "2023-11/Through the Ages - Apple CPU Architecture.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
+                "file": "2023-11/Through the Ages - Apple CPU Architecture.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md"
+                "file": "2023-11/Through the Ages - Apple CPU Architecture.md"
               }
             }
           }
@@ -140,7 +140,10 @@
   },
   "active": "3b91ce4e64b65a35",
   "lastOpenFiles": [
+    "2023-11/Through the Ages - Apple CPU Architecture.md",
+    "2023-11",
     "Home.md",
+    "2023-10/社会为什么对年轻人冷酷无情.md",
     "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
     "2023-10/ggml 看代码.md",
     "2023-10/Optimized GEMM.md",
@@ -171,9 +174,6 @@
     "2023-09/An Introduction to GPU Programming in Julia.md",
     "Understanding the BYOC Deployment Model.md",
     "2023-09/Difference between view, reshape, transpose and permute in PyTorch.md",
-    "2023-09/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
-    "2023-09/How JIT Compilers are Implemented and Fast - Pypy, LuaJIT, Graal and More.md",
-    "2023-09/ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis.md",
     "2023-09/images/Pasted image 20230922144441.png",
     "2023-09/images/Pasted image 20230917150649.png",
     "2023-09/images/Pasted image 20230917141643.png",
@@ -185,7 +185,6 @@
     "2023-08/Books",
     "Untitled.canvas",
     "2022",
-    "2022/2022-06",
-    "2023-08/attachments"
+    "2022/2022-06"
   ]
 }
