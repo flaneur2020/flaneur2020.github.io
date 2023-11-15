@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-11/Through the Ages - Apple CPU Architecture.md",
+                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-11/Through the Ages - Apple CPU Architecture.md",
+                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-11/Through the Ages - Apple CPU Architecture.md",
+                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-11/Through the Ages - Apple CPU Architecture.md"
+                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md"
               }
             }
           }
@@ -138,11 +138,20 @@
       "templates:Insert template": false
     }
   },
-  "active": "3b91ce4e64b65a35",
+  "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
+    "Home.md",
+    "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
+    "2023-11/WebGPU Compute Shader Basics.md",
+    "2023-11/WebGPU — All of the cores, none of the canvas.md",
+    "2023-11/assets/Pasted image 20231111232507.png",
+    "2023-11/assets",
+    "2023-11/assets/Pasted image 20231111220924.png",
+    "Pasted image 20231111220859.png",
+    "2023-11/GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS.md",
+    "On actionable and actually useful logs.md",
     "2023-11/Through the Ages - Apple CPU Architecture.md",
     "2023-11",
-    "Home.md",
     "2023-10/社会为什么对年轻人冷酷无情.md",
     "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
     "2023-10/ggml 看代码.md",
@@ -169,22 +178,14 @@
     "2023-09/The State of Async Rust - Runtimes.md",
     "2023-09/Speculative Sampling.md",
     "2023-09/k-quants.md",
-    "2023-09/CUDA Programming with Julia.md",
     "2023-09/images/Pasted image 20230929213623.png",
-    "2023-09/An Introduction to GPU Programming in Julia.md",
-    "Understanding the BYOC Deployment Model.md",
-    "2023-09/Difference between view, reshape, transpose and permute in PyTorch.md",
     "2023-09/images/Pasted image 20230922144441.png",
-    "2023-09/images/Pasted image 20230917150649.png",
-    "2023-09/images/Pasted image 20230917141643.png",
-    "2023-09/images/Pasted image 20230912154754.png",
     "2023-09/images",
     "2023-09",
     "2023-08/LLM",
     "2023-08/Infra",
     "2023-08/Books",
     "Untitled.canvas",
-    "2022",
-    "2022/2022-06"
+    "2022"
   ]
 }

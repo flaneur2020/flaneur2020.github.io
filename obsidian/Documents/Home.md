@@ -81,9 +81,15 @@
 	- Nov
 		- Night
 			- GPU accelerated LLM inference
+			- GPTQ
+			- Rope
 		- Books
-			- 千脑智脑
+			- 千脑智能
 			- 教育的浪费
+		- Papers
+			- [[GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS]]
 		- Readings
 			- [[Through the Ages - Apple CPU Architecture]]
-
+			- [[WebGPU Compute Shader Basics]]
+			- [[WebGPU — All of the cores, none of the canvas]]
+			- [[GPU Survival Toolkit for the AI age - The bare minimum every developer must know]]
