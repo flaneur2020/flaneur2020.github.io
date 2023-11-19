@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
+                "file": "2023-11/A Journey Into Shaders.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "sqs",
+                "query": "tag:#GPU",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
+                "file": "2023-11/A Journey Into Shaders.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
+                "file": "2023-11/A Journey Into Shaders.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md"
+                "file": "2023-11/A Journey Into Shaders.md"
               }
             }
           }
@@ -141,16 +141,23 @@
   "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
     "Home.md",
-    "2023-11/GPU Survival Toolkit for the AI age - The bare minimum every developer must know.md",
-    "2023-11/WebGPU Compute Shader Basics.md",
+    "2023-11/Through the Ages - Apple CPU Architecture.md",
+    "2023-11/GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS.md",
     "2023-11/WebGPU — All of the cores, none of the canvas.md",
+    "2023-11/WebGPU Compute Shader Basics.md",
+    "2023-11/What Every Developer Should Know About GPU Computing.md",
+    "2023-11/A Journey Into Shaders.md",
+    "2023-11/assets/Pasted image 20231119120225.png",
+    "Pasted image 20231119120211.png",
+    "2023-11/assets/Pasted image 20231119120152.png",
+    "2023-11/assets/Pasted image 20231119115320.png",
+    "2023-11/assets/Pasted image 20231119101352.png",
+    "2023-11/assets/Pasted image 20231118225834.png",
     "2023-11/assets/Pasted image 20231111232507.png",
     "2023-11/assets",
     "2023-11/assets/Pasted image 20231111220924.png",
     "Pasted image 20231111220859.png",
-    "2023-11/GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS.md",
     "On actionable and actually useful logs.md",
-    "2023-11/Through the Ages - Apple CPU Architecture.md",
     "2023-11",
     "2023-10/社会为什么对年轻人冷酷无情.md",
     "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
@@ -159,11 +166,7 @@
     "2023-10/Using Metal and Rust to make FFT even faster.md",
     "2023-10/images/Pasted image 20231017130749.png",
     "2023-10/What's a data vault.md",
-    "2023-10/images/Pasted image 20231016122558.png",
     "2023-10/BLISlab - A Sandbox for Optimizing GEMM.md",
-    "2023-10/images/Screenshot 2023-10-12 at 11.13.39.png",
-    "Screenshot 2023-10-12 at 11.07.26.png",
-    "2023-10/images/Screenshot 2023-10-12 at 11.06.57.png",
     "2023-10/images",
     "2023-10/ggml_mul_mat.md",
     "2023-10/Quantization for Neural Networks.md",
@@ -176,10 +179,6 @@
     "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
     "2023-09/On The Future Of Cloud Services And BYOC.md",
     "2023-09/The State of Async Rust - Runtimes.md",
-    "2023-09/Speculative Sampling.md",
-    "2023-09/k-quants.md",
-    "2023-09/images/Pasted image 20230929213623.png",
-    "2023-09/images/Pasted image 20230922144441.png",
     "2023-09/images",
     "2023-09",
     "2023-08/LLM",

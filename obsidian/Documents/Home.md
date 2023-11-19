@@ -92,4 +92,5 @@
 			- [[Through the Ages - Apple CPU Architecture]]
 			- [[WebGPU Compute Shader Basics]]
 			- [[WebGPU — All of the cores, none of the canvas]]
-			- [[GPU Survival Toolkit for the AI age - The bare minimum every developer must know]]
+			- [[What Every Developer Should Know About GPU Computing]]
+			- [[A Journey Into Shaders]]
