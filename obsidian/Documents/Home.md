@@ -77,7 +77,6 @@
 			- [[Quantization for Neural Networks]]
 			- [[What's a data vault]]
 			- [[Using Metal and Rust to make FFT even faster]]
-			- [[Implementing Matrix Multiplication with WebGPU in Safari]]
 	- Nov
 		- Night
 			- GPU accelerated LLM inference
@@ -86,11 +85,23 @@
 		- Books
 			- 千脑智能
 			- 教育的浪费
+			- 超越 PISA
+			- 如何成为优秀的大脑饲养员
+			- [[Programming on Parallel Machines; GPU, Multicore, Clusters and More]]
+		- Podcasts
 		- Papers
-			- [[GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS]]
+			- [[GPTQ - Accurate Post-Training Quantization for Generative Pre-Trained Transformers]]
+			- [[Efficient LLM Inference on CPUs]]
+			- [[FP8 versus INT8 for efficient deep learning inference]]
+			- [[Understanding and Overcoming the Challenges of Efficient Transformer Quantization]]
 		- Readings
 			- [[Through the Ages - Apple CPU Architecture]]
 			- [[WebGPU Compute Shader Basics]]
 			- [[WebGPU — All of the cores, none of the canvas]]
 			- [[What Every Developer Should Know About GPU Computing]]
 			- [[A Journey Into Shaders]]
+			- [[Implementing Matrix Multiplication with WebGPU in Safari]]
+			- [[Impact of Lack of Sleep]]
+	- Dec
+		- Books
+			- Doom 启世录

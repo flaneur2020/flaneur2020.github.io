@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-11/A Journey Into Shaders.md",
+                "file": "Home.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-11/A Journey Into Shaders.md",
+                "file": "Home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-11/A Journey Into Shaders.md",
+                "file": "Home.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-11/A Journey Into Shaders.md"
+                "file": "Home.md"
               }
             }
           }
@@ -130,61 +130,62 @@
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "command-palette:Open command palette": false,
-      "markdown-importer:Open format converter": false,
+      "markdown-importer:Open format converter": true,
       "canvas:Create new canvas": false,
       "obsidian-excalidraw-plugin:Create new drawing": false,
       "daily-notes:Open today's daily note": false,
       "publish:Publish changes...": false,
-      "templates:Insert template": false
+      "templates:Insert template": true
     }
   },
   "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
+    "2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
     "Home.md",
-    "2023-11/Through the Ages - Apple CPU Architecture.md",
-    "2023-11/GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS.md",
+    "2023-11/FP8 versus INT8 for efficient deep learning inference.md",
     "2023-11/WebGPU — All of the cores, none of the canvas.md",
+    "2022/2022-06/SQS Notes.md",
+    "2023-11/Through the Ages - Apple CPU Architecture.md",
+    "2019/2019-02",
+    "2019",
+    "2023-11/How to Get Your Brain to Focus.md",
+    "2023-11/Understanding and Overcoming the Challenges of Efficient Transformer Quantization.md",
+    "2023-11/assets/Screenshot 2023-11-21 at 22.05.11.png",
+    "2023-11/assets/Screenshot 2023-11-21 at 22.02.44.png",
+    "2023-11/assets/Screenshot 2023-11-21 at 22.02.15.png",
+    "2023-11-21.md",
+    "Untitled.canvas",
     "2023-11/WebGPU Compute Shader Basics.md",
-    "2023-11/What Every Developer Should Know About GPU Computing.md",
+    "2023-11/GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS.md",
+    "2023-11/Programming on Parallel Machines; GPU, Multicore, Clusters and More.md",
+    "2023-11/Impact of Lack of Sleep.md",
+    "Pasted image 20231120135939.png",
+    "2023-10/社会为什么对年轻人冷酷无情.md",
+    "2023-11/Efficient LLM Inference on CPUs.md",
+    "2023-11/assets/Screenshot 2023-11-19 at 14.07.14.png",
+    "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
     "2023-11/A Journey Into Shaders.md",
+    "2023-11/What Every Developer Should Know About GPU Computing.md",
     "2023-11/assets/Pasted image 20231119120225.png",
     "Pasted image 20231119120211.png",
     "2023-11/assets/Pasted image 20231119120152.png",
     "2023-11/assets/Pasted image 20231119115320.png",
     "2023-11/assets/Pasted image 20231119101352.png",
-    "2023-11/assets/Pasted image 20231118225834.png",
-    "2023-11/assets/Pasted image 20231111232507.png",
     "2023-11/assets",
-    "2023-11/assets/Pasted image 20231111220924.png",
-    "Pasted image 20231111220859.png",
     "On actionable and actually useful logs.md",
     "2023-11",
-    "2023-10/社会为什么对年轻人冷酷无情.md",
-    "2023-10/Implementing Matrix Multiplication with WebGPU in Safari.md",
     "2023-10/ggml 看代码.md",
     "2023-10/Optimized GEMM.md",
     "2023-10/Using Metal and Rust to make FFT even faster.md",
-    "2023-10/images/Pasted image 20231017130749.png",
     "2023-10/What's a data vault.md",
     "2023-10/BLISlab - A Sandbox for Optimizing GEMM.md",
     "2023-10/images",
     "2023-10/ggml_mul_mat.md",
     "2023-10/Quantization for Neural Networks.md",
-    "LLama2.cpp.md",
-    "2023-10/ggml_load_llama.md",
-    "2023-10/Rotary Embeddings - A Relative Revolution.md",
-    "2023-10/8-BIT OPTIMIZERS VIA BLOCK-WISE QUANTIZATION.md",
     "2023-10",
-    "2023-09-30.md",
-    "2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
-    "2023-09/On The Future Of Cloud Services And BYOC.md",
-    "2023-09/The State of Async Rust - Runtimes.md",
     "2023-09/images",
     "2023-09",
     "2023-08/LLM",
-    "2023-08/Infra",
-    "2023-08/Books",
-    "Untitled.canvas",
-    "2022"
+    "2023-08/Infra"
   ]
 }
