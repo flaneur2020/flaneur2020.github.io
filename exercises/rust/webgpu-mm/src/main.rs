@@ -97,26 +97,68 @@ async fn init_gpu() -> (wgpu::Device, wgpu::Queue) {
     (device, queue)
 }
 
-async fn compute_exp(input: &[f32], output: &mut [f32]) {
-    let buf_size = input.len() * std::mem::size_of::<f32>();
-    let gpu = GpuCompute::new(include_str!("../shaders/exp.wgsl"), buf_size).await;
+// a: [m, n]
+// b: [n, k]
+// c: [m, k]
+async fn sgemm(m: usize, n: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    let staging_buf_size = c.len() * std::mem::size_of::<f32>();
+    let gpu = GpuCompute::new(
+        include_str!("../shaders/matmul_naive.wgsl"),
+        staging_buf_size,
+    )
+    .await;
 
-    let input_buffer = gpu
+    let buf_a = gpu
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("input buffer"),
-            contents: bytemuck::cast_slice(input),
+            label: Some("buffer a"),
+            contents: bytemuck::cast_slice(a),
             usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+        });
+    let buf_b = gpu
+        .device
+        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("buffer b"),
+            contents: bytemuck::cast_slice(b),
+            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+        });
+    let buf_c = gpu
+        .device
+        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("buffer c"),
+            contents: bytemuck::cast_slice(c),
+            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+        });
+    let buf_m = gpu
+        .device
+        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("buffer c"),
+            contents: bytemuck::cast_slice(&[m as u32, n as u32, k as u32]),
+            usage: wgpu::BufferUsages::STORAGE,
         });
 
     let bind_group_layout = gpu.pipeline.get_bind_group_layout(0);
     let bind_group = gpu.device.create_bind_group(&wgpu::BindGroupDescriptor {
         label: None,
         layout: &bind_group_layout,
-        entries: &[wgpu::BindGroupEntry {
-            binding: 0,
-            resource: input_buffer.as_entire_binding(),
-        }],
+        entries: &[
+            wgpu::BindGroupEntry {
+                binding: 0,
+                resource: buf_a.as_entire_binding(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 1,
+                resource: buf_b.as_entire_binding(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 2,
+                resource: buf_c.as_entire_binding(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 3,
+                resource: buf_m.as_entire_binding(),
+            },
+        ],
     });
 
     // encode the commands into queue
@@ -127,18 +169,19 @@ async fn compute_exp(input: &[f32], output: &mut [f32]) {
         let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor { label: None });
         pass.set_pipeline(&gpu.pipeline);
         pass.set_bind_group(0, &bind_group, &[]);
-        pass.insert_debug_marker("compute exp iterations");
-        pass.dispatch_workgroups(input.len() as u32 / 64 + 1, 1, 1); // Number of cells to run, the (x,y,z) size of item being processed
+        pass.dispatch_workgroups(a.len() as u32 / 64 + 1, 1, 1); // Number of cells to run, the (x,y,z) size of item being processed
     }
     gpu.queue.submit(Some(encoder.finish()));
 
     // await the result from staging buffer
-    gpu.output(input_buffer, output).await;
+    gpu.output(buf_c, c).await;
 }
 
 fn main() {
-    let input = vec![1.0, 2.0, 3.0, 4.0];
-    let mut output = vec![0.0; input.len()];
-    pollster::block_on(compute_exp(&input, &mut output));
-    println!("{:?}", output);
+    let (m, n, k) = (2, 3, 4);
+    let a = vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0]; // 2 x 3
+    let b = vec![2.0, 2.0, 2.0, 2.0, 4.0, 4.0, 4.0, 4.0, 8.0, 8.0, 8.0, 8.0]; // 3 x 4
+    let mut c = vec![0.0; m * k]; // 2 x 4
+    pollster::block_on(sgemm(m, n, k, &a, &b, &mut c));
+    println!("{:?}", c);
 }
