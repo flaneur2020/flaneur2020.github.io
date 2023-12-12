@@ -169,7 +169,7 @@ async fn sgemm(m: usize, n: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]
         let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor { label: None });
         pass.set_pipeline(&gpu.pipeline);
         pass.set_bind_group(0, &bind_group, &[]);
-        pass.dispatch_workgroups(a.len() as u32 / 64 + 1, 1, 1); // Number of cells to run, the (x,y,z) size of item being processed
+        pass.dispatch_workgroups(a.len() as u32 / 64, 1, 1); // Number of cells to run, the (x,y,z) size of item being processed
     }
     gpu.queue.submit(Some(encoder.finish()));
 
@@ -178,10 +178,10 @@ async fn sgemm(m: usize, n: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]
 }
 
 fn main() {
-    let (m, n, k) = (2, 3, 4);
-    let a = vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0]; // 2 x 3
-    let b = vec![2.0, 2.0, 2.0, 2.0, 4.0, 4.0, 4.0, 4.0, 8.0, 8.0, 8.0, 8.0]; // 3 x 4
-    let mut c = vec![0.0; m * k]; // 2 x 4
+    let (m, n, k) = (1024, 1024, 1024);
+    let a = vec![1.0; m * n];
+    let b = vec![2.0; n * k];
+    let mut c = vec![0.0; m * k];
     pollster::block_on(sgemm(m, n, k, &a, &b, &mut c));
     println!("{:?}", c);
 }
