@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "2023-12/看代码：matmul_vec_f16.wgsl.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Home.md",
+                "file": "2023-12/看代码：matmul_vec_f16.wgsl.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Home.md",
+                "file": "2023-12/看代码：matmul_vec_f16.wgsl.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Home.md"
+                "file": "2023-12/看代码：matmul_vec_f16.wgsl.md"
               }
             }
           }
@@ -138,10 +138,12 @@
       "templates:Insert template": true
     }
   },
-  "active": "c6f7ac1787e42da5",
+  "active": "3b91ce4e64b65a35",
   "lastOpenFiles": [
-    "2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
     "Home.md",
+    "2023-12/看代码：matmul_vec_f16.wgsl.md",
+    "2023-12",
+    "2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
     "2023-11/FP8 versus INT8 for efficient deep learning inference.md",
     "2023-11/WebGPU — All of the cores, none of the canvas.md",
     "2022/2022-06/SQS Notes.md",
@@ -180,12 +182,9 @@
     "2023-10/What's a data vault.md",
     "2023-10/BLISlab - A Sandbox for Optimizing GEMM.md",
     "2023-10/images",
-    "2023-10/ggml_mul_mat.md",
-    "2023-10/Quantization for Neural Networks.md",
     "2023-10",
     "2023-09/images",
     "2023-09",
-    "2023-08/LLM",
-    "2023-08/Infra"
+    "2023-08/LLM"
   ]
 }

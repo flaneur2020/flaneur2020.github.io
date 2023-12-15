@@ -103,5 +103,8 @@
 			- [[Implementing Matrix Multiplication with WebGPU in Safari]]
 			- [[Impact of Lack of Sleep]]
 	- Dec
+		- Readings
+			- [[看代码：matmul_vec_f16.wgsl]]
 		- Books
 			- Doom 启世录
+			- 开个小店
