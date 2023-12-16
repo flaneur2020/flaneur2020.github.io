@@ -14,7 +14,12 @@ var<storage, read> input_b: array<f32>;
 var<storage, read_write> input_c: array<f32>;
 
 @group(0) @binding(3)
-var<storage, read> input_m: Meta;
+var<uniform> input_m: Meta;
+
+// matmul_naive.wgsl parallelizes over the first dimension of the output matrix,
+// - each thread handles one row of the output matrix.
+// - splitted m/64 workgroups
+// its performance is poor, only 2G flops.
 
 @compute
 @workgroup_size(64)
