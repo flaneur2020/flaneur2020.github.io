@@ -182,6 +182,14 @@ fn main() {
     let a = vec![1.0; m * n];
     let b = vec![2.0; n * k];
     let mut c = vec![0.0; m * k];
+
+    let start_at = std::time::Instant::now();
     pollster::block_on(sgemm(m, n, k, &a, &b, &mut c));
-    println!("{:?}", c);
+
+    let flops = 2.0 * m as f64 * n as f64 * k as f64;
+    println!(
+        "elapsed: {} flops: {}G",
+        start_at.elapsed().as_secs(),
+        flops / 1024.0 / 1024.0 / 1024.0
+    );
 }
