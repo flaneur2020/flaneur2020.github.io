@@ -19,7 +19,8 @@ var<uniform> input_m: Meta;
 // matmul_naive.wgsl parallelizes over the first dimension of the output matrix,
 // - each thread handles one row of the output matrix.
 // - splitted m/64 workgroups
-// its performance is poor, only 2G flops.
+//
+// performance: 6.0G flops/s.
 
 @compute
 @workgroup_size(64)

@@ -21,6 +21,8 @@ var<uniform> input_m: Meta;
 // - each thread handles N / 128 rows of input_b
 // - each workgroup handles N columns of input_b
 // - dispatched M * K (M * N * K / N) times
+//
+// performance: 9.6G flops/s on M1
 
 var<workgroup> sketch: array<f32, 128>;
 
