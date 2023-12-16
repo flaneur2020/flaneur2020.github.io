@@ -1,4 +1,11 @@
 
+
+## TLDR
+
+- 可以使用 reduce sum 模式来 sum 分块
+
+
+---
 ## References
 
 https://github.com/cryscan/web-rwkv/blob/main/src/shaders/matmul_vec_fp16.wgsl
