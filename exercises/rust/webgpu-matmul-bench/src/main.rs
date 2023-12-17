@@ -228,7 +228,7 @@ fn sgemm(
                 end_of_pass_write_index: Some((*query_set_idx + 1) as u32),
             }),
         });
-        *query_set_idx += 1;
+        *query_set_idx += 2;
 
         pass.set_pipeline(&workload.pipeline);
         pass.set_bind_group(0, &bind_group, &[]);
@@ -249,17 +249,22 @@ fn main() {
 
     let staging_buf_size = (m * k) * std::mem::size_of::<f32>();
 
-    let workload_kind = "matmul_naive";
+    let workload_kind = "matmul_naive3";
     let workload = match workload_kind {
         "matmul_naive" => Workload::new(
             include_str!("../shaders/matmul_naive.wgsl"),
             staging_buf_size,
             (m / 64, 1, 1),
         ),
-        "matmul_split_work" => Workload::new(
-            include_str!("../shaders/matmul_split_work.wgsl"),
+        "matmul_naive2" => Workload::new(
+            include_str!("../shaders/matmul_naive2.wgsl"),
             staging_buf_size,
-            (m, n, 1),
+            (m, k, 1),
+        ),
+        "matmul_naive3" => Workload::new(
+            include_str!("../shaders/matmul_naive3.wgsl"),
+            staging_buf_size,
+            (m / 16, k / 16, 1),
         ),
         _ => panic!("unknown workload kind: {}", workload_kind),
     };
