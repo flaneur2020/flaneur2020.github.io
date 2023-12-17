@@ -33,19 +33,19 @@ fn main(
     @builtin(local_invocation_id) local_id: vec3<u32>,
 ) {
 
-    // a: (m, n)
-    // b: (n, k)
-    // c: (m, k)
+    // a: (m, k)
+    // b: (k, n)
+    // c: (m, n)
     let M = input_m.M;
     let K = input_m.K;
     let N = input_m.N;
 
     let m_val = workgroup_id.x;
-    let k_val = workgroup_id.y;
-    let chunk_size = N / 128u;
+    let n_val = workgroup_id.y;
+    let chunk_size = K / 128u;
     for (var i = 0u; i < chunk_size; i = i + 1u) {
-        let n_val = local_id.x * chunk_size + i;
-        sketch[local_id.x] += input_a[m_val * N + n_val] * input_b[n_val * K + k_val];
+        let k_val = local_id.x * chunk_size + i;
+        sketch[local_id.x] += input_a[m_val * K + k_val] * input_b[k_val * N + n_val];
     }
     workgroupBarrier();
 
@@ -54,6 +54,6 @@ fn main(
         for (var i = 0u; i < 128u; i = i + 1u) {
             sum += sketch[i];
         }
-        input_c[m_val * K + k_val] = sum;
+        input_c[m_val * N + n_val] = sum;
     }
 }

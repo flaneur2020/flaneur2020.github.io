@@ -27,18 +27,18 @@ fn main(
     @builtin(global_invocation_id) global_id: vec3<u32>,
 ) {
 
-    // a: (m, n)
-    // b: (n, k)
-    // c: (m, k)
+    // a: (m, k)
+    // b: (k, n)
+    // c: (m, n)
     let M = input_m.M;
     let K = input_m.K;
     let N = input_m.N;
 
     let m_val = global_id.x;
-    let k_val = global_id.y;
+    let n_val = global_id.y;
     var sum = 0.0f;
-    for (var n_val = 0u; n_val < N; n_val = n_val + 1u) {
-        sum += input_a[m_val * N + n_val] * input_b[n_val * K + k_val];
+    for (var k_val = 0u; k_val < N; k_val = k_val + 1u) {
+        sum += input_a[m_val * K + k_val] * input_b[k_val * N + n_val];
     }
-    input_c[m_val * K + k_val] = sum;
+    input_c[m_val * N + n_val] = sum;
 }

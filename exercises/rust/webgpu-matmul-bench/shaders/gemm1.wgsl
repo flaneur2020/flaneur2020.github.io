@@ -33,17 +33,17 @@ fn main(
         return;
     }    
 
-    // a: (m, n)
-    // b: (n, k)
-    // c: (m, k)
+    // a: (m, k)
+    // b: (k, n)
+    // c: (m, n)
 
-    for (var ki = 0u; ki < input_m.K; ki = ki + 1u) {
+    for (var ni = 0u; ni < input_m.K; ni += 1u) {
         var sum = 0.0f;
-        for (var ni = 0u; ni < input_m.N; ni = ni + 1u) {
-            let a = input_a[mi * input_m.N + ni];
-            let b = input_b[ni * input_m.K + ki];
+        for (var ki = 0u; ki < input_m.N; ki += 1u) {
+            let a = input_a[mi * input_m.K + ki];
+            let b = input_b[ki * input_m.N + ni];
             sum += a * b;
         }
-        input_c[mi * input_m.K + ki] = sum;
+        input_c[mi * input_m.N + ni] = sum;
     }
 }
