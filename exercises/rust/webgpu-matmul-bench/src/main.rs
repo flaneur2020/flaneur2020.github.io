@@ -1,15 +1,14 @@
-use std::{borrow::Cow, future::Future};
-
+use std::borrow::Cow;
 use wgpu::util::DeviceExt;
 
-struct GpuCompute {
+struct Workload {
     device: wgpu::Device,
     queue: wgpu::Queue,
     pipeline: wgpu::ComputePipeline,
     staging_buffer: wgpu::Buffer,
 }
 
-impl GpuCompute {
+impl Workload {
     fn new(shader: &'static str, staging_buf_size: usize) -> Self {
         let (device, queue) = pollster::block_on(init_gpu());
         let module = device.create_shader_module(wgpu::ShaderModuleDescriptor {
@@ -81,14 +80,15 @@ async fn init_gpu() -> (wgpu::Device, wgpu::Queue) {
         .request_adapter(&wgpu::RequestAdapterOptions::default())
         .await
         .unwrap();
+    println!("adapter: {:?}", adapter.get_info());
     // `request_device` instantiates the feature specific connection to the GPU, defining some parameters,
     //  `features` being the available features.
     let (device, queue) = adapter
         .request_device(
             &wgpu::DeviceDescriptor {
                 label: None,
-                features: wgpu::Features::empty(),
-                limits: wgpu::Limits::downlevel_defaults(),
+                required_features: wgpu::Features::empty(),
+                required_limits: wgpu::Limits::downlevel_defaults(),
             },
             None,
         )
@@ -101,7 +101,7 @@ async fn init_gpu() -> (wgpu::Device, wgpu::Queue) {
 // b: [n, k]
 // c: [m, k]
 async fn sgemm(
-    gpu: &GpuCompute,
+    gpu: &Workload,
     m: usize,
     n: usize,
     k: usize,
@@ -146,14 +146,15 @@ async fn sgemm(
         .device
         .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
     {
-        let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor { label: None });
+        let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
+            label: None,
+            timestamp_writes: None,
+        });
         pass.set_pipeline(&gpu.pipeline);
         pass.set_bind_group(0, &bind_group, &[]);
         pass.dispatch_workgroups(m as u32, k as u32, 1);
     }
-    let submission_index = gpu.queue.submit(Some(encoder.finish()));
-    gpu.device
-        .poll(wgpu::Maintain::WaitForSubmissionIndex(submission_index));
+    gpu.queue.submit(Some(encoder.finish()));
 }
 
 fn main() {
@@ -164,7 +165,7 @@ fn main() {
 
     let staging_buf_size = (m * k) * std::mem::size_of::<f32>();
 
-    let gpu = GpuCompute::new(
+    let gpu = Workload::new(
         include_str!("../shaders/matmul_split_work.wgsl"),
         staging_buf_size,
     );
@@ -174,14 +175,14 @@ fn main() {
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer a"),
             contents: bytemuck::cast_slice(&a),
-            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+            usage: wgpu::BufferUsages::STORAGE,
         });
     let buf_b = gpu
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer b"),
             contents: bytemuck::cast_slice(&b),
-            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+            usage: wgpu::BufferUsages::STORAGE,
         });
     let buf_c = gpu
         .device
@@ -191,21 +192,23 @@ fn main() {
             usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
         });
 
+    // prewarm
+    pollster::block_on(sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c));
+    gpu.device.poll(wgpu::Maintain::Wait);
+
     let start_at = std::time::Instant::now();
-    pollster::block_on(sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c));
-    pollster::block_on(sgemm(&gpu, m, n, k, &buf_b, &buf_c, &buf_a));
-    pollster::block_on(sgemm(&gpu, m, n, k, &buf_c, &buf_a, &buf_b));
-    pollster::block_on(sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c));
+    pollster::block_on(async {
+        sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        sgemm(&gpu, m, n, k, &buf_b, &buf_c, &buf_a).await;
+        sgemm(&gpu, m, n, k, &buf_c, &buf_a, &buf_b).await;
+        sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        gpu.output(buf_c, &mut c).await;
+    });
 
     let duration_in_secs = start_at.elapsed().as_secs_f64();
 
-    let flops = 4.0 * 2.0 * (m * k * n) as f64 / duration_in_secs;
-    println!(
-        "elapsed: {} flops: {}G",
-        start_at.elapsed().as_millis() as f32 / 1000.0,
-        flops / 1024.0 / 1024.0 / 1024.0,
-    );
+    let gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
+    println!("elapsed: {} flops: {}G", duration_in_secs, gflops);
 
     // await the result from staging buffer
-    pollster::block_on(gpu.output(buf_c, &mut c));
 }
