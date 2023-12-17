@@ -17,7 +17,8 @@ var<storage, read_write> input_c: array<f32>;
 var<uniform> input_m: Meta;
 
 // dispatch workgroup size: (M / 16, K / 16, 1)
-// performance: ? flops/s on M1
+// each workgroup computes a 16x16 block of the output matrix
+// performance: 41 Gflops/s on M1
 
 @compute
 @workgroup_size(16, 16, 1)
