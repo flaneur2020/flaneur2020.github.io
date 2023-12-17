@@ -249,22 +249,27 @@ fn main() {
 
     let staging_buf_size = (m * k) * std::mem::size_of::<f32>();
 
-    let workload_kind = "matmul_naive3";
+    let workload_kind = "gemm4";
     let workload = match workload_kind {
-        "matmul_naive" => Workload::new(
-            include_str!("../shaders/matmul_naive.wgsl"),
+        "gemm1" => Workload::new(
+            include_str!("../shaders/gemm1.wgsl"),
             staging_buf_size,
             (m / 64, 1, 1),
         ),
-        "matmul_naive2" => Workload::new(
-            include_str!("../shaders/matmul_naive2.wgsl"),
+        "gemm2" => Workload::new(
+            include_str!("../shaders/gemm2.wgsl"),
             staging_buf_size,
             (m, k, 1),
         ),
-        "matmul_naive3" => Workload::new(
-            include_str!("../shaders/matmul_naive3.wgsl"),
+        "gemm3" => Workload::new(
+            include_str!("../shaders/gemm3.wgsl"),
             staging_buf_size,
             (m / 16, k / 16, 1),
+        ),
+        "gemm4" => Workload::new(
+            include_str!("../shaders/gemm4.wgsl"),
+            staging_buf_size,
+            (m / 32, k / 32, 1),
         ),
         _ => panic!("unknown workload kind: {}", workload_kind),
     };
