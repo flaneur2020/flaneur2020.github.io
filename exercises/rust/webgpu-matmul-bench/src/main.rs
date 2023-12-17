@@ -19,10 +19,13 @@ impl Workload {
         dispatch_workgroups: (usize, usize, usize),
     ) -> Self {
         let (device, queue) = pollster::block_on(init_gpu());
-        let module = device.create_shader_module(wgpu::ShaderModuleDescriptor {
-            label: None,
-            source: wgpu::ShaderSource::Wgsl(Cow::Borrowed(shader)),
-        });
+        let module = unsafe {
+            // create_shader_module_unchecked seems much faster than create_shader_module
+            device.create_shader_module_unchecked(wgpu::ShaderModuleDescriptor {
+                label: None,
+                source: wgpu::ShaderSource::Wgsl(Cow::Borrowed(shader)),
+            })
+        };
 
         // prepare the pipeline
         let pipeline = device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
@@ -64,12 +67,6 @@ impl Workload {
             dispatch_workgroups,
             query_set_idx: RefCell::new(0),
         }
-    }
-
-    pub fn record_timestamp(&self, encoder: &mut wgpu::CommandEncoder) {
-        let mut query_idx = self.query_set_idx.borrow_mut();
-        encoder.write_timestamp(&self.query_set, *query_idx as u32);
-        *query_idx += 1;
     }
 
     pub fn dump_timestamps(&self) -> Vec<u64> {
@@ -243,11 +240,11 @@ fn sgemm(
 
 fn main() {
     let (m, n, k) = (1024, 1024, 1024);
-    let a = vec![1.0; m * n];
-    let b = vec![2.0; n * k];
-    let mut c = vec![0.0; m * k];
+    let a = vec![1.0; m * k];
+    let b = vec![2.0; k * n];
+    let mut c = vec![0.0; m * n];
 
-    let staging_buf_size = (m * k) * std::mem::size_of::<f32>();
+    let staging_buf_size = (m * n) * std::mem::size_of::<f32>();
 
     let workload_kind = "gemm4";
     let workload = match workload_kind {
@@ -298,6 +295,9 @@ fn main() {
 
     // prewarm
     sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     workload.device.poll(wgpu::Maintain::Wait);
 
     let start_at = std::time::Instant::now();
@@ -311,14 +311,16 @@ fn main() {
     let timestamps = workload.dump_timestamps();
     for i in 0..timestamps.len() / 2 {
         let timestamp_period = workload.queue.get_timestamp_period() as f64;
+        let sample_elapsed_ns =
+            (timestamps[i * 2 + 1] - timestamps[i * 2]) as f64 * timestamp_period;
+        let gflops = (2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / (sample_elapsed_ns / 1e9);
         println!(
-            "duration (ns) {}: {}",
-            i,
-            (timestamps[i * 2 + 1] - timestamps[i * 2]) as f64 * timestamp_period
+            "{} elapsed (ns): {} gflops: {:.2}",
+            i, sample_elapsed_ns, gflops
         );
     }
 
-    let gputime_secs = (timestamps.last().unwrap() - timestamps[2]) as f64 / 1e9;
+    let gputime_secs = (timestamps.last().unwrap() - timestamps[8]) as f64 / 1e9;
     let avg_gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / gputime_secs;
 
     println!(
