@@ -231,19 +231,23 @@ fn main() {
     pollster::block_on(sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c));
     workload.device.poll(wgpu::Maintain::Wait);
 
-    let start_at = std::time::Instant::now();
     pollster::block_on(async {
+        let start_at = std::time::Instant::now();
+        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
+        sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
+        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
+        sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
+        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
         sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
         sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
         sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
         sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
         workload.output(buf_c, &mut c).await;
+        let duration_in_secs = start_at.elapsed().as_secs_f64();
+        let gflops = (12 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
+        println!("elapsed: {} flops: {}G", duration_in_secs, gflops);
     });
-
-    let duration_in_secs = start_at.elapsed().as_secs_f64();
-
-    let gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
-    println!("elapsed: {} flops: {}G", duration_in_secs, gflops);
-
-    // await the result from staging buffer
 }
