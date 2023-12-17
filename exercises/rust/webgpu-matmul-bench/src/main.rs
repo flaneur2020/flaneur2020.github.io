@@ -282,12 +282,26 @@ fn main() {
     sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b);
     sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     workload.device.poll(wgpu::Maintain::Wait);
-    let total_duration_in_secs = start_at.elapsed().as_secs_f64();
+
+    let walltime_secs = start_at.elapsed().as_secs_f64();
     let timestamps = workload.dump_timestamps();
-    let duration_in_secs = (timestamps.last().unwrap() - timestamps.first().unwrap()) as f64 / 1e9;
-    let gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
+    for i in 0..timestamps.len() / 2 {
+        let timestamp_period = workload.queue.get_timestamp_period() as f64;
+        println!(
+            "duration {}: {}",
+            i,
+            (timestamps[i * 2 + 1] - timestamps[i * 2]) as f64 * timestamp_period / 1e9
+        );
+    }
+
+    let gputime_secs = (timestamps.last().unwrap() - timestamps[2]) as f64 / 1e9;
+    let avg_gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / gputime_secs;
+
+    let first_gflops = (2 * (m * k * n) / 1024 / 1024 / 1024) as f64
+        / (timestamps[1] - timestamps[0]) as f64
+        * 1e9;
     println!(
-        "elapsed: {}, gpu elapsed: {} flops: {:.2}G",
-        total_duration_in_secs, duration_in_secs, gflops
+        "elapsed: {}, gpu elapsed: {} avg flops: {:.2}G",
+        walltime_secs, gputime_secs, avg_gflops
     );
 }
