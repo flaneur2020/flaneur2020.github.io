@@ -7,6 +7,7 @@ struct Workload {
     pipeline: wgpu::ComputePipeline,
     query_set: wgpu::QuerySet,
     query_set_idx: RefCell<usize>,
+    query_set_buffer: wgpu::Buffer,
     staging_buffer: wgpu::Buffer,
     dispatch_workgroups: (usize, usize, usize),
 }
@@ -32,10 +33,17 @@ impl Workload {
         });
 
         // prepare the query set to track timestamps
+        let query_set_len: usize = 1000;
         let query_set = device.create_query_set(&wgpu::QuerySetDescriptor {
             label: None,
             ty: wgpu::QueryType::Timestamp,
-            count: 1000,
+            count: query_set_len as u32,
+        });
+        let query_set_buffer = device.create_buffer(&wgpu::BufferDescriptor {
+            label: None,
+            size: (query_set_len * std::mem::size_of::<u64>()) as u64,
+            usage: wgpu::BufferUsages::QUERY_RESOLVE | wgpu::BufferUsages::COPY_SRC,
+            mapped_at_creation: false,
         });
 
         // the cpu buffer to receive the result
@@ -51,6 +59,7 @@ impl Workload {
             queue,
             pipeline,
             query_set,
+            query_set_buffer,
             staging_buffer,
             dispatch_workgroups,
             query_set_idx: RefCell::new(0),
@@ -61,6 +70,42 @@ impl Workload {
         let mut query_idx = self.query_set_idx.borrow_mut();
         encoder.write_timestamp(&self.query_set, *query_idx as u32);
         *query_idx += 1;
+    }
+
+    pub fn dump_timestamps(&self) -> Vec<u64> {
+        let mut encoder = self
+            .device
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
+        encoder.resolve_query_set(
+            &self.query_set,
+            0..*self.query_set_idx.borrow() as u32,
+            &self.query_set_buffer,
+            0,
+        );
+        encoder.copy_buffer_to_buffer(
+            &self.query_set_buffer,
+            0,
+            &self.staging_buffer,
+            0,
+            self.query_set_buffer.size(),
+        );
+        self.queue.submit(Some(encoder.finish()));
+
+        self.staging_buffer
+            .slice(..)
+            .map_async(wgpu::MapMode::Read, |_| ());
+        self.device.poll(wgpu::Maintain::Wait);
+
+        let timestamp_view = self
+            .staging_buffer
+            .slice(
+                ..(std::mem::size_of::<u64>() * *self.query_set_idx.borrow() as usize)
+                    as wgpu::BufferAddress,
+            )
+            .get_mapped_range();
+
+        let timestamps: &[u64] = bytemuck::cast_slice(&timestamp_view);
+        timestamps.to_vec()
     }
 
     pub async fn output(&self, output_buffer: wgpu::Buffer, output: &mut [f32]) {
@@ -237,17 +282,15 @@ fn main() {
         sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
         sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
         sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
-        sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
-        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
-        sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
-        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        workload.output(buf_c, &mut c).await;
-        let duration_in_secs = start_at.elapsed().as_secs_f64();
-        let gflops = (12 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
-        println!("elapsed: {} flops: {}G", duration_in_secs, gflops);
+        workload.device.poll(wgpu::Maintain::Wait);
+        let total_duration_in_secs = start_at.elapsed().as_secs_f64();
+        let timestamps = workload.dump_timestamps();
+        let duration_in_secs =
+            (timestamps.last().unwrap() - timestamps.first().unwrap()) as f64 / 1e9;
+        let gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
+        println!(
+            "elapsed: {}, gpu elapsed: {} flops: {:.2}G",
+            total_duration_in_secs, duration_in_secs, gflops
+        );
     });
 }
