@@ -36,13 +36,16 @@ fn main(
     // a: (m, n)
     // b: (n, k)
     // c: (m, k)
+    let M = input_m.M;
+    let K = input_m.K;
+    let N = input_m.N;
 
     let m_val = workgroup_id.x;
     let k_val = workgroup_id.y;
-    let chunk_size = input_m.N / 128u;
+    let chunk_size = N / 128u;
     for (var i = 0u; i < chunk_size; i = i + 1u) {
         let n_val = local_id.x * chunk_size + i;
-        sketch[local_id.x] += input_a[m_val * input_m.N + n_val] * input_b[n_val * input_m.K + k_val];
+        sketch[local_id.x] += input_a[m_val * N + n_val] * input_b[n_val * K + k_val];
     }
     workgroupBarrier();
 
@@ -51,6 +54,6 @@ fn main(
         for (var i = 0u; i < 128u; i = i + 1u) {
             sum += sketch[i];
         }
-        input_c[m_val * input_m.K + k_val] = sum;
+        input_c[m_val * K + k_val] = sum;
     }
 }
