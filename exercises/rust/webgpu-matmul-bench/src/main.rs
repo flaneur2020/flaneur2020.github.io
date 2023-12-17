@@ -218,12 +218,18 @@ fn sgemm(
     let mut encoder = workload
         .device
         .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
-    workload.record_timestamp(&mut encoder);
     {
+        let mut query_set_idx = workload.query_set_idx.borrow_mut();
         let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
             label: None,
-            timestamp_writes: None,
+            timestamp_writes: Some(wgpu::ComputePassTimestampWrites {
+                query_set: &workload.query_set,
+                beginning_of_pass_write_index: Some(*query_set_idx as u32),
+                end_of_pass_write_index: Some((*query_set_idx + 1) as u32),
+            }),
         });
+        *query_set_idx += 1;
+
         pass.set_pipeline(&workload.pipeline);
         pass.set_bind_group(0, &bind_group, &[]);
         pass.dispatch_workgroups(
@@ -232,7 +238,6 @@ fn sgemm(
             workload.dispatch_workgroups.2 as u32,
         );
     }
-    workload.record_timestamp(&mut encoder);
     workload.queue.submit(Some(encoder.finish()));
 }
 
@@ -244,11 +249,20 @@ fn main() {
 
     let staging_buf_size = (m * k) * std::mem::size_of::<f32>();
 
-    let workload = Workload::new(
-        include_str!("../shaders/matmul_split_work.wgsl"),
-        staging_buf_size,
-        (m, n, 1),
-    );
+    let workload_kind = "matmul_naive";
+    let workload = match workload_kind {
+        "matmul_naive" => Workload::new(
+            include_str!("../shaders/matmul_naive.wgsl"),
+            staging_buf_size,
+            (m / 64, 1, 1),
+        ),
+        "matmul_split_work" => Workload::new(
+            include_str!("../shaders/matmul_split_work.wgsl"),
+            staging_buf_size,
+            (m, n, 1),
+        ),
+        _ => panic!("unknown workload kind: {}", workload_kind),
+    };
 
     let buf_a = workload
         .device
@@ -288,18 +302,15 @@ fn main() {
     for i in 0..timestamps.len() / 2 {
         let timestamp_period = workload.queue.get_timestamp_period() as f64;
         println!(
-            "duration {}: {}",
+            "duration (ns) {}: {}",
             i,
-            (timestamps[i * 2 + 1] - timestamps[i * 2]) as f64 * timestamp_period / 1e9
+            (timestamps[i * 2 + 1] - timestamps[i * 2]) as f64 * timestamp_period
         );
     }
 
     let gputime_secs = (timestamps.last().unwrap() - timestamps[2]) as f64 / 1e9;
     let avg_gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / gputime_secs;
 
-    let first_gflops = (2 * (m * k * n) / 1024 / 1024 / 1024) as f64
-        / (timestamps[1] - timestamps[0]) as f64
-        * 1e9;
     println!(
         "elapsed: {}, gpu elapsed: {} avg flops: {:.2}G",
         walltime_secs, gputime_secs, avg_gflops
