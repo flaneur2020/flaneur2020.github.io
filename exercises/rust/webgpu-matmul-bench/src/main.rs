@@ -171,7 +171,7 @@ async fn init_gpu() -> (wgpu::Device, wgpu::Queue) {
 // a: [m, n]
 // b: [n, k]
 // c: [m, k]
-async fn sgemm(
+fn sgemm(
     workload: &Workload,
     m: usize,
     n: usize,
@@ -273,24 +273,21 @@ fn main() {
         });
 
     // prewarm
-    pollster::block_on(sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c));
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     workload.device.poll(wgpu::Maintain::Wait);
 
-    pollster::block_on(async {
-        let start_at = std::time::Instant::now();
-        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
-        sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
-        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        workload.device.poll(wgpu::Maintain::Wait);
-        let total_duration_in_secs = start_at.elapsed().as_secs_f64();
-        let timestamps = workload.dump_timestamps();
-        let duration_in_secs =
-            (timestamps.last().unwrap() - timestamps.first().unwrap()) as f64 / 1e9;
-        let gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
-        println!(
-            "elapsed: {}, gpu elapsed: {} flops: {:.2}G",
-            total_duration_in_secs, duration_in_secs, gflops
-        );
-    });
+    let start_at = std::time::Instant::now();
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a);
+    sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    workload.device.poll(wgpu::Maintain::Wait);
+    let total_duration_in_secs = start_at.elapsed().as_secs_f64();
+    let timestamps = workload.dump_timestamps();
+    let duration_in_secs = (timestamps.last().unwrap() - timestamps.first().unwrap()) as f64 / 1e9;
+    let gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / duration_in_secs;
+    println!(
+        "elapsed: {}, gpu elapsed: {} flops: {:.2}G",
+        total_duration_in_secs, duration_in_secs, gflops
+    );
 }
