@@ -308,6 +308,8 @@ fn main() {
     workload.device.poll(wgpu::Maintain::Wait);
 
     let walltime_secs = start_at.elapsed().as_secs_f64();
+    println!("walltime_elapsed: {}", walltime_secs);
+
     let timestamps = workload.dump_timestamps();
     for i in 0..timestamps.len() / 2 {
         let timestamp_period = workload.queue.get_timestamp_period() as f64;
@@ -319,12 +321,4 @@ fn main() {
             i, sample_elapsed_ns, gflops
         );
     }
-
-    let gputime_secs = (timestamps.last().unwrap() - timestamps[8]) as f64 / 1e9;
-    let avg_gflops = (4 * 2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / gputime_secs;
-
-    println!(
-        "elapsed: {}, gpu elapsed: {} avg flops: {:.2}G",
-        walltime_secs, gputime_secs, avg_gflops
-    );
 }
