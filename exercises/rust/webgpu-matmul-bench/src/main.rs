@@ -1,25 +1,41 @@
-use std::borrow::Cow;
+use std::{borrow::Cow, cell::RefCell};
 use wgpu::util::DeviceExt;
 
 struct Workload {
     device: wgpu::Device,
     queue: wgpu::Queue,
     pipeline: wgpu::ComputePipeline,
+    query_set: wgpu::QuerySet,
+    query_set_idx: RefCell<usize>,
     staging_buffer: wgpu::Buffer,
+    dispatch_workgroups: (usize, usize, usize),
 }
 
 impl Workload {
-    fn new(shader: &'static str, staging_buf_size: usize) -> Self {
+    fn new(
+        shader: &'static str,
+        staging_buf_size: usize,
+        dispatch_workgroups: (usize, usize, usize),
+    ) -> Self {
         let (device, queue) = pollster::block_on(init_gpu());
         let module = device.create_shader_module(wgpu::ShaderModuleDescriptor {
             label: None,
             source: wgpu::ShaderSource::Wgsl(Cow::Borrowed(shader)),
         });
+
+        // prepare the pipeline
         let pipeline = device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
             label: None,
             layout: None,
             module: &module,
             entry_point: "main",
+        });
+
+        // prepare the query set to track timestamps
+        let query_set = device.create_query_set(&wgpu::QuerySetDescriptor {
+            label: None,
+            ty: wgpu::QueryType::Timestamp,
+            count: 1000,
         });
 
         // the cpu buffer to receive the result
@@ -29,12 +45,22 @@ impl Workload {
             usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
             mapped_at_creation: false,
         });
+
         Self {
             device,
             queue,
             pipeline,
+            query_set,
             staging_buffer,
+            dispatch_workgroups,
+            query_set_idx: RefCell::new(0),
         }
+    }
+
+    pub fn record_timestamp(&self, encoder: &mut wgpu::CommandEncoder) {
+        let mut query_idx = self.query_set_idx.borrow_mut();
+        encoder.write_timestamp(&self.query_set, *query_idx as u32);
+        *query_idx += 1;
     }
 
     pub async fn output(&self, output_buffer: wgpu::Buffer, output: &mut [f32]) {
@@ -87,7 +113,7 @@ async fn init_gpu() -> (wgpu::Device, wgpu::Queue) {
         .request_device(
             &wgpu::DeviceDescriptor {
                 label: None,
-                required_features: wgpu::Features::empty(),
+                required_features: wgpu::Features::TIMESTAMP_QUERY,
                 required_limits: wgpu::Limits::downlevel_defaults(),
             },
             None,
@@ -101,7 +127,7 @@ async fn init_gpu() -> (wgpu::Device, wgpu::Queue) {
 // b: [n, k]
 // c: [m, k]
 async fn sgemm(
-    gpu: &Workload,
+    workload: &Workload,
     m: usize,
     n: usize,
     k: usize,
@@ -109,7 +135,7 @@ async fn sgemm(
     b: &wgpu::Buffer,
     c: &wgpu::Buffer,
 ) {
-    let buf_m = gpu
+    let buf_m = workload
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer c"),
@@ -117,44 +143,52 @@ async fn sgemm(
             usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::STORAGE,
         });
 
-    let bind_group_layout = gpu.pipeline.get_bind_group_layout(0);
-    let bind_group = gpu.device.create_bind_group(&wgpu::BindGroupDescriptor {
-        label: None,
-        layout: &bind_group_layout,
-        entries: &[
-            wgpu::BindGroupEntry {
-                binding: 0,
-                resource: a.as_entire_binding(),
-            },
-            wgpu::BindGroupEntry {
-                binding: 1,
-                resource: b.as_entire_binding(),
-            },
-            wgpu::BindGroupEntry {
-                binding: 2,
-                resource: c.as_entire_binding(),
-            },
-            wgpu::BindGroupEntry {
-                binding: 3,
-                resource: buf_m.as_entire_binding(),
-            },
-        ],
-    });
+    let bind_group_layout = workload.pipeline.get_bind_group_layout(0);
+    let bind_group = workload
+        .device
+        .create_bind_group(&wgpu::BindGroupDescriptor {
+            label: None,
+            layout: &bind_group_layout,
+            entries: &[
+                wgpu::BindGroupEntry {
+                    binding: 0,
+                    resource: a.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 1,
+                    resource: b.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 2,
+                    resource: c.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 3,
+                    resource: buf_m.as_entire_binding(),
+                },
+            ],
+        });
 
     // encode the commands into queue
-    let mut encoder = gpu
+    let mut encoder = workload
         .device
         .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
+    workload.record_timestamp(&mut encoder);
     {
         let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
             label: None,
             timestamp_writes: None,
         });
-        pass.set_pipeline(&gpu.pipeline);
+        pass.set_pipeline(&workload.pipeline);
         pass.set_bind_group(0, &bind_group, &[]);
-        pass.dispatch_workgroups(m as u32, k as u32, 1);
+        pass.dispatch_workgroups(
+            workload.dispatch_workgroups.0 as u32,
+            workload.dispatch_workgroups.1 as u32,
+            workload.dispatch_workgroups.2 as u32,
+        );
     }
-    gpu.queue.submit(Some(encoder.finish()));
+    workload.record_timestamp(&mut encoder);
+    workload.queue.submit(Some(encoder.finish()));
 }
 
 fn main() {
@@ -165,26 +199,27 @@ fn main() {
 
     let staging_buf_size = (m * k) * std::mem::size_of::<f32>();
 
-    let gpu = Workload::new(
+    let workload = Workload::new(
         include_str!("../shaders/matmul_split_work.wgsl"),
         staging_buf_size,
+        (m, n, 1),
     );
 
-    let buf_a = gpu
+    let buf_a = workload
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer a"),
             contents: bytemuck::cast_slice(&a),
             usage: wgpu::BufferUsages::STORAGE,
         });
-    let buf_b = gpu
+    let buf_b = workload
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer b"),
             contents: bytemuck::cast_slice(&b),
             usage: wgpu::BufferUsages::STORAGE,
         });
-    let buf_c = gpu
+    let buf_c = workload
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer c"),
@@ -193,16 +228,16 @@ fn main() {
         });
 
     // prewarm
-    pollster::block_on(sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c));
-    gpu.device.poll(wgpu::Maintain::Wait);
+    pollster::block_on(sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c));
+    workload.device.poll(wgpu::Maintain::Wait);
 
     let start_at = std::time::Instant::now();
     pollster::block_on(async {
-        sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        sgemm(&gpu, m, n, k, &buf_b, &buf_c, &buf_a).await;
-        sgemm(&gpu, m, n, k, &buf_c, &buf_a, &buf_b).await;
-        sgemm(&gpu, m, n, k, &buf_a, &buf_b, &buf_c).await;
-        gpu.output(buf_c, &mut c).await;
+        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a).await;
+        sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b).await;
+        sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c).await;
+        workload.output(buf_c, &mut c).await;
     });
 
     let duration_in_secs = start_at.elapsed().as_secs_f64();
