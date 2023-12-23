@@ -5,7 +5,8 @@ todo:
 - [x] revise the segmem interface to allow reuse the buffer
 - [x] add flops estimation
 - [x] add my shader into wgpu-mm and view the benchmark result
-- [ ] compare the correctness with a vanilla matmul
+- [x] compare the correctness with a vanilla matmul
+- [ ] vectorize the tiled gemm
 - [ ] learn wgpu-mm's sgemm_5: 2D block tiling
 
 
@@ -13,4 +14,3 @@ reference:
 
 - https://jott.live/markdown/webgpu_safari
 - https://jott.live/code/webgpu_mm.js
-- 

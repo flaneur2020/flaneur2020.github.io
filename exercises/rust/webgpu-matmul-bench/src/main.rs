@@ -308,7 +308,12 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
 fn main() {
     let (m, k, n) = (1024, 1024, 1024);
     let workloads = load_gemm_workloads(m, k, n);
-    let workload = &workloads.last().unwrap().1;
+    let workload = &workloads
+        .into_iter()
+        .filter(|(name, w)| *name == "gemm4")
+        .last()
+        .unwrap()
+        .1;
 
     let buf_a = workload.make_rand_buf(m * k).0;
     let buf_b = workload.make_rand_buf(k * n).0;
@@ -322,6 +327,9 @@ fn main() {
     sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     sgemm(&workload, m, n, k, &buf_b, &buf_c, &buf_a);
     sgemm(&workload, m, n, k, &buf_c, &buf_a, &buf_b);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     workload.device.poll(wgpu::Maintain::Wait);
 

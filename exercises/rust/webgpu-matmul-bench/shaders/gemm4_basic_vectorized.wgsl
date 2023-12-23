@@ -18,7 +18,7 @@ var<uniform> info: Info;
 
 // dispatch workgroup size: (M / 8, N / 32, 1)
 // - vectorized processing: take 4 columns of B at a time
-// performance: 447.66G Gflops/s on M1
+// performance: 661.10 Gflops/s on M1
 
 @compute
 @workgroup_size(8, 8, 1)
