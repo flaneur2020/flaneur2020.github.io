@@ -293,6 +293,15 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
             (m / 8, k / 32, 1),
         ),
     ));
+    workloads.push((
+        "gemm5",
+        Workload::new(
+            include_str!("../shaders/gemm5_tiled.wgsl"),
+            staging_buf_size,
+            (m / 16, k / 16, 1),
+        ),
+    ));
+
     workloads
 }
 
@@ -334,7 +343,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use approx::relative_eq;
+    use approx::{assert_relative_eq, relative_eq};
 
     use crate::{load_gemm_workloads, sgemm, Workload};
 
@@ -365,6 +374,8 @@ mod tests {
             let mut vec_c2 = vec![0.0; m * n];
             vanilla_matmul(m, k, n, &vec_a, &vec_b, &mut vec_c2);
 
+            println!("workload: {}", name);
+            assert_relative_eq!(vec_c[0..128], vec_c2[0..128], epsilon = 1e-1);
             assert!(
                 relative_eq!(vec_c[..], vec_c2[..], epsilon = 1e-3),
                 "workload {}",
