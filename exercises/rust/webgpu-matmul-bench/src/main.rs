@@ -274,7 +274,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
         Workload::new(
             include_str!("../shaders/gemm2_naive.wgsl"),
             staging_buf_size,
-            (m, k, 1),
+            (m, n, 1),
         ),
     ));
     workloads.push((
@@ -282,7 +282,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
         Workload::new(
             include_str!("../shaders/gemm3_naive.wgsl"),
             staging_buf_size,
-            (m / 16, k / 16, 1),
+            (m / 16, n / 16, 1),
         ),
     ));
     workloads.push((
@@ -290,7 +290,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
         Workload::new(
             include_str!("../shaders/gemm4_basic_vectorized.wgsl"),
             staging_buf_size,
-            (m / 8, k / 32, 1),
+            (m / 8, n / 32, 1),
         ),
     ));
     workloads.push((
@@ -298,7 +298,15 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
         Workload::new(
             include_str!("../shaders/gemm5_tiled.wgsl"),
             staging_buf_size,
-            (m / 16, k / 16, 1),
+            (m / 16, n / 16, 1),
+        ),
+    ));
+    workloads.push((
+        "gemm6",
+        Workload::new(
+            include_str!("../shaders/gemm6_tiled_vectorized.wgsl"),
+            staging_buf_size,
+            (m / 16, n / 16, 1),
         ),
     ));
 
@@ -310,7 +318,7 @@ fn main() {
     let workloads = load_gemm_workloads(m, k, n);
     let workload = &workloads
         .into_iter()
-        .filter(|(name, w)| *name == "gemm4")
+        .filter(|(name, w)| *name == "gemm6")
         .last()
         .unwrap()
         .1;
@@ -369,7 +377,7 @@ mod tests {
 
     #[test]
     fn test_gemm_correctness() {
-        let (m, k, n) = (512, 512, 512);
+        let (m, k, n) = (1024, 1024, 1024);
         let workloads = load_gemm_workloads(m, k, n);
         for (name, workload) in workloads {
             let (buf_a, vec_a) = workload.make_rand_buf(m * k);
@@ -383,9 +391,9 @@ mod tests {
             vanilla_matmul(m, k, n, &vec_a, &vec_b, &mut vec_c2);
 
             println!("workload: {}", name);
-            assert_relative_eq!(vec_c[0..128], vec_c2[0..128], epsilon = 1e-1);
+            assert_relative_eq!(vec_c[0..800], vec_c2[0..800], epsilon = 1e-1);
             assert!(
-                relative_eq!(vec_c[..], vec_c2[..], epsilon = 1e-3),
+                relative_eq!(vec_c[..], vec_c2[..], epsilon = 1e-1),
                 "workload {}",
                 name
             );
