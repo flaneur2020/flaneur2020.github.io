@@ -1,5 +1,5 @@
 use rand::prelude::*;
-use std::{borrow::Cow, cell::RefCell};
+use std::{borrow::Cow, cell::RefCell, time::Duration};
 use wgpu::util::DeviceExt;
 
 struct Workload {
@@ -83,7 +83,7 @@ impl Workload {
         (buf, data)
     }
 
-    pub fn dump_timestamps(&self) -> Vec<u64> {
+    pub fn dump_durations(&self) -> Vec<Duration> {
         let mut encoder = self
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
@@ -115,8 +115,13 @@ impl Workload {
             )
             .get_mapped_range();
 
+        let timestamp_period = self.queue.get_timestamp_period() as u64;
         let timestamps: &[u64] = bytemuck::cast_slice(&timestamp_view);
-        timestamps.to_vec()
+        timestamps
+            .chunks(2)
+            .map(|w| (w[1] - w[0]) * timestamp_period)
+            .map(Duration::from_nanos)
+            .collect()
     }
 
     pub fn output(&self, output_buffer: wgpu::Buffer, output: &mut [f32]) {
@@ -195,7 +200,7 @@ fn sgemm(
         .device
         .create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("buffer c"),
-            contents: bytemuck::cast_slice(&[m as u32, n as u32, k as u32]),
+            contents: bytemuck::cast_slice(&[m as u32, k as u32, n as u32]),
             usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::STORAGE,
         });
 
@@ -314,24 +319,24 @@ fn main() {
     let walltime_secs = start_at.elapsed().as_secs_f64();
     println!("walltime_elapsed: {}", walltime_secs);
 
-    let timestamps = workload.dump_timestamps();
-    for i in 0..timestamps.len() / 2 {
-        let timestamp_period = workload.queue.get_timestamp_period() as f64;
-        let sample_elapsed_ns =
-            (timestamps[i * 2 + 1] - timestamps[i * 2]) as f64 * timestamp_period;
-        let gflops = (2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / (sample_elapsed_ns / 1e9);
+    let durations = workload.dump_durations();
+    for (i, duration) in durations.iter().enumerate() {
+        let gflops =
+            (2 * (m * k * n) / 1024 / 1024 / 1024) as f64 / (duration.as_nanos() as f64 / 1e9);
         println!(
             "{} elapsed (ns): {} gflops: {:.2}",
-            i, sample_elapsed_ns, gflops
+            i,
+            duration.as_nanos(),
+            gflops
         );
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use approx::{assert_relative_eq, relative_eq};
+    use approx::relative_eq;
 
-    use crate::{sgemm, Workload};
+    use crate::{load_gemm_workloads, sgemm, Workload};
 
     fn vanilla_matmul(m: usize, k: usize, n: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
         for mi in 0..m {
@@ -347,8 +352,8 @@ mod tests {
 
     #[test]
     fn test_gemm_correctness() {
-        let (m, n, k) = (512, 512, 512);
-        let workloads = crate::load_gemm_workloads(m, k, n);
+        let (m, k, n) = (512, 512, 512);
+        let workloads = load_gemm_workloads(m, k, n);
         for (name, workload) in workloads {
             let (buf_a, vec_a) = workload.make_rand_buf(m * k);
             let (buf_b, vec_b) = workload.make_rand_buf(k * n);
