@@ -1,3 +1,4 @@
+use rand::prelude::*;
 use std::{borrow::Cow, cell::RefCell};
 use wgpu::util::DeviceExt;
 
@@ -69,6 +70,19 @@ impl Workload {
         }
     }
 
+    pub fn make_rand_buf(&self, elems: usize) -> (wgpu::Buffer, Vec<f32>) {
+        let mut rng = rand::thread_rng();
+        let data = (0..elems).map(|_| rng.gen::<f32>()).collect::<Vec<_>>();
+        let buf = self
+            .device
+            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                label: Some("buffer"),
+                contents: bytemuck::cast_slice(&data),
+                usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+            });
+        (buf, data)
+    }
+
     pub fn dump_timestamps(&self) -> Vec<u64> {
         let mut encoder = self
             .device
@@ -105,7 +119,7 @@ impl Workload {
         timestamps.to_vec()
     }
 
-    pub async fn output(&self, output_buffer: wgpu::Buffer, output: &mut [f32]) {
+    pub fn output(&self, output_buffer: wgpu::Buffer, output: &mut [f32]) {
         let mut encoder = self
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
@@ -240,10 +254,6 @@ fn sgemm(
 
 fn main() {
     let (m, n, k) = (1024, 1024, 1024);
-    let a = vec![1.0; m * k];
-    let b = vec![2.0; k * n];
-    let mut c = vec![0.0; m * n];
-
     let staging_buf_size = (m * n) * std::mem::size_of::<f32>();
 
     let workload_kind = "gemm4";
@@ -271,32 +281,11 @@ fn main() {
         _ => panic!("unknown workload kind: {}", workload_kind),
     };
 
-    let buf_a = workload
-        .device
-        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("buffer a"),
-            contents: bytemuck::cast_slice(&a),
-            usage: wgpu::BufferUsages::STORAGE,
-        });
-    let buf_b = workload
-        .device
-        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("buffer b"),
-            contents: bytemuck::cast_slice(&b),
-            usage: wgpu::BufferUsages::STORAGE,
-        });
-    let buf_c = workload
-        .device
-        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("buffer c"),
-            contents: bytemuck::cast_slice(&c),
-            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
-        });
+    let buf_a = workload.make_rand_buf(m * k).0;
+    let buf_b = workload.make_rand_buf(k * n).0;
+    let buf_c = workload.make_rand_buf(m * n).0;
 
     // prewarm
-    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
-    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
-    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     workload.device.poll(wgpu::Maintain::Wait);
 
@@ -321,4 +310,10 @@ fn main() {
             i, sample_elapsed_ns, gflops
         );
     }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_gemm1() {}
 }
