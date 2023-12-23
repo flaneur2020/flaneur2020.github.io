@@ -2,7 +2,10 @@
 
 ## TLDR
 
-- 可以使用 reduce sum 模式来 sum 分块
+- 每个 workgroup 对应左侧矩阵的 4 行，向量化地按 4 批量处理，每次输出 4 个结果向量的元素
+- workgroup 内拆分 128 个线程，对 vec 分成 128 块
+- 使用一个 `var<workgroupd> sketch: array<vec4<f32>, 128>` 来保存每个 thread 对应的中间累加
+- 使用 reduce sum 模式来 sum 分块，累加出来结果向量的 4 个元素
 
 
 ---
@@ -14,7 +17,7 @@ https://github.com/cryscan/web-rwkv/blob/main/src/shaders/matmul_vec_fp16.wgsl
 
 定义了一个 View 结构体来存元信息：
 
-```
+```wgsl
 struct View {
     stride: vec4<u32>,
     offset: vec4<u32>,

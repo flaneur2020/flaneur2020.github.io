@@ -105,6 +105,12 @@
 	- Dec
 		- Readings
 			- [[看代码：matmul_vec_f16.wgsl]]
+			- [[What’s the Difference? Incremental Processing with Change Queries in Snowflake]]
+			- [[How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog]]
+		- Papers
+			- [[LLM in a flash]]
+			- [[ReLU Strikes Back - Exploiting Activation Sparsity in Large Language Models]]
 		- Books
 			- Doom 启世录
+			- Mr Hua 创业手记
 			- 开个小店

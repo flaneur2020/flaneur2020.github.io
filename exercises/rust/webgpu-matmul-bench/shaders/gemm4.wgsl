@@ -1,4 +1,4 @@
-struct Meta {
+struct Info {
     M: u32,
     K: u32,
     N: u32,
@@ -14,7 +14,7 @@ var<storage, read> input_b: array<vec4<f32>>;
 var<storage, read_write> input_c: array<vec4<f32>>;
 
 @group(0) @binding(3)
-var<uniform> input_m: Meta;
+var<uniform> info: Info;
 
 // dispatch workgroup size: (M / 8, N / 32, 1)
 // - vectorized processing: take 4 columns of B at a time
@@ -30,9 +30,9 @@ fn main(
     // a: (m, k)
     // b: (k, n)
     // c: (m, n)
-    let M = input_m.M;
-    let N = input_m.N;
-    let K = input_m.K;
+    let M = info.M;
+    let N = info.N;
+    let K = info.K;
 
     let m_idx = global_id.x;
     let n_idx = global_id.y * 4u;
