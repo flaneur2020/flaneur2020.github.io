@@ -252,34 +252,49 @@ fn sgemm(
     workload.queue.submit(Some(encoder.finish()));
 }
 
-fn main() {
-    let (m, n, k) = (1024, 1024, 1024);
+fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workload)> {
     let staging_buf_size = (m * n) * std::mem::size_of::<f32>();
 
-    let workload_kind = "gemm4";
-    let workload = match workload_kind {
-        "gemm1" => Workload::new(
-            include_str!("../shaders/gemm1.wgsl"),
+    let mut workloads = vec![];
+    workloads.push((
+        "gemm1",
+        Workload::new(
+            include_str!("../shaders/gemm1_naive.wgsl"),
             staging_buf_size,
             (m / 64, 1, 1),
         ),
-        "gemm2" => Workload::new(
-            include_str!("../shaders/gemm2.wgsl"),
+    ));
+    workloads.push((
+        "gemm2",
+        Workload::new(
+            include_str!("../shaders/gemm2_naive.wgsl"),
             staging_buf_size,
             (m, k, 1),
         ),
-        "gemm3" => Workload::new(
-            include_str!("../shaders/gemm3.wgsl"),
+    ));
+    workloads.push((
+        "gemm3",
+        Workload::new(
+            include_str!("../shaders/gemm3_naive.wgsl"),
             staging_buf_size,
             (m / 16, k / 16, 1),
         ),
-        "gemm4" => Workload::new(
-            include_str!("../shaders/gemm4.wgsl"),
+    ));
+    workloads.push((
+        "gemm4",
+        Workload::new(
+            include_str!("../shaders/gemm4_basic_vectorized.wgsl"),
             staging_buf_size,
             (m / 8, k / 32, 1),
         ),
-        _ => panic!("unknown workload kind: {}", workload_kind),
-    };
+    ));
+    workloads
+}
+
+fn main() {
+    let (m, k, n) = (1024, 1024, 1024);
+    let workloads = load_gemm_workloads(m, k, n);
+    let workload = &workloads.last().unwrap().1;
 
     let buf_a = workload.make_rand_buf(m * k).0;
     let buf_b = workload.make_rand_buf(k * n).0;
@@ -314,6 +329,42 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    use approx::{assert_relative_eq, relative_eq};
+
+    use crate::{sgemm, Workload};
+
+    fn vanilla_matmul(m: usize, k: usize, n: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+        for mi in 0..m {
+            for ni in 0..n {
+                let mut sum = 0.0;
+                for ki in 0..k {
+                    sum += a[mi * k + ki] * b[ki * n + ni];
+                }
+                c[mi * n + ni] = sum;
+            }
+        }
+    }
+
     #[test]
-    fn test_gemm1() {}
+    fn test_gemm_correctness() {
+        let (m, n, k) = (512, 512, 512);
+        let workloads = crate::load_gemm_workloads(m, k, n);
+        for (name, workload) in workloads {
+            let (buf_a, vec_a) = workload.make_rand_buf(m * k);
+            let (buf_b, vec_b) = workload.make_rand_buf(k * n);
+            let (buf_c, mut vec_c) = workload.make_rand_buf(m * n);
+
+            sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+            workload.output(buf_c, &mut vec_c);
+
+            let mut vec_c2 = vec![0.0; m * n];
+            vanilla_matmul(m, k, n, &vec_a, &vec_b, &mut vec_c2);
+
+            assert!(
+                relative_eq!(vec_c[..], vec_c2[..], epsilon = 1e-3),
+                "workload {}",
+                name
+            );
+        }
+    }
 }
