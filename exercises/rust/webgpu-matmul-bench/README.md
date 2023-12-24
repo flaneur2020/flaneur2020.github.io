@@ -6,7 +6,8 @@ todo:
 - [x] add flops estimation
 - [x] add my shader into wgpu-mm and view the benchmark result
 - [x] compare the correctness with a vanilla matmul
-- [ ] vectorize the tiled gemm
+- [x] vectorize the tiled gemm
+- [ ] why wgpu-mm's sgemm_3 is faster?
 - [ ] learn wgpu-mm's sgemm_5: 2D block tiling
 
 
