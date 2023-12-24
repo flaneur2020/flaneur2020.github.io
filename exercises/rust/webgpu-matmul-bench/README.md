@@ -7,9 +7,8 @@ todo:
 - [x] add my shader into wgpu-mm and view the benchmark result
 - [x] compare the correctness with a vanilla matmul
 - [x] vectorize the tiled gemm
-- [ ] why wgpu-mm's sgemm_3 is faster?
-- [ ] learn wgpu-mm's sgemm_5: 2D block tiling
-
+- [ ] why wgpu-mm's sgemm_3 is faster?  learn wgpu-mm's tfj shader, which the fastest (could reach 900 gflops/s)
+- [ ] gemv shaders
 
 reference:
 

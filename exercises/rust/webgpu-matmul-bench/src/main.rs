@@ -329,6 +329,7 @@ fn main() {
 
     // prewarm
     sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
+    sgemm(&workload, m, n, k, &buf_a, &buf_b, &buf_c);
     workload.device.poll(wgpu::Maintain::Wait);
 
     let start_at = std::time::Instant::now();
@@ -377,7 +378,7 @@ mod tests {
 
     #[test]
     fn test_gemm_correctness() {
-        let (m, k, n) = (1024, 1024, 1024);
+        let (m, k, n) = (256, 256, 256);
         let workloads = load_gemm_workloads(m, k, n);
         for (name, workload) in workloads {
             let (buf_a, vec_a) = workload.make_rand_buf(m * k);

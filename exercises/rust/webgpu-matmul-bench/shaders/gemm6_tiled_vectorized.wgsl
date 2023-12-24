@@ -47,10 +47,10 @@ fn main(
     let tile_col = local_id.y * 4u;
     var tmp = vec4(0.0);
 
-    for (var tn = 0u; tn < K / TILE_N; tn += 1u) {
+    for (var tile_offset = 0u; tile_offset < K; tile_offset += TILE_N) {
         // each thread loads one element from A and B into tA and tB
-        tA[(tile_row * TILE_N + tile_col) / 4u] = A[(m_idx * K + tn * TILE_N + tile_col) / 4u];
-        tB[(tile_row * TILE_N + tile_col) / 4u] = B[((tn * TILE_N + tile_row) * N + n_idx) / 4u];
+        tA[(tile_row * TILE_N + tile_col) / 4u] = A[(m_idx * K + tile_offset + tile_col) / 4u];
+        tB[(tile_row * TILE_N + tile_col) / 4u] = B[((tile_offset + tile_row) * N + n_idx) / 4u];
         workgroupBarrier();
 
         for (var dot_idx = 0u; dot_idx < TILE_N; dot_idx += 4u) {
