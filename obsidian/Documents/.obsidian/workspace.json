@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 274.5
+    "width": 311.5
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md"
+                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md"
               }
             }
           }
@@ -138,53 +138,54 @@
       "templates:Insert template": false
     }
   },
-  "active": "6971e0726fd87a17",
+  "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
-    "2023-12/LLM in a flash.md",
-    "2023-12/ReLU Strikes Back - Exploiting Activation Sparsity in Large Language Models.md",
-    "2023-12/assets/Screenshot 2023-12-22 at 21.52.34.png",
     "Home.md",
-    "2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
-    "2023-12/看代码：matmul_vec_f16.wgsl.md",
-    "2023-12/What’s the Difference? Incremental Processing with Change Queries in Snowflake.md",
-    "2023-12/assets/Pasted image 20231218224736.png",
-    "2023-07/Flash Attention 推公式.md",
-    "2023-07/From Online Softmax to FlashAttention.md",
-    "2023-07/Softmax tiling.md",
-    "2023-11/FP8 versus INT8 for efficient deep learning inference.md",
-    "2023-11/Programming on Parallel Machines; GPU, Multicore, Clusters and More.md",
-    "2023-11/Understanding and Overcoming the Challenges of Efficient Transformer Quantization.md",
-    "2023-11/Impact of Lack of Sleep.md",
-    "2023-11/Efficient LLM Inference on CPUs.md",
-    "2023-11/A Journey Into Shaders.md",
-    "2023-11/What Every Developer Should Know About GPU Computing.md",
-    "2023-11/WebGPU Compute Shader Basics.md",
-    "2023-11/WebGPU — All of the cores, none of the canvas.md",
-    "2023-11/GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS.md",
-    "2023-11/Through the Ages - Apple CPU Architecture.md",
-    "2023-10/Optimized GEMM.md",
-    "2023-12/assets/Screenshot 2023-12-18 at 14.54.58.png",
-    "2023-12/assets/Screenshot 2023-12-18 at 13.42.09.png",
-    "2023-12/assets/Screenshot 2023-12-18 at 13.04.39.png",
-    "2023-12/assets",
-    "2023-12",
-    "2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
-    "2022/2022-06/SQS Notes.md",
+    "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
+    "2024-01/Nvidia CUDA Core-LLM Decoding Attention Inference Optimization.md",
+    "2024-01/Towards 100x Speedup - Full Stack Transformer Inference Optimization.md",
+    "2024-01/10 Things Software Developers Should Learn about Learning.md",
+    "2024-01/Towards Efficient Generative Large Language Model Serving - A Survey from Algorithms to Systems.md",
+    "2024-01/The Illustrated Stable Diffusion.md",
+    "2024-01/From idea to validation in 24 hours.md",
+    "2024-01/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
+    "2024-01/assets/Pasted image 20240114120846.png",
+    "2024-01/Understanding and Overcoming the Challenges ofEfficient Transformer Quantization.md",
+    "2023/2023-11/FP8 versus INT8 for efficient deep learning inference.md",
+    "2024-01/LLM Decoding Attention-KV Cache Int8 Quantization.md",
+    "2024-01/assets/Pasted image 20240111115835.png",
+    "2024-01/assets/Pasted image 20240111115529.png",
+    "2024-01/assets/Pasted image 20240110130317.png",
+    "2024-01/assets/Pasted image 20240110130240.png",
+    "2024-01/assets/Pasted image 20240110130025.png",
+    "2024-01/assets/Pasted image 20240110125736.png",
+    "2024-01/assets/Pasted image 20240110125425.png",
+    "2024-01/assets/Pasted image 20240110125109.png",
+    "2024-01/assets/Pasted image 20240110124219.png",
+    "2024-01/assets",
+    "2024-01/TokenAttention.md",
+    "2024-01/inference-tutorial(001) - 深度学习基础.md",
+    "2023/2023 - Index.md",
+    "2024/2024-01.md",
+    "Untitled",
+    "2024-01",
+    "2023",
+    "2023/2023-12/mlx 看代码：attention.md",
+    "2023/2023-12/看代码：matmul_vec_f16.wgsl.md",
+    "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+    "2023/2023-12/LLM in a flash.md",
+    "2023/2023-12/ReLU Strikes Back - Exploiting Activation Sparsity in Large Language Models.md",
+    "2023/2023-12/What’s the Difference? Incremental Processing with Change Queries in Snowflake.md",
+    "2023/2023-07/Flash Attention 推公式.md",
+    "2023/2023-07/From Online Softmax to FlashAttention.md",
+    "2023/2023-07/Softmax tiling.md",
+    "2023/2023-11/Programming on Parallel Machines; GPU, Multicore, Clusters and More.md",
+    "2023/2023-12/assets",
+    "2023/2023-12",
     "2019/2019-02",
     "2019",
-    "2023-11/How to Get Your Brain to Focus.md",
-    "2023-11/assets/Screenshot 2023-11-21 at 22.05.11.png",
-    "2023-11/assets/Screenshot 2023-11-21 at 22.02.44.png",
-    "2023-11/assets/Screenshot 2023-11-21 at 22.02.15.png",
-    "2023-11-21.md",
     "Untitled.canvas",
-    "Pasted image 20231120135939.png",
-    "2023-11/assets/Screenshot 2023-11-19 at 14.07.14.png",
-    "2023-11/assets",
-    "2023-11",
-    "2023-10/images",
-    "2023-10",
-    "2023-09/images",
-    "2023-09"
+    "2023/2023-11/assets",
+    "2023/2023-11"
   ]
 }

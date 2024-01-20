@@ -264,7 +264,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
     workloads.push((
         "gemm1",
         Workload::new(
-            include_str!("../shaders/gemm1_naive.wgsl"),
+            include_str!("../shaders/gemm/gemm1_naive.wgsl"),
             staging_buf_size,
             (m / 64, 1, 1),
         ),
@@ -272,7 +272,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
     workloads.push((
         "gemm2",
         Workload::new(
-            include_str!("../shaders/gemm2_naive.wgsl"),
+            include_str!("../shaders/gemm/gemm2_naive.wgsl"),
             staging_buf_size,
             (m, n, 1),
         ),
@@ -280,7 +280,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
     workloads.push((
         "gemm3",
         Workload::new(
-            include_str!("../shaders/gemm3_naive.wgsl"),
+            include_str!("../shaders/gemm/gemm3_naive.wgsl"),
             staging_buf_size,
             (m / 16, n / 16, 1),
         ),
@@ -288,7 +288,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
     workloads.push((
         "gemm4",
         Workload::new(
-            include_str!("../shaders/gemm4_basic_vectorized.wgsl"),
+            include_str!("../shaders/gemm/gemm4_basic_vectorized.wgsl"),
             staging_buf_size,
             (m / 8, n / 32, 1),
         ),
@@ -296,7 +296,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
     workloads.push((
         "gemm5",
         Workload::new(
-            include_str!("../shaders/gemm5_tiled.wgsl"),
+            include_str!("../shaders/gemm/gemm5_tiled.wgsl"),
             staging_buf_size,
             (m / 16, n / 16, 1),
         ),
@@ -304,7 +304,7 @@ fn load_gemm_workloads(m: usize, k: usize, n: usize) -> Vec<(&'static str, Workl
     workloads.push((
         "gemm6",
         Workload::new(
-            include_str!("../shaders/gemm6_tiled_vectorized.wgsl"),
+            include_str!("../shaders/gemm/gemm6_tiled_vectorized.wgsl"),
             staging_buf_size,
             (m / 16, n / 16, 1),
         ),

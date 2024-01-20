@@ -1,0 +1,116 @@
+- 2023
+	- July
+		- Night Jobs
+			- [[Softmax tiling]]
+			- [[Flash Attention 推公式]]
+		- Papers
+			- [[From Online Softmax to FlashAttention]]
+		- Books
+			- 以利为利
+			- 大汉帝国在巴蜀
+	- August
+		- Night Jobs
+			- [[Positional Encoding]]
+			- [[Weight Quantization]]
+		- Readings
+			- LLM
+				- [[vLLM - Easy, Fast, and Cheap LLM Serving with PagedAttention]]
+				- [[Transformer Architecture：The Positional Encoding]]
+				- [[How is LLAMA.cpp possible]]
+				- [[Self-Attention and Positional Encoding]]
+				-  [[Introduction to Weight Quantization]]
+				- [[Fun and Hackable Tensors in Rust, From Scratch]]
+				- [[Tensor, Storage, Strides 張量如何存放在記憶體上？]]
+				- [[A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes]]
+			- Infra
+				- [[Lessons Learned Running Presto At Meta Scale]]
+				- [[Understanding Snowflake Cloud Services Costs]]
+				- [[Aggregating Millions of Groups Fast in Apache Arrow DataFusion]]
+				- [[ClickHouse Cloud boosts performance with SharedMergeTree and Lightweight Updates]]
+		- Books
+			- [[学生为什么不喜欢学习]]
+			- 中国城市大比拼
+			- ~~人类世的资本论~~
+			- [[甲午战争前后的晚清政局]]
+			- [[奇迹的黄昏]]
+	- September
+		- Night Jobs
+			- LLM
+				- Tensor
+				- gguf
+				- [[Speculative Sampling]]
+				- [[k-quants]]
+			- GPU Accelerator
+		- Readings
+			- Cloud & Infra
+				- [[On The Future Of Cloud Services And BYOC]]
+				- How Instacart Optimized Snowflake Costs by 50%
+				- [[ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis]]
+				- [[The State of Async Rust - Runtimes]]
+			- LLM
+				- [[Quantize Llama models with GGML and llama.cpp]]
+				- [[The case for 4-bit precision - k-bit Inference Scaling Laws]]
+				- [[Difference between view, reshape, transpose and permute in PyTorch]]
+				- [[ggml_load_llama]]
+			- GPU
+				- [[Introduction to CUDA]]
+				- [[An Introduction to GPU Programming in Julia]]
+				- [[CUDA Programming with Julia]]
+				- [[Massively Parallel Fun with GPUs - Accelerating Tensors in Rust]]
+		- Books
+			- 创造：用非传统方式做有价值的事
+			- 全民基本收入
+			- 探路之役
+			- 苦难辉煌
+	- October
+		- Night Job
+			- ROPE
+			- Quantization
+			- MatMul in WebGPU
+			- [[ggml 看代码]]
+			- [[Optimized GEMM]]
+		- Books
+			- [[社会为什么对年轻人冷酷无情]]
+			- 大规模并行处理器程序设计
+		- Readings
+			- [[Rotary Embeddings - A Relative Revolution]]
+			- [[Quantization for Neural Networks]]
+			- [[What's a data vault]]
+			- [[Using Metal and Rust to make FFT even faster]]
+	- Nov
+		- Night
+			- GPU accelerated LLM inference
+			- GPTQ
+			- Rope
+		- Books
+			- 千脑智能
+			- 教育的浪费
+			- 超越 PISA
+			- 如何成为优秀的大脑饲养员
+			- [[Programming on Parallel Machines; GPU, Multicore, Clusters and More]]
+		- Podcasts
+		- Papers
+			- [[GPTQ - ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS]]
+			- [[Efficient LLM Inference on CPUs]]
+			- [[FP8 versus INT8 for efficient deep learning inference]]
+			- [[Understanding and Overcoming the Challenges of Efficient Transformer Quantization]]
+		- Readings
+			- [[Through the Ages - Apple CPU Architecture]]
+			- [[WebGPU Compute Shader Basics]]
+			- [[WebGPU — All of the cores, none of the canvas]]
+			- [[What Every Developer Should Know About GPU Computing]]
+			- [[A Journey Into Shaders]]
+			- [[Implementing Matrix Multiplication with WebGPU in Safari]]
+			- [[Impact of Lack of Sleep]]
+	- Dec
+		- Readings
+			- [[看代码：matmul_vec_f16.wgsl]]
+			- [[What’s the Difference? Incremental Processing with Change Queries in Snowflake]]
+			- [[How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog]]
+		- Papers
+			- [[LLM in a flash]]
+			- [[ReLU Strikes Back - Exploiting Activation Sparsity in Large Language Models]]
+		- Books
+			- Doom 启世录
+			- Mr Hua 创业手记
+			- 开个小店

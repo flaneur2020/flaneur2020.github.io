@@ -10,7 +10,7 @@
     "margin": "0",
     "downscalePercent": 100
   },
-  "readableLineLength": true,
+  "readableLineLength": false,
   "spellcheck": false,
   "autoPairBrackets": false
 }
