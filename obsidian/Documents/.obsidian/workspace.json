@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
+                "file": "2024-01/From slow to SIMD - A Go optimization story.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 311.5
+    "width": 341.5
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
+                "file": "2024-01/From slow to SIMD - A Go optimization story.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
+                "file": "2024-01/From slow to SIMD - A Go optimization story.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-01/MotherDuck - DuckDB in the cloud and in the client.md"
+                "file": "2024-01/From slow to SIMD - A Go optimization story.md"
               }
             }
           }
@@ -138,10 +138,11 @@
       "templates:Insert template": false
     }
   },
-  "active": "c6f7ac1787e42da5",
+  "active": "6971e0726fd87a17",
   "lastOpenFiles": [
-    "Home.md",
     "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
+    "2024-01/From slow to SIMD - A Go optimization story.md",
+    "Home.md",
     "2024-01/Nvidia CUDA Core-LLM Decoding Attention Inference Optimization.md",
     "2024-01/Towards 100x Speedup - Full Stack Transformer Inference Optimization.md",
     "2024-01/10 Things Software Developers Should Learn about Learning.md",
@@ -179,7 +180,6 @@
     "2023/2023-07/Flash Attention 推公式.md",
     "2023/2023-07/From Online Softmax to FlashAttention.md",
     "2023/2023-07/Softmax tiling.md",
-    "2023/2023-11/Programming on Parallel Machines; GPU, Multicore, Clusters and More.md",
     "2023/2023-12/assets",
     "2023/2023-12",
     "2019/2019-02",
