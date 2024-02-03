@@ -1,11 +1,22 @@
 ## Jan
 
 - Readings
-	- [[The Illustrated Stable Diffusion]]
-	- [[LLM Decoding Attention-KV Cache Int8 Quantization]]
-	- [[Towards 100x Speedup - Full Stack Transformer Inference Optimization]]
-	- [[Understanding and Overcoming the Challenges ofEfficient Transformer Quantization]]
-	- [[The case for 4-bit precision - k-bit Inference Scaling Laws]]
-	- [[Nvidia CUDA Core-LLM Decoding Attention Inference Optimization]]
-	- [[Towards Efficient Generative Large Language Model Serving - A Survey from Algorithms to Systems]]
-	- [[MotherDuck - DuckDB in the cloud and in the client]]
+	- AI/LLM
+		- [[LLM Decoding Attention-KV Cache Int8 Quantization]]
+		- [[Towards 100x Speedup - Full Stack Transformer Inference Optimization]]
+		- [[Understanding and Overcoming the Challenges of Efficient Transformer Quantization]]
+		- [[The case for 4-bit precision - k-bit Inference Scaling Laws]]
+		- [[Towards Efficient Generative Large Language Model Serving - A Survey from Algorithms to Systems]]
+		- [[Understanding Activation-Aware Weight Quantization (AWQ) - Boosting Inference Serving Efficiency in LLMs]]
+		- [[AWQ - Activation-aware Weight Quantization for LLM Compression and Acceleration]]
+		- [[The Illustrated Stable Diffusion]]
+		- [[LoRA From Scratch – Implement Low-Rank Adaptation for LLMs in PyTorch]]
+		- [[Efficient LLM inference solution on Intel GPU]]
+	- GPU
+		- [[Nvidia CUDA Core-LLM Decoding Attention Inference Optimization]]
+		- [[CUDA Optimization - Part 1]]
+		- [[CUDA Optimization - Part 2]]
+
+- Books
+	- 大学之路
+	- 怎样使孩子自觉又主动

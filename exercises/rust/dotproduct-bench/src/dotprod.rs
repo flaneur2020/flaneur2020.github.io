@@ -83,7 +83,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_naive_vectorized(bench: &mut Bencher) {
+    fn bench_vectorized(bench: &mut Bencher) {
         let tw = TestWork::new(3200, 3200);
 
         bench.iter(|| {
