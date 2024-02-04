@@ -364,17 +364,17 @@ mod tests {
 
     use crate::{load_gemm_workloads, sgemm, Workload};
 
-    fn vanilla_matmul(m: usize, k: usize, n: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
-        for mi in 0..m {
-            for ni in 0..n {
-                let mut sum = 0.0;
-                for ki in 0..k {
-                    sum += a[mi * k + ki] * b[ki * n + ni];
-                }
-                c[mi * n + ni] = sum;
+fn vanilla_matmul(m: usize, k: usize, n: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    for mi in 0..m {
+        for ni in 0..n {
+            let mut sum = 0.0;
+            for ki in 0..k {
+                sum += a[mi * k + ki] * b[ki * n + ni];
             }
+            c[mi * n + ni] = sum;
         }
     }
+}
 
     #[test]
     fn test_gemm_correctness() {

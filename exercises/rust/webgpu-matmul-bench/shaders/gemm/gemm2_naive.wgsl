@@ -5,21 +5,21 @@ struct Meta {
 }
 
 @group(0) @binding(0)
-var<storage, read> input_a: array<f32>;
+var<storage, read> A: array<f32>;
 
 @group(0) @binding(1)
-var<storage, read> input_b: array<f32>;
+var<storage, read> B: array<f32>;
 
 @group(0) @binding(2)
-var<storage, read_write> input_c: array<f32>;
+var<storage, read_write> C: array<f32>;
 
 @group(0) @binding(3)
-var<uniform> input_m: Meta;
+var<uniform> _m: Meta;
 
 // this implementation tries to split the work with every 128 threads
-// - every 128 threads handles one column of input_b
-// - each thread handles N / 128 rows of input_b
-// - each workgroup handles N columns of input_b
+// - every 128 threads handles one column of B
+// - each thread handles N / 128 rows of B
+// - each workgroup handles N columns of B
 // - dispatched workgroups: (M, K)
 //
 // performance: 12G flops/s on M1
@@ -36,16 +36,16 @@ fn main(
     // a: (m, k)
     // b: (k, n)
     // c: (m, n)
-    let M = input_m.M;
-    let K = input_m.K;
-    let N = input_m.N;
+    let M = _m.M;
+    let K = _m.K;
+    let N = _m.N;
 
     let m_val = workgroup_id.x;
     let n_val = workgroup_id.y;
     let chunk_size = K / 128u;
     for (var i = 0u; i < chunk_size; i = i + 1u) {
         let k_val = local_id.x * chunk_size + i;
-        sketch[local_id.x] += input_a[m_val * K + k_val] * input_b[k_val * N + n_val];
+        sketch[local_id.x] += A[m_val * K + k_val] * B[k_val * N + n_val];
     }
     workgroupBarrier();
 
@@ -54,6 +54,6 @@ fn main(
         for (var i = 0u; i < 128u; i = i + 1u) {
             sum += sketch[i];
         }
-        input_c[m_val * N + n_val] = sum;
+        C[m_val * N + n_val] = sum;
     }
 }

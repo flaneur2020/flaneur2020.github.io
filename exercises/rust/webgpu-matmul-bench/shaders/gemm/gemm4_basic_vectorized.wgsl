@@ -34,22 +34,22 @@ fn main(
     let K = info.K;
     let N = info.N;
 
-    let m_idx = global_id.x;
-    let n_idx = global_id.y * 4u;
+    let mi = global_id.x;
+    let ni = global_id.y * 4u;
 
     var tmp = vec4<f32>(0.0);
-    for (var k_idx = 0u; k_idx < K; k_idx += 4u) {
-        let b_idx = (k_idx * N + n_idx) / 4u;
-        let bv0 = B[b_idx + 0u];
-        let bv1 = B[b_idx + N / 4u];
-        let bv2 = B[b_idx + N / 4u * 2u];
-        let bv3 = B[b_idx + N / 4u * 3u];
-        let av = A[(m_idx * N + k_idx) / 4u];
+    for (var ki = 0u; ki < K; ki += 4u) {
+        let bi = (ki * N + ni) / 4u;
+        let bv0 = B[bi + 0u];
+        let bv1 = B[bi + N / 4u];
+        let bv2 = B[bi + N / 4u * 2u];
+        let bv3 = B[bi + N / 4u * 3u];
+        let av = A[(mi * N + ki) / 4u];
         tmp = fma(vec4(av.x), bv0, tmp);
         tmp = fma(vec4(av.y), bv1, tmp);
         tmp = fma(vec4(av.z), bv2, tmp);
         tmp = fma(vec4(av.w), bv3, tmp);
     }
-    let c_idx = (m_idx * N + n_idx) / 4u;
+    let c_idx = (mi * N + ni) / 4u;
     C[c_idx] = tmp;
 }

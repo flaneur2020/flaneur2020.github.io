@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-01/CUDA Optimization - Part 1.md",
+                "file": "2024-01/CUDA Optimization - Part 2.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-01/CUDA Optimization - Part 1.md",
+                "file": "2024-01/CUDA Optimization - Part 2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-01/CUDA Optimization - Part 1.md",
+                "file": "2024-01/CUDA Optimization - Part 2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-01/CUDA Optimization - Part 1.md"
+                "file": "2024-01/CUDA Optimization - Part 2.md"
               }
             }
           }
@@ -140,11 +140,11 @@
   },
   "active": "26b8440cd4c98ca5",
   "lastOpenFiles": [
+    "2024-01/CUDA Optimization - Part 1.md",
     "2024-01/LoRA From Scratch – Implement Low-Rank Adaptation for LLMs in PyTorch.md",
     "2024-01/assets/Pasted image 20240129152450.png",
     "2024-01/assets/Pasted image 20240129152257.png",
     "Home.md",
-    "2024-01/CUDA Optimization - Part 1.md",
     "2024-01/AWQ - Activation-aware Weight Quantization for LLM Compression and Acceleration.md",
     "2024-01/Efficient LLM inference solution on Intel GPU.md",
     "2024-01/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
