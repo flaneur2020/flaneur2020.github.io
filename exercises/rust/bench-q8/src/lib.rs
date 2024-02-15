@@ -1,5 +1,8 @@
 #![feature(test)]
+#![feature(portable_simd)]
 #![allow(soft_unstable)]
+
+use std::simd::{i32x4, SimdInt};
 
 use half::f16;
 
@@ -53,6 +56,31 @@ fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     result
 }
 
+fn vec_dot_q8_vectorized(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+    let mut sumf: f32 = 0.0;
+    for i in 0..n / 32 {
+        let mut sumi: i32 = 0;
+        for j in 0..8 {
+            let ax = i32x4::from_array([
+                x[i].qs[j * 4] as i32,
+                x[i].qs[j * 4 + 1] as i32,
+                x[i].qs[j * 4 + 2] as i32,
+                x[i].qs[j * 4 + 3] as i32,
+            ]);
+            let bx = i32x4::from_array([
+                y[i].qs[j * 4] as i32,
+                y[i].qs[j * 4 + 1] as i32,
+                y[i].qs[j * 4 + 2] as i32,
+                y[i].qs[j * 4 + 3] as i32,
+            ]);
+            sumi += (ax * bx).reduce_sum();
+        }
+        sumf += sumi as f32 * x[i].d.to_f32() * y[i].d.to_f32();
+    }
+
+    sumf
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -83,7 +111,7 @@ mod tests {
     }
 
     #[test]
-    fn test_vec_dot_q8_ggml() {
+    fn test_vec_dot_q8() {
         let v1 = vec![
             BlockQ8_0 {
                 d: f16::from_f32(1.0),
@@ -106,8 +134,9 @@ mod tests {
         ];
         let result = vec_dot_q8_ggml(64, &v1, &v2);
         assert_eq!(result, 128.0);
-
         let result = vec_dot_q8_naive(64, &v1, &v2);
+        assert_eq!(result, 128.0);
+        let result = vec_dot_q8_vectorized(64, &v1, &v2);
         assert_eq!(result, 128.0);
     }
 
@@ -123,5 +152,12 @@ mod tests {
         let v1 = gen_rand_block_q8_0_vec(1000);
         let v2 = gen_rand_block_q8_0_vec(1000);
         b.iter(|| vec_dot_q8_naive(32000, &v1, &v2));
+    }
+
+    #[bench]
+    fn bench_vec_dot_q8_vectorized(b: &mut Bencher) {
+        let v1 = gen_rand_block_q8_0_vec(1000);
+        let v2 = gen_rand_block_q8_0_vec(1000);
+        b.iter(|| vec_dot_q8_vectorized(32000, &v1, &v2));
     }
 }
