@@ -28,11 +28,11 @@ extern "C" {
     );
 }
 
-pub fn vec_dot_q8_ggml(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_ggml(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     let mut result: f32 = 0.0;
     unsafe {
         ggml_vec_dot_q8_0_q8_0(
-            n,
+            n as i32,
             &mut result as *mut f32,
             0,
             x.as_ptr(),
@@ -138,6 +138,107 @@ pub fn vec_dot_q8_neon_unrolled(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f
             // vcvtq_f32_s32: convert a q register (128 bit) from signed int 32 to f32
             // vmlaq_n_f32: multiply an scalar over a q register (128 bit) and accumulate. it seems the compiler will produce a fmul.4s and fadd.4s, not a single fmla.4s
             // vfmaq_f32: multiply and accumulate two q registers (128 bit) of f32, output is a q register (128 bit) of f32, it seems the compiler will produce a fmla.4s
+            sumv0 = aarch64::vmlaq_n_f32(
+                sumv0,
+                aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                    aarch64::vdotq_s32(zerov, av00, bv00),
+                    aarch64::vdotq_s32(zerov, av01, bv01),
+                )),
+                f16::to_f32(ab0.d) * f16::to_f32(bb0.d),
+            );
+
+            sumv1 = aarch64::vmlaq_n_f32(
+                sumv1,
+                aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                    aarch64::vdotq_s32(zerov, av10, bv10),
+                    aarch64::vdotq_s32(zerov, av11, bv11),
+                )),
+                f16::to_f32(ab1.d) * f16::to_f32(bb1.d),
+            );
+        }
+
+        aarch64::vaddvq_f32(sumv0) + aarch64::vaddvq_f32(sumv1)
+    }
+}
+
+#[cfg(target_arch = "aarch64")]
+pub fn vec_dot_q8_neon_unrolled_single_sum(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
+    unsafe {
+        use std::arch::aarch64;
+        let mut sumv0 = aarch64::vdupq_n_f32(0.0);
+        let zerov = aarch64::vdupq_n_s32(0);
+
+        for i in (0..n / 32).step_by(2) {
+            let ab0 = a.get_unchecked(i);
+            let ab1 = a.get_unchecked(i + 1);
+            let bb0 = b.get_unchecked(i);
+            let bb1 = b.get_unchecked(i + 1);
+
+            let av00 = aarch64::vld1q_s8(ab0.qs.as_ptr());
+            let av01 = aarch64::vld1q_s8(ab0.qs.as_ptr().add(16));
+            let av10 = aarch64::vld1q_s8(ab1.qs.as_ptr());
+            let av11 = aarch64::vld1q_s8(ab1.qs.as_ptr().add(16));
+
+            let bv00 = aarch64::vld1q_s8(bb0.qs.as_ptr());
+            let bv01 = aarch64::vld1q_s8(bb0.qs.as_ptr().add(16));
+            let bv10 = aarch64::vld1q_s8(bb1.qs.as_ptr());
+            let bv11 = aarch64::vld1q_s8(bb1.qs.as_ptr().add(16));
+
+            // vdotq_s32: dot product of two q registers (128 bit) of signed int 8, output is 4 int32 values in a q register
+            // vcvtq_f32_s32: convert a q register (128 bit) from signed int 32 to f32
+            // vmlaq_n_f32: multiply an scalar over a q register (128 bit) and accumulate. it seems the compiler will produce a fmul.4s and fadd.4s, not a single fmla.4s
+            // vfmaq_f32: multiply and accumulate two q registers (128 bit) of f32, output is a q register (128 bit) of f32, it seems the compiler will produce a fmla.4s
+            sumv0 = aarch64::vmlaq_n_f32(
+                sumv0,
+                aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                    aarch64::vdotq_s32(zerov, av00, bv00),
+                    aarch64::vdotq_s32(zerov, av01, bv01),
+                )),
+                f16::to_f32(ab0.d) * f16::to_f32(bb0.d),
+            );
+
+            sumv0 = aarch64::vmlaq_n_f32(
+                sumv0,
+                aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                    aarch64::vdotq_s32(zerov, av10, bv10),
+                    aarch64::vdotq_s32(zerov, av11, bv11),
+                )),
+                f16::to_f32(ab1.d) * f16::to_f32(bb1.d),
+            );
+        }
+
+        aarch64::vaddvq_f32(sumv0)
+    }
+}
+
+#[cfg(target_arch = "aarch64")]
+pub fn vec_dot_q8_neon_unrolled_vfma(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
+    unsafe {
+        use std::arch::aarch64;
+        let mut sumv0 = aarch64::vdupq_n_f32(0.0);
+        let mut sumv1 = aarch64::vdupq_n_f32(0.0);
+        let zerov = aarch64::vdupq_n_s32(0);
+
+        for i in (0..n / 32).step_by(2) {
+            let ab0 = a.get_unchecked(i);
+            let ab1 = a.get_unchecked(i + 1);
+            let bb0 = b.get_unchecked(i);
+            let bb1 = b.get_unchecked(i + 1);
+
+            let av00 = aarch64::vld1q_s8(ab0.qs.as_ptr());
+            let av01 = aarch64::vld1q_s8(ab0.qs.as_ptr().add(16));
+            let av10 = aarch64::vld1q_s8(ab1.qs.as_ptr());
+            let av11 = aarch64::vld1q_s8(ab1.qs.as_ptr().add(16));
+
+            let bv00 = aarch64::vld1q_s8(bb0.qs.as_ptr());
+            let bv01 = aarch64::vld1q_s8(bb0.qs.as_ptr().add(16));
+            let bv10 = aarch64::vld1q_s8(bb1.qs.as_ptr());
+            let bv11 = aarch64::vld1q_s8(bb1.qs.as_ptr().add(16));
+
+            // vdotq_s32: dot product of two q registers (128 bit) of signed int 8, output is 4 int32 values in a q register
+            // vcvtq_f32_s32: convert a q register (128 bit) from signed int 32 to f32
+            // vmlaq_n_f32: multiply an scalar over a q register (128 bit) and accumulate. it seems the compiler will produce a fmul.4s and fadd.4s, not a single fmla.4s
+            // vfmaq_f32: multiply and accumulate two q registers (128 bit) of f32, output is a q register (128 bit) of f32, it seems the compiler will produce a fmla.4s
             sumv0 = aarch64::vfmaq_f32(
                 sumv0,
                 aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
@@ -167,6 +268,9 @@ mod tests {
     use rand::{thread_rng, Rng};
     extern crate test;
     use test::Bencher;
+
+    const TEST_BLOCKS: usize = 2000;
+    const TEST_ELEMS: usize = TEST_BLOCKS * 32;
 
     // generate a random vector of BlockQ8_0
     fn gen_rand_block_q8_0() -> BlockQ8_0 {
@@ -208,36 +312,50 @@ mod tests {
 
     #[bench]
     fn bench_vec_dot_q8_ggml(b: &mut Bencher) {
-        let v1 = gen_rand_block_q8_0_vec(2000);
-        let v2 = gen_rand_block_q8_0_vec(2000);
-        b.iter(|| vec_dot_q8_ggml(64000, &v1, &v2));
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_ggml(TEST_ELEMS, &v1, &v2));
     }
 
     #[bench]
     fn bench_vec_dot_q8_naive(b: &mut Bencher) {
-        let v1 = gen_rand_block_q8_0_vec(2000);
-        let v2 = gen_rand_block_q8_0_vec(2000);
-        b.iter(|| vec_dot_q8_naive(64000, &v1, &v2));
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_naive(TEST_ELEMS, &v1, &v2));
     }
 
     #[bench]
     fn bench_vec_dot_q8_stdsimd(b: &mut Bencher) {
-        let v1 = gen_rand_block_q8_0_vec(2000);
-        let v2 = gen_rand_block_q8_0_vec(2000);
-        b.iter(|| vec_dot_q8_stdsimd(64000, &v1, &v2));
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_stdsimd(TEST_ELEMS, &v1, &v2));
     }
 
     #[bench]
     fn bench_vec_dot_q8_neon(b: &mut Bencher) {
-        let v1 = gen_rand_block_q8_0_vec(2000);
-        let v2 = gen_rand_block_q8_0_vec(2000);
-        b.iter(|| vec_dot_q8_neon(64000, &v1, &v2));
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_neon(TEST_ELEMS, &v1, &v2));
     }
 
     #[bench]
     fn bench_vec_dot_q8_neon_unrolled(b: &mut Bencher) {
-        let v1 = gen_rand_block_q8_0_vec(2000);
-        let v2 = gen_rand_block_q8_0_vec(2000);
-        b.iter(|| vec_dot_q8_neon_unrolled(64000, &v1, &v2));
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_neon_unrolled(TEST_ELEMS, &v1, &v2));
+    }
+
+    #[bench]
+    fn bench_vec_dot_q8_neon_unrolled_single_sum(b: &mut Bencher) {
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_neon_unrolled_single_sum(TEST_ELEMS, &v1, &v2));
+    }
+
+    #[bench]
+    fn bench_vec_dot_q8_neon_unrolled_vfma(b: &mut Bencher) {
+        let v1 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        let v2 = gen_rand_block_q8_0_vec(TEST_BLOCKS);
+        b.iter(|| vec_dot_q8_neon_unrolled_vfma(TEST_ELEMS, &v1, &v2));
     }
 }
