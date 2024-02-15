@@ -38,6 +38,18 @@ fn vec_dot_q8_ggml(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     result
 }
 
+fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+    let mut result: f32 = 0.0;
+    for i in 0..n / 32 {
+        let mut tmp = 0.0;
+        for j in 0..32 {
+            tmp += (x[i as usize].qs[j] * y[i as usize].qs[j]) as f32;
+        }
+        result += tmp * f16::to_f32(x[i as usize].d) * f16::to_f32(y[i as usize].d);
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -88,6 +100,9 @@ mod tests {
             },
         ];
         let result = vec_dot_q8_ggml(64, &v1, &v2);
+        assert_eq!(result, 128.0);
+
+        let result = vec_dot_q8_naive(64, &v1, &v2);
         assert_eq!(result, 128.0);
     }
 }
