@@ -52,7 +52,7 @@ fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     for i in 0..n / 32 {
         let mut tmp = 0.0;
         for j in 0..32 {
-            tmp += (x[i as usize].qs[j] * y[i as usize].qs[j]) as f32;
+            tmp += (x[i as usize].qs[j] as i32 * y[i as usize].qs[j] as i32) as f32;
         }
         result += tmp * f16::to_f32(x[i as usize].d) * f16::to_f32(y[i as usize].d);
     }
@@ -86,29 +86,31 @@ fn vec_dot_q8_vectorized(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
 
 #[cfg(target_arch = "aarch64")]
 fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
-    use std::arch::aarch64;
-    let mut sum = 0.0;
+    unsafe {
+        use std::arch::aarch64;
 
-    for i in 0..n / 32 {
-        unsafe {
-            let av0 = aarch64::vld1q_s8(a[i].qs.as_ptr());
-            let av1 = aarch64::vld1q_s8(a[i].qs[16..].as_ptr());
-            let bv0 = aarch64::vld1q_s8(b[i].qs.as_ptr());
-            let bv1 = aarch64::vld1q_s8(b[i].qs[16..].as_ptr());
+        let mut sumv = aarch64::vdupq_n_f32(0.0);
+        let zerov = aarch64::vdupq_n_s32(0);
 
-            let accv0 = aarch64::vdotq_s32(aarch64::vdupq_n_s32(0), av0, bv0);
-            let accv1 = aarch64::vdotq_s32(aarch64::vdupq_n_s32(0), av1, bv1);
+        for i in 0..n / 32 {
+            let ab = a.get_unchecked(i);
+            let bb = b.get_unchecked(i);
+            let av0 = aarch64::vld1q_s8(ab.qs.as_ptr());
+            let av1 = aarch64::vld1q_s8(ab.qs.as_ptr().add(16));
+            let bv0 = aarch64::vld1q_s8(bb.qs.as_ptr());
+            let bv1 = aarch64::vld1q_s8(bb.qs.as_ptr().add(16));
+
+            let accv0 = aarch64::vdotq_s32(zerov, av0, bv0);
+            let accv1 = aarch64::vdotq_s32(zerov, av1, bv1);
             let accv = aarch64::vaddq_s32(accv0, accv1);
             let accvf = aarch64::vcvtq_f32_s32(accv);
 
-            let d = f16::to_f32(a[i].d) * f16::to_f32(b[i].d);
-            let accvfd = aarch64::vmlaq_n_f32(aarch64::vdupq_n_f32(0.0), accvf, d);
-
-            sum += aarch64::vaddvq_f32(accvfd);
+            let d = f16::to_f32(ab.d) * f16::to_f32(bb.d);
+            sumv = aarch64::vmlaq_n_f32(sumv, accvf, d);
         }
-    }
 
-    sum
+        aarch64::vaddvq_f32(sumv)
+    }
 }
 
 #[cfg(target_arch = "aarch64")]
@@ -183,36 +185,18 @@ mod tests {
 
     #[test]
     fn test_vec_dot_q8() {
-        let v1 = vec![
-            BlockQ8_0 {
-                d: f16::from_f32(1.0),
-                qs: [1; 32],
-            },
-            BlockQ8_0 {
-                d: f16::from_f32(1.0),
-                qs: [1; 32],
-            },
-        ];
-        let v2 = vec![
-            BlockQ8_0 {
-                d: f16::from_f32(1.0),
-                qs: [2; 32],
-            },
-            BlockQ8_0 {
-                d: f16::from_f32(1.0),
-                qs: [2; 32],
-            },
-        ];
+        let v1 = gen_rand_block_q8_0_vec(3);
+        let v2 = gen_rand_block_q8_0_vec(3);
+
+        let naive_result = vec_dot_q8_naive(64, &v1, &v2);
         let result = vec_dot_q8_ggml(64, &v1, &v2);
-        assert_eq!(result, 128.0);
-        let result = vec_dot_q8_naive(64, &v1, &v2);
-        assert_eq!(result, 128.0);
+        assert!((result - naive_result).abs() < 1e-2);
         let result = vec_dot_q8_vectorized(64, &v1, &v2);
-        assert_eq!(result, 128.0);
+        assert!((result - naive_result).abs() < 1e-2);
         let result = vec_dot_q8_neon(64, &v1, &v2);
-        assert_eq!(result, 128.0);
+        assert!((result - naive_result).abs() < 1e-2);
         let result = vec_dot_q8_neon2(64, &v1, &v2);
-        assert_eq!(result, 128.0);
+        assert!((result - naive_result).abs() < 1e-2);
     }
 
     #[bench]
