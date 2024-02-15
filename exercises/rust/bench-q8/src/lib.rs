@@ -30,7 +30,7 @@ extern "C" {
     );
 }
 
-fn vec_dot_q8_ggml(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_ggml(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     let mut result: f32 = 0.0;
     unsafe {
         ggml_vec_dot_q8_0_q8_0(
@@ -47,7 +47,7 @@ fn vec_dot_q8_ggml(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     result
 }
 
-fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     let mut result: f32 = 0.0;
     for i in 0..n / 32 {
         let mut tmp = 0.0;
@@ -59,7 +59,7 @@ fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     result
 }
 
-fn vec_dot_q8_vectorized(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_vectorized(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     let mut sumf: f32 = 0.0;
     for i in 0..n / 32 {
         let mut sumi: i32 = 0;
@@ -85,7 +85,7 @@ fn vec_dot_q8_vectorized(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
 }
 
 #[cfg(target_arch = "aarch64")]
-fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
     unsafe {
         use std::arch::aarch64;
 
@@ -95,18 +95,18 @@ fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
         for i in 0..n / 32 {
             let ab = a.get_unchecked(i);
             let bb = b.get_unchecked(i);
+
             let av0 = aarch64::vld1q_s8(ab.qs.as_ptr());
             let av1 = aarch64::vld1q_s8(ab.qs.as_ptr().add(16));
             let bv0 = aarch64::vld1q_s8(bb.qs.as_ptr());
             let bv1 = aarch64::vld1q_s8(bb.qs.as_ptr().add(16));
 
-            let accv0 = aarch64::vdotq_s32(zerov, av0, bv0);
-            let accv1 = aarch64::vdotq_s32(zerov, av1, bv1);
-            let accv = aarch64::vaddq_s32(accv0, accv1);
-            let accvf = aarch64::vcvtq_f32_s32(accv);
+            let tmpv = aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                aarch64::vdotq_s32(zerov, av0, bv0),
+                aarch64::vdotq_s32(zerov, av1, bv1),
+            ));
 
-            let d = f16::to_f32(ab.d) * f16::to_f32(bb.d);
-            sumv = aarch64::vmlaq_n_f32(sumv, accvf, d);
+            sumv = aarch64::vmlaq_n_f32(sumv, tmpv, f16::to_f32(ab.d) * f16::to_f32(bb.d));
         }
 
         aarch64::vaddvq_f32(sumv)
@@ -114,22 +114,29 @@ fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
 }
 
 #[cfg(target_arch = "aarch64")]
-fn vec_dot_q8_neon2(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
-    use std::arch::aarch64;
-    let mut sum = 0.0;
+pub fn vec_dot_q8_neon2(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
+    unsafe {
+        use std::arch::aarch64;
+        let mut sum = 0.0;
+        let zerov = aarch64::vdupq_n_s32(0);
+        let zerofv = aarch64::vdupq_n_f32(0.0);
 
-    for i in (0..n / 32).step_by(2) {
-        unsafe {
-            let av00 = aarch64::vld1q_s8(a[i].qs.as_ptr());
-            let av01 = aarch64::vld1q_s8(a[i].qs[16..].as_ptr());
-            let bv00 = aarch64::vld1q_s8(b[i].qs.as_ptr());
-            let bv01 = aarch64::vld1q_s8(b[i].qs[16..].as_ptr());
-            let av10 = aarch64::vld1q_s8(a[i + 1].qs.as_ptr());
-            let av11 = aarch64::vld1q_s8(a[i + 1].qs[16..].as_ptr());
-            let bv10 = aarch64::vld1q_s8(b[i + 1].qs.as_ptr());
-            let bv11 = aarch64::vld1q_s8(b[i + 1].qs[16..].as_ptr());
+        for i in (0..n / 32).step_by(2) {
+            let ab0 = a.get_unchecked(i);
+            let ab1 = a.get_unchecked(i + 1);
+            let bb0 = b.get_unchecked(i);
+            let bb1 = b.get_unchecked(i + 1);
 
-            let zerov = aarch64::vdupq_n_s32(0);
+            let av00 = aarch64::vld1q_s8(ab0.qs.as_ptr());
+            let av01 = aarch64::vld1q_s8(ab0.qs.as_ptr().add(16));
+            let bv00 = aarch64::vld1q_s8(bb0.qs.as_ptr());
+            let bv01 = aarch64::vld1q_s8(bb0.qs.as_ptr().add(16));
+
+            let av10 = aarch64::vld1q_s8(ab1.qs.as_ptr());
+            let av11 = aarch64::vld1q_s8(ab1.qs.as_ptr().add(16));
+            let bv10 = aarch64::vld1q_s8(bb1.qs.as_ptr());
+            let bv11 = aarch64::vld1q_s8(bb1.qs.as_ptr().add(16));
+
             let accv00 = aarch64::vdotq_s32(zerov, av00, bv00);
             let accv01 = aarch64::vdotq_s32(zerov, av01, bv01);
             let accv10 = aarch64::vdotq_s32(zerov, av10, bv10);
@@ -140,18 +147,17 @@ fn vec_dot_q8_neon2(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
             let accvf0 = aarch64::vcvtq_f32_s32(accv0);
             let accvf1 = aarch64::vcvtq_f32_s32(accv1);
 
-            let d0 = f16::to_f32(a[i].d) * f16::to_f32(b[i].d);
-            let d1 = f16::to_f32(a[i + 1].d) * f16::to_f32(b[i + 1].d);
+            let d0 = f16::to_f32(ab0.d) * f16::to_f32(bb0.d);
+            let d1 = f16::to_f32(ab1.d) * f16::to_f32(bb1.d);
 
-            let zerofv = aarch64::vdupq_n_f32(0.0);
             let accvfd0 = aarch64::vmlaq_n_f32(zerofv, accvf0, d0);
             let accvfd1 = aarch64::vmlaq_n_f32(zerofv, accvf1, d1);
 
             sum += aarch64::vaddvq_f32(accvfd0) + aarch64::vaddvq_f32(accvfd1);
         }
-    }
 
-    sum
+        sum
+    }
 }
 
 #[cfg(test)]
