@@ -1,3 +1,6 @@
+#![feature(test)]
+#![allow(soft_unstable)]
+
 use half::f16;
 
 #[repr(C, packed)]
@@ -54,6 +57,8 @@ fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
 mod tests {
     use super::*;
     use rand::{thread_rng, Rng};
+    extern crate test;
+    use test::Bencher;
 
     // generate a random vector of BlockQ8_0
     fn gen_rand_block_q8_0() -> BlockQ8_0 {
@@ -104,5 +109,19 @@ mod tests {
 
         let result = vec_dot_q8_naive(64, &v1, &v2);
         assert_eq!(result, 128.0);
+    }
+
+    #[bench]
+    fn bench_vec_dot_q8_ggml(b: &mut Bencher) {
+        let v1 = gen_rand_block_q8_0_vec(1000);
+        let v2 = gen_rand_block_q8_0_vec(1000);
+        b.iter(|| vec_dot_q8_ggml(32000, &v1, &v2));
+    }
+
+    #[bench]
+    fn bench_vec_dot_q8_naive(b: &mut Bencher) {
+        let v1 = gen_rand_block_q8_0_vec(1000);
+        let v2 = gen_rand_block_q8_0_vec(1000);
+        b.iter(|| vec_dot_q8_naive(32000, &v1, &v2));
     }
 }
