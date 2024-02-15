@@ -47,12 +47,12 @@ pub fn vec_dot_q8_ggml(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     result
 }
 
-pub fn vec_dot_q8_naive(n: i32, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_naive(n: usize, x: &[BlockQ8_0], y: &[BlockQ8_0]) -> f32 {
     let mut result: f32 = 0.0;
-    for i in 0..n / 32 {
+    for i in 0..(n / 32) {
         let mut tmp = 0.0;
         for j in 0..32 {
-            tmp += (x[i as usize].qs[j] as i32 * y[i as usize].qs[j] as i32) as f32;
+            tmp += (x[i].qs[j] as i32 * y[i].qs[j] as i32) as f32;
         }
         result += tmp * f16::to_f32(x[i as usize].d) * f16::to_f32(y[i as usize].d);
     }
@@ -105,7 +105,6 @@ pub fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
                 aarch64::vdotq_s32(zerov, av0, bv0),
                 aarch64::vdotq_s32(zerov, av1, bv1),
             ));
-
             sumv = aarch64::vmlaq_n_f32(sumv, tmpv, f16::to_f32(ab.d) * f16::to_f32(bb.d));
         }
 
