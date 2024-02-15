@@ -113,7 +113,7 @@ pub fn vec_dot_q8_neon(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
 }
 
 #[cfg(target_arch = "aarch64")]
-pub fn vec_dot_q8_neon2(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
+pub fn vec_dot_q8_neon_unrolled(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
     unsafe {
         use std::arch::aarch64;
         let mut sumv0 = aarch64::vdupq_n_f32(0.0);
@@ -136,17 +136,23 @@ pub fn vec_dot_q8_neon2(n: usize, a: &[BlockQ8_0], b: &[BlockQ8_0]) -> f32 {
             let bv10 = aarch64::vld1q_s8(bb1.qs.as_ptr());
             let bv11 = aarch64::vld1q_s8(bb1.qs.as_ptr().add(16));
 
-            let tmpv0 = aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
-                aarch64::vdotq_s32(zerov, av00, bv00),
-                aarch64::vdotq_s32(zerov, av01, bv01),
-            ));
-            sumv0 = aarch64::vmlaq_n_f32(sumv0, tmpv0, f16::to_f32(ab0.d) * f16::to_f32(bb0.d));
+            sumv0 = aarch64::vmlaq_n_f32(
+                sumv0,
+                aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                    aarch64::vdotq_s32(zerov, av00, bv00),
+                    aarch64::vdotq_s32(zerov, av01, bv01),
+                )),
+                f16::to_f32(ab0.d) * f16::to_f32(bb0.d),
+            );
 
-            let tmpv1 = aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
-                aarch64::vdotq_s32(zerov, av10, bv10),
-                aarch64::vdotq_s32(zerov, av11, bv11),
-            ));
-            sumv1 = aarch64::vmlaq_n_f32(sumv1, tmpv1, f16::to_f32(ab1.d) * f16::to_f32(bb1.d));
+            sumv1 = aarch64::vmlaq_n_f32(
+                sumv1,
+                aarch64::vcvtq_f32_s32(aarch64::vaddq_s32(
+                    aarch64::vdotq_s32(zerov, av10, bv10),
+                    aarch64::vdotq_s32(zerov, av11, bv11),
+                )),
+                f16::to_f32(ab1.d) * f16::to_f32(bb1.d),
+            );
         }
 
         aarch64::vaddvq_f32(sumv0) + aarch64::vaddvq_f32(sumv1)
@@ -184,8 +190,8 @@ mod tests {
 
     #[test]
     fn test_vec_dot_q8() {
-        let v1 = gen_rand_block_q8_0_vec(3);
-        let v2 = gen_rand_block_q8_0_vec(3);
+        let v1 = gen_rand_block_q8_0_vec(4);
+        let v2 = gen_rand_block_q8_0_vec(4);
 
         let naive_result = vec_dot_q8_naive(64, &v1, &v2);
         let result = vec_dot_q8_ggml(64, &v1, &v2);
@@ -194,7 +200,7 @@ mod tests {
         assert!((result - naive_result).abs() < 1e-2);
         let result = vec_dot_q8_neon(64, &v1, &v2);
         assert!((result - naive_result).abs() < 1e-2);
-        let result = vec_dot_q8_neon2(64, &v1, &v2);
+        let result = vec_dot_q8_neon_unrolled(64, &v1, &v2);
         assert!((result - naive_result).abs() < 1e-2);
     }
 
@@ -227,9 +233,9 @@ mod tests {
     }
 
     #[bench]
-    fn bench_vec_dot_q8_neon2(b: &mut Bencher) {
+    fn bench_vec_dot_q8_neon_unrolled(b: &mut Bencher) {
         let v1 = gen_rand_block_q8_0_vec(1000);
         let v2 = gen_rand_block_q8_0_vec(1000);
-        b.iter(|| vec_dot_q8_neon2(32000, &v1, &v2));
+        b.iter(|| vec_dot_q8_neon_unrolled(32000, &v1, &v2));
     }
 }
