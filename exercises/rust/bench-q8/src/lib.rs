@@ -269,7 +269,7 @@ mod tests {
     extern crate test;
     use test::Bencher;
 
-    const TEST_BLOCKS: usize = 2000;
+    const TEST_BLOCKS: usize = 1000;
     const TEST_ELEMS: usize = TEST_BLOCKS * 32;
 
     // generate a random vector of BlockQ8_0
