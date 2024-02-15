@@ -1,3 +1,4 @@
+prev: [[2023 - Index]]
 ## Jan
 
 - Readings
@@ -19,4 +20,12 @@
 
 - Books
 	- 大学之路
-	- 怎样使孩子自觉又主动
+	- [[怎样使孩子自觉又主动]]
+## Feb
+- Night
+- Readings
+	- [[The end of 0% interest rates - what the new normal means for software engineers]]
+	- [[Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine]]
+- Books
+	- 小而美
+	- [[金钱心理学]]

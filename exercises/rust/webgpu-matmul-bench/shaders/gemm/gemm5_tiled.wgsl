@@ -1,4 +1,4 @@
-struct Info {
+struct Meta {
     M: u32,
     K: u32,
     N: u32,
@@ -14,7 +14,7 @@ var<storage, read> B: array<f32>;
 var<storage, read_write> C: array<f32>;
 
 @group(0) @binding(3)
-var<uniform> info: Info;
+var<uniform> _m: Meta;
 
 var<workgroup> tA: array<f32, 256>;
 var<workgroup> tB: array<f32, 256>;
@@ -36,20 +36,20 @@ fn main(
     // a: (m, k)
     // b: (k, n)
     // c: (m, n)
-    let M = info.M;
-    let K = info.K;
-    let N = info.N;
+    let M = _m.M;
+    let K = _m.K;
+    let N = _m.N;
 
-    let m_idx = global_id.x;
-    let n_idx = global_id.y;
+    let mi = global_id.x;
+    let ni = global_id.y;
     let tile_row = local_id.x;
     let tile_col = local_id.y;
     var tmp = 0.0f;
 
     for (var tn = 0u; tn < K / TILE_N; tn += 1u) {
         // each thread loads one element from A and B into tA and tB
-        tA[tile_row * TILE_N + tile_col] = A[m_idx * K + tn * TILE_N + tile_col];
-        tB[tile_row * TILE_N + tile_col] = B[(tn * TILE_N + tile_row) * N + n_idx];
+        tA[tile_row * TILE_N + tile_col] = A[mi * K + tn * TILE_N + tile_col];
+        tB[tile_row * TILE_N + tile_col] = B[(tn * TILE_N + tile_row) * N + ni];
         workgroupBarrier();
 
         for (var dot_idx = 0u; dot_idx < TILE_N; dot_idx += 1u) {
@@ -58,5 +58,5 @@ fn main(
         workgroupBarrier();
     }
 
-    C[m_idx * N + n_idx] = tmp;
+    C[mi * N + ni] = tmp;
 }
