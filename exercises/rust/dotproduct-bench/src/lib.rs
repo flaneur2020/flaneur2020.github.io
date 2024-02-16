@@ -2,4 +2,4 @@
 #![feature(portable_simd)]
 #![allow(soft_unstable)]
 
-mod dotprod;
+pub mod dotprod;

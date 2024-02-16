@@ -94,6 +94,58 @@ pub fn dot_vectorized_neon_unrolled(a: &[f32], b: &[f32]) -> f32 {
     }
 }
 
+pub fn dot_vectorized_neon_unrolled_unchecked(a: &[f32], b: &[f32]) -> f32 {
+    use std::arch::aarch64;
+
+    let a_ptr = a.as_ptr();
+    let b_ptr = b.as_ptr();
+
+    unsafe {
+        let mut sumv0 = aarch64::vdupq_n_f32(0.0);
+        let mut sumv1 = aarch64::vdupq_n_f32(0.0);
+        for i in (0..a.len()).step_by(8) {
+            let av0 = aarch64::vld1q_f32(a_ptr.add(i));
+            let bv0 = aarch64::vld1q_f32(b_ptr.add(i));
+            let av1 = aarch64::vld1q_f32(a_ptr.add(i + 4));
+            let bv1 = aarch64::vld1q_f32(b_ptr.add(i + 4));
+            sumv0 = aarch64::vfmaq_f32(sumv0, av0, bv0);
+            sumv1 = aarch64::vfmaq_f32(sumv1, av1, bv1);
+        }
+
+        aarch64::vaddvq_f32(sumv0) + aarch64::vaddvq_f32(sumv1)
+    }
+}
+
+pub fn dot_vectorized_neon_unrolled4(a: &[f32], b: &[f32]) -> f32 {
+    use std::arch::aarch64;
+
+    unsafe {
+        let mut sumv0 = aarch64::vdupq_n_f32(0.0);
+        let mut sumv1 = aarch64::vdupq_n_f32(0.0);
+        let mut sumv2 = aarch64::vdupq_n_f32(0.0);
+        let mut sumv3 = aarch64::vdupq_n_f32(0.0);
+        for i in (0..a.len()).step_by(16) {
+            let av0 = aarch64::vld1q_f32(&a[i]);
+            let bv0 = aarch64::vld1q_f32(&b[i]);
+            let av1 = aarch64::vld1q_f32(&a[i + 4]);
+            let bv1 = aarch64::vld1q_f32(&b[i + 4]);
+            let av2 = aarch64::vld1q_f32(&a[i + 8]);
+            let bv2 = aarch64::vld1q_f32(&b[i + 8]);
+            let av3 = aarch64::vld1q_f32(&a[i + 12]);
+            let bv3 = aarch64::vld1q_f32(&b[i + 12]);
+            sumv0 = aarch64::vfmaq_f32(sumv0, av0, bv0);
+            sumv1 = aarch64::vfmaq_f32(sumv1, av1, bv1);
+            sumv2 = aarch64::vfmaq_f32(sumv2, av2, bv2);
+            sumv3 = aarch64::vfmaq_f32(sumv3, av3, bv3);
+        }
+
+        aarch64::vaddvq_f32(sumv0)
+            + aarch64::vaddvq_f32(sumv1)
+            + aarch64::vaddvq_f32(sumv2)
+            + aarch64::vaddvq_f32(sumv3)
+    }
+}
+
 struct TestWork {
     a: Vec<f32>,
     b: Vec<f32>,
@@ -205,6 +257,32 @@ mod tests {
                 let a = &tw.a[i * tw.k..(i + 1) * tw.k];
                 let b = &tw.b;
                 dot_vectorized_neon_unrolled(a, b);
+            }
+        })
+    }
+
+    #[bench]
+    fn bench_vectorized_neon_unrolled4(bench: &mut Bencher) {
+        let tw = TestWork::new(3200, 3200);
+
+        bench.iter(|| {
+            for i in 0..tw.k {
+                let a = &tw.a[i * tw.k..(i + 1) * tw.k];
+                let b = &tw.b;
+                dot_vectorized_neon_unrolled4(a, b);
+            }
+        })
+    }
+
+    #[bench]
+    fn bench_vectorized_neon_unrolled_unchecked(bench: &mut Bencher) {
+        let tw = TestWork::new(3200, 3200);
+
+        bench.iter(|| {
+            for i in 0..tw.k {
+                let a = &tw.a[i * tw.k..(i + 1) * tw.k];
+                let b = &tw.b;
+                dot_vectorized_neon_unrolled_unchecked(a, b);
             }
         })
     }
