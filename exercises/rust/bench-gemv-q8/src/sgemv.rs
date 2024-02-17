@@ -44,6 +44,13 @@ pub fn sgemv_dot_rayon(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) 
         .for_each(|(mi, c)| *c = dot_product(&a[mi * k..(mi + 1) * k], b, b.len()));
 }
 
+pub fn sgemv_dot_rayon_unchecked(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    c.par_iter_mut().enumerate().for_each(|(mi, c)| {
+        let ac = unsafe { a.get_unchecked(mi * k..) };
+        *c = dot_product(&ac, b, b.len())
+    });
+}
+
 pub fn sgemv_dot_rayon_chunked(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
     c.par_chunks_exact_mut(4).enumerate().for_each(|(mi, cc)| {
         cc[0] = dot_product(&a[(mi * 4 + 0) * k..], b, b.len());
@@ -51,6 +58,17 @@ pub fn sgemv_dot_rayon_chunked(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut
         cc[2] = dot_product(&a[(mi * 4 + 2) * k..], b, b.len());
         cc[3] = dot_product(&a[(mi * 4 + 3) * k..], b, b.len());
     });
+}
+
+pub fn sgemv_dot_rayon_chunked_unchecked(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    c.par_chunks_exact_mut(4)
+        .enumerate()
+        .for_each(|(mi, cc)| unsafe {
+            cc[0] = dot_product(&a.get_unchecked((mi * 4 + 0) * k..), b, b.len());
+            cc[1] = dot_product(&a.get_unchecked((mi * 4 + 1) * k..), b, b.len());
+            cc[2] = dot_product(&a.get_unchecked((mi * 4 + 2) * k..), b, b.len());
+            cc[3] = dot_product(&a.get_unchecked((mi * 4 + 3) * k..), b, b.len());
+        });
 }
 
 #[cfg(test)]
@@ -101,6 +119,14 @@ mod tests {
 
     #[bench]
     fn bench_sgemv_dot_rayon(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_rayon(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_dot_rayon_unchecked(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
