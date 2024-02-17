@@ -1,6 +1,6 @@
 use rayon::prelude::*;
 
-pub fn dot_product(a: &[f32], b: &[f32]) -> f32 {
+pub fn dot_product(a: &[f32], b: &[f32], n: usize) -> f32 {
     use std::arch::aarch64;
 
     let a_ptr = a.as_ptr();
@@ -9,7 +9,7 @@ pub fn dot_product(a: &[f32], b: &[f32]) -> f32 {
     unsafe {
         let mut sumv0 = aarch64::vdupq_n_f32(0.0);
         let mut sumv1 = aarch64::vdupq_n_f32(0.0);
-        for i in (0..a.len()).step_by(8) {
+        for i in (0..n).step_by(8) {
             let av0 = aarch64::vld1q_f32(a_ptr.add(i));
             let bv0 = aarch64::vld1q_f32(b_ptr.add(i));
             let av1 = aarch64::vld1q_f32(a_ptr.add(i + 4));
@@ -34,14 +34,23 @@ pub fn sgemv_naive(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
 
 pub fn sgemv_dot(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
     for mi in 0..m {
-        c[mi] = dot_product(&a[mi * k..(mi + 1) * k], b);
+        c[mi] = dot_product(&a[mi * k..(mi + 1) * k], b, b.len());
     }
 }
 
 pub fn sgemv_dot_rayon(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
     c.par_iter_mut()
         .enumerate()
-        .for_each(|(mi, c)| *c = dot_product(&a[mi * k..(mi + 1) * k], b));
+        .for_each(|(mi, c)| *c = dot_product(&a[mi * k..(mi + 1) * k], b, b.len()));
+}
+
+pub fn sgemv_dot_rayon_chunked(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    c.par_chunks_exact_mut(4).enumerate().for_each(|(mi, cc)| {
+        cc[0] = dot_product(&a[(mi * 4 + 0) * k..], b, b.len());
+        cc[1] = dot_product(&a[(mi * 4 + 1) * k..], b, b.len());
+        cc[2] = dot_product(&a[(mi * 4 + 2) * k..], b, b.len());
+        cc[3] = dot_product(&a[(mi * 4 + 3) * k..], b, b.len());
+    });
 }
 
 #[cfg(test)]
@@ -96,5 +105,13 @@ mod tests {
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
         bench.iter(|| sgemv_dot_rayon(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_dot_rayon_chunked(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_rayon_chunked(M, K, &a, &b, &mut c));
     }
 }
