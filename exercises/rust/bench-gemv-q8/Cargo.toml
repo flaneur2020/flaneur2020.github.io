@@ -10,3 +10,7 @@ half = { version = "2.3.1" }
 rand = "0.8"
 approx = "0.5.1"
 rayon = "1.8.0"
+ndarray = { version = "0.15", features = ["blas"]}
+blas = {version = "0.20"}
+blas-src = {version="0.8.0", features=["accelerate"]}
+

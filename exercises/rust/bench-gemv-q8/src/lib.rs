@@ -4,4 +4,5 @@
 #![feature(stdsimd)]
 
 mod qgemv;
+mod sgemv;
 mod util;
