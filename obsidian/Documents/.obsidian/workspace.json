@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
-                "mode": "preview",
+                "file": "2024-02/FastGEMV.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+                "file": "2024-02/FastGEMV.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+                "file": "2024-02/FastGEMV.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md"
+                "file": "2024-02/FastGEMV.md"
               }
             }
           }
@@ -140,6 +140,9 @@
   },
   "active": "26b8440cd4c98ca5",
   "lastOpenFiles": [
+    "2024-02/assets/Pasted image 20240217110014.png",
+    "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
+    "2024-02/FastGEMV.md",
     "2023/2023 - Index.md",
     "Home.md",
     "2024-02/Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine.md",
@@ -172,8 +175,6 @@
     "2024-01/LLM Decoding Attention-KV Cache Int8 Quantization.md",
     "2024-01/Nvidia CUDA Core-LLM Decoding Attention Inference Optimization.md",
     "2024-01/Towards Efficient Generative Large Language Model Serving - A Survey from Algorithms to Systems.md",
-    "2024-01/Towards 100x Speedup - Full Stack Transformer Inference Optimization.md",
-    "2024-01/10 Things Software Developers Should Learn about Learning.md",
     "2024-01/assets/Pasted image 20240114120846.png",
     "2024-01/assets/Pasted image 20240111115835.png",
     "2024-01/assets/Pasted image 20240111115529.png",
