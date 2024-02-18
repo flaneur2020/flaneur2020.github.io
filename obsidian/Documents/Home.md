@@ -26,6 +26,7 @@ prev: [[2023 - Index]]
 - Readings
 	- [[The end of 0% interest rates - what the new normal means for software engineers]]
 	- [[Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine]]
+	- [[gemm - a rabbit hole]]
 - Books
 	- 小而美
 	- [[金钱心理学]]

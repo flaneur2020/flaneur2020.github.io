@@ -1,5 +1,7 @@
 use rayon::prelude::*;
 
+use crate::util::init_rayon;
+
 pub fn dot_product(a: &[f32], b: &[f32], n: usize) -> f32 {
     use std::arch::aarch64;
 
@@ -42,6 +44,23 @@ pub fn sgemv_dot_rayon(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) 
     c.par_iter_mut()
         .enumerate()
         .for_each(|(mi, c)| *c = dot_product(&a[mi * k..(mi + 1) * k], b, b.len()));
+}
+
+pub fn sgemv_dot_threadpool(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    let threads = 4;
+    let chunk_size = m / threads;
+
+    rayon::scope(|s| {
+        for (i, cp) in c.chunks_exact_mut(chunk_size).enumerate() {
+            s.spawn(move |_| {
+                for j in 0..chunk_size {
+                    let mi = i * chunk_size + j;
+                    let ac = unsafe { a.get_unchecked(mi * k..(mi + 1) * k) };
+                    cp[j] = dot_product(&ac, b, b.len());
+                }
+            })
+        }
+    });
 }
 
 pub fn sgemv_dot_rayon_unchecked(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
@@ -123,6 +142,14 @@ mod tests {
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
         bench.iter(|| sgemv_dot_rayon(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_dot_threadpool(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_threadpool(M, K, &a, &b, &mut c));
     }
 
     #[bench]
