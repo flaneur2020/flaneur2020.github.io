@@ -25,8 +25,13 @@ prev: [[2023 - Index]]
 - Night
 - Readings
 	- [[The end of 0% interest rates - what the new normal means for software engineers]]
-	- [[Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine]]
-	- [[gemm - a rabbit hole]]
+	- Datasys
+		- [[Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine]]
+	- GEMM
+		- [[gemm - a rabbit hole]]
+		- [[Optimization of GEMV on Intel AVX Processor]]
+		- [[Anatomy of High-Performance Many-Threaded Matrix Multiplication]]
+		- [[Anatomy of High-Performance Matrix Multiplication]]
 - Books
 	- 小而美
 	- [[金钱心理学]]
