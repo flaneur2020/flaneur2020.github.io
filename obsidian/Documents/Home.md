@@ -23,6 +23,8 @@ prev: [[2023 - Index]]
 	- [[怎样使孩子自觉又主动]]
 ## Feb
 - Night
+- Writings
+	- [[q8 dot product 优化记录]]
 - Readings
 	- [[The end of 0% interest rates - what the new normal means for software engineers]]
 	- Datasys
@@ -35,3 +37,12 @@ prev: [[2023 - Index]]
 - Books
 	- 小而美
 	- [[金钱心理学]]
+## Mar
+- Night
+	- [[使用 rust 开发平民推理框架]]
+	- k-quants
+- Readings
+	- [[GGUF, the long way around]]
+- Books
+	- [[Just Keep Buying]]
+	- [[这就是 ChatGPT]]

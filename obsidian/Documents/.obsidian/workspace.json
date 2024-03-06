@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-02/Anatomy of High-Performance Matrix Multiplication.md",
+                "file": "2024-03/Just Keep Buying.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "notion",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-02/Anatomy of High-Performance Matrix Multiplication.md",
+                "file": "2024-03/Just Keep Buying.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-02/Anatomy of High-Performance Matrix Multiplication.md",
+                "file": "2024-03/Just Keep Buying.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-02/Anatomy of High-Performance Matrix Multiplication.md"
+                "file": "2024-03/Just Keep Buying.md"
               }
             }
           }
@@ -141,50 +141,51 @@
   "active": "c8a43900f1cd10ca",
   "lastOpenFiles": [
     "Home.md",
+    "2024-03/使用 rust 开发平民推理框架.md",
+    "2024-03/Just Keep Buying.md",
+    "2024-03/GGUF, the long way around.md",
     "2023/2023 - Index.md",
+    "2023/2023-12/LLM in a flash.md",
+    "2023/2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
+    "2023/2023-11/Efficient LLM Inference on CPUs.md",
+    "2023/2023-11/WebGPU Compute Shader Basics.md",
+    "2023/2023-11/A Journey Into Shaders.md",
+    "2024-01/Understanding and Overcoming the Challenges of Efficient Transformer Quantization.md",
+    "2024-01/Towards 100x Speedup - Full Stack Transformer Inference Optimization.md",
+    "2024-01/AWQ - Activation-aware Weight Quantization for LLM Compression and Acceleration.md",
+    "2024-01/Towards Efficient Generative Large Language Model Serving - A Survey from Algorithms to Systems.md",
+    "2024-03/assets/7IShIg3VYP.png",
+    "2024-03/assets/Pasted image 20240303135351.png",
+    "2024-03/assets/Screenshot 2024-03-03 at 13.28.51.png",
+    "Screenshot 2024-03-03 at 13.28.18.png",
+    "2024-03/assets/Pasted image 20240303130222.png",
+    "2024-03/assets/Pasted image 20240303130016.png",
+    "2024-03/assets/Pasted image 20240303125947.png",
+    "2024-03/assets/Pasted image 20240303121426.png",
+    "2024-03/assets/Screenshot 2024-03-03 at 12.23.24.png",
+    "2024-03/assets/Pasted image 20240303113639.png",
+    "2024-03/assets",
+    "2024-03/这就是 ChatGPT.md",
+    "Untitled.md",
+    "2024-03",
+    "2024-02/q8 dot product 优化记录.md",
     "2024-02/Anatomy of High-Performance Matrix Multiplication.md",
     "2024-02/Anatomy of High-Performance Many-Threaded Matrix Multiplication.md",
     "2024-02/Optimization of GEMV on Intel AVX Processor.md",
     "2024-02/gemm - a rabbit hole.md",
     "0000 Index.md",
     "Indexes",
-    "2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png",
-    "2024-02/assets/Screenshot 2024-02-24 at 10.57.59.png",
-    "2024-02/assets/Screenshot 2024-02-20 at 23.02.55.png",
-    "2024-02/assets/Screenshot 2024-02-20 at 22.25.15.png",
-    "2024-02/assets/Screenshot 2024-02-20 at 22.24.59.png",
     "2023/2023-10/ggml_load_llama.md",
     "2023/2023-10/ggml 看代码.md",
     "2024-02/FastGEMV.md",
-    "2024-02/assets/Pasted image 20240217110014.png",
     "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
-    "2024-02/Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine.md",
-    "2024-02/assets/Screenshot 2024-02-14 at 11.09.18.png",
-    "2024-02/The end of 0% interest rates - what the new normal means for software engineers.md",
-    "2024-02/assets/Pasted image 20240207161910.png",
-    "2024-02/assets/Pasted image 20240207161836.png",
-    "2024-02/assets/Pasted image 20240207160941.png",
     "2024-02/assets",
-    "2024-02/ARM NEON优化（一）——NEON简介及基本架构.md",
-    "2024-01/怎样使孩子自觉又主动.md",
-    "2024-02/金钱心理学.md",
-    "2024-01/CUDA Optimization - Part 2.md",
     "2024-02",
-    "2024-01/CUDA Optimization - Part 1.md",
-    "2024-01/LoRA From Scratch – Implement Low-Rank Adaptation for LLMs in PyTorch.md",
-    "2024-01/AWQ - Activation-aware Weight Quantization for LLM Compression and Acceleration.md",
-    "2024-01/Efficient LLM inference solution on Intel GPU.md",
-    "2024-01/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
-    "2024-01/Understanding and Overcoming the Challenges of Efficient Transformer Quantization.md",
-    "2023/2023-08/Books/学生为什么不喜欢学习.md",
-    "2024-01/MotherDuck - DuckDB in the cloud and in the client.md",
     "2024-01/assets",
     "2024-01",
     "2023",
     "2023/2023-12/assets",
     "2023/2023-12",
-    "2019/2019-02",
-    "2019",
     "Untitled.canvas"
   ]
 }
