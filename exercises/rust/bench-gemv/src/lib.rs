@@ -5,4 +5,5 @@
 
 mod qgemv;
 mod sgemv;
+mod sgemv_strided;
 mod util;

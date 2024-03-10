@@ -24,6 +24,38 @@ pub fn dot_product(a: &[f32], b: &[f32], n: usize) -> f32 {
     }
 }
 
+pub fn dot_product_strided(a: &[f32], b: &[f32], a_stride: usize, n: usize) -> f32 {
+    use std::arch::aarch64;
+
+    let a_ptr = a.as_ptr();
+    let b_ptr = b.as_ptr();
+
+    unsafe {
+        let mut sumv0 = aarch64::vdupq_n_f32(0.0);
+        let mut sumv1 = aarch64::vdupq_n_f32(0.0);
+        for i in (0..n).step_by(8) {
+            let tmp = vec![
+                *a_ptr.add(i * a_stride),
+                *a_ptr.add((i + 1) * a_stride),
+                *a_ptr.add((i + 2) * a_stride),
+                *a_ptr.add((i + 3) * a_stride),
+                *a_ptr.add((i + 4) * a_stride),
+                *a_ptr.add((i + 5) * a_stride),
+                *a_ptr.add((i + 6) * a_stride),
+                *a_ptr.add((i + 7) * a_stride),
+            ];
+            let av0 = aarch64::vld1q_f32(tmp.as_ptr());
+            let bv0 = aarch64::vld1q_f32(b_ptr.add(i));
+            let av1 = aarch64::vld1q_f32(tmp.as_ptr().add(4));
+            let bv1 = aarch64::vld1q_f32(b_ptr.add(i + 4));
+            sumv0 = aarch64::vfmaq_f32(sumv0, av0, bv0);
+            sumv1 = aarch64::vfmaq_f32(sumv1, av1, bv1);
+        }
+
+        aarch64::vaddvq_f32(sumv0) + aarch64::vaddvq_f32(sumv1)
+    }
+}
+
 pub fn sgemv_naive(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
     for mi in 0..m {
         let mut sum = 0.0;
@@ -88,6 +120,20 @@ pub fn sgemv_dot_rayon_chunked_unchecked(m: usize, k: usize, a: &[f32], b: &[f32
             cc[2] = dot_product(&a.get_unchecked((mi * 4 + 2) * k..), b, b.len());
             cc[3] = dot_product(&a.get_unchecked((mi * 4 + 3) * k..), b, b.len());
         });
+}
+
+pub fn sgemv_dot_rayon_strided(
+    m: usize,
+    k: usize,
+    a_stride: usize,
+    a: &[f32],
+    b: &[f32],
+    c: &mut [f32],
+) {
+    c.par_iter_mut().enumerate().for_each(|(mi, c)| {
+        let ac = unsafe { a.get_unchecked(mi * k..) };
+        *c = dot_product_strided(&ac, b, 1, b.len())
+    });
 }
 
 #[cfg(test)]
@@ -166,5 +212,13 @@ mod tests {
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
         bench.iter(|| sgemv_dot_rayon_chunked(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_dot_rayon_strided1(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_rayon_strided(M, K, 1, &a, &b, &mut c));
     }
 }
