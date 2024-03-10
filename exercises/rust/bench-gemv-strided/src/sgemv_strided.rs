@@ -56,6 +56,21 @@ fn dot_product(a: &[f32], b: &[f32], n: usize) -> f32 {
     }
 }
 
+fn copy_strided(
+    a: &[f32],
+    a_shape0: usize,
+    a_shape1: usize,
+    a_stride0: usize,
+    a_stride1: usize,
+    b: &mut [f32],
+) {
+    for i in 0..a_shape0 {
+        for j in 0..a_shape1 {
+            b[i * a_shape1 + j] = a[i * a_stride0 + j * a_stride1];
+        }
+    }
+}
+
 fn sgemv_dot_rayon_strided(
     m: usize,
     k: usize,
@@ -68,6 +83,51 @@ fn sgemv_dot_rayon_strided(
         let ac = unsafe { a.get_unchecked(mi * k..) };
         *c = dot_product_strided(&ac, b, a_stride, b.len())
     });
+}
+
+fn sgemv_dot_rayon_strided_chunked(
+    m: usize,
+    k: usize,
+    a_stride: usize,
+    a: &[f32],
+    b: &[f32],
+    c: &mut [f32],
+) {
+    c.par_chunks_exact_mut(4)
+        .enumerate()
+        .for_each(|(mi, cp)| unsafe {
+            cp[0] = dot_product_strided(a.get_unchecked(mi * k..), b, a_stride, b.len());
+            cp[1] = dot_product_strided(a.get_unchecked((mi + 1) * k..), b, a_stride, b.len());
+            cp[2] = dot_product_strided(a.get_unchecked((mi + 2) * k..), b, a_stride, b.len());
+            cp[3] = dot_product_strided(a.get_unchecked((mi + 3) * k..), b, a_stride, b.len());
+        });
+}
+
+fn sgemv_dot_rayon_strided_copied(
+    m: usize,
+    k: usize,
+    a_stride0: usize,
+    a_stride1: usize,
+    a: &[f32],
+    b: &[f32],
+    c: &mut [f32],
+) {
+    c.par_chunks_exact_mut(8)
+        .enumerate()
+        .for_each(|(mi, cp)| unsafe {
+            let mut buf = vec![0.0; 8 * k];
+            copy_strided(
+                a.get_unchecked(mi * k..),
+                8,
+                k,
+                a_stride0,
+                a_stride1,
+                &mut buf,
+            );
+            for j in 0..8 {
+                cp[j] = dot_product(&buf[j * k..], b, b.len());
+            }
+        });
 }
 
 fn sgemv_dot_rayon_non_strided(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
@@ -109,5 +169,21 @@ mod tests {
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
         bench.iter(|| sgemv_dot_rayon_strided(M, K, 1, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_dot_rayon_strided_chunked(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_rayon_strided_chunked(M, K, 1, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_dot_rayon_strided_copied(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_rayon_strided_copied(M, K, K, 1, &a, &b, &mut c));
     }
 }
