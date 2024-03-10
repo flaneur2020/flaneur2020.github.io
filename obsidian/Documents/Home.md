@@ -43,6 +43,7 @@ prev: [[2023 - Index]]
 	- k-quants
 - Readings
 	- [[GGUF, the long way around]]
+	- [[Flash-Decoding for long-context inference]]
 - Books
 	- [[Just Keep Buying]]
 	- [[这就是 ChatGPT]]

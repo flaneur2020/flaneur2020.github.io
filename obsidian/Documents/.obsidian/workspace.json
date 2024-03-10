@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-03/Just Keep Buying.md",
+                "file": "2024-03/Flash-Decoding for long-context inference.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-03/Just Keep Buying.md",
+                "file": "2024-03/Flash-Decoding for long-context inference.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-03/Just Keep Buying.md",
+                "file": "2024-03/Flash-Decoding for long-context inference.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-03/Just Keep Buying.md"
+                "file": "2024-03/Flash-Decoding for long-context inference.md"
               }
             }
           }
@@ -140,11 +140,15 @@
   },
   "active": "c8a43900f1cd10ca",
   "lastOpenFiles": [
-    "Home.md",
+    "2024-03/assets/Pasted image 20240308231016.png",
+    "2024-03/assets/Pasted image 20240308230829.png",
+    "2024-03/assets/Pasted image 20240308230741.png",
     "2024-03/使用 rust 开发平民推理框架.md",
+    "2024-03/Flash-Decoding for long-context inference.md",
+    "Home.md",
+    "2023/2023 - Index.md",
     "2024-03/Just Keep Buying.md",
     "2024-03/GGUF, the long way around.md",
-    "2023/2023 - Index.md",
     "2023/2023-12/LLM in a flash.md",
     "2023/2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
     "2023/2023-11/Efficient LLM Inference on CPUs.md",
@@ -162,8 +166,6 @@
     "2024-03/assets/Pasted image 20240303130016.png",
     "2024-03/assets/Pasted image 20240303125947.png",
     "2024-03/assets/Pasted image 20240303121426.png",
-    "2024-03/assets/Screenshot 2024-03-03 at 12.23.24.png",
-    "2024-03/assets/Pasted image 20240303113639.png",
     "2024-03/assets",
     "2024-03/这就是 ChatGPT.md",
     "Untitled.md",
@@ -177,8 +179,6 @@
     "Indexes",
     "2023/2023-10/ggml_load_llama.md",
     "2023/2023-10/ggml 看代码.md",
-    "2024-02/FastGEMV.md",
-    "2023/2023-12/How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance - a Worklog.md",
     "2024-02/assets",
     "2024-02",
     "2024-01/assets",
