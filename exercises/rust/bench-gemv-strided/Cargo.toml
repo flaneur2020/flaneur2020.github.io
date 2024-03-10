@@ -1,0 +1,16 @@
+[package]
+name = "bench-gemv-q8"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+half = { version = "2.3.1" }
+rand = "0.8"
+approx = "0.5.1"
+rayon = "1.8.0"
+ndarray = { version = "0.15", features = ["blas"]}
+blas = {version = "0.20"}
+blas-src = {version="0.8.0", features=["accelerate"]}
+threadpool = "1.8.1"
