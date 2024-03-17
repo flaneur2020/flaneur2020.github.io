@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "c8a43900f1cd10ca",
+            "id": "7cdff75c5e280d08",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-03/Flash-Decoding for long-context inference.md",
+                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-03/Flash-Decoding for long-context inference.md",
+                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-03/Flash-Decoding for long-context inference.md",
+                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-03/Flash-Decoding for long-context inference.md"
+                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md"
               }
             }
           }
@@ -138,17 +138,26 @@
       "templates:Insert template": false
     }
   },
-  "active": "c8a43900f1cd10ca",
+  "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
+    "2024-03/assets/Pasted image 20240315114924.png",
+    "2024-03/assets/Pasted image 20240315114832.png",
+    "2024-03/assets/Pasted image 20240315114325.png",
+    "Home.md",
+    "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
+    "2024-03/Flash-Decoding for long-context inference.md",
+    "2024-03/财务自由之路.md",
+    "2024-03/assets/cache-aware-dot-prod-reorder-loops.png",
+    "Untitled.canvas",
+    "2024-03/assets/Pasted image 20240314091700.png",
+    "2024-03/这就是 ChatGPT.md",
+    "2024-03/Just Keep Buying.md",
+    "2024-03/使用 rust 开发平民推理框架.md",
+    "2024-03/GGUF, the long way around.md",
     "2024-03/assets/Pasted image 20240308231016.png",
     "2024-03/assets/Pasted image 20240308230829.png",
     "2024-03/assets/Pasted image 20240308230741.png",
-    "2024-03/使用 rust 开发平民推理框架.md",
-    "2024-03/Flash-Decoding for long-context inference.md",
-    "Home.md",
     "2023/2023 - Index.md",
-    "2024-03/Just Keep Buying.md",
-    "2024-03/GGUF, the long way around.md",
     "2023/2023-12/LLM in a flash.md",
     "2023/2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
     "2023/2023-11/Efficient LLM Inference on CPUs.md",
@@ -161,13 +170,7 @@
     "2024-03/assets/7IShIg3VYP.png",
     "2024-03/assets/Pasted image 20240303135351.png",
     "2024-03/assets/Screenshot 2024-03-03 at 13.28.51.png",
-    "Screenshot 2024-03-03 at 13.28.18.png",
-    "2024-03/assets/Pasted image 20240303130222.png",
-    "2024-03/assets/Pasted image 20240303130016.png",
-    "2024-03/assets/Pasted image 20240303125947.png",
-    "2024-03/assets/Pasted image 20240303121426.png",
     "2024-03/assets",
-    "2024-03/这就是 ChatGPT.md",
     "Untitled.md",
     "2024-03",
     "2024-02/q8 dot product 优化记录.md",
@@ -177,15 +180,12 @@
     "2024-02/gemm - a rabbit hole.md",
     "0000 Index.md",
     "Indexes",
-    "2023/2023-10/ggml_load_llama.md",
-    "2023/2023-10/ggml 看代码.md",
     "2024-02/assets",
     "2024-02",
     "2024-01/assets",
     "2024-01",
     "2023",
     "2023/2023-12/assets",
-    "2023/2023-12",
-    "Untitled.canvas"
+    "2023/2023-12"
   ]
 }
