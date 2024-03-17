@@ -136,6 +136,59 @@ fn sgemv_dot_rayon_non_strided(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut
         .for_each(|(mi, c)| *c = dot_product(&a[mi * k..(mi + 1) * k], b, b.len()));
 }
 
+fn sgemv_naive(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    for i in 0..k {
+        for j in 0..m {
+            c[i] += a[i * m + j] * b[i];
+        }
+    }
+}
+
+// a: k x m, b: k
+fn sgemv_naive2(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    for j in 0..m {
+        for i in 0..k {
+            c[i] += a[i * m + j] * b[i];
+        }
+    }
+}
+
+fn sgemv_unrolled(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    for ki in 0..k {
+        for mi in (0..m).step_by(4) {
+            c[mi] += a[ki * m + mi] * b[ki];
+            c[mi + 1] += a[ki * m + mi + 1] * b[ki];
+            c[mi + 2] += a[ki * m + mi + 2] * b[ki];
+            c[mi + 3] += a[ki * m + mi + 3] * b[ki];
+        }
+    }
+}
+
+fn sgemv_unrolled_simd(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    for ki in 0..k {
+        for mi in (0..m).step_by(4) {
+            let av = std::simd::f32x4::from_slice(&a[ki * m + mi..ki * m + mi + 4]);
+            let bv = std::simd::f32x4::splat(b[ki]);
+            let cv = std::simd::f32x4::from_slice(&c[mi..mi + 4]);
+            let cv = cv + av * bv;
+            cv.copy_to_slice(&mut c[mi..mi + 4]);
+        }
+    }
+}
+
+unsafe fn sgemv_unrolled_simd_neon(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    use std::arch::aarch64;
+    for ki in 0..k {
+        for mi in (0..m).step_by(4) {
+            let av = aarch64::vld1q_f32(a[ki * m + mi..].as_ptr());
+            let bv = aarch64::vdupq_n_f32(b[ki]);
+            let cv = aarch64::vld1q_f32(c[mi..].as_ptr());
+            let cv = aarch64::vfmaq_f32(cv, av, bv);
+            aarch64::vst1q_f32(c[mi..].as_mut_ptr(), cv);
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -147,7 +200,7 @@ mod tests {
     use test::Bencher;
 
     const M: usize = 3200;
-    const K: usize = 8640;
+    const K: usize = 100;
 
     // generate a random vector of BlockQ8_0
     fn generate_random_vector(len: usize) -> Vec<f32> {
@@ -172,18 +225,50 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot_rayon_strided_chunked(bench: &mut Bencher) {
-        let a = generate_random_vector(M * K);
-        let b = generate_random_vector(K);
-        let mut c = vec![0.0; M];
-        bench.iter(|| sgemv_dot_rayon_strided_chunked(M, K, 1, &a, &b, &mut c));
-    }
-
-    #[bench]
     fn bench_sgemv_dot_rayon_strided_copied(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
         bench.iter(|| sgemv_dot_rayon_strided_copied(M, K, K, 1, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_naive(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_naive(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_naive2(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_naive2(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_unrolled(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_unrolled(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_unrolled_simd(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_unrolled_simd(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_sgemv_unrolled_simd_neon(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| unsafe { sgemv_unrolled_simd_neon(M, K, &a, &b, &mut c) });
     }
 }
