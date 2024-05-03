@@ -10,7 +10,7 @@ https://dl.acm.org/doi/pdf/10.1145/3589776
 
 ---
 
-- Incremental 算法是 stream processing 的核心；
+- [ ] Incremental 算法是 stream processing 的核心；
 - 在本文中，作者提出了 CHANGES 和 Stream 对象，作为 snowflake 用来检索和消费 table objects 的 incremental changes 的原语。
 
 ## Introduction

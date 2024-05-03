@@ -1,8 +1,8 @@
 {
-  "baseFontSize": 14,
+  "baseFontSize": 15,
   "accentColor": "",
   "theme": "obsidian",
-  "cssTheme": "Dracula Gemini",
+  "cssTheme": "",
   "textFontFamily": "Kohinoor Devanagari",
   "monospaceFontFamily": "Fira Code",
   "baseFontSizeAction": false

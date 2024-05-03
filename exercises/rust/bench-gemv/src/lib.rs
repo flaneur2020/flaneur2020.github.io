@@ -1,7 +1,7 @@
 #![feature(test)]
 #![feature(portable_simd)]
 #![allow(soft_unstable)]
-#![feature(stdsimd)]
+#![feature(stdarch_neon_dotprod)]
 
 mod qgemv;
 mod sgemv;

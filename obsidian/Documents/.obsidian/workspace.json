@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "a095a6cf955ae6f8",
+        "id": "56ca55bb4b6f26c4",
         "type": "tabs",
         "children": [
           {
-            "id": "7cdff75c5e280d08",
+            "id": "c8a5487fb92e7639",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
+                "file": "Home.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "notion",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 261.5
+    "width": 350.5
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
+                "file": "Home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
+                "file": "Home.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md"
+                "file": "Home.md"
               }
             }
           }
@@ -138,54 +138,54 @@
       "templates:Insert template": false
     }
   },
-  "active": "c6f7ac1787e42da5",
+  "active": "c8a5487fb92e7639",
   "lastOpenFiles": [
-    "2024-03/assets/Pasted image 20240315114924.png",
-    "2024-03/assets/Pasted image 20240315114832.png",
-    "2024-03/assets/Pasted image 20240315114325.png",
+    "2024-05/Vulkan - Compute Shader.md",
     "Home.md",
-    "2024-03/Fast Multidimensional Matrix Multiplication on CPU from Scratch.md",
-    "2024-03/Flash-Decoding for long-context inference.md",
-    "2024-03/财务自由之路.md",
-    "2024-03/assets/cache-aware-dot-prod-reorder-loops.png",
-    "Untitled.canvas",
-    "2024-03/assets/Pasted image 20240314091700.png",
-    "2024-03/这就是 ChatGPT.md",
-    "2024-03/Just Keep Buying.md",
-    "2024-03/使用 rust 开发平民推理框架.md",
-    "2024-03/GGUF, the long way around.md",
-    "2024-03/assets/Pasted image 20240308231016.png",
-    "2024-03/assets/Pasted image 20240308230829.png",
-    "2024-03/assets/Pasted image 20240308230741.png",
-    "2023/2023 - Index.md",
-    "2023/2023-12/LLM in a flash.md",
-    "2023/2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
-    "2023/2023-11/Efficient LLM Inference on CPUs.md",
-    "2023/2023-11/WebGPU Compute Shader Basics.md",
-    "2023/2023-11/A Journey Into Shaders.md",
+    "2024-05/Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute.md",
+    "2024-05/assets",
+    "2024-05/assets/Pasted image 20240503101040.png",
+    "2024-05",
+    "2024-04/Parallel Grouped Aggregation in DuckDB.md",
+    "2024-04/Design choices for Vision Language Models in 2024.md",
+    "2024-04/Qwen2 GPT2 Tokenizer.md",
+    "2024-04/Towards 1-bit Machine Learning Models.md",
+    "2024-04/Neural Machine Translation with Byte-Level Subwords.md",
+    "2024-04/BPE Tokenizer.md",
+    "2024-04/Tokens for LLMs - Byte Pair Encoding in Go.md",
+    "2024-04/SIMD-friendly algorithms for substring searching.md",
+    "2024-04/FLIP-435 - Introduce a New Materialized Table for Simplifying Data Pipelines.md",
+    "2024-04/assets/Screenshot 2024-04-30 at 18.25.00.png",
+    "2024-04/assets/Pasted image 20240430171853.png",
+    "2024-04/assets/Pasted image 20240430171142.png",
+    "2024-04/assets/Pasted image 20240430163424.png",
+    "2024-04/Two Decades of Recommender Systems at Amazon.com.md",
+    "2024-04/assets/Pasted image 20240430163210.png",
+    "2024-04/assets/Pasted image 20240430162530.png",
+    "2024-04/assets/Pasted image 20240427091744.png",
+    "2024-04/assets/Pasted image 20240427010758.png",
+    "2024-01/LoRA From Scratch – Implement Low-Rank Adaptation for LLMs in PyTorch.md",
+    "2024-04/Comparing GPT Tokenizers.md",
+    "2024-04/Experiments with Bitnet 1.5 (~ngmi~).md",
+    "2024-04/assets/Pasted image 20240402135239.png",
+    "2024-04/\"Matmul\", a microcosm of AI performance.md",
+    "2024-04/Large Language Models on CPUs.md",
     "2024-01/Understanding and Overcoming the Challenges of Efficient Transformer Quantization.md",
-    "2024-01/Towards 100x Speedup - Full Stack Transformer Inference Optimization.md",
-    "2024-01/AWQ - Activation-aware Weight Quantization for LLM Compression and Acceleration.md",
-    "2024-01/Towards Efficient Generative Large Language Model Serving - A Survey from Algorithms to Systems.md",
-    "2024-03/assets/7IShIg3VYP.png",
-    "2024-03/assets/Pasted image 20240303135351.png",
-    "2024-03/assets/Screenshot 2024-03-03 at 13.28.51.png",
+    "2024-04/assets",
+    "2024-03/这就是 ChatGPT.md",
+    "2024-03/LLaMA Now Goes Faster on CPUs.md",
+    "2024-04",
+    "2024-03/Language Models - Completion and Chat-Completion.md",
+    "2024-03/ServiceRouter - Hyperscale and Minimal Cost Service Mesh at Meta.md",
+    "2024-03/Just Keep Buying.md",
+    "2024-03/Matrix Multiplication on CPU.md",
+    "2022/2022-06/SQS Notes.md",
+    "Untitled.canvas",
     "2024-03/assets",
-    "Untitled.md",
     "2024-03",
-    "2024-02/q8 dot product 优化记录.md",
-    "2024-02/Anatomy of High-Performance Matrix Multiplication.md",
-    "2024-02/Anatomy of High-Performance Many-Threaded Matrix Multiplication.md",
-    "2024-02/Optimization of GEMV on Intel AVX Processor.md",
-    "2024-02/gemm - a rabbit hole.md",
-    "0000 Index.md",
     "Indexes",
     "2024-02/assets",
     "2024-02",
-    "2024-01/assets",
-    "2024-01",
-    "2023",
-    "2023/2023-12/assets",
-    "2023/2023-12"
+    "2024-01/assets"
   ]
 }

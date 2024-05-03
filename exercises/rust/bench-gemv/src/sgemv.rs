@@ -122,6 +122,21 @@ pub fn sgemv_dot_rayon_chunked_unchecked(m: usize, k: usize, a: &[f32], b: &[f32
         });
 }
 
+pub fn sgemv_dot_tiled1d(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    let n_tile = k / 4;
+    for ki in (0..k).step_by(n_tile) {
+        for mi in 0..m {
+            unsafe {
+                c[mi] += dot_product(
+                    a.get_unchecked(mi * k + ki..),
+                    &b.get_unchecked(ki..),
+                    n_tile,
+                );
+            }
+        }
+    }
+}
+
 pub fn sgemv_dot_rayon_strided(
     m: usize,
     k: usize,
@@ -156,7 +171,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_naive(bench: &mut Bencher) {
+    fn bench_00_sgemv_naive(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
@@ -164,7 +179,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_ndarray(bench: &mut Bencher) {
+    fn bench_01_sgemv_ndarray(bench: &mut Bencher) {
         let a = Array2::from_shape_vec((M, K), generate_random_vector(M * K)).unwrap();
         let b = Array1::from_vec(generate_random_vector(K));
         let mut c = Array1::zeros(M);
@@ -175,7 +190,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot(bench: &mut Bencher) {
+    fn bench_02_sgemv_dot(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
@@ -183,7 +198,15 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot_rayon(bench: &mut Bencher) {
+    fn bench_02_sgemv_dot_tiled1d(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| sgemv_dot_tiled1d(M, K, &a, &b, &mut c));
+    }
+
+    #[bench]
+    fn bench_03_sgemv_dot_rayon(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
@@ -191,7 +214,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot_threadpool(bench: &mut Bencher) {
+    fn bench_04_sgemv_dot_threadpool(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
@@ -199,7 +222,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot_rayon_unchecked(bench: &mut Bencher) {
+    fn bench_05_sgemv_dot_rayon_unchecked(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
@@ -207,7 +230,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot_rayon_chunked(bench: &mut Bencher) {
+    fn bench_06_sgemv_dot_rayon_chunked(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
@@ -215,7 +238,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_sgemv_dot_rayon_strided1(bench: &mut Bencher) {
+    fn bench_07_sgemv_dot_rayon_strided1(bench: &mut Bencher) {
         let a = generate_random_vector(M * K);
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];

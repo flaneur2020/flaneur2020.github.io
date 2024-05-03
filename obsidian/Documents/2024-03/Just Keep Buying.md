@@ -39,3 +39,21 @@
 
 ## 3. How To Save More
 
+> This is why the biggest lie in personal finance is that you can be rich if you just cut your spending.
+
+> The most consistent way to get rich is to grow your income and invest in income-producing assets.
+### How to Increase Your Income
+
+> I will be the first to admit that increasing your income is going to be much harder than cutting your spending, at least initially. However, if you want a sustainable path to saving more and building wealth, it is the only option.
+
+## 4. How to Spend Money Guilt-Free
+
+> Unfortunately, neither of these approaches is ideal. While James spent his money guilt-free, he did so frivolously. And while Dennis managed his money well, anytime he did spend it he was filled with anxiety.
+
+the 2x Rule: 作者每消费一个大件，就同时投资等价的股票。
+
+> The second tip I use to spend my money worry-free is to focus on maximizing my long-term fulfillment. Note that I said fulfillment and not happiness. The difference is important.
+>
+> For example, running a marathon is probably a fulfilling experience, though it may not necessarily be a happy one. The exertion and effort required to complete a marathon does not typically create a sense of moment-to- moment happiness, but it can create a deep sense of accomplishment and fulfillment once the event is over.
+
+让消费去追求最大化生活体验。

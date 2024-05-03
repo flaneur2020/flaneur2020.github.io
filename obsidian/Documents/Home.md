@@ -45,7 +45,34 @@ prev: [[2023 - Index]]
 	- [[GGUF, the long way around]]
 	- [[Flash-Decoding for long-context inference]]
 	- [[Fast Multidimensional Matrix Multiplication on CPU from Scratch]]
+	- [[Matrix Multiplication on CPU]]
+	- [[ServiceRouter - Hyperscale and Minimal Cost Service Mesh at Meta]]
+	- [[Language Models - Completion and Chat-Completion]]
+	- [[LLaMA Now Goes Faster on CPUs]]
 - Books
 	- [[Just Keep Buying]]
 	- [[这就是 ChatGPT]]
 	- [[财务自由之路]]
+## April
+- Readings
+	- [[Large Language Models on CPUs]]
+	- [["Matmul", a microcosm of AI performance]]
+	- [[Experiments with Bitnet 1.5 (~ngmi~)]]
+	- [[Towards 1-bit Machine Learning Models]]
+	- [[Qwen2 GPT2 Tokenizer]]
+	- [[Tokens for LLMs - Byte Pair Encoding in Go]]
+	- [[Design choices for Vision Language Models in 2024]]
+	- [[Parallel Grouped Aggregation in DuckDB]]
+	- [[SIMD-friendly algorithms for substring searching]]
+- Books
+	- 躺不平的千禧一代
+- Writings
+	- [[BPE Tokenizer]]
+## May
+- Readings
+	- [[Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute]]
+	- [[Vulkan - Compute Shader]]
+- Books
+	- 周期、估值与人性
+	- 我们从未中产过
+	- 

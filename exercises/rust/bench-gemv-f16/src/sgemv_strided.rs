@@ -189,6 +189,23 @@ unsafe fn sgemv_unrolled_simd_neon(m: usize, k: usize, a: &[f32], b: &[f32], c: 
     }
 }
 
+unsafe fn sgemv_unrolled_simd_neon2(m: usize, k: usize, a: &[f32], b: &[f32], c: &mut [f32]) {
+    use std::arch::aarch64;
+    for ki in 0..k {
+        for mi in (0..m).step_by(8) {
+            let av0 = aarch64::vld1q_f32(a[ki * m + mi..].as_ptr());
+            let av1 = aarch64::vld1q_f32(a[ki * m + mi + 4..].as_ptr());
+            let bv = aarch64::vdupq_n_f32(b[ki]);
+            let cv0 = aarch64::vld1q_f32(c[mi..].as_ptr());
+            let cv1 = aarch64::vld1q_f32(c[mi + 4..].as_ptr());
+            let cv0 = aarch64::vfmaq_f32(cv0, av0, bv);
+            let cv1 = aarch64::vfmaq_f32(cv1, av1, bv);
+            aarch64::vst1q_f32(c[mi..].as_mut_ptr(), cv0);
+            aarch64::vst1q_f32(c[mi + 4..].as_mut_ptr(), cv1);
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -270,5 +287,13 @@ mod tests {
         let b = generate_random_vector(K);
         let mut c = vec![0.0; M];
         bench.iter(|| unsafe { sgemv_unrolled_simd_neon(M, K, &a, &b, &mut c) });
+    }
+
+    #[bench]
+    fn bench_sgemv_unrolled_simd_neon2(bench: &mut Bencher) {
+        let a = generate_random_vector(M * K);
+        let b = generate_random_vector(K);
+        let mut c = vec![0.0; M];
+        bench.iter(|| unsafe { sgemv_unrolled_simd_neon2(M, K, &a, &b, &mut c) });
     }
 }
