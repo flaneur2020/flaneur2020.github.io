@@ -13,11 +13,12 @@
 // been more or more used for general-purpose operations as well. This is called "General-Purpose
 // GPU", or *GPGPU*. This is what this example demonstrates.
 
-use std::{collections::HashMap, sync::Arc};
+use std::{collections::HashMap, fmt::write, sync::Arc};
 use vulkano::{
     buffer::{Buffer, BufferCreateInfo, BufferUsage},
     command_buffer::{
         allocator::StandardCommandBufferAllocator, AutoCommandBufferBuilder, CommandBufferUsage,
+        PrimaryAutoCommandBuffer,
     },
     descriptor_set::{
         allocator::{DescriptorSetAllocator, StandardDescriptorSetAllocator},
@@ -45,7 +46,10 @@ struct VkCompute {
     queue: Arc<Queue>,
     memory_allocator: Arc<StandardMemoryAllocator>,
     descriptor_set_allocator: Arc<StandardDescriptorSetAllocator>,
-    command_buffer_allocator: Arc<StandardCommandBufferAllocator>,
+    command_buffer_builder: AutoCommandBufferBuilder<
+        PrimaryAutoCommandBuffer<Arc<StandardCommandBufferAllocator>>,
+        Arc<StandardCommandBufferAllocator>,
+    >,
     pipelines: HashMap<String, Arc<ComputePipeline>>,
 }
 
@@ -63,15 +67,61 @@ impl VkCompute {
             Default::default(),
         ));
         let pipelines = Self::init_pipelines(device.clone());
+        let command_buffer_builder = AutoCommandBufferBuilder::primary(
+            &command_buffer_allocator,
+            queue.queue_family_index(),
+            CommandBufferUsage::MultipleSubmit,
+        )
+        .unwrap();
 
         Self {
             device,
             queue,
             memory_allocator,
             descriptor_set_allocator,
-            command_buffer_allocator,
+            command_buffer_builder,
             pipelines,
         }
+    }
+
+    fn dispatch(
+        &mut self,
+        pipeline_name: &str,
+        write_descriptor_set: Vec<WriteDescriptorSet>,
+        dispatch_group: [u32; 3],
+    ) {
+        let pipeline = self.pipelines.get(pipeline_name).unwrap();
+
+        let layout = pipeline.layout().set_layouts().get(0).unwrap();
+        let set = PersistentDescriptorSet::new(
+            &self.descriptor_set_allocator,
+            layout.clone(),
+            write_descriptor_set.into_iter(),
+            [],
+        )
+        .unwrap();
+
+        // In order to execute our operation, we have to build a command buffer.
+
+        self.command_buffer_builder
+            // The command buffer only does one thing: execute the compute pipeline. This is called a
+            // *dispatch* operation.
+            //
+            // Note that we clone the pipeline and the set. Since they are both wrapped in an `Arc`,
+            // this only clones the `Arc` and not the whole pipeline or set (which aren't cloneable
+            // anyway). In this example we would avoid cloning them since this is the last time we use
+            // them, but in real code you would probably need to clone them.
+            .bind_pipeline_compute(pipeline.clone())
+            .unwrap()
+            .bind_descriptor_sets(
+                PipelineBindPoint::Compute,
+                pipeline.layout().clone(),
+                0,
+                set,
+            )
+            .unwrap()
+            .dispatch(dispatch_group)
+            .unwrap();
     }
 
     fn init_device() -> (Arc<Device>, Arc<Queue>) {
@@ -188,7 +238,7 @@ impl VkCompute {
 }
 
 fn main() {
-    let compute = VkCompute::new();
+    let mut compute = VkCompute::new();
 
     // We need to create the compute pipeline that describes our operation.
     //
@@ -197,7 +247,7 @@ fn main() {
 
     // We start by creating the buffer that will store the data.
     let data_buffer = Buffer::from_iter(
-        compute.memory_allocator,
+        compute.memory_allocator.clone(),
         BufferCreateInfo {
             usage: BufferUsage::STORAGE_BUFFER,
             ..Default::default()
@@ -212,47 +262,14 @@ fn main() {
     )
     .unwrap();
 
-    let pipeline = compute.pipelines.get("add12").unwrap();
-    let layout = pipeline.layout().set_layouts().get(0).unwrap();
-    let set = PersistentDescriptorSet::new(
-        &compute.descriptor_set_allocator,
-        layout.clone(),
-        [WriteDescriptorSet::buffer(0, data_buffer.clone())],
-        [],
-    )
-    .unwrap();
-
-    // In order to execute our operation, we have to build a command buffer.
-    let mut builder = AutoCommandBufferBuilder::primary(
-        &compute.command_buffer_allocator,
-        compute.queue.queue_family_index(),
-        CommandBufferUsage::OneTimeSubmit,
-    )
-    .unwrap();
-    builder
-        // The command buffer only does one thing: execute the compute pipeline. This is called a
-        // *dispatch* operation.
-        //
-        // Note that we clone the pipeline and the set. Since they are both wrapped in an `Arc`,
-        // this only clones the `Arc` and not the whole pipeline or set (which aren't cloneable
-        // anyway). In this example we would avoid cloning them since this is the last time we use
-        // them, but in real code you would probably need to clone them.
-        .bind_pipeline_compute(pipeline.clone())
-        .unwrap()
-        .bind_descriptor_sets(
-            PipelineBindPoint::Compute,
-            pipeline.layout().clone(),
-            0,
-            set,
-        )
-        .unwrap()
-        .dispatch([1024, 1, 1])
-        .unwrap();
+    compute.dispatch(
+        "add12",
+        vec![WriteDescriptorSet::buffer(0, data_buffer.clone())],
+        [1024, 1, 1],
+    );
 
     // Finish building the command buffer by calling `build`.
-    let command_buffer = builder.build().unwrap();
-
-    // Let's execute this command buffer now.
+    let command_buffer = compute.command_buffer_builder.build().unwrap();
     let future = sync::now(compute.device)
         .then_execute(compute.queue, command_buffer)
         .unwrap()
