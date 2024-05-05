@@ -13,7 +13,7 @@
 // been more or more used for general-purpose operations as well. This is called "General-Purpose
 // GPU", or *GPGPU*. This is what this example demonstrates.
 
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 use vulkano::{
     buffer::{Buffer, BufferCreateInfo, BufferUsage},
     command_buffer::{
@@ -46,6 +46,7 @@ struct VkCompute {
     memory_allocator: Arc<StandardMemoryAllocator>,
     descriptor_set_allocator: Arc<StandardDescriptorSetAllocator>,
     command_buffer_allocator: Arc<StandardCommandBufferAllocator>,
+    pipelines: HashMap<String, Arc<ComputePipeline>>,
 }
 
 impl VkCompute {
@@ -61,6 +62,7 @@ impl VkCompute {
             device.clone(),
             Default::default(),
         ));
+        let pipelines = Self::init_pipelines(device.clone());
 
         Self {
             device,
@@ -68,6 +70,7 @@ impl VkCompute {
             memory_allocator,
             descriptor_set_allocator,
             command_buffer_allocator,
+            pipelines,
         }
     }
 
@@ -136,6 +139,52 @@ impl VkCompute {
         let queue = queues.next().unwrap();
         (device, queue)
     }
+
+    fn init_pipelines(device: Arc<Device>) -> HashMap<String, Arc<ComputePipeline>> {
+        let pipeline = {
+            mod cs {
+                vulkano_shaders::shader! {
+                    ty: "compute",
+                    src: r"
+                        #version 450
+    
+                        layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
+    
+                        layout(set = 0, binding = 0) buffer Data {
+                            uint data[];
+                        };
+    
+                        void main() {
+                            uint idx = gl_GlobalInvocationID.x;
+                            data[idx] *= 12;
+                        }
+                    ",
+                }
+            }
+            let cs = cs::load(device.clone())
+                .unwrap()
+                .entry_point("main")
+                .unwrap();
+            let stage = PipelineShaderStageCreateInfo::new(cs);
+            let layout = PipelineLayout::new(
+                device.clone(),
+                PipelineDescriptorSetLayoutCreateInfo::from_stages([&stage])
+                    .into_pipeline_layout_create_info(device.clone())
+                    .unwrap(),
+            )
+            .unwrap();
+            ComputePipeline::new(
+                device.clone(),
+                None,
+                ComputePipelineCreateInfo::stage_layout(stage, layout),
+            )
+            .unwrap()
+        };
+
+        let mut pipelines = HashMap::new();
+        pipelines.insert("add12".to_string(), pipeline);
+        pipelines
+    }
 }
 
 fn main() {
@@ -145,45 +194,6 @@ fn main() {
     //
     // If you are familiar with graphics pipeline, the principle is the same except that compute
     // pipelines are much simpler to create.
-    let pipeline = {
-        mod cs {
-            vulkano_shaders::shader! {
-                ty: "compute",
-                src: r"
-                    #version 450
-
-                    layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
-
-                    layout(set = 0, binding = 0) buffer Data {
-                        uint data[];
-                    };
-
-                    void main() {
-                        uint idx = gl_GlobalInvocationID.x;
-                        data[idx] *= 12;
-                    }
-                ",
-            }
-        }
-        let cs = cs::load(compute.device.clone())
-            .unwrap()
-            .entry_point("main")
-            .unwrap();
-        let stage = PipelineShaderStageCreateInfo::new(cs);
-        let layout = PipelineLayout::new(
-            compute.device.clone(),
-            PipelineDescriptorSetLayoutCreateInfo::from_stages([&stage])
-                .into_pipeline_layout_create_info(compute.device.clone())
-                .unwrap(),
-        )
-        .unwrap();
-        ComputePipeline::new(
-            compute.device.clone(),
-            None,
-            ComputePipelineCreateInfo::stage_layout(stage, layout),
-        )
-        .unwrap()
-    };
 
     // We start by creating the buffer that will store the data.
     let data_buffer = Buffer::from_iter(
@@ -202,14 +212,7 @@ fn main() {
     )
     .unwrap();
 
-    // In order to let the shader access the buffer, we need to build a *descriptor set* that
-    // contains the buffer.
-    //
-    // The resources that we bind to the descriptor set must match the resources expected by the
-    // pipeline which we pass as the first parameter.
-    //
-    // If you want to run the pipeline on multiple different buffers, you need to create multiple
-    // descriptor sets that each contain the buffer you want to run the shader on.
+    let pipeline = compute.pipelines.get("add12").unwrap();
     let layout = pipeline.layout().set_layouts().get(0).unwrap();
     let set = PersistentDescriptorSet::new(
         &compute.descriptor_set_allocator,
