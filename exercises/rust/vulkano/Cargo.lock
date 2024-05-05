@@ -508,14 +508,6 @@ dependencies = [
 
 [[package]]
 name = "vulkano"
-version = "0.1.0"
-dependencies = [
- "vulkano 0.34.1",
- "vulkano-shaders",
-]
-
-[[package]]
-name = "vulkano"
 version = "0.34.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "70f4278f76307b3c388679234b397b4f90de29cdba53873c26b624ed82653d75"
@@ -557,6 +549,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "vulkano-sample"
+version = "0.1.0"
+dependencies = [
+ "vulkano",
+ "vulkano-shaders",
+]
+
+[[package]]
 name = "vulkano-shaders"
 version = "0.34.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -568,7 +568,7 @@ dependencies = [
  "quote",
  "shaderc",
  "syn 2.0.60",
- "vulkano 0.34.1",
+ "vulkano",
 ]
 
 [[package]]
