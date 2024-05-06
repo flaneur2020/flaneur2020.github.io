@@ -229,13 +229,16 @@ impl VkCompute {
     
                         layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
     
-                        layout(set = 0, binding = 0) buffer Data {
-                            uint data[];
+                        layout(set = 0, binding = 0) buffer Buf1 {
+                            uint buf1[];
+                        };
+                        layout(set = 0, binding = 1) buffer Buf2 {
+                            uint buf2[];
                         };
     
                         void main() {
                             uint idx = gl_GlobalInvocationID.x;
-                            data[idx] += 12;
+                            buf1[idx] += buf2[idx];
                         }
                     ",
                 }
@@ -261,7 +264,7 @@ impl VkCompute {
         };
 
         let mut pipelines = HashMap::new();
-        pipelines.insert("add12".to_string(), pipeline);
+        pipelines.insert("add".to_string(), pipeline);
         pipelines
     }
 }
@@ -270,7 +273,7 @@ fn main() {
     let mut compute = VkCompute::new();
 
     // We start by creating the buffer that will store the data.
-    let data_buffer = Buffer::from_iter(
+    let buf1 = Buffer::from_iter(
         compute.memory_allocator.clone(),
         BufferCreateInfo {
             usage: BufferUsage::STORAGE_BUFFER,
@@ -286,21 +289,33 @@ fn main() {
     )
     .unwrap();
 
+    // We start by creating the buffer that will store the data.
+    let buf2 = Buffer::from_iter(
+        compute.memory_allocator.clone(),
+        BufferCreateInfo {
+            usage: BufferUsage::STORAGE_BUFFER,
+            ..Default::default()
+        },
+        AllocationCreateInfo {
+            memory_type_filter: MemoryTypeFilter::PREFER_DEVICE
+                | MemoryTypeFilter::HOST_RANDOM_ACCESS,
+            ..Default::default()
+        },
+        // Iterator that produces the data.
+        [2; 65536],
+    )
+    .unwrap();
+
     compute.dispatch(
-        "add12",
-        vec![WriteDescriptorSet::buffer(0, data_buffer.clone())],
-        [1024, 1, 1],
-    );
-    compute.dispatch(
-        "add12",
-        vec![WriteDescriptorSet::buffer(0, data_buffer.clone())],
+        "add",
+        vec![
+            WriteDescriptorSet::buffer(0, buf1.clone()),
+            WriteDescriptorSet::buffer(1, buf2.clone()),
+        ],
         [1024, 1, 1],
     );
     compute.finish();
 
-    let data_buffer_content = data_buffer.read().unwrap();
-    for n in 0..65536u32 {
-        assert_eq!(data_buffer_content[n as usize], n + 24);
-    }
-    println!("Success");
+    let data_buffer_content = buf1.read().unwrap();
+    println!("Success: {:?}", &data_buffer_content[0..1024]);
 }

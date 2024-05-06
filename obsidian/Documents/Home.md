@@ -69,6 +69,9 @@ prev: [[2023 - Index]]
 - Writings
 	- [[BPE Tokenizer]]
 ## May
+- Night
+	- vulkan backend for crabml
+	- RISC-V optimization
 - Readings
 	- [[Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute]]
 - Books
