@@ -46,9 +46,11 @@ struct VkCompute {
     queue: Arc<Queue>,
     memory_allocator: Arc<StandardMemoryAllocator>,
     descriptor_set_allocator: Arc<StandardDescriptorSetAllocator>,
-    command_buffer_builder: AutoCommandBufferBuilder<
-        PrimaryAutoCommandBuffer<Arc<StandardCommandBufferAllocator>>,
-        Arc<StandardCommandBufferAllocator>,
+    command_buffer_builder: Option<
+        AutoCommandBufferBuilder<
+            PrimaryAutoCommandBuffer<Arc<StandardCommandBufferAllocator>>,
+            Arc<StandardCommandBufferAllocator>,
+        >,
     >,
     pipelines: HashMap<String, Arc<ComputePipeline>>,
 }
@@ -79,7 +81,7 @@ impl VkCompute {
             queue,
             memory_allocator,
             descriptor_set_allocator,
-            command_buffer_builder,
+            command_buffer_builder: Some(command_buffer_builder),
             pipelines,
         }
     }
@@ -111,6 +113,8 @@ impl VkCompute {
             // this only clones the `Arc` and not the whole pipeline or set (which aren't cloneable
             // anyway). In this example we would avoid cloning them since this is the last time we use
             // them, but in real code you would probably need to clone them.
+            .as_mut()
+            .unwrap()
             .bind_pipeline_compute(pipeline.clone())
             .unwrap()
             .bind_descriptor_sets(
@@ -122,6 +126,34 @@ impl VkCompute {
             .unwrap()
             .dispatch(dispatch_group)
             .unwrap();
+    }
+
+    fn finish(&mut self) {
+        // Finish building the command buffer by calling `build`.
+        let command_buffer_builder = self.command_buffer_builder.take().unwrap();
+        let command_buffer = command_buffer_builder.build().unwrap();
+        let future = sync::now(self.device.clone())
+            .then_execute(self.queue.clone(), command_buffer)
+            .unwrap()
+            // This line instructs the GPU to signal a *fence* once the command buffer has finished
+            // execution. A fence is a Vulkan object that allows the CPU to know when the GPU has
+            // reached a certain point. We need to signal a fence here because below we want to block
+            // the CPU until the GPU has reached that point in the execution.
+            .then_signal_fence_and_flush()
+            .unwrap();
+
+        // Blocks execution until the GPU has finished the operation. This method only exists on the
+        // future that corresponds to a signalled fence. In other words, this method wouldn't be
+        // available if we didn't call `.then_signal_fence_and_flush()` earlier. The `None` parameter
+        // is an optional timeout.
+        //
+        // Note however that dropping the `future` variable (with `drop(future)` for example) would
+        // block execution as well, and this would be the case even if we didn't call
+        // `.then_signal_fence_and_flush()`. Therefore the actual point of calling
+        // `.then_signal_fence_and_flush()` and `.wait()` is to make things more explicit. In the
+        // future, if the Rust language gets linear types vulkano may get modified so that only
+        // fence-signalled futures can get destroyed like this.
+        future.wait(None).unwrap();
     }
 
     fn init_device() -> (Arc<Device>, Arc<Queue>) {
@@ -206,7 +238,7 @@ impl VkCompute {
     
                         void main() {
                             uint idx = gl_GlobalInvocationID.x;
-                            data[idx] *= 12;
+                            data[idx] += 12;
                         }
                     ",
                 }
@@ -240,11 +272,6 @@ impl VkCompute {
 fn main() {
     let mut compute = VkCompute::new();
 
-    // We need to create the compute pipeline that describes our operation.
-    //
-    // If you are familiar with graphics pipeline, the principle is the same except that compute
-    // pipelines are much simpler to create.
-
     // We start by creating the buffer that will store the data.
     let data_buffer = Buffer::from_iter(
         compute.memory_allocator.clone(),
@@ -267,39 +294,16 @@ fn main() {
         vec![WriteDescriptorSet::buffer(0, data_buffer.clone())],
         [1024, 1, 1],
     );
+    compute.dispatch(
+        "add12",
+        vec![WriteDescriptorSet::buffer(0, data_buffer.clone())],
+        [1024, 1, 1],
+    );
+    compute.finish();
 
-    // Finish building the command buffer by calling `build`.
-    let command_buffer = compute.command_buffer_builder.build().unwrap();
-    let future = sync::now(compute.device)
-        .then_execute(compute.queue, command_buffer)
-        .unwrap()
-        // This line instructs the GPU to signal a *fence* once the command buffer has finished
-        // execution. A fence is a Vulkan object that allows the CPU to know when the GPU has
-        // reached a certain point. We need to signal a fence here because below we want to block
-        // the CPU until the GPU has reached that point in the execution.
-        .then_signal_fence_and_flush()
-        .unwrap();
-
-    // Blocks execution until the GPU has finished the operation. This method only exists on the
-    // future that corresponds to a signalled fence. In other words, this method wouldn't be
-    // available if we didn't call `.then_signal_fence_and_flush()` earlier. The `None` parameter
-    // is an optional timeout.
-    //
-    // Note however that dropping the `future` variable (with `drop(future)` for example) would
-    // block execution as well, and this would be the case even if we didn't call
-    // `.then_signal_fence_and_flush()`. Therefore the actual point of calling
-    // `.then_signal_fence_and_flush()` and `.wait()` is to make things more explicit. In the
-    // future, if the Rust language gets linear types vulkano may get modified so that only
-    // fence-signalled futures can get destroyed like this.
-    future.wait(None).unwrap();
-
-    // Now that the GPU is done, the content of the buffer should have been modified. Let's check
-    // it out. The call to `read()` would return an error if the buffer was still in use by the
-    // GPU.
     let data_buffer_content = data_buffer.read().unwrap();
     for n in 0..65536u32 {
-        assert_eq!(data_buffer_content[n as usize], n * 12);
+        assert_eq!(data_buffer_content[n as usize], n + 24);
     }
-
     println!("Success");
 }
