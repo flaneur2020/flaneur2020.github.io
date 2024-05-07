@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Home.md",
+                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Home.md",
+                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Home.md"
+                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md"
               }
             }
           }
@@ -140,8 +140,9 @@
   },
   "active": "c8a5487fb92e7639",
   "lastOpenFiles": [
-    "2024-05/Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute.md",
     "Home.md",
+    "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
+    "2024-05/Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute.md",
     "2024-05/读史求实.md",
     "2024-05/Vulkan - Compute Shader.md",
     "2024-05/assets",
@@ -179,7 +180,6 @@
     "2024-03/Language Models - Completion and Chat-Completion.md",
     "2024-03/ServiceRouter - Hyperscale and Minimal Cost Service Mesh at Meta.md",
     "2024-03/Just Keep Buying.md",
-    "2024-03/Matrix Multiplication on CPU.md",
     "Untitled.canvas",
     "2024-03/assets",
     "2024-03",

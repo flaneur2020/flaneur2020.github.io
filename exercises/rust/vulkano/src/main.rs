@@ -15,10 +15,10 @@
 
 use std::{collections::HashMap, sync::Arc};
 use vulkano::{
-    buffer::{Buffer, BufferCreateInfo, BufferUsage},
+    buffer::{Buffer, BufferCreateInfo, BufferUsage, Subbuffer},
     command_buffer::{
-        allocator::StandardCommandBufferAllocator, AutoCommandBufferBuilder, CommandBufferUsage,
-        PrimaryAutoCommandBuffer,
+        allocator::{CommandBufferAllocator, StandardCommandBufferAllocator},
+        AutoCommandBufferBuilder, CommandBufferUsage, CopyBufferInfo, PrimaryAutoCommandBuffer,
     },
     descriptor_set::{
         allocator::StandardDescriptorSetAllocator, PersistentDescriptorSet, WriteDescriptorSet,
@@ -43,6 +43,7 @@ struct VkCompute {
     queue: Arc<Queue>,
     memory_allocator: Arc<StandardMemoryAllocator>,
     descriptor_set_allocator: Arc<StandardDescriptorSetAllocator>,
+    command_buffer_allocator: Arc<StandardCommandBufferAllocator>,
     command_buffer_builder: Option<
         AutoCommandBufferBuilder<
             PrimaryAutoCommandBuffer<Arc<StandardCommandBufferAllocator>>,
@@ -50,6 +51,7 @@ struct VkCompute {
         >,
     >,
     pipelines: HashMap<String, Arc<ComputePipeline>>,
+    output_buffer: Subbuffer<[u8; 1024 * 1024]>,
 }
 
 impl VkCompute {
@@ -73,14 +75,87 @@ impl VkCompute {
         )
         .unwrap();
 
+        // We start by creating the buffer that will store the data.
+        let output_buffer = Buffer::new_sized(
+            memory_allocator.clone(),
+            BufferCreateInfo {
+                usage: BufferUsage::STORAGE_BUFFER,
+                ..Default::default()
+            },
+            AllocationCreateInfo {
+                memory_type_filter: MemoryTypeFilter::PREFER_DEVICE
+                    | MemoryTypeFilter::HOST_RANDOM_ACCESS,
+                ..Default::default()
+            },
+        )
+        .unwrap();
+
         Self {
             device,
             queue,
             memory_allocator,
+            command_buffer_allocator,
             descriptor_set_allocator,
             command_buffer_builder: Some(command_buffer_builder),
             pipelines,
+            output_buffer,
         }
+    }
+
+    fn load_device_buffer(&self, data: &[u8]) -> Subbuffer<[u8]> {
+        // this buffer is expected to be recycled after this function
+        let staging_buffer = Buffer::from_iter(
+            self.memory_allocator.clone(),
+            BufferCreateInfo {
+                usage: BufferUsage::STORAGE_BUFFER | BufferUsage::TRANSFER_SRC,
+                ..Default::default()
+            },
+            AllocationCreateInfo {
+                memory_type_filter: MemoryTypeFilter::HOST_RANDOM_ACCESS,
+                ..Default::default()
+            },
+            data.iter().copied(),
+        )
+        .unwrap();
+
+        // this buffer is to be used in the compute pipeline
+        let device_buffer = Buffer::new_slice(
+            self.memory_allocator.clone(),
+            BufferCreateInfo {
+                usage: BufferUsage::STORAGE_BUFFER | BufferUsage::TRANSFER_DST,
+                ..Default::default()
+            },
+            AllocationCreateInfo {
+                memory_type_filter: MemoryTypeFilter::PREFER_DEVICE,
+                ..Default::default()
+            },
+            data.len() as u64,
+        )
+        .unwrap();
+
+        // copy the data from the staging buffer to the device buffer and wait.
+        let mut builder = AutoCommandBufferBuilder::primary(
+            &self.command_buffer_allocator,
+            self.queue.queue_family_index(),
+            CommandBufferUsage::OneTimeSubmit,
+        )
+        .unwrap();
+        builder
+            .copy_buffer(CopyBufferInfo::buffers(
+                staging_buffer.clone(),
+                device_buffer.clone(),
+            ))
+            .unwrap();
+
+        let command_buffer = builder.build().expect("Failed to build command buffer");
+        let finished = sync::now(self.device.clone())
+            .then_execute(self.queue.clone(), command_buffer)
+            .expect("Failed to execute command buffer")
+            .then_signal_fence_and_flush()
+            .expect("Failed to signal fence and flush");
+        finished.wait(None).expect("Failed to wait for fence");
+
+        device_buffer
     }
 
     fn dispatch(
@@ -289,22 +364,7 @@ fn main() {
     )
     .unwrap();
 
-    // We start by creating the buffer that will store the data.
-    let buf2 = Buffer::from_iter(
-        compute.memory_allocator.clone(),
-        BufferCreateInfo {
-            usage: BufferUsage::STORAGE_BUFFER,
-            ..Default::default()
-        },
-        AllocationCreateInfo {
-            memory_type_filter: MemoryTypeFilter::PREFER_DEVICE
-                | MemoryTypeFilter::HOST_RANDOM_ACCESS,
-            ..Default::default()
-        },
-        // Iterator that produces the data.
-        [2; 65536],
-    )
-    .unwrap();
+    let buf2 = compute.load_device_buffer(bytemuck::cast_slice(&[4u32; 65536]));
 
     compute.dispatch(
         "add",

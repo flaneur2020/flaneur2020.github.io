@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 vulkano = "0.34.1"
 vulkano-shaders = "0.34.0"
+bytemuck = "1.7"
