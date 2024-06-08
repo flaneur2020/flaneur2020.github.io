@@ -1,5 +1,7 @@
 https://asawicki.info/news_1740_vulkan_memory_types_on_pc_and_how_to_use_them
 
+#vulkan
+
 VkMemoryHeap 对应一些物理内存，包括显存或者 RAM。
 
 VkMemoryType 属于一个 heap，对应一些 VkMemoryPropertyFlags，其中包括：

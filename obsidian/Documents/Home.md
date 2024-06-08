@@ -72,11 +72,25 @@ prev: [[2023 - Index]]
 - Night
 	- vulkan backend for crabml
 	- RISC-V optimization
+	- SME
 - Readings
 	- [[Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute]]
 	- [[Vulkan Memory Types on PC and How to Use Them]]
+	- [[LLM Inference - Continuous Batching and PagedAttention]]
+	- [[PyramidInfer - Pyramid KV Cache Compression for High-throughput LLM Inference]]
+	- [[GPUs Go Brrr]]
 - Books
 	- 周期、估值与人性
 	- 我们从未中产过
 	- [[读史求实]]
 	- 中间地带的革命
+## Jun
+- night
+	- VAE
+	- vulkan backend for crabml
+- Books
+	- iPhone 摄影
+	- 中间地带的革命
+- Readings
+	- [[Intuitively Understanding Variational Autoencoders]]
+	- [[Tutorial - What is a variational autoencoder?]]

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
+                "file": "2024-06/Tutorial - What is a variational autoencoder?.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "path:\"2024-05/assets/\" ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
+                "file": "2024-06/Tutorial - What is a variational autoencoder?.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
+                "file": "2024-06/Tutorial - What is a variational autoencoder?.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-05/Vulkan Memory Types on PC and How to Use Them.md"
+                "file": "2024-06/Tutorial - What is a variational autoencoder?.md"
               }
             }
           }
@@ -140,13 +140,34 @@
   },
   "active": "c8a5487fb92e7639",
   "lastOpenFiles": [
+    "2024-06/Intuitively Understanding Variational Autoencoders.md",
+    "2024-06/Tutorial - What is a variational autoencoder?.md",
     "Home.md",
+    "2024-06/assets/Pasted image 20240608134135.png",
+    "2024-06/assets/Pasted image 20240608133945.png",
+    "2024-06/assets/Pasted image 20240608131522.png",
+    "2024-06/assets/Pasted image 20240608125943.png",
+    "2024-06/assets/Pasted image 20240608125256.png",
+    "2024-06/assets/Pasted image 20240608124502.png",
+    "2024-06/assets/Pasted image 20240608123559.png",
+    "2024-06/assets",
+    "2024-06",
+    "2024-05/Tutorial on Variational Autoencoders.md",
+    "2024-05/Diffusion Models.md",
+    "2024-05/GPUs Go Brrr.md",
+    "2024-05/读史求实.md",
+    "2024-05/PyramidInfer - Pyramid KV Cache Compression for High-throughput LLM Inference.md",
+    "2024-05/assets/Screenshot 2024-05-25 at 13.56.19.png",
+    "2024-05/assets/Screenshot 2024-05-25 at 10.03.58.png",
+    "databend-kubesphere.key",
+    "2024-05/How continuous batching enables 23x throughput in LLM inference while reducing p50 latency.md",
+    "2024-05/LLM Inference - Continuous Batching and PagedAttention.md",
+    "2024-05/assets/Pasted image 20240513213226.png",
+    "2024-05/Vulkan Tutorial - Staging Buffer.md",
     "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
     "2024-05/Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute.md",
-    "2024-05/读史求实.md",
     "2024-05/Vulkan - Compute Shader.md",
     "2024-05/assets",
-    "2024-05/assets/Pasted image 20240503101040.png",
     "2024-05",
     "2024-04/Parallel Grouped Aggregation in DuckDB.md",
     "2024-04/Design choices for Vision Language Models in 2024.md",
@@ -157,35 +178,14 @@
     "2024-04/Tokens for LLMs - Byte Pair Encoding in Go.md",
     "2024-04/SIMD-friendly algorithms for substring searching.md",
     "2024-04/FLIP-435 - Introduce a New Materialized Table for Simplifying Data Pipelines.md",
-    "2024-04/assets/Screenshot 2024-04-30 at 18.25.00.png",
-    "2024-04/assets/Pasted image 20240430171853.png",
-    "2024-04/assets/Pasted image 20240430171142.png",
-    "2024-04/assets/Pasted image 20240430163424.png",
     "2024-04/Two Decades of Recommender Systems at Amazon.com.md",
-    "2024-04/assets/Pasted image 20240430163210.png",
-    "2024-04/assets/Pasted image 20240430162530.png",
-    "2024-04/assets/Pasted image 20240427091744.png",
-    "2024-04/assets/Pasted image 20240427010758.png",
     "2024-01/LoRA From Scratch – Implement Low-Rank Adaptation for LLMs in PyTorch.md",
     "2024-04/Comparing GPT Tokenizers.md",
-    "2024-04/Experiments with Bitnet 1.5 (~ngmi~).md",
-    "2024-04/assets/Pasted image 20240402135239.png",
-    "2024-04/\"Matmul\", a microcosm of AI performance.md",
-    "2024-04/Large Language Models on CPUs.md",
-    "2024-01/Understanding and Overcoming the Challenges of Efficient Transformer Quantization.md",
     "2024-04/assets",
-    "2024-03/这就是 ChatGPT.md",
-    "2024-03/LLaMA Now Goes Faster on CPUs.md",
     "2024-04",
-    "2024-03/Language Models - Completion and Chat-Completion.md",
-    "2024-03/ServiceRouter - Hyperscale and Minimal Cost Service Mesh at Meta.md",
-    "2024-03/Just Keep Buying.md",
     "Untitled.canvas",
     "2024-03/assets",
     "2024-03",
-    "Indexes",
-    "2024-02/assets",
-    "2024-02",
-    "2024-01/assets"
+    "Indexes"
   ]
 }
