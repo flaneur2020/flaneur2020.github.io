@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-06/Tutorial - What is a variational autoencoder?.md",
+                "file": "2024-06/Notes on Variational Autoencoder.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-06/Tutorial - What is a variational autoencoder?.md",
+                "file": "2024-06/Notes on Variational Autoencoder.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-06/Tutorial - What is a variational autoencoder?.md",
+                "file": "2024-06/Notes on Variational Autoencoder.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-06/Tutorial - What is a variational autoencoder?.md"
+                "file": "2024-06/Notes on Variational Autoencoder.md"
               }
             }
           }
@@ -140,16 +140,21 @@
   },
   "active": "c8a5487fb92e7639",
   "lastOpenFiles": [
+    "2024-06/assets/Pasted image 20240609153533.png",
+    "2024-06/Notes on Variational Autoencoder.md",
+    "2024-06/assets/Pasted image 20240609142852.png",
+    "2024-06/assets/Pasted image 20240609135728.png",
+    "2024-06/assets/Pasted image 20240609135251.png",
+    "2024-06/assets/Pasted image 20240609134252.png",
+    "2024-06/assets/Pasted image 20240609132653.png",
+    "2024-06/assets/Pasted image 20240609132434.png",
+    "2024-06/assets/Pasted image 20240609132046.png",
+    "2024-06/assets/Pasted image 20240609123431.png",
+    "2024-06/The evidence lower bound (ELBO).md",
     "2024-06/Intuitively Understanding Variational Autoencoders.md",
-    "2024-06/Tutorial - What is a variational autoencoder?.md",
     "Home.md",
+    "2024-06/Tutorial - What is a variational autoencoder?.md",
     "2024-06/assets/Pasted image 20240608134135.png",
-    "2024-06/assets/Pasted image 20240608133945.png",
-    "2024-06/assets/Pasted image 20240608131522.png",
-    "2024-06/assets/Pasted image 20240608125943.png",
-    "2024-06/assets/Pasted image 20240608125256.png",
-    "2024-06/assets/Pasted image 20240608124502.png",
-    "2024-06/assets/Pasted image 20240608123559.png",
     "2024-06/assets",
     "2024-06",
     "2024-05/Tutorial on Variational Autoencoders.md",
@@ -157,12 +162,9 @@
     "2024-05/GPUs Go Brrr.md",
     "2024-05/读史求实.md",
     "2024-05/PyramidInfer - Pyramid KV Cache Compression for High-throughput LLM Inference.md",
-    "2024-05/assets/Screenshot 2024-05-25 at 13.56.19.png",
-    "2024-05/assets/Screenshot 2024-05-25 at 10.03.58.png",
     "databend-kubesphere.key",
     "2024-05/How continuous batching enables 23x throughput in LLM inference while reducing p50 latency.md",
     "2024-05/LLM Inference - Continuous Batching and PagedAttention.md",
-    "2024-05/assets/Pasted image 20240513213226.png",
     "2024-05/Vulkan Tutorial - Staging Buffer.md",
     "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
     "2024-05/Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute.md",
@@ -178,9 +180,6 @@
     "2024-04/Tokens for LLMs - Byte Pair Encoding in Go.md",
     "2024-04/SIMD-friendly algorithms for substring searching.md",
     "2024-04/FLIP-435 - Introduce a New Materialized Table for Simplifying Data Pipelines.md",
-    "2024-04/Two Decades of Recommender Systems at Amazon.com.md",
-    "2024-01/LoRA From Scratch – Implement Low-Rank Adaptation for LLMs in PyTorch.md",
-    "2024-04/Comparing GPT Tokenizers.md",
     "2024-04/assets",
     "2024-04",
     "Untitled.canvas",

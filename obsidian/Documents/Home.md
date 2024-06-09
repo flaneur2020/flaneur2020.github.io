@@ -86,7 +86,7 @@ prev: [[2023 - Index]]
 	- 中间地带的革命
 ## Jun
 - night
-	- VAE
+	- [[Notes on Variational Autoencoder]]
 	- vulkan backend for crabml
 - Books
 	- iPhone 摄影
@@ -94,3 +94,4 @@ prev: [[2023 - Index]]
 - Readings
 	- [[Intuitively Understanding Variational Autoencoders]]
 	- [[Tutorial - What is a variational autoencoder?]]
+	- [[The evidence lower bound (ELBO)]]
