@@ -55,11 +55,11 @@ VAE 就是解决了这个问题的 Autoencoder。它的 Latent space 是完全�
 
 首先要解决的问题是，在 Autoencoder 中每个特征都是呈点状的，搞不好稍微差一点点位置，Decoder 画出来的图就南辕北辙。
 
-Autoencoder 使用两个向量 $\mu$ 和 $\sigma$ 来替代呈点状的 Encoding 向量，并增加了一个 Sample 阶段。$\mu$ 和 $\sigma$ 对应一个正态分布中的平均值和标准差，Sample 就是在这个正态分布中进行采样。
+VAE 使用两个向量 $\mu$ 和 $\sigma$ 来替代呈点状的 Encoding 向量，并增加了一个 Sample 阶段。$\mu$ 和 $\sigma$ 对应一个正态分布中的平均值和标准差，Sample 就是在这个正态分布中进行采样。
 
 ![](/images/2024-06-09-vae-sampling.png)
 
-这一来，在训练中 Decoder 能够不那么对点状的 Encoding 向量非此莫属、太过敏感，而是在一个球心是 $\mu$ 的椭圆球空间范围内，都可以还原出图。
+这一来，在训练中 Decoder 能够不那么对点状的 Encoding 向量非此莫属、太过敏感，而是在一个球心是 $\mu$ 半径是 $\sigma$ 的椭圆球空间范围内，都可以还原出图。
 
 ![](/images/2024-06-09-vae-norma.png)
 
