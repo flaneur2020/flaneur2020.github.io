@@ -69,7 +69,7 @@ VAE 使用两个向量 $\mu$ 和 $\sigma$ 来替代呈点状的 Encoding 向量�
 
 ## KL 散度
 
-VAE 让 Latent space 变得连续的思路是，让整个 Latent space 尽量接近一个均值为 0、标准差为 1 的正态分布 $Normal(0, 1)$。
+VAE 让 Latent space 整体变得连续的思路是，让整个 Latent space 尽量接近一个均值为 0、标准差为 1 的正态分布 $Normal(0, 1)$。
 
 KL 散度（Kullback–Leibler divergence）可以用于衡量两个概率分布之间的差异。比较两个正态分布的 KL 散度的公式是：
 
