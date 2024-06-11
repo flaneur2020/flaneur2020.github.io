@@ -87,6 +87,7 @@ prev: [[2023 - Index]]
 ## Jun
 - night
 	- [[Notes on Variational Autoencoder]]
+	- [[Ask GPT4 - VAE, ELBO]]
 	- vulkan backend for crabml
 - Books
 	- iPhone 摄影
