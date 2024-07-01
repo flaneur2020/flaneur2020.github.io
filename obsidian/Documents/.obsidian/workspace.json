@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-06/Ask GPT4 - VAE, ELBO.md",
+                "file": "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-06/Ask GPT4 - VAE, ELBO.md",
+                "file": "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-06/Ask GPT4 - VAE, ELBO.md",
+                "file": "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-06/Ask GPT4 - VAE, ELBO.md"
+                "file": "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md"
               }
             }
           }
@@ -140,22 +140,33 @@
   },
   "active": "c8a5487fb92e7639",
   "lastOpenFiles": [
+    "2024-06/VAE Maths.md",
+    "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
+    "Home.md",
+    "2024-06/Ask GPT4 - VAE, ELBO.md",
+    "2024-06/Introduction to variational autoencoders.md",
+    "2024-06/assets/Screenshot 2024-06-25 at 12.32.43.png",
+    "2024-06/assets/Screenshot 2024-06-25 at 12.31.53.png",
+    "2024-06/assets/Screenshot 2024-06-25 at 12.19.54.png",
+    "2024-06/Variational Autoencoder Explained.md",
+    "2024-06/Think Bayes.md",
+    "2024-06/How Meta trains large language models at scale.md",
+    "2024-06/Optimizing AI Inference at Character.AI.md",
+    "2024-06/assets/Pasted image 20240623121050.png",
+    "2024-06/assets/Pasted image 20240623114117.png",
+    "2023/2023-07/Flash Attention 推公式.md",
+    "2023/2023 - Index.md",
+    "2024-06/What We Learned from a Year of Building with LLMs.md",
+    "2024-06/趣学贝叶斯.md",
+    "2024-06/Kafka Message Batch Consumer Retry.md",
     "2024-06/assets/Screenshot 2024-06-10 at 23.08.40.png",
     "2024-06/assets/Screenshot 2024-06-10 at 23.04.47.png",
     "2024-06/assets/Screenshot 2024-06-10 at 22.57.34.png",
     "2024-06/assets/Screenshot 2024-06-10 at 22.28.11.png",
-    "Home.md",
-    "2024-06/Ask GPT4 - VAE, ELBO.md",
     "2024-06/Notes on Variational Autoencoder.md",
     "2024-06/The evidence lower bound (ELBO).md",
     "2024-06/Intuitively Understanding Variational Autoencoders.md",
     "2024-06/assets/Pasted image 20240609155050.png",
-    "2024-06/assets/Pasted image 20240609153533.png",
-    "2024-06/assets/Pasted image 20240609142852.png",
-    "2024-06/assets/Pasted image 20240609135728.png",
-    "2024-06/assets/Pasted image 20240609135251.png",
-    "2024-06/assets/Pasted image 20240609134252.png",
-    "2024-06/assets/Pasted image 20240609132653.png",
     "2024-06/Tutorial - What is a variational autoencoder?.md",
     "2024-06/assets",
     "2024-06",
@@ -168,19 +179,8 @@
     "2024-05/How continuous batching enables 23x throughput in LLM inference while reducing p50 latency.md",
     "2024-05/LLM Inference - Continuous Batching and PagedAttention.md",
     "2024-05/Vulkan Tutorial - Staging Buffer.md",
-    "2024-05/Vulkan Memory Types on PC and How to Use Them.md",
-    "2024-05/Beyond CUDA - GPU Accelerated C++ for Machine Learning on Cross-Vendor Graphics Cards Made Simple with Kompute.md",
-    "2024-05/Vulkan - Compute Shader.md",
     "2024-05/assets",
     "2024-05",
-    "2024-04/Parallel Grouped Aggregation in DuckDB.md",
-    "2024-04/Design choices for Vision Language Models in 2024.md",
-    "2024-04/Qwen2 GPT2 Tokenizer.md",
-    "2024-04/Towards 1-bit Machine Learning Models.md",
-    "2024-04/Neural Machine Translation with Byte-Level Subwords.md",
-    "2024-04/BPE Tokenizer.md",
-    "2024-04/Tokens for LLMs - Byte Pair Encoding in Go.md",
-    "2024-04/SIMD-friendly algorithms for substring searching.md",
     "2024-04/assets",
     "2024-04",
     "Untitled.canvas",

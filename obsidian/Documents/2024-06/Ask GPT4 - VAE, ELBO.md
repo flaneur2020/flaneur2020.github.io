@@ -9,11 +9,13 @@ how can we get p(z|x) during the training?
 
 what does it means to maximize p(x|z)? 
 
+why $p_{\theta}(x|z)$ could be used to inform how good our generated image `x` is?
+
 how to get p(x,z)?
 
 p(x) could be viewed as a mixture of gaussian distribution, right? how does ELBO plays in to guide us optimize p(x)?
 
-why does the ELBO is defined as \log p(x) \ge \mathbb{E}_{q(z|x)} \left[ \log \frac{p(x,z)}{q(z|x)} \right] ?
+why does the ELBO is defined as \log p(x) \ge \mathbb{E}_{q(z|x)} \left[ \log \frac{p(x,z )}{q(z|x)} \right] ?
 
 how does the ELBO can be further decomposed into two terms?
 
