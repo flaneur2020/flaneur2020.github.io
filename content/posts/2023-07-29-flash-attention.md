@@ -137,7 +137,7 @@ $$ o^{'}_i \gets \sum^{i}_{j=1}( \frac{ e^{x_j-m_i} }{ d^{'}_i } V[j,:] ) $$
 然后就是在这个公式中，想办法凑一个 $\sum^{i-1}_{j=1}(\frac{e^{x_j-m_{i-1}}}{d^{'}_{i}}V[j,:])$ 出来替换为 $o^{'}_{i-1}$：
 
 $$
-	\begin{align}
+\begin{align}
 	o_i^{'} & = 
 				\sum^{i}_{j=1}
 				\frac{ e^{x_j-m_i} }{ d^{'}_i }
@@ -184,8 +184,7 @@ $$
 		        o^{'}_{i-1}
 		        \frac{d^{'}_{i-1} e^{m_{i-1}-m_i}}{d^{'}_{i}} + \frac{e ^ {x_i-m_i}}{ d^{'}_i}V[i,:]
 		        \tag{5}
-	\end{align}
-	
+\end{align}
 $$
 
 有了这个公式，计算 Attention 只需要一轮迭代了：
