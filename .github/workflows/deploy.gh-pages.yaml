@@ -28,11 +28,11 @@ jobs:
       - name: Build Hugo
         run: hugo --minify
 
-      - name: Build quartz
-        uses: ./.github/actions/build-quartz
-        with:
-          content_path: ./obsidian/Documents
-          output_path: ./public/quartz
+      #- name: Build quartz
+      #  uses: ./.github/actions/build-quartz
+      #  with:
+      #    content_path: ./obsidian/Documents
+      #    output_path: ./public/quartz
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
