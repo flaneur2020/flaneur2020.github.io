@@ -23,6 +23,14 @@ jobs:
       - name: Build
         uses: actions/jekyll-build-pages@v1
 
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.128.2'
+
+      - name: Build Hugo
+        run: hugo --minify
+
       - name: Build quartz
         uses: ./.github/actions/build-quartz
         with:
