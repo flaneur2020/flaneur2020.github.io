@@ -1,4 +1,4 @@
-name: Build Jekyll site
+name: Build hugo site
 on:
   push:
     branches: ["master"]
