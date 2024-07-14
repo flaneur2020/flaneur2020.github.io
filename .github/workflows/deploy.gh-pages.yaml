@@ -5,13 +5,11 @@ on:
   pull_request:
     branches: ["master"]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   build:
+    permissions:
+      id-token: write
+      pages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,6 +33,7 @@ jobs:
       #    output_path: ./public/quartz
 
       - name: Deploy
+        if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
