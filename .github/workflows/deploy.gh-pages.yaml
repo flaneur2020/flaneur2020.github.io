@@ -27,23 +27,15 @@ jobs:
 
       - name: Build Hugo
         run: hugo --minify
-
+        
       #- name: Build quartz
       #  uses: ./.github/actions/build-quartz
       #  with:
       #    content_path: ./obsidian/Documents
       #    output_path: ./public/quartz
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
