@@ -5,11 +5,13 @@ on:
   pull_request:
     branches: ["master"]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
-    permissions:
-      id-token: write
-      pages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
