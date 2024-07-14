@@ -1,0 +1,29 @@
+{{/* Split URL at # */}}
+{{ $url := .Destination | safeURL }}
+{{ $file_name_array := split $url "#" }}
+
+{{/*
+Iterate over all tags, which are in pos 1 to len array - 1,
+and build the img class string as "img-tag1 img-tag2 ..."
+*/}}
+
+{{ $classes := "" }}
+
+{{ range $idx := seq (sub (len $file_name_array) 1) }}
+{{ $tag := index $file_name_array $idx }}
+{{ $classes = printf "%s img-%s" $classes $tag}}
+{{ end }}
+
+{{/* Use the computed classes on the rendered figure */}}
+<figure class="{{ $classes }}">
+
+    <div>
+        <img loading="lazy" alt="{{ .Text }}" src=" {{ $url }}">
+    </div>
+
+    {{ with .Title }}
+    <div class="caption-container">
+        <figcaption> {{ . | markdownify}} </figcaption>
+    </div>
+    {{ end }}
+</figure>

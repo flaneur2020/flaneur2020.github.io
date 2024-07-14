@@ -1,0 +1,69 @@
+baseURL = 'https://flaneur2020.github.io/'
+languageCode = 'en-us'
+title = "F叔的学习笔记"
+theme = 'Typo'
+
+[taxonomies]
+tag = 'tags'
+googleAnalytics = "G-xxxxxxxxx"
+
+[params]
+description = "A Tech Blog"
+
+# Appearance settings
+theme = 'typo'
+math = true
+colorPalette = 'default'
+hideHeader = true
+
+# Intro on main page, content is markdown
+homeIntroTitle = 'Hi!'
+homeIntroContent = """
+I am an Software Engineer with a strong foundation in computer science and a passion for solving complex problems.
+I am interested in a range of topics, including distributed systems and AI/LLM.
+"""
+
+# Collection to display on home
+homeCollectionTitle = 'Posts'
+homeCollection = 'posts'
+
+# Lists parameters
+paginationSize = 1000
+listSummaries = false
+listDateFormat = '2 Jan 2006'
+
+# Breadcrumbs
+breadcrumbs = true
+
+# Social icons
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/li-yazhou-02548a69/"
+
+[[params.social]]
+name = "github"
+url = "https://github.com/flaneur2020"
+
+# Main menu pages
+[[params.menu]]
+name = "home"
+url = "/"
+
+[[params.menu]]
+name = "about"
+url = "/about"
+
+# Syntax highligth on code blocks
+[markup]
+[markup.highlight]
+style = 'algol'
+
+[markup.goldmark]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.goldmark.extensions]
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)']]

@@ -1,0 +1,87 @@
+{{ define "main" }}
+
+{{/* Breadcrumbs */}}
+
+{{ partial "breadcrumbs.html" . }}
+
+<div {{ if .Param "autonumber" }} class="autonumber" {{ end }}>
+
+  <div class="single-intro-container">
+
+    {{/* Title and Summary */}}
+
+    <h1 class="single-title">{{ .Title }}</h1>
+    {{ with .Param "summary" }}
+    <p class="single-summary">{{ . }}</p>
+    {{ end }}
+
+    {{/* Reading Time */}}
+
+    <p class="single-readtime">
+      {{ with .Date }}
+      {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := . | time.Format ":date_long" }}
+      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+      {{end}}
+
+      {{ if .Param "readTime" }}
+      &nbsp; · &nbsp;
+      {{ .ReadingTime }} min read
+      {{end }}
+    </p>
+
+  </div>
+
+  {{ if .Param "showTags" }}
+
+  {{ $taxonomy := "tags" }}
+  {{ with .Param $taxonomy }}
+
+  <div class="single-tags">
+    {{ range $index, $tag := . }}
+    {{ with $.Site.GetPage (printf "/%s/%s" $taxonomy $tag) -}}
+    <span>
+      <a href="{{ .Permalink }}">#{{ .LinkTitle }}</a>
+    </span>
+    {{ end }}
+    {{ end }}
+  </div>
+
+  {{ end }}
+  {{ end }}
+
+  {{/* Table of Content */}}
+
+  {{ if .Param "toc" }}
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    {{ .TableOfContents }}
+  </aside>
+  {{ end }}
+
+  {{/* Page content */}}
+
+  <div class="single-content">
+    {{ .Content }}
+    {{ partial "comments.html" . }}
+  </div>
+
+  {{/* Next prev controls */}}
+
+  {{ if not (.Param "hidePagination") }}
+  {{ partial "pagination-single.html" . }}
+  {{ end }}
+
+  {{/* Back to top */}}
+
+  {{ if not (.Param "hideBackToTop") }}
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  {{ end }}
+
+</div>
+
+{{ end }}
