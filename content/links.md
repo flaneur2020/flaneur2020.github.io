@@ -4,6 +4,8 @@ title: "Links"
 permlink: '/links'
 ---
 
+Please feel free to contact me on [X](https://x.com/flaneur2023) if you want to exchange links!
+
 - [KC](https://kingsamchen.github.io/)
 - [chichou](https://blog.chichou.me/)
 - [Lieo](https://www.daozhihun.com/)

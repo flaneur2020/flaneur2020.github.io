@@ -1,6 +1,7 @@
 baseURL = 'https://flaneur2020.github.io/'
+
 languageCode = 'en-us'
-title = "F叔的学习笔记"
+title = "Flaneur2020"
 theme = 'Typo'
 
 [taxonomies]
@@ -14,7 +15,8 @@ description = "A Tech Blog"
 theme = 'typo'
 math = true
 colorPalette = 'default'
-hideHeader = true
+hideHeader = false
+hidePagination = true
 
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
@@ -33,7 +35,7 @@ listSummaries = false
 listDateFormat = '2 Jan 2006'
 
 # Breadcrumbs
-breadcrumbs = true
+breadcrumbs = false
 
 # Social icons
 [[params.social]]
@@ -44,14 +46,18 @@ url = "https://www.linkedin.com/in/li-yazhou-02548a69/"
 name = "github"
 url = "https://github.com/flaneur2020"
 
+[[params.social]]
+name = "twitter"
+url = "https://x.com/flaneur2023"
+
 # Main menu pages
 [[params.menu]]
 name = "home"
 url = "/"
 
 [[params.menu]]
-name = "about"
-url = "/about"
+name = "links"
+url = "/links"
 
 # Syntax highligth on code blocks
 [markup]
