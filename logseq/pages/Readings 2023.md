@@ -1,6 +1,0 @@
-- Mar
-	- [[Hierarchical Navigable Small Worlds (HNSW)]]
-- July
-	- [[FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness]]
-	- [[From Online Softmax to FlashAttention]]
--
