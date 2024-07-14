@@ -2,7 +2,7 @@ baseURL = 'https://flaneur2020.github.io/'
 
 languageCode = 'en-us'
 title = "Flaneur2020"
-theme = 'Typo'
+theme = 'typo'
 
 [taxonomies]
 tag = 'tags'
