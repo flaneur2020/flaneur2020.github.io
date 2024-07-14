@@ -8,6 +8,7 @@ author_name: 'fleuria'
 # Build settings
 markdown: kramdown
 permalink: pretty
+mathjax: true
 kramdown:
   input: GFM
   auto_ids: true
