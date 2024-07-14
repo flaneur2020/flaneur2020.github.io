@@ -32,7 +32,7 @@ jobs:
         uses: ./.github/actions/build-quartz
         with:
           content_path: ./obsidian/Documents
-          output_path: ./_site/quartz
+          output_path: ./public/quartz
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
