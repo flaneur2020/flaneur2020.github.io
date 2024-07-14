@@ -1,11 +1,5 @@
 # README
 
-The blog of fleuria based on jekyll with some simple Rake task to simply the operations on jekyll.
+This repo contains the blog posts (in Hugo), notes (in Obsidian) and various experiments (mostly in Rust) I wrote. 
 
-+ rake n[*title*]
-
-  Create a new post file.
-
-+ gvim \`rake last\`
-
-  Open the recently created post file.
+These are mainly about systems, machine learning, and some other interesting things.
