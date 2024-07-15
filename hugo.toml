@@ -22,7 +22,7 @@ hidePagination = true
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
 I am an Software Engineer with a strong foundation in computer science and a passion for solving complex problems.
-I am interested in a range of topics, including distributed systems and AI/LLM.
+I am interested in a range of topics, including Distributed Systems and AI/LLM.
 """
 
 # Collection to display on home
