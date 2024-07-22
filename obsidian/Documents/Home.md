@@ -92,7 +92,7 @@
 - Books
 	- iPhone 摄影
 	- 中间地带的革命
-	- [[趣学贝叶斯]]
+	- 趣学贝叶斯
 	- [[Think Bayes]]
 - Readings
 	- [[Intuitively Understanding Variational Autoencoders]]
@@ -103,3 +103,11 @@
 	- [[How Meta trains large language models at scale]]
 	- [[Variational Autoencoder Explained]]
 	- [[Introduction to variational autoencoders]]
+## July
+- night
+	- [[Diffusion Model]]
+- Books
+	- 一本摄影书
+	- 十字路口的选择
+- Readings
+	- [[Step by Step Diffusion - An Elementary Tutorial]]

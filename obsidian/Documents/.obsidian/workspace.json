@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-06/VAE Maths.md",
+                "file": "Home.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-06/VAE Maths.md",
+                "file": "Home.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-06/VAE Maths.md",
+                "file": "Home.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-06/VAE Maths.md"
+                "file": "Home.md"
               }
             }
           }
@@ -140,16 +140,20 @@
   },
   "active": "c8a5487fb92e7639",
   "lastOpenFiles": [
-    "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
-    "2024-06/VAE Maths.md",
+    "2024-06/趣学贝叶斯.md",
     "Home.md",
+    "2024-06/Think Bayes.md",
+    "2024-07/Diffusion Model.md",
+    "2024-07/Step by Step Diffusion - An Elementary Tutorial.md",
+    "2024-06/VAE Maths.md",
+    "2024-07",
+    "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
     "2024-06/Ask GPT4 - VAE, ELBO.md",
     "2024-06/Introduction to variational autoencoders.md",
     "2024-06/assets/Screenshot 2024-06-25 at 12.32.43.png",
     "2024-06/assets/Screenshot 2024-06-25 at 12.31.53.png",
     "2024-06/assets/Screenshot 2024-06-25 at 12.19.54.png",
     "2024-06/Variational Autoencoder Explained.md",
-    "2024-06/Think Bayes.md",
     "2024-06/How Meta trains large language models at scale.md",
     "2024-06/Optimizing AI Inference at Character.AI.md",
     "2024-06/assets/Pasted image 20240623121050.png",
@@ -157,7 +161,6 @@
     "2023/2023-07/Flash Attention 推公式.md",
     "2023/2023 - Index.md",
     "2024-06/What We Learned from a Year of Building with LLMs.md",
-    "2024-06/趣学贝叶斯.md",
     "2024-06/Kafka Message Batch Consumer Retry.md",
     "2024-06/assets/Screenshot 2024-06-10 at 23.08.40.png",
     "2024-06/assets/Screenshot 2024-06-10 at 23.04.47.png",
@@ -177,15 +180,12 @@
     "2024-05/PyramidInfer - Pyramid KV Cache Compression for High-throughput LLM Inference.md",
     "databend-kubesphere.key",
     "2024-05/How continuous batching enables 23x throughput in LLM inference while reducing p50 latency.md",
-    "2024-05/LLM Inference - Continuous Batching and PagedAttention.md",
-    "2024-05/Vulkan Tutorial - Staging Buffer.md",
     "2024-05/assets",
     "2024-05",
     "2024-04/assets",
     "2024-04",
     "Untitled.canvas",
     "2024-03/assets",
-    "2024-03",
-    "Indexes"
+    "2024-03"
   ]
 }
