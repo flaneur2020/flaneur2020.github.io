@@ -20,17 +20,17 @@ q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1})
 $$
 $$
 \begin{align}
-x_1 &= \sqrt{\alpha_0}x_0 + \sqrt{1-\alpha_0}\epsilon_0 
-&\text{; where}\quad \epsilon_0 \sim \mathcal{N}(0, \textbf{I}) \tag{1} \\
-x_2 &= \sqrt{\alpha_1} x_1 + \sqrt{1-\alpha_1}\epsilon_1 \tag{2} \\
-&= \sqrt{\alpha_1}(\sqrt{\alpha_0}x_0 + \sqrt{1-\alpha_0}\epsilon_0 ) + \sqrt{1-\alpha_1}\epsilon_1 \tag{3} \\
-&= \sqrt{\alpha_0 \alpha_1 } x_0 + \textcolor{blue}{\sqrt{\alpha_1 - \alpha_0\alpha_1} \epsilon_0 + \sqrt{1-\alpha_1}\epsilon_1} \tag{4} \\
-&= \sqrt{\alpha_0 \alpha_1 } x_0 + \textcolor{blue}{\sqrt{1 - \alpha_1 + \alpha_1 - \alpha_0\alpha_1} \overline{\epsilon}_1} \tag{5} \\
-&= \sqrt{\alpha_0 \alpha_1 } x_0 + \sqrt{1 - \alpha_0\alpha_1} \overline{\epsilon_1} \tag{6} \\
+x_1 &= \sqrt{\alpha_1}x_0 + \sqrt{1-\alpha_1}\epsilon_1 
+&\text{; where}\quad \epsilon_1 \sim \mathcal{N}(0, \textbf{I}) \tag{1} \\
+x_2 &= \sqrt{\alpha_2} x_1 + \sqrt{1-\alpha_2}\epsilon_2 \tag{2} \\
+&= \sqrt{\alpha_2}(\sqrt{\alpha_1}x_0 + \sqrt{1-\alpha_1}\epsilon_0 ) + \sqrt{1-\alpha_2}\epsilon_2 \tag{3} \\
+&= \sqrt{\alpha_1 \alpha_2 } x_0 + \textcolor{blue}{\sqrt{\alpha_2 - \alpha_1\alpha_2} \epsilon_1 + \sqrt{1-\alpha_2}\epsilon_2} \tag{4} \\
+&= \sqrt{\alpha_1 \alpha_2 } x_0 + \textcolor{blue}{\sqrt{1 - \alpha_2 + \alpha_2 - \alpha_1\alpha_2} \overline{\epsilon}_2} \tag{5} \\
+&= \sqrt{\alpha_1 \alpha_2 } x_0 + \sqrt{1 - \alpha_1\alpha_2} \overline{\epsilon_2} \tag{6} \\
 &\,... \\
-x_t &= \sqrt{a_0..a_{t-1}} x_0 + \sqrt{1-\alpha_0...\alpha_{t-1}} \overline{\epsilon_{t-1}} \tag{7} \\
-&= \sqrt{\overline{a_{t-1}}} x_0 + \sqrt{1-\overline{\alpha_{t-1}}} \overline{\epsilon_{t-1}}
-&\text{; where} \quad &\overline{a_{t-1}} = \prod_{t=0}^{T-1} a_{t} \tag{8} \\
+x_t &= \sqrt{a_1..a_{t}} x_0 + \sqrt{1-\alpha_1...\alpha_{t}} \overline{\epsilon_{t}} \tag{7} \\
+&= \sqrt{\overline{a_{t}}} x_0 + \sqrt{1-\overline{\alpha_{t}}} \overline{\epsilon_{t}}
+&\text{; where} \quad &\overline{a_{t-1}} = \prod_{t=1}^{T} a_{t} \tag{8} \\
 \end{align}
 $$
 
