@@ -105,9 +105,11 @@
 	- [[Introduction to variational autoencoders]]
 ## July
 - night
-	- [[Diffusion Model]]
+	- [[2024-07/Diffusion Models|Diffusion Models]]
 - Books
 	- 一本摄影书
 	- 十字路口的选择
 - Readings
 	- [[Step by Step Diffusion - An Elementary Tutorial]]
+	- [[What are Diffusion Models?]]
+
