@@ -72,6 +72,8 @@ $$
 
 易知 $\overline{a}_{t}$ 经过一堆 $<1$ 的系数相乘最终接近于 0，$x_t$ 会无限接近于 $\overline{\epsilon}_t$ 本身，也就是一个高斯分布的白噪声。
 
+有了这个式子，我们在训练神经网络时不需要 for 循环 $t$ 步去加噪音，直接把 $x_0$ 和 $t$ 代入这个式子，按约定好的 $\alpha$ 序列，就可以直接得到第 $t$ 步加噪音后的值 $x_t$。
+
 这段推导中比较神奇的是 $(4)$ 到 $(5)$ 这里。
 
 $\sqrt{\alpha_2 - \alpha_1\alpha_2}\epsilon_1$ 和 $\sqrt{1-\alpha_2}\epsilon_2$ 可以看做是一个 Reparameter Trick，它们分别等于在正态分布 $\mathcal{N}(0, \alpha_2 - \alpha_1\alpha_2)$ 和 $\mathcal{N}(0, 1-\alpha_2)$ 中的采样。
@@ -87,8 +89,6 @@ $$
 $$
 \sqrt{\alpha_2 - \alpha_1\alpha_2}\epsilon_1 + \sqrt{1-\alpha_2}\epsilon_2 = \sqrt{1 - \alpha_1\alpha_2} \overline{\epsilon}_2 \quad \text{; where} \quad \overline{\epsilon}_2 \sim \mathcal{N}(0, 1)
 $$
-
-到这里，在训练神经网络时，我们不需要 for 循环 $t$ 步去加噪音，直接把 $x_0$ 和 $t$ 代入这个式子，按约定好的 $\alpha$ 序列，就可以直接得到第 $t$ 步加噪音后的值 $x_t$。
 
 ## Backward Process
 
