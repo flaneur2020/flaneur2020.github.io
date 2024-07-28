@@ -56,12 +56,8 @@ name = "home"
 url = "/"
 
 [[params.menu]]
-name = "posts"
-url = "/posts"
-
-[[params.menu]]
-name = "links"
-url = "/links"
+name = "friends"
+url = "/friends"
 
 # Syntax highligth on code blocks
 [markup]
