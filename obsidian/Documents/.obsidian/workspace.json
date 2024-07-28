@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024-07/Diffusion Models.md",
+                "file": "2024-07/Step by Step visual introduction to Diffusion Models..md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2024-07/Diffusion Models.md",
+                "file": "2024-07/Step by Step visual introduction to Diffusion Models..md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2024-07/Diffusion Models.md",
+                "file": "2024-07/Step by Step visual introduction to Diffusion Models..md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2024-07/Diffusion Models.md"
+                "file": "2024-07/Step by Step visual introduction to Diffusion Models..md"
               }
             }
           }
@@ -138,15 +138,17 @@
       "templates:Insert template": false
     }
   },
-  "active": "c8a5487fb92e7639",
+  "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
-    "2024-07/What are Diffusion Models?.md",
     "Home.md",
+    "2024-07/Step by Step visual introduction to Diffusion Models..md",
     "2024-07/Diffusion Models.md",
+    "2024-07/Improved Denoising Diffusion Probabilistic Models.md",
+    "2024-07/Step by Step Diffusion - An Elementary Tutorial.md",
+    "2024-07/What are Diffusion Models?.md",
     "2024-07/Diffusion Model.md",
     "2024-06/趣学贝叶斯.md",
     "2024-06/Think Bayes.md",
-    "2024-07/Step by Step Diffusion - An Elementary Tutorial.md",
     "2024-06/VAE Maths.md",
     "2024-07",
     "2024-06/Gemma 2 - Improving Open Language Models at a Practical Size.md",
@@ -177,8 +179,6 @@
     "2024-06",
     "2024-05/Tutorial on Variational Autoencoders.md",
     "2024-05/Diffusion Models.md",
-    "2024-05/GPUs Go Brrr.md",
-    "2024-05/读史求实.md",
     "databend-kubesphere.key",
     "2024-05/assets",
     "2024-05",
