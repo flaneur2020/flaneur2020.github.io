@@ -3,7 +3,7 @@ date: "2024-07-22"
 title: "Notes on Diffusion Model: Intuition"
 ---
 
-前面已经学习了 VAE，它的数学推导很完整，但是在实践中 VAE 似乎并没那么好用。而 Diffusion Model 毫无疑问是现在图片生成领域的 SOTA。大多数找到的关于 Diffusion Model 原理的文章都带着很重的 ELBO 之类的数学推导，比较难跟上，这篇文章尝试避免这些概念，单从它的 Intuition 层面来看。
+前面已经学习了 VAE，它的数学推导很完整，但是在实践中 VAE 似乎并没那么好用，而 Diffusion Model 毫无疑问是现在图片生成领域的 SOTA。在找学习 Diffusion Model 的资料时，大多数找到的文章都带着很厚的 ELBO 之类的数学推导，对我来讲还是太难了，这篇文章尝试避免这些概念，单从它的 Intuition 层面来看。
 
 ## 思路
 
@@ -41,7 +41,7 @@ $$
 
 不过这样直白地加噪声，到最终成为彻底的白噪声不知道要多久。
 
-我们希望能在固定的步数下，得到一个高斯分布的白噪声。Diffusion Model 通过下面的式子来加噪声：
+我们希望能在固定的步数 $t$ 下得到一个高斯分布的白噪声。Diffusion Model 通过下面的式子来加噪声：
 
 $$
 x_t = \sqrt{\alpha_t} x_{t-1} + \sqrt{1-\alpha_t} \epsilon_{t}, \quad \epsilon_{t} \sim \mathcal{N}(0, \bf{I})
@@ -114,8 +114,8 @@ $$
 到这里可以组装一下训练的流程大约是：
 
 1. 从训练集中采样一个图片作为 $x_0$
-2. 随机采样一个 $t$，按照约定好的 $\alpha$ 序列，计算 $x_t$
-3. 用 $x_t$ 和 $t$ 作为输入，通过神经网络预测噪音 $\epsilon_\theta(x_t, t)$
+2. 随机采样一个 $t$，按照约定好的 $\alpha$ 序列，计算得出 $x_t$ 与噪音 $\overline{\epsilon}_t$
+3. 用 $x_t$ 和 $t$ 作为输入，通过神经网络预测噪音 $\epsilon_\theta(x_t, t)$，与实际的噪音 $\overline{\epsilon}_t$ 计算损失
 4. 得到梯度，更新神经网络参数
 5. 回到 1. 进行下一轮训练
 
@@ -123,4 +123,4 @@ $$
 
 可见 Diffusion Model 前后训练相关的逻辑并不复杂。但是 ELBO 那部分推导仍对我来讲挺难，后面有时间再单独记录一下。
 
-个人理解是 ELBO 这系列推导起到一个证明正确性的作用，真正工程中的 Diffusion Model 并没有完全 follow 这个推导，而是在推导之后做了一点简化，并实验发现效果更好，实验还是最重要的。
+个人理解是 ELBO 这系列推导起到一个证明正确性的作用，真正工程中的 Diffusion Model 并没有完全 follow 这个数学上最优的式子，而是在之后做了一点简化，并实验发现效果更好，实验还是最重要的。
