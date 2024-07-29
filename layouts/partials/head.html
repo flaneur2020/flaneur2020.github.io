@@ -1,0 +1,24 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+{{- if .IsHome -}}
+<meta name="description" content="{{ site.Params.Description }}" />
+{{- else -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ .Params.description }}">
+<meta name="description" content="{{ .Params.Description }}" />
+{{- end }}
+
+<title>
+    {{ if .IsHome }}
+    {{ site.Title }}
+    {{ else }}
+    {{ printf "%s | %s" .Title site.Title }}
+    {{ end }}
+</title>
+
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
+
+<script async src="https://cdn.seline.so/seline.js"></script>
