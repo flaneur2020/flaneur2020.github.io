@@ -105,7 +105,7 @@
 	- [[Introduction to variational autoencoders]]
 ## July
 - night
-	- [[2024-07/Diffusion Models|Diffusion Models]]
+	- [[Logs/2024/2024-07/Diffusion Models|Diffusion Models]]
 - Books
 	- 一本摄影书
 	- 十字路口的选择
@@ -115,3 +115,26 @@
 	- [[Step by Step visual introduction to Diffusion Models.]]
 	- [[Why Refresh Tokens?]]
 
+## Augest
+- Readings
+	- [[Why we have rewritten the string data type]]
+	- [[Table format comparisons - How do the table formats represent the canonical set of files?]]
+	- [[Why Your Data Stack Won't Last - And How To Build Data Infrastructure That Will]]
+	- [[Understanding Apache Paimon's Consistency Model Part 1]]
+
+## September
+- Night
+	- slatedb: ObjectStore Cache
+	- slatedb: ObjectStore Cache Eviction
+- Books
+	- [[成为活跃于全球的英语工作者]]
+	- [[纽约摄影学院教材 上]]
+- Readings
+	- [[FIFO Queues are All You Need for Cache Eviction]]
+	- [[Async IO with completion-model IO systems]]
+	- [[Slatedb - Manifest Design]]
+	- [[How to port Pytorch models to ZML ?]]
+	- [[ZML Concepts]]
+	- [[How do people use Snowflake and Redshift?]]
+	- [[Polaris Catalog - Overview]]
+	- [[Change query support in Apache Iceberg v2]]
