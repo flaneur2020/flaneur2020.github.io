@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Books/金钱心理学.md",
+                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Books/金钱心理学.md",
+                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Books/金钱心理学.md",
+                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Books/金钱心理学.md"
+                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md"
               }
             }
           }
@@ -140,17 +140,22 @@
   },
   "active": "c07df4ab0ae3b2f0",
   "lastOpenFiles": [
-    "Books/怎样使孩子自觉又主动.md",
     "Books/金钱心理学.md",
+    "Books/社会为什么对年轻人冷酷无情.md",
+    "Logs/2024-09/Change query support in Apache Iceberg v2.md",
+    "Logs/2024-09/assets/Pasted image 20240930184733.png",
+    "Home.md",
+    "Books/甲午战争前后的晚清政局.md",
+    "Books/成为活跃于全球的英语工作者.md",
+    "Logs/2023/2023 - Index.md",
+    "Logs/2023/2023-08/Books/奇迹的黄昏.md",
+    "Books/怎样使孩子自觉又主动.md",
     "Logs/2024/2024-03/财务自由之路.md",
     "Logs/2024/2024-03/这就是 ChatGPT.md",
     "Books/读史求实.md",
     "Books/Think Bayes.md",
     "Logs/2024/2024-06/趣学贝叶斯.md",
     "Books/纽约摄影学院教材 上.md",
-    "Books/成为活跃于全球的英语工作者.md",
-    "Logs/2024-09/Change query support in Apache Iceberg v2.md",
-    "Home.md",
     "Logs/2024",
     "Books",
     "Logs",
@@ -176,14 +181,8 @@
     "2024-08/Chameleon - Mixed-Modal Early-Fusion Foundation Models.md",
     "Logs/2024/2024-08/assets/Pasted image 20240815142117.png",
     "Logs/2024/2024-08/assets/Pasted image 20240815135707.png",
-    "Logs/2024/2024-08/assets/Pasted image 20240815135128.png",
-    "Logs/2024/2024-08/Why Your Data Stack Won't Last - And How To Build Data Infrastructure That Will.md",
-    "Logs/2024/2024-08/Table format comparisons - How do the table formats represent the canonical set of files?.md",
-    "Logs/2024/2024-04/SIMD-friendly algorithms for substring searching.md",
-    "Logs/2024/2024-08/Why we have rewritten the string data type.md",
     "Logs/2024/2024-08/assets",
     "Logs/2024/2024-08",
-    "Logs/2024/2024-07/Why Refresh Tokens?.md",
     "Logs/2024/2024-07",
     "Logs/2024/2024-06/assets",
     "Untitled.canvas"

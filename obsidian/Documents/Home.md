@@ -1,4 +1,4 @@
-6prev: [[2023 - Index]]
+prev: [[2023 - Index]]
 ## Jan
 
 - Readings

@@ -21,7 +21,7 @@ iceberg core 模块为 compute engines 提供了三种计算 incremental table s
 2. Snapshot iteration：
 	1. 可以使用 SnapshotUtil 遍历 snapshots 的 log，发现每个 snapshot 中新增/删除的 data/delete files
 
-## Infer-CDC-on-read with copy-on-write vs merge-on-read
+### Infer-CDC-on-read with copy-on-write vs merge-on-read
 
 在一个 CoW 的 table 中，update 和 delete 会在应用修改时使 data file 重新写入。
 
@@ -32,6 +32,18 @@ iceberg core 模块为 compute engines 提供了三种计算 incremental table s
 3. 之前的 data file 中有这些 row，经过了修改
 4. 之前的 data file 中有这些 row，新的 data file 中移除了
 
-UPDATE、DELETE、MERGE 操作能够创建多对 deleted 和 added 的 data files。
+UPDATE、DELETE、MERGE 操作能够创建多对 deleted 和 added 的 data files，有多个 added 和 deleted files 时，就无法容易地根据 add/deleted pair 来计算差异了，只能通过所有的 added/deleted files 来计算差异。
 
-![[Pasted image 20240930182832.png]]
+![[Pasted image 20240930184733.png]]
+### Merge-on-read (MOR)
+
+在 MoR table 中，data file 并未在逻辑上删除或者 rewrite，而是：
+
+- 新的、updated 的 rows 写入到新的 data files；
+- 旧的 location 中，会被 delete file entry 进行标记；
+
+<mark>针对 MoR 表计算 changes 的代价相对低一些</mark>：
+
+1. 将所有的 added 的数据文件的行认为是 inserts 或者 updates；
+2. 如果没有新增 delete file，那么所有数据文件中的 行 都是 insert；
+3. 如果新增了一个 delete file，则可以告知 compute engine，哪些行属于 updates，哪些行属于 deletes
