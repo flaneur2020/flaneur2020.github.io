@@ -68,9 +68,9 @@ In addition to waiting for transactions related to the current timestamp to comp
 
 ## Transaction Execution
 
-During transaction execution, writes are temporarily stored in the pendingWrites buffer in memory. In managed mode, if multiple writes are made to the same key within a transaction, the historical version data inserted within this transaction is stored in the duplicateWrites buffer. We'll ignore the duplicateWrites field for now.
+During transaction execution, writes are temporarily stored in the `pendingWrites` buffer in memory. In managed mode, if multiple writes are made to the same key within a transaction, the historical version data inserted within this transaction is stored in the duplicateWrites buffer. We'll ignore the duplicateWrites field for now.
 
-Read operations during a transaction will first read from the pendingWrites buffer, and then read data from the LSM Tree. Badger inherits the idea of iterator combination from leveldb, encapsulating the reading path of pendingWrites as an Iterator, and combining it with other Iterators such as MemTableIterator and TableIterator through MergeIterator to form the final Iterator:
+Read operations during a transaction will first read from the `pendingWrites` buffer, and then read data from the LSM Tree. Badger inherits the idea of iterator combination from leveldb, encapsulating the reading path of `pendingWrites` as an Iterator, and combining it with other Iterators such as `MemTableIterator` and `TableIterator` through `MergeIterator` to form the final Iterator:
 
 ```go
 // NewIterator returns a new iterator. Depending upon the options, either only keys, or both
