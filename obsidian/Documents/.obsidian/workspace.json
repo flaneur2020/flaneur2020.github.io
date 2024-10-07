@@ -11,11 +11,9 @@
             "id": "c07df4ab0ae3b2f0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md",
-                "mode": "source",
-                "source": false
+                "file": "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png"
               }
             }
           }
@@ -85,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md",
+                "file": "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md",
+                "file": "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +112,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Logs/2024-09/Change query support in Apache Iceberg v2.md"
+                "file": "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png"
               }
             }
           }
@@ -140,11 +138,22 @@
   },
   "active": "c07df4ab0ae3b2f0",
   "lastOpenFiles": [
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-25 at 11.56.32.png",
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png",
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 10.57.59.png",
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-20 at 23.02.55.png",
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-20 at 22.25.15.png",
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-20 at 22.24.59.png",
+    "Logs/2024/2024-02/assets/Pasted image 20240217110014.png",
+    "Logs/2024/2024-02/assets/Screenshot 2024-02-14 at 11.09.18.png",
+    "Logs/2024/2024-02/assets/Pasted image 20240207161910.png",
+    "Logs/2024/2024-02/assets/Pasted image 20240207161836.png",
+    "Logs/2024/2024-02/assets/Pasted image 20240207160941.png",
+    "Logs/2024/2024-02/q8 dot product 优化记录.md",
+    "Home.md",
+    "Logs/2024-09/Change query support in Apache Iceberg v2.md",
     "Books/金钱心理学.md",
     "Books/社会为什么对年轻人冷酷无情.md",
-    "Logs/2024-09/Change query support in Apache Iceberg v2.md",
-    "Logs/2024-09/assets/Pasted image 20240930184733.png",
-    "Home.md",
     "Books/甲午战争前后的晚清政局.md",
     "Books/成为活跃于全球的英语工作者.md",
     "Logs/2023/2023 - Index.md",
@@ -159,16 +168,9 @@
     "Logs/2024",
     "Books",
     "Logs",
-    "Logs/2024-09/assets/Pasted image 20240930182832.png",
     "Logs/2024-09/Polaris Catalog - Overview.md",
-    "Logs/2024-09/assets/Pasted image 20240924122136.png",
-    "Logs/2024-09/assets/Pasted image 20240924122037.png",
     "Logs/2024-09/assets/How do people use Snowflake and Redshift?.md",
-    "Logs/2024-09/assets/Pasted image 20240924121041.png",
-    "Logs/2024-09/assets/Pasted image 20240924114319.png",
-    "Logs/2024-09/assets/Pasted image 20240924114210.png",
     "Logs/2024-09/assets",
-    "Logs/2024-09/assets/Pasted image 20240924113900.png",
     "Logs/2024-09/ZML Concepts.md",
     "Logs/2024-09/FIFO Queues are All You Need for Cache Eviction.md",
     "Logs/2024-09/How to port Pytorch models to ZML ?.md",
@@ -178,9 +180,6 @@
     "Logs/2024-09",
     "Logs/2015/TIME_WAIT, tcp_tw_recycle 和 tcp_tw_reuse.md",
     "Logs/2015",
-    "2024-08/Chameleon - Mixed-Modal Early-Fusion Foundation Models.md",
-    "Logs/2024/2024-08/assets/Pasted image 20240815142117.png",
-    "Logs/2024/2024-08/assets/Pasted image 20240815135707.png",
     "Logs/2024/2024-08/assets",
     "Logs/2024/2024-08",
     "Logs/2024/2024-07",
