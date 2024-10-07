@@ -59,10 +59,18 @@ url = "https://github.com/flaneur2020"
 name = "twitter"
 url = "https://x.com/flaneur2023"
 
+[[params.social]]
+name = "instagram"
+url = "https://instagram.com/flaneur2024_"
+
 # Main menu pages
 [[params.menu]]
 name = "home"
 url = "/"
+
+[[params.menu]]
+name = "en"
+url = "/en"
 
 [[params.menu]]
 name = "links"
