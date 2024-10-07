@@ -1,6 +1,6 @@
 ---
 date: "2021-08-01T00:00:00Z"
-title: Badger's Transaction Internals
+title: "Transaction Internals: Badger"
 ---
 
 Badger is an open-source LSM Tree KV engine developed by dgraph. Compared to leveldb, it introduced various improvements such as KV separation, transactions, and concurrent merging, making it a more production-ready storage engine in the Go ecosystem. Let's take a look at its transaction implementation.
