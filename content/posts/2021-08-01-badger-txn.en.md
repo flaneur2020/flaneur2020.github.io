@@ -33,9 +33,9 @@ Next, let's go through the related processes in badger along these four stages o
 
 ## Transaction Start
 
-The entry point for starting a new transaction is in the db.newTransaction() function. This function is relatively simple. Apart from initializing a few fields, the only part with behavioral semantics is the line `txn.readTs = db.orc.readTs()` where timestamp assignment is requested.
+The entry point for starting a new transaction is in the `db.newTransaction()` function. This function is relatively simple. Apart from initializing a few fields, the only part with behavioral semantics is the line `txn.readTs = db.orc.readTs()` where timestamp assignment is requested.
 
-Let's look at the implementation of the readTs() function:
+Let's look at the implementation of the `readTs()` function:
 
 ```go
 func (o *oracle) readTs() uint64 {
@@ -56,15 +56,15 @@ func (o *oracle) readTs() uint64 {
 }
 ```
 
-The timestamp assignment logic is simple, directly copying from the nextTxnTs field recorded in the oracle object.
+The timestamp assignment logic is simple, directly copying from the `nextTxnTs` field recorded in the `oracle` object.
 
 There's a detail here: as mentioned earlier, timestamp increments occur at transaction commit, and there will be a time window where the timestamp has incremented but the write has not yet been persisted to disk. If a transaction starts at this time, it would read old data instead of the snapshot after the timestamp. The solution is to wait for the transaction of the current timestamp to complete writing before starting the transaction.
 
 ![](/images/2021-08-01-badger-txn/Screen_Shot_2021-08-01_at_4.22.41_PM.png)
 
-The txnMark field is of type WaterMark struct, which internally maintains a heap data structure that can be used to track changes in transaction timestamp segments.
+The `txnMark` field is a `WaterMark` struct, which internally maintains a heap data structure that can be used to track changes in transaction timestamp segments.
 
-In addition to waiting for transactions related to the current timestamp to complete writing based on txnMark, there's also a line o.readMark.Begin(readTs) in the readTs function. readMark, like txnMark, is a WaterMark struct, but it doesn't use the WaterMark struct's ability to wait for positions. It only uses its heap data structure to track the timestamp range of currently active transactions, used to find out which transactions can expire and be recycled.
+In addition to waiting for transactions related to the current timestamp to complete writing based on `txnMark`, there's also a line `o.readMark.Begin(readTs)` in the `readTs` function. `readMark` is aslo a `WaterMark` struct like `txnMark`, but it doesn't use the `WaterMark` struct's ability to wait for positions. It only uses its heap data structure to track the timestamp range of currently active transactions, used to find out which transactions can expire and be recycled.
 
 ## Transaction Execution
 
