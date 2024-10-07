@@ -2,8 +2,8 @@ baseURL = 'https://flaneur2020.github.io/'
 
 title = "Flaneur2020"
 theme = 'typo'
-defaultContentLanguage = 'en'
 translationKey = 'about'
+defaultContentLanguage = 'en'
 
 [languages]
   [languages.zh]
