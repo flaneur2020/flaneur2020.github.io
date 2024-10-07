@@ -1,6 +1,7 @@
 ---
 date: "2024-07-22"
 title: "Notes on Diffusion Model: Intuition"
+language: "zh"
 ---
 
 Diffusion Model 毫无疑问是现在图片生成领域的 SOTA。在找学习 Diffusion Model 的资料时，大多数找到的文章都带着很厚的 ELBO 之类的数学推导，对我来讲还是太难了，这篇文章尝试避免这些概念，单从它的 Intuition 层面来看。

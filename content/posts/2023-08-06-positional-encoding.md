@@ -1,6 +1,7 @@
 ---
 date: "2023-08-06T00:00:00Z"
 title: Positional Encoding
+language: "zh"
 ---
 
 与 RNN 自带顺序不同，Transformer 需要为序列额外引入一个顺序编码（Positional Encoding），它的维度和 embedding 向量的维度相同，与 embedding 向量加在一起来引进顺序信息。

@@ -1,6 +1,7 @@
 ---
 date: "2022-08-16T00:00:00Z"
 title: Snapshot in Postgres
+language: "zh"
 ---
 
 最近想学习下 postgres 生态的东西，之前看它的 MVCC 机制没大明白，捞回来尝试重新理解一下。这里先忽略一把 MVCC 的并发控制与清理的部分，先只看 Snapshot 的部分。

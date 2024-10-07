@@ -3,15 +3,15 @@ baseURL = 'https://flaneur2020.github.io/'
 title = "Flaneur2020"
 theme = 'typo'
 translationKey = 'about'
-defaultContentLanguage = 'en'
+defaultContentLanguage = 'zh'
 
 [languages]
-  [languages.zh]
-    weight = 1
-    languageName = "Chinese"
   [languages.en]
-    weight = 2
+    weight = 1
     languageName = "English"
+  [languages.zh]
+    weight = 2
+    languageName = "Chinese"
 
 [taxonomies]
 tag = 'tags'

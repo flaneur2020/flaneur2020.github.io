@@ -1,6 +1,7 @@
 ---
 date: "2023-07-29T00:00:00Z"
 title: Flash Attention 推公式
+language: "zh"
 ---
 
 ## SRAM、HBM 和 Kernel Fuse

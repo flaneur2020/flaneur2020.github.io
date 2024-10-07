@@ -1,6 +1,7 @@
 ---
 date: "2023-02-07T00:00:00Z"
 title: Spilled Hash Aggregation
+language: "zh"
 ---
 
 之前看 presto 的文章写 facebook 没有在生产开 Spilling 所以没大上心。因为在 fb 的集群体量下，内存基本可以理解为无限，相比于 Spill 得到的好处，不如计算节点还得多加块盘带来的维护成本高。

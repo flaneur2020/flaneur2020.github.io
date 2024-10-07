@@ -1,6 +1,7 @@
 ---
 date: "2023-02-25T00:00:00Z"
 title: 'Notes on Duckdb: Build Pipelines'
+language: "zh"
 ---
 
 最近两年一直比较想学习下 duckdb，断断续续看了一点不大详细，这里先记录一下它的 Pipeline 模型的概念和初始化部分。

@@ -1,6 +1,7 @@
 ---
 date: "2024-06-09T00:00:00Z"
 title: Notes on Variational Autoencoder
+language: "zh"
 ---
 
 前段时间想学习一下 Stable Diffusion，不过发现好像需要先弄懂 VAE （Variational Autoencoder）是咋回事。这里先记一下对 VAE 的朴素理解，ELBO 数学还大看明白，后面单独记一下。
