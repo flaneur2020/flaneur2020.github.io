@@ -3,7 +3,7 @@ date: "2021-08-01T00:00:00Z"
 title: "Transaction Internals: Badger"
 ---
 
-Badger is an open-source LSM Tree KV engine developed by dgraph. Compared to leveldb, it introduced various improvements such as KV separation, transactions, and concurrent merging, making it a more production-ready storage engine in the Go ecosystem. Let's take a look at its transaction implementation.
+Badger is an open-source LSM Tree KV engine developed by dgraph. Compared to leveldb, it introduced various improvements such as KV separation, transactions, and concurrent compactions, making it a more production-ready storage engine in the Go ecosystem. Let's take a look at its transaction implementation.
 
 Badger implements optimistic concurrency control (OCC) transactions with Serializable Snapshot Isolation (SSI) level. Compared to Snapshot Isolation (SI), SSI not only tracks write operations for conflict detection but also tracks read operations within transactions. It performs conflict checks during commit. If any data read by the current transaction has been modified by other transactions during the transaction's execution period, the commit will fail:
 
