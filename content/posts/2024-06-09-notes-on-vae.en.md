@@ -1,6 +1,6 @@
 ---
 date: "2024-06-09T00:00:00Z"
-title: Notes on Variational Autoencoder: Intuition
+title: "Notes on Variational Autoencoder: Intuition"
 ---
 
 Recently, I wanted to learn about Stable Diffusion, but it seemed like I needed to first understand what VAE (Variational Autoencoder) is all about. Here, I'll jot down my naive understanding of VAE. I haven't fully grasped the math behind ELBO yet, so I'll note that separately later.
