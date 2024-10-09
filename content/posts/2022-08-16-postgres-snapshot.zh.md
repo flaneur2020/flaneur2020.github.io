@@ -39,7 +39,7 @@ Postgres 没有 MySQL 那种 UNDO log，多版本数据（Tuple）会直接存�
 
 这里有个比较反直觉的地方是，事务 COMMIT 还是 ROLLBACK，表空间的 Tuple 是没有立即变化的，事务的提交状态取决于 XACT 结构体的记录。
 
-XACT 可以视为 clog （Commit Log）的近义词，它由一组 8kb 的页面组成，页面中为每个事务 ID 对应两个 bit，表示这个事务是 Ingress、Committed 还是 Aborted。clog 会持续追加，每 256kb 轮换一次，不过它并不会无限制增长，vacuum 能够清理无用的 clog 文件。
+XACT 可以视为 clog （Commit Log）的近义词，它由一组 8kb 的页面组成，页面中为每个事务 ID 对应两个 bit，表示这个事务是 In Progress、Committed 还是 Aborted。clog 会持续追加，每 256kb 轮换一次，不过它并不会无限制增长，vacuum 能够清理无用的 clog 文件。
 
 所以在查询表数据的时候，往往需要二分查找一把 XACT（clog）来获取这行数据的提交状态，多查询一次 XACT 有一定开销，因此 postgres 还在 Tuple 中有两个 hint bit，分别指代 committed 或者 rollbacked，如果在读时发现 Tuple 被 committed/rollback 的话，则设置一把 hint bit，这样下次就不需要再来访问 XACT 了。比较像一个 Read Repair 的过程。
 

@@ -11,7 +11,7 @@ defaultContentLanguage = 'en'
     languageName = "English"
   [languages.zh]
     weight = 2
-    languageName = "Chinese"
+    languageName = "中文"
 
 [taxonomies]
 tag = 'tags'

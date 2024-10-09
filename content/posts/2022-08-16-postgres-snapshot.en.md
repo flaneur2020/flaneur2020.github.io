@@ -39,7 +39,7 @@ What if you update this Tuple in a new transaction? Postgres treats updates as a
 
 One counterintuitive thing is that whether the transaction COMMITs or ROLLBACKs, the Tuple in the tablespace doesn't change immediately. The transaction's commit status depends on the XACT structure.
 
-XACT can be seen as a synonym for clog (Commit Log). It consists of a set of 8kb pages, with two bits for each transaction ID, indicating whether the transaction is Ingress, Committed, or Aborted. clog keeps appending and rotates every 256kb, but it doesn't grow indefinitely; the obsoleted clog files can be cleaned up during vacuum.
+XACT can be seen as a synonym for clog (Commit Log). It consists of a set of 8kb pages, with two bits for each transaction ID, indicating whether the transaction is In Progress, Committed, or Aborted. clog keeps appending and rotates every 256kb, but it doesn't grow indefinitely; the obsoleted clog files can be cleaned up during vacuum.
 
 So when querying table data, you often need to binary search XACT (clog) to get the commit status of this row. Querying XACT has some overhead, so postgres also has two hint bits in the Tuple, indicating committed or rollbacked. If a Tuple is found to be committed/rollbacked during a read, a hint bit is set, so next time you don't need to access XACT again. It's kind of like a Read Repair process.
 
