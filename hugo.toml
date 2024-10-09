@@ -3,7 +3,7 @@ baseURL = 'https://flaneur2020.github.io/'
 title = "Flaneur2020"
 theme = 'typo'
 translationKey = 'about'
-defaultContentLanguage = 'zh'
+defaultContentLanguage = 'en'
 
 [languages]
   [languages.en]
@@ -69,8 +69,8 @@ name = "home"
 url = "/"
 
 [[params.menu]]
-name = "en"
-url = "/en"
+name = "中文"
+url = "/zh"
 
 [[params.menu]]
 name = "links"
