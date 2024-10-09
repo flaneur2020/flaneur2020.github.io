@@ -5,9 +5,9 @@ title: ReplacingMergeTree and CollapsingMergeTree
 
 We learned earlier that data in ClickHouse doesn't support updates, only insertions. If the same primary key has updates, it results in two rows in the table.
 
-That's where ReplacingMergeTree from the MergeTree family comes in. It can do some calculations during compaction to clean up duplicate data, leaving only the latest data for the primary key.
+That's where ReplacingMergeTree from the MergeTree family comes in. It can do some merging during compaction to clean up duplicate data, leaving only the latest data for the primary key.
 
-Sounds good, right? But during streaming data insertion, you can't guarantee there won't be duplicate primary keys.
+Sounds good, right? But during contiguous data insertion, you can't guarantee there won't be duplicate primary keys.
 
 (For T+1 data import scenarios, maybe it's enough? Import a batch, then run `OPTIMIZE TABLE` to compact, and no more duplicates. Or use `SELECT ... FINAL` to trigger compaction on each query. For small, rarely changing dimension tables, sounds doable?)
 
