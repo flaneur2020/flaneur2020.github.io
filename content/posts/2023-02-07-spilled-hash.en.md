@@ -57,7 +57,7 @@ The difference from Swap is that the spilled memory does not need to be loaded b
 
 ## Order By
 
-Understanding how to handle Spilling in Hash Aggregation makes it easy to imagine how to handle Spilling in Order By. If memory is running low during sorting, the currently sorted part can be written to disk, and a new buffer can be used for sorting. Finally, perform a multi-way merge and stream the results.
+Understanding how to handle Spilling in Hash Aggregation makes it easy to imagine how to handle Spilling in Order By. If memory is running low during sorting, the currently sorted part can be written to disk, and a new buffer can be allocated for sorting the rest until next spill. Finally, it would perform a multi-way merge and output the results in a stream.
 
 ## References
 
