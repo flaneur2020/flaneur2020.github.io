@@ -51,16 +51,16 @@ Compared to the keep-alive process in HTTP/1.1, grpc's advantage is that HTTP/2 
 
 ## Graceful Shutdown Process for Long-Lived RPC Protocols
 
-Personally, I feel that the communication layer of RPC should be built on a stable seven-layer protocol for reliability. However, it seems that four-layer long-lived connection RPC frameworks are more common in China.
+Personally, I feel that the communication layer of RPC should be built on a common used L7 protocol for reliability & simplicity. However, it seems that some long-lived connection RPC frameworks on L4 protocol are still common in China.
 
-The advantage of four-layer long-lived RPC communication is that normal exit behavior between the client and server can be defined at the protocol level. Here's a hypothetical Graceful shutdown process for a long-lived connection protocol:
+You should explicitly define the interactions between client & server by yourself if you choose building an RPC framework over L4 long-lived connections. Here's a hypothetical Graceful shutdown process for a long-lived connection protocol:
 
 1. Close listenfd to prevent new clients from establishing connections;
 2. The server deregisters itself from the registry, and after clients receive the change notification from the registry, they remove and close old connections. If concerned about slow convergence of service registration information, the server can also actively return a CLOSED message to clients. Upon receiving this response, clients stop sending requests to that connection and close it;
 3. When the server detects a legitimate connection closure, it exits the corresponding worker thread; when the server detects that all connections are closed, it exits itself;
 4. If the connection is not closed by the client within the normal time, the server forcibly exits.
 
-Whether returning a closed signal or deregistering, the power to actively close is given to the client, ensuring unidirectional flow of control.
+Whether returning a closed signal or deregistering, the key is to let the client decides when to close, ensuring an unidirectional flow of control.
 
 ## References
 
