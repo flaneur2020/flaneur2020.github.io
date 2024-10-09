@@ -138,3 +138,13 @@ prev: [[2023 - Index]]
 	- [[How do people use Snowflake and Redshift?]]
 	- [[Polaris Catalog - Overview]]
 	- [[Change query support in Apache Iceberg v2]]
+
+## October
+- Night
+	- Transaction in slatedb
+	- translate blog posts to en with deepseek
+- Books
+	- 党员、党权和党争
+	- 风险投资史
+- Readings
+	- 
