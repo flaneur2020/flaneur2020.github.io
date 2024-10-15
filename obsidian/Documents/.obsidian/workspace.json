@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Home.md",
+                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Home.md",
+                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Home.md"
+                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md"
               }
             }
           }
@@ -138,8 +138,12 @@
       "templates:Insert template": false
     }
   },
-  "active": "c6f7ac1787e42da5",
+  "active": "c07df4ab0ae3b2f0",
   "lastOpenFiles": [
+    "Logs/2024/2024-10/Why AWS NLB stickiness is not always sticky.md",
+    "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
+    "Home.md",
+    "Logs/2024/2024-10",
     "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png",
     "Logs/2024/2024-02/assets/Screenshot 2024-02-25 at 11.56.32.png",
     "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 10.57.59.png",
@@ -150,9 +154,7 @@
     "Logs/2024/2024-02/assets/Screenshot 2024-02-14 at 11.09.18.png",
     "Logs/2024/2024-02/assets/Pasted image 20240207161910.png",
     "Logs/2024/2024-02/assets/Pasted image 20240207161836.png",
-    "Logs/2024/2024-02/assets/Pasted image 20240207160941.png",
     "Logs/2024/2024-02/q8 dot product 优化记录.md",
-    "Home.md",
     "Logs/2024/2024-09/Change query support in Apache Iceberg v2.md",
     "Books/金钱心理学.md",
     "Books/社会为什么对年轻人冷酷无情.md",
@@ -180,12 +182,10 @@
     "Logs/2024/2024-08/Understanding Apache Paimon's Consistency Model Part 1.md",
     "Logs/2024/2024-09/Slatedb - Manifest Design.md",
     "Logs/2024/2024-09",
-    "Logs/2015/TIME_WAIT, tcp_tw_recycle 和 tcp_tw_reuse.md",
     "Logs/2015",
     "Logs/2024/2024-08/assets",
     "Logs/2024/2024-08",
     "Logs/2024/2024-07",
-    "Logs/2024/2024-06/assets",
     "Untitled.canvas"
   ]
 }
