@@ -1,5 +1,5 @@
 ---
-date: "2019-09-08T00:00:00Z"
+date: "2021-04-11T00:00:00Z"
 title: "Notes on LevelDB: Writes"
 ---
 
