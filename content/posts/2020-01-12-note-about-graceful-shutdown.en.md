@@ -3,7 +3,7 @@ date: "2020-01-12T00:00:00Z"
 title: "A Study about Graceful Shutdown"
 ---
 
-Graceful Shutdown is supposed to be a solved problem, especially for HTTP communication, where the details had already been handled properly by the application servers. However, I never thought carefully about how to implement graceful shutdown in the context of long-lived TCP connections. Let me have a study about the details on it.
+Graceful Shutdown is supposed to be a solved problem, especially for HTTP transports, where the details had already been handled properly by the application servers. However, I never thought carefully about how to implement graceful shutdown in the context of long-lived TCP connections. Let me have a study about the details on it.
 
 ## Graceful Shutdown in gunicorn
 
