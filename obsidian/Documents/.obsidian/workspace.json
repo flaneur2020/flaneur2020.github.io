@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
+                "file": "Logs/2024/2024-09/Change query support in Apache Iceberg v2.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
+                "file": "Logs/2024/2024-09/Change query support in Apache Iceberg v2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
+                "file": "Logs/2024/2024-09/Change query support in Apache Iceberg v2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,7 +114,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md"
+                "file": "Logs/2024/2024-09/Change query support in Apache Iceberg v2.md"
               }
             }
           }
@@ -140,9 +140,17 @@
   },
   "active": "c07df4ab0ae3b2f0",
   "lastOpenFiles": [
-    "Logs/2024/2024-10/Why AWS NLB stickiness is not always sticky.md",
-    "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
     "Home.md",
+    "Logs/2024/2024-10/The broken promise of re-use.md",
+    "Logs/2024/2024-10/Change query support in Apache Paimon (0.8).md",
+    "Logs/2024/2024-10/Write Skew and Phantoms.md",
+    "Logs/2024/2024-10/Why AWS NLB stickiness is not always sticky.md",
+    "Logs/2024/2024-10/Compressing strings with FSST.md",
+    "Logs/2024/2024-10/assets/Pasted image 20241020211341.png",
+    "Logs/2024/2024-10/assets",
+    "Logs/2024/2024-10/assets/Pasted image 20241020210000.png",
+    "Logs/2024/2024-10/What write skew looks like.md",
+    "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
     "Logs/2024/2024-10",
     "Logs/2024/2024-02/assets/Screenshot 2024-02-24 at 11.02.40.png",
     "Logs/2024/2024-02/assets/Screenshot 2024-02-25 at 11.56.32.png",
@@ -152,8 +160,6 @@
     "Logs/2024/2024-02/assets/Screenshot 2024-02-20 at 22.24.59.png",
     "Logs/2024/2024-02/assets/Pasted image 20240217110014.png",
     "Logs/2024/2024-02/assets/Screenshot 2024-02-14 at 11.09.18.png",
-    "Logs/2024/2024-02/assets/Pasted image 20240207161910.png",
-    "Logs/2024/2024-02/assets/Pasted image 20240207161836.png",
     "Logs/2024/2024-02/q8 dot product 优化记录.md",
     "Logs/2024/2024-09/Change query support in Apache Iceberg v2.md",
     "Books/金钱心理学.md",
@@ -175,17 +181,10 @@
     "Logs/2024/2024-09/Polaris Catalog - Overview.md",
     "Logs/2024/2024-09/assets/How do people use Snowflake and Redshift?.md",
     "Logs/2024/2024-09/assets",
-    "Logs/2024/2024-09/ZML Concepts.md",
-    "Logs/2024/2024-09/FIFO Queues are All You Need for Cache Eviction.md",
-    "Logs/2024/2024-09/How to port Pytorch models to ZML ?.md",
-    "Logs/2024/2024-09/Async IO with completion-model IO systems.md",
-    "Logs/2024/2024-08/Understanding Apache Paimon's Consistency Model Part 1.md",
-    "Logs/2024/2024-09/Slatedb - Manifest Design.md",
     "Logs/2024/2024-09",
     "Logs/2015",
     "Logs/2024/2024-08/assets",
     "Logs/2024/2024-08",
-    "Logs/2024/2024-07",
     "Untitled.canvas"
   ]
 }

@@ -148,3 +148,6 @@ prev: [[2023 - Index]]
 	- 风险投资史
 - Readings
 	- [[Why AWS NLB stickiness is not always sticky]]
+	- [[The broken promise of re-use]]
+	- [[Write Skew and Phantoms]]
+	- [[Compressing strings with FSST]]
