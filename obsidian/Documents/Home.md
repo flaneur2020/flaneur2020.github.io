@@ -151,3 +151,21 @@ prev: [[2023 - Index]]
 	- [[The broken promise of re-use]]
 	- [[Write Skew and Phantoms]]
 	- [[Compressing strings with FSST]]
+	- [[How to Configure and Leverage Resource Groups in Presto]]
+	- [[Use Resource Control to Achieve Resource Isolation]]
+
+## November
+- Night
+	- Snapshot in slatedb
+	- [[learn pg_replicate]]
+	- porcupine linearizability checker
+	- echo in duckdb extension
+- Books
+	- 美元陷阱
+- Readings
+	- [[Logical Replication in PostgreSQL Explained]]
+	- [[duckdb cronjob_extension.cpp]]
+	- [[duckdb C API extensions]]
+	- [[Databend Vacuum]]
+	- [[Caching in DataFusion]]
+	- [[Netflix's Distributed Counter Abstraction]]
