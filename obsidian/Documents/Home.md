@@ -160,6 +160,7 @@ prev: [[2023 - Index]]
 	- [[learn pg_replicate]]
 	- porcupine linearizability checker
 	- echo in duckdb extension
+	- [[grid trading]]
 - Books
 	- 美元陷阱
 - Readings

@@ -169,8 +169,9 @@
   },
   "active": "ce26540b388794b5",
   "lastOpenFiles": [
-    "Logs/2024/2024-11/duckdb C API extensions.md",
+    "Logs/2024/2024-11/grid trading.md",
     "Home.md",
+    "Logs/2024/2024-11/duckdb C API extensions.md",
     "Logs/2024/2024-11/duckdb cronjob_extension.cpp.md",
     "Logs/2024/2024-11/Netflix's Distributed Counter Abstraction.md",
     "Logs/2024/2024-11/assets/Pasted image 20241117120838.png",
@@ -209,7 +210,6 @@
     "Logs/2024/2024-09/Slatedb - Manifest Design.md",
     "Logs/2024/2024-09/Polaris Catalog - Overview.md",
     "Logs/2024/2024-09/How to port Pytorch models to ZML ?.md",
-    "Logs/2024/2024-09/FIFO Queues are All You Need for Cache Eviction.md",
     "Logs/2024/2024-09",
     "Logs/2024/2024-08/assets",
     "Logs/2024/2024-08",
