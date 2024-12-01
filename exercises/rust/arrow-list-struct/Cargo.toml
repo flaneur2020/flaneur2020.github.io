@@ -1,0 +1,9 @@
+[package]
+name = "arrow-list-struct"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+arrow = "54.0.0"
+arrow-array = "54.0.0"
+arrow-schema = "54.0.0"

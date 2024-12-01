@@ -1,0 +1,5 @@
+- write_batch.rs 调用 maybe_freeze_wal
+- maybe_freeze_wal 会调用 freeze_wal 并发送一个 FlushImmutableTableWals 消息
+- flush.rs 收到消息并调用 flush() 然后调用 flush_imm_wals 写入 WAL
+- 在 flush_imm_wals 中会调用 flush_imm_wal_to_memtable 将 wal 写入到 memtable
+- 然后 flush_imm_wal_to_memtable 会概率性触发 maybe_freeze_memtable
