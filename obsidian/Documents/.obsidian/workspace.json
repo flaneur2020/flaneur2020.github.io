@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "Books/OO年代的想象力.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "OO年代的想象力"
             }
           }
         ]
@@ -93,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Home.md",
+                "file": "Books/金钱心理学.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Home"
+              "title": "Backlinks for 金钱心理学"
             }
           },
           {
@@ -112,12 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Home.md",
+                "file": "Books/金钱心理学.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Home"
+              "title": "Outgoing links from 金钱心理学"
             }
           },
           {
@@ -126,10 +126,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Home.md"
+                "file": "Books/金钱心理学.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Home"
+              "title": "Outline of 金钱心理学"
             }
           }
         ]
@@ -154,51 +154,52 @@
   },
   "active": "97f27e0854f3d332",
   "lastOpenFiles": [
+    "Logs/2025/2025-01/Robust External Hash Aggregation in the Solid State Age.md",
+    "Logs/2025/2025-01/rustgo - calling Rust from Go with near-zero overhead.md",
+    "Logs/2025/2025-01/Can Applications Recover from fsync Failures?.md",
+    "Home.md",
+    "Logs/2025/2025-01/Preventing Data Resurrection with Repair Based Tombstone Garbage Collection.md",
+    "Logs/2025/2025-01/DSQL Vignette - Transactions and Durability.md",
+    "Books/金钱心理学.md",
+    "Books/文革前的邓小平.md",
+    "Books/OO年代的想象力.md",
+    "Books/Successful Algorithmic Trading.md",
     "Logs/2025/2025-01/iceberg FastAppend & MergeAppend.md",
+    "Logs/2025/2025-01/assets/Pasted image 20250122232220.png",
+    "Logs/2024/2024-12/slatedb 写入流程.md",
+    "Logs/2024/2024 - Index.md",
+    "Books/社会为什么对年轻人冷酷无情.md",
+    "Books/纽约摄影学院教材 上.md",
+    "Books/学生为什么不喜欢学习.md",
+    "Books/成为活跃于全球的英语工作者.md",
+    "Books/甲午战争前后的晚清政局.md",
+    "Logs/2025/2025-01/FizzBee Quick Start for TLA+ Users.md",
+    "Logs/2025/2025-01/How bloom filters made SQLite 10x faster.md",
+    "Logs/2025/2025-01/assets/Pasted image 20250104220644.png",
+    "Logs/2025/2025-01/assets/Pasted image 20250104215814.png",
+    "Logs/2025/2025-01/sdv - Quality Report.md",
+    "Logs/2025/2025-01/assets/Pasted image 20250103143141.png",
+    "Logs/2025/2025-01/assets/Pasted image 20250103142817.png",
+    "Logs/2025/2025-01/assets/Pasted image 20250103142536.png",
+    "Logs/2025/2025-01/assets",
+    "Logs/2025/2025-01/assets/Pasted image 20250103142027.png",
     "Logs/2025/2025-01/Lightweight property-based testing at Row Zero.md",
     "Logs/2025/2025-01",
     "Logs/2025",
-    "Logs/2024/2024-12/slatedb 写入流程.md",
     "Logs/2024/2024-12/s3tables catalog.md",
     "Logs/2024/2024-12/rocksdb - Merge Operator.md",
     "Logs/2024/2024-12/leveldb - smallest_snapshot.md",
     "Logs/2024/2024-12/What's the big deal about Deterministic Simulation Testing?.md",
-    "Logs/2024/2024-12/Fast LLM Inference From Scratch.md",
     "Logs/2024/2024-12",
-    "Logs/2024/2024 - Index.md",
-    "Logs/2024/2024-11/learn pg_replicate.md",
-    "Logs/2024/2024-11/duckdb cronjob_extension.cpp.md",
-    "Logs/2024/2024-11/duckdb C API extensions.md",
     "Logs/2024/2024-11/assets/Pasted image 20241125223851.png",
     "Logs/2024/2024-11/assets/Pasted image 20241117120838.png",
     "Logs/2024/2024-11/assets/Pasted image 20241117120819.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241117120745.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241117115656.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241107131145.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241106173602.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241106173507.png",
     "Logs/2024/2024-11/assets",
-    "Logs/2024/2024-11/Netflix's Distributed Counter Abstraction.md",
-    "Logs/2024/2024-11/Logical Replication in PostgreSQL Explained.md",
-    "Logs/2024/2024-11/Databend Vacuum.md",
-    "Logs/2024/2024-11/Caching in DataFusion.md",
-    "Logs/2024/2024-11/A Primer on Grid Trading Strategy.md",
     "Logs/2024/2024-11",
-    "Logs/2024/2024-10/assets/Pasted image 20241020211341.png",
-    "Logs/2024/2024-10/assets/Pasted image 20241020210000.png",
     "Logs/2024/2024-10/assets",
-    "Logs/2024/2024-10/Write Skew and Phantoms.md",
-    "Logs/2024/2024-10/Why AWS NLB stickiness is not always sticky.md",
-    "Logs/2024/2024-10/Use Resource Control to Achieve Resource Isolation.md",
-    "Logs/2024/2024-10/The broken promise of re-use.md",
-    "Logs/2024/2024-10/Tensors from Scratch - Elementwise operations and Broadcasting.md",
-    "Logs/2024/2024-10/How to Configure and Leverage Resource Groups in Presto.md",
-    "Logs/2024/2024-10/Compressing strings with FSST.md",
-    "Logs/2024/2024-10/Change query support in Apache Paimon (0.8).md",
     "Logs/2024/2024-10",
     "Logs/2024/2024-09/assets",
     "Logs/2024/2024-09",
-    "Logs/2024/2024-08/assets",
     "Untitled.canvas"
   ]
 }
