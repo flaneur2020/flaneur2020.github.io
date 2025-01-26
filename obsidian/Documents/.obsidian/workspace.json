@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Books/OO年代的想象力.md",
+                "file": "Home.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OO年代的想象力"
+              "title": "Home"
             }
           }
         ]
@@ -154,17 +154,23 @@
   },
   "active": "97f27e0854f3d332",
   "lastOpenFiles": [
-    "Logs/2025/2025-01/Robust External Hash Aggregation in the Solid State Age.md",
-    "Logs/2025/2025-01/rustgo - calling Rust from Go with near-zero overhead.md",
+    "Logs/2025/2025-01/DataInfra/Robust External Hash Aggregation in the Solid State Age.md",
+    "Logs/2025/2025-01/DataInfra/How bloom filters made SQLite 10x faster.md",
+    "Logs/2025/2025-01/DataInfra/iceberg FastAppend & MergeAppend.md",
+    "Logs/2025/2025-01/So you wanna write Kubernetes controllers?.md",
     "Logs/2025/2025-01/Can Applications Recover from fsync Failures?.md",
+    "Logs/2025/2025-01/rustgo - calling Rust from Go with near-zero overhead.md",
+    "Logs/2025/2025-01/DataInfra/DSQL Vignette - Transactions and Durability.md",
+    "Logs/2025/2025-01/Testing/FizzBee Quick Start for TLA+ Users.md",
+    "Logs/2025/2025-01/DataInfra/Preventing Data Resurrection with Repair Based Tombstone Garbage Collection.md",
+    "Logs/2025/2025-01/Testing/Lightweight property-based testing at Row Zero.md",
+    "Logs/2025/2025-01/Testing",
+    "Logs/2025/2025-01/DataInfra",
     "Home.md",
-    "Logs/2025/2025-01/Preventing Data Resurrection with Repair Based Tombstone Garbage Collection.md",
-    "Logs/2025/2025-01/DSQL Vignette - Transactions and Durability.md",
+    "Books/OO年代的想象力.md",
     "Books/金钱心理学.md",
     "Books/文革前的邓小平.md",
-    "Books/OO年代的想象力.md",
     "Books/Successful Algorithmic Trading.md",
-    "Logs/2025/2025-01/iceberg FastAppend & MergeAppend.md",
     "Logs/2025/2025-01/assets/Pasted image 20250122232220.png",
     "Logs/2024/2024-12/slatedb 写入流程.md",
     "Logs/2024/2024 - Index.md",
@@ -173,23 +179,18 @@
     "Books/学生为什么不喜欢学习.md",
     "Books/成为活跃于全球的英语工作者.md",
     "Books/甲午战争前后的晚清政局.md",
-    "Logs/2025/2025-01/FizzBee Quick Start for TLA+ Users.md",
-    "Logs/2025/2025-01/How bloom filters made SQLite 10x faster.md",
     "Logs/2025/2025-01/assets/Pasted image 20250104220644.png",
     "Logs/2025/2025-01/assets/Pasted image 20250104215814.png",
-    "Logs/2025/2025-01/sdv - Quality Report.md",
+    "Logs/2025/2025-01/Testing/sdv - Quality Report.md",
     "Logs/2025/2025-01/assets/Pasted image 20250103143141.png",
     "Logs/2025/2025-01/assets/Pasted image 20250103142817.png",
     "Logs/2025/2025-01/assets/Pasted image 20250103142536.png",
     "Logs/2025/2025-01/assets",
     "Logs/2025/2025-01/assets/Pasted image 20250103142027.png",
-    "Logs/2025/2025-01/Lightweight property-based testing at Row Zero.md",
     "Logs/2025/2025-01",
     "Logs/2025",
     "Logs/2024/2024-12/s3tables catalog.md",
     "Logs/2024/2024-12/rocksdb - Merge Operator.md",
-    "Logs/2024/2024-12/leveldb - smallest_snapshot.md",
-    "Logs/2024/2024-12/What's the big deal about Deterministic Simulation Testing?.md",
     "Logs/2024/2024-12",
     "Logs/2024/2024-11/assets/Pasted image 20241125223851.png",
     "Logs/2024/2024-11/assets/Pasted image 20241117120838.png",
@@ -198,8 +199,6 @@
     "Logs/2024/2024-11",
     "Logs/2024/2024-10/assets",
     "Logs/2024/2024-10",
-    "Logs/2024/2024-09/assets",
-    "Logs/2024/2024-09",
     "Untitled.canvas"
   ]
 }
