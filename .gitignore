@@ -11,3 +11,5 @@ logseq/logseq/.recycle/
 obsidian/Documents/.Trash/*
 public/
 resources/_gen/
+obsidian/Documents/.obsidian/
+obsidian/Documents/.*

@@ -8,20 +8,47 @@
         "type": "tabs",
         "children": [
           {
-            "id": "97f27e0854f3d332",
+            "id": "4fa7ca193f8da154",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "Logs/2025/2025-02/Correctness at Feldera.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "Correctness at Feldera"
+            }
+          },
+          {
+            "id": "75536cf29fe56cd6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Logs/2025/2025-02/Log-derivative trick.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Log-derivative trick"
+            }
+          },
+          {
+            "id": "08ed5cfac380cd4b",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.8.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.7"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -40,7 +67,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "byModifiedTimeReverse"
+                "sortOrder": "byModifiedTimeReverse",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -52,7 +80,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "paimon",
+                "query": "推公式",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Books/金钱心理学.md",
+                "file": "Books/OO年代的想象力.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +131,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 金钱心理学"
+              "title": "Backlinks for OO年代的想象力"
             }
           },
           {
@@ -126,17 +154,31 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Books/金钱心理学.md"
+                "file": "Logs/2025/2025-02/Log-derivative trick.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 金钱心理学"
+              "title": "Outline of Log-derivative trick"
+            }
+          },
+          {
+            "id": "cc103c3d4a28ff10",
+            "type": "leaf",
+            "state": {
+              "type": "smtcmp-chat-view",
+              "state": {},
+              "icon": "wand-sparkles",
+              "title": "Smart composer chat"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 649.5,
     "collapsed": true
   },
   "left-ribbon": {
@@ -146,59 +188,61 @@
       "command-palette:Open command palette": false,
       "markdown-importer:Open format converter": true,
       "canvas:Create new canvas": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
       "daily-notes:Open today's daily note": true,
       "publish:Publish changes...": false,
-      "templates:Insert template": false
+      "templates:Insert template": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "smart-composer:Open smart composer": false
     }
   },
-  "active": "97f27e0854f3d332",
+  "active": "08ed5cfac380cd4b",
   "lastOpenFiles": [
-    "Logs/2025/2025-01/DataInfra/Robust External Hash Aggregation in the Solid State Age.md",
-    "Logs/2025/2025-01/DataInfra/How bloom filters made SQLite 10x faster.md",
-    "Logs/2025/2025-01/DataInfra/iceberg FastAppend & MergeAppend.md",
-    "Logs/2025/2025-01/So you wanna write Kubernetes controllers?.md",
-    "Logs/2025/2025-01/Can Applications Recover from fsync Failures?.md",
-    "Logs/2025/2025-01/rustgo - calling Rust from Go with near-zero overhead.md",
-    "Logs/2025/2025-01/DataInfra/DSQL Vignette - Transactions and Durability.md",
-    "Logs/2025/2025-01/Testing/FizzBee Quick Start for TLA+ Users.md",
-    "Logs/2025/2025-01/DataInfra/Preventing Data Resurrection with Repair Based Tombstone Garbage Collection.md",
-    "Logs/2025/2025-01/Testing/Lightweight property-based testing at Row Zero.md",
-    "Logs/2025/2025-01/Testing",
-    "Logs/2025/2025-01/DataInfra",
-    "Home.md",
-    "Books/OO年代的想象力.md",
-    "Books/金钱心理学.md",
-    "Books/文革前的邓小平.md",
-    "Books/Successful Algorithmic Trading.md",
-    "Logs/2025/2025-01/assets/Pasted image 20250122232220.png",
-    "Logs/2024/2024-12/slatedb 写入流程.md",
+    "Logs/2025/2025-02/Reinforcement Learning - 策略梯度.md",
+    "Logs/2025/2025-02/Log-derivative trick.md",
+    "Logs/2023/2023-07/Flash Attention 推公式.md",
+    "Logs/2023/2023 - Index.md",
     "Logs/2024/2024 - Index.md",
-    "Books/社会为什么对年轻人冷酷无情.md",
-    "Books/纽约摄影学院教材 上.md",
+    "Home.md",
+    "Logs/2025/2025-02/Deep Reinforcement Learning forFlappy Bird.md",
+    "Logs/2025/2025-02/Policy Gradient.md",
+    "Logs/2025/2025-02/DQN.md",
+    "Logs/2025/2025-02/Correctness at Feldera.md",
+    "Logs/2025/2025-02/Throughput is Not All You Need - Maximizing Goodput in LLM Serving using Prefill-Decode Disaggregation.md",
+    "Logs/2025/2025-01/DataInfra/Robust External Hash Aggregation in the Solid State Age.md",
+    "Logs/2025/2025-02/assets/Pasted image 20250216120302.png",
+    "Logs/2025/2025-02/assets/Pasted image 20250216120248.png",
+    "Logs/2025/2025-02/DIAMetrics - Benchmarking Query Engines at Scale.md",
+    "Logs/2025/2025-02/assets/Pasted image 20250216115549.png",
+    "Logs/2025/2025-02/assets/Screenshot 2025-02-14 at 19.17.11.png",
+    "Logs/2025/2025-02/assets/Screenshot 2025-02-13 at 11.54.33.png",
+    "Logs/2025/2025-02/assets/p3285-gruenheid.pdf",
+    "Logs/2025/2025-02/GPU 异构大模型推理策略 - KTransformers.md",
+    "灵活可配的 CPU",
+    "Logs/2025/2025-02/Flappy Bird RL.md",
+    "Excalidraw/Drawing 2025-02-08 17.28.42.excalidraw.md",
+    "Excalidraw/Untitled.md",
+    "Books/Think Bayes.md",
+    "Books/OO年代的想象力.md",
+    "Books/Successful Algorithmic Trading.md",
+    "Logs/2015/TIME_WAIT, tcp_tw_recycle 和 tcp_tw_reuse.md",
     "Books/学生为什么不喜欢学习.md",
     "Books/成为活跃于全球的英语工作者.md",
-    "Books/甲午战争前后的晚清政局.md",
+    "Books/社会为什么对年轻人冷酷无情.md",
+    "Books/纽约摄影学院教材 上.md",
+    "Books/读史求实.md",
+    "Excalidraw",
+    "Logs/2025/2025-02/assets",
+    "Logs/2025/2025-02/assets/Pasted image 20250206221120.png",
+    "Logs/2025/2025-02",
+    "Logs/2025/2025-01/Testing",
+    "Logs/2025/2025-01/DataInfra",
+    "Logs/2025/2025-01/assets/Pasted image 20250122232220.png",
     "Logs/2025/2025-01/assets/Pasted image 20250104220644.png",
     "Logs/2025/2025-01/assets/Pasted image 20250104215814.png",
-    "Logs/2025/2025-01/Testing/sdv - Quality Report.md",
     "Logs/2025/2025-01/assets/Pasted image 20250103143141.png",
-    "Logs/2025/2025-01/assets/Pasted image 20250103142817.png",
-    "Logs/2025/2025-01/assets/Pasted image 20250103142536.png",
     "Logs/2025/2025-01/assets",
-    "Logs/2025/2025-01/assets/Pasted image 20250103142027.png",
     "Logs/2025/2025-01",
     "Logs/2025",
-    "Logs/2024/2024-12/s3tables catalog.md",
-    "Logs/2024/2024-12/rocksdb - Merge Operator.md",
-    "Logs/2024/2024-12",
-    "Logs/2024/2024-11/assets/Pasted image 20241125223851.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241117120838.png",
-    "Logs/2024/2024-11/assets/Pasted image 20241117120819.png",
-    "Logs/2024/2024-11/assets",
-    "Logs/2024/2024-11",
-    "Logs/2024/2024-10/assets",
-    "Logs/2024/2024-10",
     "Untitled.canvas"
   ]
 }

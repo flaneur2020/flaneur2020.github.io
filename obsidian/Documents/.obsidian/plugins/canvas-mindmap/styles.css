@@ -1,8 +1,29 @@
-/*
+.mind-map-setting-desc {
+    margin-top: var(--size-4-2);
+    margin-bottom: var(--size-4-2);
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.mind-map-demo {
+    text-align: center;
+}
 
-If your plugin does not need CSS, delete this file.
+.menu-item-icon.reverse {
+    transform: rotate(180deg);
+}
 
-*/
+.mind-map-status-bar.status-bar-item .icon-container.reverse {
+    transform: rotate(180deg);
+}
+
+.mind-map-status-bar.status-bar-item:hover {
+    background-color: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.mind-map-status-bar.status-bar-item .svg-icon {
+    --icon-size: 14px;
+}
+
+.mind-map-status-bar.status-bar-item .icon-container {
+    margin-left: var(--size-2-2);
+}

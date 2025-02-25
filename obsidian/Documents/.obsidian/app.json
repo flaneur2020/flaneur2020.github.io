@@ -10,7 +10,11 @@
     "margin": "0",
     "downscalePercent": 100
   },
-  "readableLineLength": false,
+  "readableLineLength": true,
   "spellcheck": false,
-  "autoPairBrackets": false
+  "autoPairBrackets": false,
+  "showLineNumber": false,
+  "autoPairMarkdown": true,
+  "vimMode": false,
+  "foldHeading": true
 }
