@@ -10,13 +10,13 @@ Q-Learning essentially estimates a value $Q(s, a)$ for each state-action pair $(
 
 Both Q-Learning and DQN evaluate rewards and select actions based on the estimated value of rewards.
 
-Policy Gradient belongs to a different approach, directly selecting actions $a$ based on the current state $s$. The neural network takes the current state s as input and outputs probabilities for various actions, denoted as $\pi_\theta(a|s)$, where $\theta$ represents the neural network parameters.
+On the other hand, Policy Gradient belongs to a different approach - directly selecting actions $a$ based on the current state $s$. The neural network takes the current state $s$ as input and outputs probabilities for various actions, denoted as $\pi_\theta(a|s)$, where $\theta$ represents the neural network parameters.
 
 Later algorithms used in large language models, such as PPO and GRPO, also belong to the Policy Gradient family.
 
-However, I found the mathematical derivation of Policy Gradient somewhat difficult to understand, so I'm taking notes here.
+However, I found the mathematical derivation of Policy Gradient somewhat difficult to understand for me, so I'm taking notes here.
 
-As with previous learning, I'll first list the prerequisite mathematical knowledge needed for the derivation. Later, we'll simply substitute these formulas into the derivation.
+Like the previous notes about machine learning, I'll first list the prerequisite mathematical knowledge needed for the derivation. Later, we'll simply substitute these formulas into the derivation.
 
 ## Expectation and Monte Carlo
 
