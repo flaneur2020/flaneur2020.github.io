@@ -202,7 +202,7 @@ Loss(\theta) & = - J(\theta) \\
 \end{align}
 $$
 
-## Summary
+## Final Thoughts
 
 Overall, the derivation of the Policy Gradient formula isn't particularly long. It primarily applies the Log Derivative Trick to introduce a probability function, and then uses the Monte Carlo method to estimate the expectation.
 
