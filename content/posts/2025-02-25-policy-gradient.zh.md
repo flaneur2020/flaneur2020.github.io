@@ -206,7 +206,7 @@ $$
 
 总的来看 Policy Gradient 的公式的推导不算长，主要就是应用了 Log Derivative Trick 来凑出概率函数，然后用蒙特卡洛方法来估算期望。
 
-不过这种最简单的 Vanilla Policy Gradient 听说训练效果比较捉急，玩游戏的轨迹按说是很稀疏的，用蒙卡特罗估算期望不怎么稳，方差太大。后续就接着看下它上面做改进的算法，比如 PPO、GRPO 等。
+不过这种最简单的 Vanilla Policy Gradient 听说训练效果比较捉急，玩游戏的轨迹按说是很稀疏的，而且 Reward 的方差很大，用蒙卡特罗估算期望并不怎么稳。后续就接着看下它上面做改进的算法，比如 PPO、GRPO 等。
 
 ## References
 
