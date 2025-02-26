@@ -4,7 +4,7 @@ title: "Notes on RL: Policy Gradient & Log Derivative Trick"
 language: "zh"
 ---
 
-前段时间照着[这个教程](https://sarvagyavaish.github.io/FlappyBirdRL/) 用最基础的 Q-Learning 做了一个 Flappy Bird 的强化学习，还意外的挺好使，跑到了一万多分。
+前段时间照着[这个教程](https://sarvagyavaish.github.io/FlappyBirdRL/) 用最基础的 Q-Learning 做了一个 [Flappy Bird 的强化学习](https://github.com/flaneur2020/FlappyBird-RL)，还意外的挺好使，跑到了一万多分。
 
 Q-Learning 相当于为每个状态-动作对 $(s, a)$ 都估计了一个价值 $Q(s, a)$，然后根据 $Q$ 值来选择动作。Deep Q-Network 相当于在基础版 Q-Learning 的基础上加一个神经网络来估计 $Q$ 值，像是把 Q Table 用神经网络压缩了一把。
 

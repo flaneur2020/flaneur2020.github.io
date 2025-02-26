@@ -4,9 +4,7 @@ title: "Notes on RL: Policy Gradient & Log Derivative Trick"
 language: "en"
 ---
 
-# Notes on RL: Policy Gradient & Log Derivative Trick
-
-Recently I followed [this tutorial](https://sarvagyavaish.github.io/FlappyBirdRL/) to implement a basic Q-Learning reinforcement learning algorithm for Flappy Bird, which surprisingly worked quite well, reaching over 10,000 points.
+Recently I followed [this tutorial](https://sarvagyavaish.github.io/FlappyBirdRL/) to implement a basic Q-Learning reinforcement learning algorithm for [Flappy Bird](https://github.com/flaneur2020/FlappyBird-RL), which surprisingly worked quite well, reaching over 10,000 points.
 
 Q-Learning essentially estimates a value $Q(s, a)$ for each state-action pair $(s, a)$, and then selects actions based on these $Q$ values. Deep Q-Network (DQN) builds on basic Q-Learning by adding a neural network to estimate $Q$ values, essentially compressing the Q Table using a neural network.
 
