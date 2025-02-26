@@ -143,6 +143,10 @@ $$
 \nabla_{\theta} J(\theta) = \nabla_{\theta} \mathbb{E}_{\tau \sim \pi_\theta} \left[ R(\tau) \right]
 $$
 
+$$
+\theta \leftarrow \theta + \alpha \nabla_{\theta} J(\theta)
+$$
+
 展开一下，应用上 Leibniz rule 和 Log derivative trick：
 
 $$
