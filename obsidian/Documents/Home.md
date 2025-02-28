@@ -28,16 +28,20 @@ prev: [[2024 - Index]]
 
 - Night
 	- flappy Bird RL
-	- [[DQN]]
+	- DQN
 	- [[Reinforcement Learning - 策略梯度]]
 	- PPO
 - Books
 	- 动量交易
 	- 深度强化学习实战
 - Readings
-	- [[Flappy Bird RL]]
-	- [[GPU 异构大模型推理策略 - KTransformers]]
-	- [[Correctness at Feldera]]
-	- [[Throughput is Not All You Need - Maximizing Goodput in LLM Serving using Prefill-Decode Disaggregation]]
-	- [[Deep Reinforcement Learning forFlappy Bird]]
-	- [[Log-derivative trick]]
+	- RL
+		- [[Flappy Bird RL]]
+		- [[Deep Reinforcement Learning forFlappy Bird]]
+		- [[Log-derivative trick]]
+	- Inference
+		- [[GPU 异构大模型推理策略 - KTransformers]]
+		- [[Throughput is Not All You Need - Maximizing Goodput in LLM Serving using Prefill-Decode Disaggregation]]
+	- datasys
+		- [[Correctness at Feldera]]
+	
