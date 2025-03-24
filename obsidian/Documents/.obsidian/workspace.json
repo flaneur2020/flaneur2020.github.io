@@ -8,49 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "4fa7ca193f8da154",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Logs/2025/2025-02/Correctness at Feldera.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Correctness at Feldera"
-            }
-          },
-          {
-            "id": "75536cf29fe56cd6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Logs/2025/2025-02/Log-derivative trick.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Log-derivative trick"
-            }
-          },
-          {
             "id": "08ed5cfac380cd4b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "Books/穿越抑郁的正念之道.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "穿越抑郁的正念之道"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -197,10 +168,26 @@
       "smart-composer:Open smart composer": false
     }
   },
-  "active": "08ed5cfac380cd4b",
+  "active": "c6f7ac1787e42da5",
   "lastOpenFiles": [
-    "Logs/2025/2025-02/Fast columnar JSON decoding with arrow-rs.md",
+    "Logs/2025/2025-03/Efficient Filter Pushdown in Parquet.md",
+    "Books/穿越抑郁的正念之道.md",
+    "Logs/2025/2025-03/assets/Pasted image 20250321105138.png",
+    "Logs/2025/2025-03/assets/Pasted image 20250321105134.png",
     "Home.md",
+    "Logs/2025/2025-03/Testing Database Engines via Pivoted Query Synthesis.md",
+    "Logs/2025/2025-03/Building Clickhouse BYOC on AWS.md",
+    "Logs/2025/2025-03/assets/Screenshot 2025-03-14 at 19.23.23.png",
+    "Logs/2025/2025-03/assets/Pasted image 20250314192243.png",
+    "Logs/2025/2025-03/My LLM codegen workflow atm.md",
+    "Logs/2024/2024 - Index.md",
+    "Logs/2025/2025-03/Doris - Runtime Filter.md",
+    "Logs/2025/2025-03/trino - Dynamic Filtering.md",
+    "Logs/2025/2025-03/assets/Pasted image 20250305114706.png",
+    "Logs/2025/2025-03/assets",
+    "Logs/2025/2025-03/assets/Pasted image 20250305113546.png",
+    "Logs/2025/2025-03",
+    "Logs/2025/2025-02/Fast columnar JSON decoding with arrow-rs.md",
     "Logs/2025/2025-02/Speeding up Temporal Aggregation in DataFusion by 60-60000x.md",
     "Logs/2025/2025-02/DQN.md",
     "Logs/2025/2025-02/Flappy Bird RL.md",
@@ -209,7 +196,6 @@
     "Logs/2025/2025-02/Log-derivative trick.md",
     "Logs/2023/2023-07/Flash Attention 推公式.md",
     "Logs/2023/2023 - Index.md",
-    "Logs/2024/2024 - Index.md",
     "Logs/2025/2025-02/Deep Reinforcement Learning forFlappy Bird.md",
     "Logs/2025/2025-02/Policy Gradient.md",
     "Logs/2025/2025-02/Correctness at Feldera.md",
@@ -220,31 +206,16 @@
     "Logs/2025/2025-02/DIAMetrics - Benchmarking Query Engines at Scale.md",
     "Logs/2025/2025-02/assets/Pasted image 20250216115549.png",
     "Logs/2025/2025-02/assets/Screenshot 2025-02-14 at 19.17.11.png",
-    "Logs/2025/2025-02/assets/Screenshot 2025-02-13 at 11.54.33.png",
     "Logs/2025/2025-02/assets/p3285-gruenheid.pdf",
     "灵活可配的 CPU",
     "Excalidraw/Drawing 2025-02-08 17.28.42.excalidraw.md",
     "Excalidraw/Untitled.md",
-    "Books/Think Bayes.md",
-    "Books/OO年代的想象力.md",
-    "Books/Successful Algorithmic Trading.md",
-    "Logs/2015/TIME_WAIT, tcp_tw_recycle 和 tcp_tw_reuse.md",
-    "Books/学生为什么不喜欢学习.md",
-    "Books/成为活跃于全球的英语工作者.md",
-    "Books/社会为什么对年轻人冷酷无情.md",
     "Excalidraw",
     "Logs/2025/2025-02/assets",
-    "Logs/2025/2025-02/assets/Pasted image 20250206221120.png",
     "Logs/2025/2025-02",
     "Logs/2025/2025-01/Testing",
     "Logs/2025/2025-01/DataInfra",
-    "Logs/2025/2025-01/assets/Pasted image 20250122232220.png",
-    "Logs/2025/2025-01/assets/Pasted image 20250104220644.png",
-    "Logs/2025/2025-01/assets/Pasted image 20250104215814.png",
-    "Logs/2025/2025-01/assets/Pasted image 20250103143141.png",
     "Logs/2025/2025-01/assets",
-    "Logs/2025/2025-01",
-    "Logs/2025",
     "Untitled.canvas"
   ]
 }

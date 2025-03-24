@@ -12,16 +12,18 @@ prev: [[2024 - Index]]
 	- [[OO年代的想象力]]
 	- [[文革前的邓小平]]
 - Readings
-	- [[iceberg FastAppend & MergeAppend]]
-	- [[Lightweight property-based testing at Row Zero]]
-	- [[sdv - Quality Report]]
-	- [[How bloom filters made SQLite 10x faster]]
-	- [[Robust External Hash Aggregation in the Solid State Age]]
+	- data sys
+		- [[iceberg FastAppend & MergeAppend]]
+		- [[How bloom filters made SQLite 10x faster]]
+		- [[Robust External Hash Aggregation in the Solid State Age]]
+		- [[Preventing Data Resurrection with Repair Based Tombstone Garbage Collection]]
+		- [[DSQL Vignette - Transactions and Durability]]
+		- [[Can Applications Recover from fsync Failures?]]
+	- quality
+		- [[FizzBee Quick Start for TLA+ Users]]
+		- [[sdv - Quality Report]]
+		- [[Lightweight property-based testing at Row Zero]]
 	- [[rustgo - calling Rust from Go with near-zero overhead]]
-	- [[FizzBee Quick Start for TLA+ Users]]
-	- [[Preventing Data Resurrection with Repair Based Tombstone Garbage Collection]]
-	- [[DSQL Vignette - Transactions and Durability]]
-	- [[Can Applications Recover from fsync Failures?]]
 	- [[So you wanna write Kubernetes controllers?]]
 
 ## Feb
@@ -44,4 +46,22 @@ prev: [[2024 - Index]]
 		- [[Throughput is Not All You Need - Maximizing Goodput in LLM Serving using Prefill-Decode Disaggregation]]
 	- datasys
 		- [[Correctness at Feldera]]
-	
+
+## Mar
+
+- Night
+	- backtrader
+	- Policy Gradient: Baseline
+- Books
+	- 动量交易
+	- 穿越抑郁的正念之道
+- Readings
+	- datasys
+		- [[Doris - Runtime Filter]]
+		- [[trino - Dynamic Filtering]]
+		- [[Testing Database Engines via Pivoted Query Synthesis]]
+		- [[Efficient Filter Pushdown in Parquet]]
+	- Infra
+		- [[Building Clickhouse BYOC on AWS]]
+	- AI
+		- [[My LLM codegen workflow atm]]
