@@ -1,0 +1,13 @@
+{
+  "name": "spdlog-hello",
+  "version": "1.0.0",
+  "description": "A hello world project using spdlog",
+  "dependencies": [
+    {
+      "name": "spdlog",
+      "version>=": "1.12.0"
+    }
+  ],
+  "builtin-baseline": "c8696863d371ab7f46e213d8f5ca923c4aef2a00",
+  "supports": "!uwp"
+} 

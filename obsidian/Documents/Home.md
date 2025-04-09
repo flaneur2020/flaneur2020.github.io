@@ -65,3 +65,15 @@ prev: [[2024 - Index]]
 		- [[Building Clickhouse BYOC on AWS]]
 	- AI
 		- [[My LLM codegen workflow atm]]
+
+## April
+
+- Night
+	- slatedb: sync commit
+- Books
+	- 简单致富
+- Readings
+	- datasys
+		- [[Inside ScyllaDB Rust Driver 1.0 - A Fully Async Shard-Aware CQL Driver Using Tokio]]
+		- [[Optimizing SQL (and DataFrames) in DataFusion - Part 1]]
+		- [[Optimizing SQL (and DataFrames) in DataFusion - Part 2]]
