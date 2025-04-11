@@ -56,3 +56,13 @@ JOIN (
 
 ### Optimized expression evaluation
 
+```sql
+SELECT time_chunk 
+FROM(SELECT date_bin('1 hour', time, '1970-01-01') as time_chunk 
+     FROM table)
+WHERE time_chunk >= '2025-01-01 00:00:00'
+ORDER BY time_chunk
+```
+
+### Algorithm Selection
+
