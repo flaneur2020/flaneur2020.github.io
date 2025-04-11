@@ -1,0 +1,2 @@
+cd rustlib
+cargo build

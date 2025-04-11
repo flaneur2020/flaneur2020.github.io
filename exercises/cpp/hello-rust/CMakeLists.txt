@@ -8,6 +8,8 @@ set(RUSTLIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/rustlib)
 set(RUSTLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/rustlib/target/cxxbridge)
 set(RUSTLIB_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/rustlib/target/debug)
 
+message(INFO "Found RUSTLIB_INCLUDE_DIR: ${RUSTLIB_INCLUDE_DIR}")
+
 # Custom target to build the Rust library
 add_custom_target(
     rust_lib
@@ -15,6 +17,12 @@ add_custom_target(
     WORKING_DIRECTORY ${RUSTLIB_DIR}
     COMMENT "Building Rust library"
 )
+
+if(WIN32)
+  set(RUSTLIB_PATH "${RUSTLIB_LIB_DIR}/rustlib.lib")
+else()
+  set(RUSTLIB_PATH "${RUSTLIB_LIB_DIR}/librustlib.a")
+endif()
 
 # C++ executable
 add_executable(myapp main.cpp)
@@ -25,7 +33,7 @@ target_include_directories(myapp PRIVATE ${RUSTLIB_INCLUDE_DIR})
 # Link with the Rust library
 target_link_directories(myapp PRIVATE ${RUSTLIB_LIB_DIR})
 target_link_libraries(myapp PRIVATE
-    rustlib
+    ${RUSTLIB_PATH}
     pthread  # Might be needed depending on your platform
     dl       # Might be needed depending on your platform
 )
