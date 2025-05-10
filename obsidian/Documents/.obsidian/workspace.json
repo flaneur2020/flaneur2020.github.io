@@ -4,24 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "56ca55bb4b6f26c4",
+        "id": "908f288ab5a5b1f2",
         "type": "tabs",
         "children": [
           {
-            "id": "08ed5cfac380cd4b",
+            "id": "7899559cdb95351f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/2025/2025-04/Optimizing SQL (and DataFrames) in DataFusion - Part 2.md",
+                "file": "Logs/2025/2025-05/Gang Scheduling Ray Clusters on Kubernetes with Multi-Cluster-App-Dispatcher (MCAD).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Optimizing SQL (and DataFrames) in DataFusion - Part 2"
+              "title": "Gang Scheduling Ray Clusters on Kubernetes with Multi-Cluster-App-Dispatcher (MCAD)"
+            }
+          },
+          {
+            "id": "04f376951ee426b9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Logs/2025/2025-05/A Deeper Dive of kube-scheduler.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "A Deeper Dive of kube-scheduler"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -53,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "dst",
+                "query": "decoding",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -168,19 +183,34 @@
       "smart-composer:Open smart composer": false
     }
   },
-  "active": "08ed5cfac380cd4b",
+  "active": "04f376951ee426b9",
   "lastOpenFiles": [
     "Home.md",
+    "Logs/2025/2025-05/A Deeper Dive of kube-scheduler.md",
+    "Logs/2025/2025-05/assets/Pasted image 20250505215850.png",
+    "Logs/2025/2025-05/Modern Data Streaming Challenges - Part 1.md",
+    "Logs/2025/2025-05/assets/Pasted image 20250501201704.png",
+    "Logs/2025/2025-05/Gang Scheduling Ray Clusters on Kubernetes with Multi-Cluster-App-Dispatcher (MCAD).md",
+    "Logs/2025/2025-05/assets/Pasted image 20250501185931.png",
+    "Logs/2025/2025-05/Binpack Scheduling That Supports Batch Jobs.md",
+    "Logs/2025/2025-05/assets/Pasted image 20250501185944.png",
+    "Logs/2025/2025-05/assets",
+    "Logs/2025/2025-05",
+    "Logs/2025/2025-04/Lance v2 - A columnar container format for modern data.md",
+    "Logs/2025/2025-04/assets/Pasted image 20250426173700.png",
+    "Logs/2025/2025-04/assets/Pasted image 20250426173459.png",
+    "Logs/2025/2025-04/Taking out the Trash - Garbage Collection of Object Storage at Massive Scale.md",
+    "Logs/2025/2025-04/assets/Pasted image 20250426170151.png",
+    "Logs/2025/2025-04/Introducing the query condition cache.md",
+    "Logs/2025/2025-04/assets/Pasted image 20250426155659.png",
+    "Logs/2025/2025-04/现代 cmake 中的 target 思想.md",
+    "Logs/2025/2025-04/Extending LMCache Remote Connectors - MooncakeStore as an Example.md",
+    "Logs/2025/2025-04/assets/Pasted image 20250426150441.png",
     "Logs/2025/2025-04/Optimizing SQL (and DataFrames) in DataFusion - Part 2.md",
     "Logs/2025/2025-04/Optimizing SQL (and DataFrames) in DataFusion - Part 1.md",
     "Logs/2025/2025-04/assets/Pasted image 20250406145720.png",
-    "Logs/2025/2025-04/assets/Pasted image 20250406145713.png",
-    "Logs/2025/2025-04/assets/Pasted image 20250406145058.png",
     "Logs/2024/2024-12/What's the big deal about Deterministic Simulation Testing?.md",
     "Logs/2025/2025-04/Inside ScyllaDB Rust Driver 1.0 - A Fully Async Shard-Aware CQL Driver Using Tokio.md",
-    "Logs/2025/2025-04/assets/Pasted image 20250402111226.png",
-    "Logs/2025/2025-04/assets/Pasted image 20250402110824.png",
-    "Logs/2025/2025-04/Untitled.md",
     "Logs/2015/TIME_WAIT, tcp_tw_recycle 和 tcp_tw_reuse.md",
     "Logs/2025/2025-04/assets",
     "Logs/2025/2025-04",
@@ -194,28 +224,12 @@
     "Books/纽约摄影学院教材 上.md",
     "Logs/2023/2023-09/CUDA Programming with Julia.md",
     "Logs/2023/2023-10/Using Metal and Rust to make FFT even faster.md",
-    "Logs/2023/2023-10/What's a data vault.md",
-    "Logs/2023/2023-10/ggml 看代码.md",
-    "Logs/2024/2024 - Index.md",
-    "Logs/2024/2024-01/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
-    "Logs/2023/2023-08/Infra/Aggregating Millions of Groups Fast in Apache Arrow DataFusion.md",
-    "Logs/2023/2023-08/LLM/Transformer Architecture：The Positional Encoding.md",
-    "Logs/2025/2025-03/The seL4 Microkernel - An Introduction.md",
-    "Logs/2025/2025-03/assets/Screenshot 2025-03-26 at 21.56.03.png",
-    "Logs/2025/2025-03/assets/Screenshot 2025-03-26 at 10.37.10.png",
-    "Books/穿越抑郁的正念之道.md",
-    "Logs/2025/2025-03/Efficient Filter Pushdown in Parquet.md",
-    "Logs/2025/2025-03/assets/Pasted image 20250321105138.png",
-    "Logs/2025/2025-03/assets/Pasted image 20250321105134.png",
-    "Logs/2025/2025-03/assets/Screenshot 2025-03-14 at 19.23.23.png",
     "Logs/2025/2025-03/assets",
     "Logs/2025/2025-03",
     "Logs/2025/2025-02/assets/p3285-gruenheid.pdf",
     "灵活可配的 CPU",
     "Excalidraw",
     "Logs/2025/2025-02/assets",
-    "Logs/2025/2025-02",
-    "Logs/2025/2025-01/Testing",
     "Untitled.canvas"
   ]
 }

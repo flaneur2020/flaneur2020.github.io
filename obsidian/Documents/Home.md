@@ -70,10 +70,28 @@ prev: [[2024 - Index]]
 
 - Night
 	- slatedb: sync commit
+	- https://github.com/Eventual-Inc/Daft/issues/4144
 - Books
 	- 简单致富
+	- 美国困局
 - Readings
 	- datasys
 		- [[Inside ScyllaDB Rust Driver 1.0 - A Fully Async Shard-Aware CQL Driver Using Tokio]]
 		- [[Optimizing SQL (and DataFrames) in DataFusion - Part 1]]
 		- [[Optimizing SQL (and DataFrames) in DataFusion - Part 2]]
+		- [[Introducing the query condition cache]]
+		- [[Taking out the Trash - Garbage Collection of Object Storage at Massive Scale]]
+		- [[Lance v2 - A columnar container format for modern data]]
+	- kube
+
+## May
+
+- Night
+	- slatedb: sync commit
+	- daft: panic when selecting struct literal
+- Readings
+	- kube
+		- [[Binpack Scheduling That Supports Batch Jobs]]
+		- [[Gang Scheduling Ray Clusters on Kubernetes with Multi-Cluster-App-Dispatcher (MCAD)]]
+		- [[A Deeper Dive of kube-scheduler]]
+	- datasys
