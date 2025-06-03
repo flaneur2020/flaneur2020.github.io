@@ -109,3 +109,23 @@ k8s 内部的 requests 匹配来自 Fit 插件、taint/tolerantions 来自 Taint
 7. scheduler 设置 Pod `p` 的 `.status.norminatedNodeName` 为 `nn`，同时也在 scheduler 的 local cache 中跟踪这个 normination 关系；
 8. Pod `p` 重新入队，因为在 preempted victim 完成退出并释放资源之前，它并不能成功调度；
 
+#### Understanding SelectVictimsOnNode
+
+这个函数会搜索节点 `n_i` 上每个可能允许 `p` 去调度的 eviction 方法。
+
+node 对象 `n_i` 和 CycleState 对象 `s_i` 都经过深拷贝，因此可以安全地在多线程中任意修改。
+
+1. 所有低于 `p` 的优先级的 pod 会从节点 `n_i` 中移除，所有这些 pod 会被认为是潜在的 victims；
+	1. 所有 scheduling plugins 的 PreFilter 的 `RemovePod` 回调都会被 `(v_j, n_i)` 来调用；这会给它们一次机会，来更新它们自己在拷贝 `s_i` 中保存的 custom state；
+2. 依次遍历这些 removed pod，尝试将它们加入回 copied 的 node 对象 `n_i`
+	1. 受 PDB 保护的 Pod 会先加回去；然后优先级稍高的 pod 会再尝试被加回去；
+	2. 在加回每个 victim Pod 时，scheduler 会尝试：
+		1. 按 `(v_j, n_i)` 来调用所有 scheduling plugin 的 Prefilter 的 `AddPod` callback；允许这些 plugin 有一次机会能更新自己的状态；
+		2. 然后按 `(p,n_i, s_i)` 作为输入，执行所有的 Filter plugin，如果所有 filter 都成功，则成功加回 `v_j`，因为我们已经**确认 `p` 可以调度到这个节点上，即使 `v_j` 也存在**；
+		3. 如果 `v_j` 成功加回去了，那么它将不会包含在 `SelectVictimsOnNode` 的 eviction candidate `C` 中；
+3. 所有在最初移除的 pod，但是加回失败的，被认为是包含在 eviction candidate `C` 中的 victim；
+#### Reducing Pod Churn
+
+- 在运行 Filter 插件检查节点是否适合 Pod `p` 时，调度器会**假装**该节点上所有优先级**大于或等于** Pod `p` 的 nominated pods 已经调度成功。
+- Norminated pod 实际上是未绑定的节点，只是被选中了。如果没有这种预留机制，当低优先级的 Pod 被驱逐后，队列中排在前面的其他 Pod 可能会抢占 norminated Pod 原本打算去的节点，导致 norminated pod 再次被重新排队，而产生波动；
+- 

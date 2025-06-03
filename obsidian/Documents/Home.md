@@ -89,9 +89,29 @@ prev: [[2024 - Index]]
 - Night
 	- slatedb: sync commit
 	- daft: panic when selecting struct literal
+	- opendal: object_store https://github.com/apache/opendal/issues/6171
+- Books
+	- 价值投资 3.0
 - Readings
 	- kube
 		- [[Binpack Scheduling That Supports Batch Jobs]]
 		- [[Gang Scheduling Ray Clusters on Kubernetes with Multi-Cluster-App-Dispatcher (MCAD)]]
 		- [[A Deeper Dive of kube-scheduler]]
 	- datasys
+		- [[Incremental View Maintenance with Datafusion and Iceberg]]
+		- [[datafusion-materialized-view 看代码]]
+		- [[pocket watch - verifying exabytes of data]]
+
+## Jun
+
+- Night
+	- slatedb: sync commit
+	- daft: panic when selecting struct literal
+	- opendal: object_store https://github.com/apache/opendal/issues/6171
+- Books
+	- 价值投资 3.0
+	- 段永平投资访谈录
+	- Gold is a better way
+- Readings
+	- datasys
+		- 
