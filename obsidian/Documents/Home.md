@@ -114,4 +114,22 @@ prev: [[2024 - Index]]
 	- Gold is a better way
 - Readings
 	- datasys
-		- 
+
+## July
+
+- Night
+	- slatedb: retention iterator
+	- opendal: object_store
+- Books
+	- Gold is a better way
+	- 资本帝国
+- Readings
+	- ai infra
+		- [[Gateway API Inference Extension - CRD]]
+		- [[Gateway API Inference Extension - Scheduler]]
+		- [[Real-world engineering challenges - building Cursor]]
+		- [[How to scale RL to 10^26 FLOPs]]
+	- rust
+		- [[Leaktracer - A Rust allocator to trace memory allocations]]
+	- storage
+		- [[Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3]]

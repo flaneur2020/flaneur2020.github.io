@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "Logs/2025/2025-07/How to scale RL to 10^26 FLOPs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "How to scale RL to 10^26 FLOPs"
             }
           }
         ],
@@ -93,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 350.5
+    "width": 335.5
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -183,10 +183,24 @@
       "smart-composer:Open smart composer": false
     }
   },
-  "active": "c6f7ac1787e42da5",
+  "active": "04f376951ee426b9",
   "lastOpenFiles": [
-    "Logs/2025/2025-06/Building a Distributed Cache for S3.md",
     "Home.md",
+    "Logs/2025/2025-07/How to scale RL to 10^26 FLOPs.md",
+    "Logs/2025/2025-07/Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3.md",
+    "Logs/2025/2025-07/assets/Screenshot 2025-07-13 at 09.49.24.png",
+    "Logs/2025/2025-07/assets/Screenshot 2025-07-12 at 21.28.34.png",
+    "Logs/2025/2025-07/Real-world engineering challenges - building Cursor.md",
+    "Logs/2025/2025-07/assets/Pasted image 20250712152719.png",
+    "Logs/2025/2025-07/assets/Pasted image 20250712152656.png",
+    "Logs/2025/2025-07/assets/Pasted image 20250712152613.png",
+    "Logs/2025/2025-07/assets",
+    "Logs/2025/2025-07/assets/Pasted image 20250712151146.png",
+    "Logs/2025/2025-07/Gateway API Inference Extension - CRD.md",
+    "Logs/2025/2025-07/Leaktracer - A Rust allocator to trace memory allocations.md",
+    "Logs/2025/2025-07/Gateway API Inference Extension - Scheduler.md",
+    "Logs/2025/2025-07",
+    "Logs/2025/2025-06/Building a Distributed Cache for S3.md",
     "Logs/2025/2025-06",
     "Logs/2025/2025-05/pocket watch - verifying exabytes of data.md",
     "Logs/2025/2025-05/assets/Pasted image 20250523113654.png",
@@ -196,17 +210,11 @@
     "Logs/2025/2025-05/datafusion-materialized-view 看代码.md",
     "Logs/2025/2025-05/Incremental View Maintenance with Datafusion and Iceberg.md",
     "Logs/2025/2025-05/assets/Screenshot 2025-05-13 at 21.59.41.png",
-    "Logs/2025/2025-05/assets/Screenshot 2025-05-13 at 21.59.12.png",
-    "Logs/2025/2025-05/assets/Screenshot 2025-05-13 at 21.26.39.png",
-    "Logs/2025/2025-05/assets/Screenshot 2025-05-13 at 21.26.29.png",
     "Logs/2025/2025-05/Uber’s Journey to Ray on Kubernetes - Resource Management.md",
     "Logs/2025/2025-05/Uber’s Journey to Ray on Kubernetes - Ray Setup.md",
     "Logs/2025/2025-05/Gang Scheduling Ray Clusters on Kubernetes with Multi-Cluster-App-Dispatcher (MCAD).md",
     "Logs/2025/2025-05/Binpack Scheduling That Supports Batch Jobs.md",
-    "Logs/2025/2025-05/assets/Pasted image 20250505215850.png",
     "Logs/2025/2025-05/Modern Data Streaming Challenges - Part 1.md",
-    "Logs/2025/2025-05/assets/Pasted image 20250501201704.png",
-    "Logs/2025/2025-05/assets/Pasted image 20250501185931.png",
     "Logs/2025/2025-05/assets",
     "Logs/2025/2025-05",
     "Logs/2025/2025-04/Lance v2 - A columnar container format for modern data.md",
@@ -218,19 +226,11 @@
     "Logs/2025/2025-04/Optimizing SQL (and DataFrames) in DataFusion - Part 1.md",
     "Logs/2024/2024-12/What's the big deal about Deterministic Simulation Testing?.md",
     "Logs/2025/2025-04/Inside ScyllaDB Rust Driver 1.0 - A Fully Async Shard-Aware CQL Driver Using Tokio.md",
-    "Logs/2015/TIME_WAIT, tcp_tw_recycle 和 tcp_tw_reuse.md",
     "Logs/2025/2025-04/assets",
     "Logs/2025/2025-04",
-    "Lessons Learned Running Presto At Meta Scale.md",
-    "Logs/2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
-    "Logs/2023/2023 - Index.md",
-    "Books/Successful Algorithmic Trading.md",
-    "Books/文革前的邓小平.md",
     "Logs/2025/2025-03/assets",
     "Logs/2025/2025-03",
     "Logs/2025/2025-02/assets/p3285-gruenheid.pdf",
-    "灵活可配的 CPU",
-    "Excalidraw",
     "Untitled.canvas"
   ]
 }
