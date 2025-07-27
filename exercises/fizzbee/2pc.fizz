@@ -53,3 +53,10 @@ always assertion ParticipantsConsistent:
             if p1.status == "committed" and p2.status == "aborted":
                 return False
     return True
+
+
+exists assertion AllParticipantsCommitted:
+    for p1 in participants:
+            if p1.status != 'committed':
+                return False
+    return True
