@@ -122,3 +122,26 @@ Property-based Testing 方法，用来验证实际实现是否正确地**精化*
 
 ### 5 Checking Crash Consistency
 
+> For ShardStore, reasoning about crash consistency was a primary motivation for introducing formal methods during development, and so it was a focus of our efforts
+
+每个 ShardStore 的 mutating 操作都会返回一个 dependency 对象，可以 poll 它得知是否已经持久。
+
+> 1. persistence: if a dependency says an operation has persisted before a crash, it should be readable after a crash (unless superseded by a later persisted operation) 
+> 2. forward progress: after a non-crashing shutdown, every operation’s dependency should indicate it is persisten
+
+在 property test 中增加 `RebootType`参数，控制崩溃时哪些内存数据被持久化到磁盘。
+
+比如是否刷新LSM树的内存部分、是否刷新缓冲区缓存等。
+
+重启和恢复后，test 会遍历每个 mutating operation 返回的 dependency，检查上面两个属性是否满足。
+
+粗粒度方法的局限性是， `RebootType`参数对每个组件（如LSM树）做**单一选择**，要么整个组件状态刷新到磁盘，要么都不刷新。（一次只能测一个组件的持久性？）
+
+潜在问题是可能遗漏某些bug，因为现实中的崩溃可能只影响部分数据块。
+
+在操作中，会多生成一些 flush 交错在执行中，比如：
+
+```
+Put(0, 3) → IndexFlush → Put(1, 7) → DirtyReboot(None)
+```
+

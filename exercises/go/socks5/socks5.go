@@ -75,6 +75,7 @@ func (c *SocksConn) Write(buf []byte) (int, error) {
 func (c *SocksConn) Close() error {
 	return c.conn.Close()
 }
+
 func (c *SocksConn) LocalAddr() net.Addr {
 	return c.conn.LocalAddr()
 }

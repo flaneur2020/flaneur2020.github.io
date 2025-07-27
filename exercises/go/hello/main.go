@@ -8,5 +8,6 @@ func add(a int, b int) int {
 
 func main() {
 	val := add(1, 2)
+	fmt.Printf("test")
 	fmt.Printf("test: %d", val)
 }

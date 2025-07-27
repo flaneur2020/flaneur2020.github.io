@@ -120,6 +120,7 @@ prev: [[2024 - Index]]
 - Night
 	- slatedb: retention iterator
 	- opendal: object_store
+	- kiwi-rs
 - Books
 	- Gold is a better way
 	- 资本帝国
@@ -127,8 +128,8 @@ prev: [[2024 - Index]]
 	- ai infra
 		- [[Gateway API Inference Extension - CRD]]
 		- [[Gateway API Inference Extension - Scheduler]]
+		- [[Gateway API Inference Extension - Data Layer Architecture]]
 		- [[Real-world engineering challenges - building Cursor]]
-		- [[How to scale RL to 10^26 FLOPs]]
 	- rust
 		- [[Leaktracer - A Rust allocator to trace memory allocations]]
 	- storage
