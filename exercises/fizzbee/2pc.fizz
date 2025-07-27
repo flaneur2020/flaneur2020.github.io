@@ -1,0 +1,46 @@
+---
+# Disable  deadlock detection for now. We will address it later.
+deadlock_detection: false
+---
+
+role Coordinator:
+    action Init:
+        self.status = "init"
+
+    action Commit:
+        require(self.status == "init")
+        self.status = "working"
+
+        for p in participants:
+            vote = p.Prepare()
+            if vote == "aborted":
+                self.Finalize("aborted")
+                return
+        
+        self.Finalize("committed")
+
+    func Finalize(decision): 
+        self.state = decision
+        for p in participants:
+            p.Finalize(decision)
+
+
+role Participant:
+    action Init:
+        self.status = "init"
+
+    func Prepare():
+        vote = any ["prepared", "aborted"]
+        self.status = vote
+
+    func Finalize(decision):
+        self.status = decision
+
+
+NUM_PARTICIPANTS = 2
+
+action Init:
+    coordinator = Coordinator()
+    participants = []
+    for i in range(NUM_PARTICIPANTS):
+        participants.append(Participant())
