@@ -20,7 +20,7 @@ role Coordinator:
         self.Finalize("committed")
 
     func Finalize(decision): 
-        self.state = decision
+        self.status = decision
         for p in participants:
             p.Finalize(decision)
 
@@ -32,6 +32,7 @@ role Participant:
     func Prepare():
         vote = any ["prepared", "aborted"]
         self.status = vote
+        return vote
 
     func Finalize(decision):
         self.status = decision
@@ -44,3 +45,11 @@ action Init:
     participants = []
     for i in range(NUM_PARTICIPANTS):
         participants.append(Participant())
+
+
+always assertion ParticipantsConsistent:
+    for p1 in participants:
+        for p2 in participants:
+            if p1.status == "committed" and p2.status == "aborted":
+                return False
+    return True
