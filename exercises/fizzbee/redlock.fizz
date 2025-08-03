@@ -1,11 +1,17 @@
 NUM_PROCESS = 2
+EXPIRATION = 10
 
 
 action Init:
     processes = []
     for i in range(NUM_PROCESS):
         processes.append(Process())
-    lock = set()
+    lock = record(owner=None, expration_time=-1)
+    clock = 0
+
+
+action TickClock:
+    clock += 1
 
 
 role Process:
@@ -17,16 +23,19 @@ role Process:
         pass
 
         atomic:
-            require not lock
-            lock.add(self.__id__)
+            require lock.owner == None or clock >= lock.expration_time
+            lock = record(owner=self.__id__, expration_time=clock+EXPIRATION)
 
         # critical section
         self.in_mutex = True
         pass
         self.in_mutex = False
 
-        # release the lock 
-        lock.clear()
+        # release the lock. this lock is possible to be acquired by another
+        # process because it's expiration_time exceeded.
+        atomic:
+            if lock.owner == self.__id__:
+                lock.owner = None
 
 
 always assertion MutalExclusion:
