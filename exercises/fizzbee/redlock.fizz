@@ -1,0 +1,38 @@
+NUM_PROCESS = 2
+
+
+action Init:
+    processes = []
+    for i in range(NUM_PROCESS):
+        processes.append(Process())
+    lock = set()
+
+
+role Process:
+    action Init:
+        self.in_mutex = False
+
+    action Next:
+        # before critical section
+        pass
+
+        atomic:
+            require not lock
+            lock.add(self.__id__)
+
+        # critical section
+        self.in_mutex = True
+        pass
+        self.in_mutex = False
+
+        # release the lock 
+        lock.clear()
+
+
+always assertion MutalExclusion:
+    return not any([
+        p1.in_mutex and p2.in_mutex
+        for p1 in processes
+        for p2 in processes
+        if p1 != p2
+    ])

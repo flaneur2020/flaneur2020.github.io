@@ -134,3 +134,17 @@ prev: [[2024 - Index]]
 		- [[Leaktracer - A Rust allocator to trace memory allocations]]
 	- storage
 		- [[Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3]]
+
+
+## Aug
+
+- Night
+	- slatedb: snapshot API
+	- opendal: object_store
+	- kiwi-rs: Engine abstraction
+	- cilium: socket-lb
+- Books
+	- To B 的本质
+- Readings
+	- misc
+		- [[Unit Testing Principles]]

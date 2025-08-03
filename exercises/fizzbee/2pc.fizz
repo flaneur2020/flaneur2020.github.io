@@ -20,9 +20,16 @@ role Coordinator:
         self.Finalize("committed")
 
     func Finalize(decision): 
+        require(self.status in ["working", decision])
         self.status = decision
         for p in participants:
             p.Finalize(decision)
+
+    fair action Timeout:
+        if self.status == "committed":
+            self.Finalize("committed")
+        else:
+            self.Finalize("aborted")
 
 
 role Participant:
@@ -59,4 +66,15 @@ exists assertion AllParticipantsCommitted:
     for p1 in participants:
             if p1.status != 'committed':
                 return False
+    return True
+
+
+eventually always assertion CoordinatorTerminated:
+    return coordinator.status != 'working'
+
+
+eventually always assertion AllParticipantsTerminated:
+    for p1 in participants:
+        if p1.status == 'prepared':
+            return False
     return True
