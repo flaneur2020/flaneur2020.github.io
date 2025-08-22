@@ -8,6 +8,8 @@ action Init:
         processes.append(Process())
     lock = record(owner=None, expration_time=-1)
     clock = 0
+    next_fence_token = 1
+    last_seen_fence_token = 0
 
 
 action TickClock:
@@ -25,10 +27,16 @@ role Process:
         atomic:
             require lock.owner == None or clock >= lock.expration_time
             lock = record(owner=self.__id__, expration_time=clock+EXPIRATION)
+            self.fence_token = next_fence_token
+            next_fence_token += 1
 
-        # critical section
-        self.in_mutex = True
-        pass
+        # can only enter the mutex if we have the biggest token
+        atomic:
+            if self.fenc_token > last_seen_fence_token:
+                last_seen_fence_token = self.fence_token
+                self.in_mutex = True
+                pass
+
         self.in_mutex = False
 
         # release the lock. this lock is possible to be acquired by another

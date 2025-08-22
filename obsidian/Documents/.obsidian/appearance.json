@@ -2,9 +2,13 @@
   "baseFontSize": 15,
   "accentColor": "",
   "theme": "system",
-  "cssTheme": "",
-  "textFontFamily": "Kohinoor Devanagari",
+  "cssTheme": "Things",
+  "textFontFamily": "Andale Mono",
   "monospaceFontFamily": "Fira Code",
   "baseFontSizeAction": false,
-  "translucency": true
+  "translucency": true,
+  "enabledCssSnippets": [
+    "image-background",
+    "custom"
+  ]
 }

@@ -14,7 +14,7 @@
   "spellcheck": false,
   "autoPairBrackets": false,
   "showLineNumber": false,
-  "autoPairMarkdown": true,
-  "vimMode": false,
+  "autoPairMarkdown": false,
+  "vimMode": true,
   "foldHeading": true
 }

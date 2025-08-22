@@ -1,0 +1,22 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.inFolder("Books")
+        - file.ext != "base"
+    order:
+      - file.name
+      - file.folder
+      - file.ctime
+  - type: cards
+    name: Table 2
+    filters:
+      and:
+        - file.inFolder("Books")
+        - file.ext != "base"
+    order:
+      - file.name
+      - file.folder
+      - file.ctime
+      - file.backlinks

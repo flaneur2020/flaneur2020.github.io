@@ -139,12 +139,19 @@ prev: [[2024 - Index]]
 ## Aug
 
 - Night
-	- slatedb: snapshot API
+	- slatedb:
+		- snapshot API
+		- transaction API
 	- opendal: object_store
 	- kiwi-rs: Engine abstraction
 	- cilium: socket-lb
 - Books
 	- To B 的本质
+	- DeFi与金融的未来
+	- [[告别失控]]
 - Readings
-	- misc
+	- ai infra
+		- [[Serving Large Language Models on Huawei CloudMatrix384]]
+	- coding
 		- [[Unit Testing Principles]]
+	- formal method
