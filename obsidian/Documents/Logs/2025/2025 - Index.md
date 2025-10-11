@@ -143,7 +143,7 @@ prev: [[2024 - Index]]
 		- snapshot API
 		- transaction API
 	- opendal: object_store
-	- kiwi-rs: Engine abstraction
+	- kiwi-rs: Engine trait
 	- cilium: socket-lb
 - Books
 	- To B 的本质
@@ -154,4 +154,30 @@ prev: [[2024 - Index]]
 		- [[Serving Large Language Models on Huawei CloudMatrix384]]
 	- coding
 		- [[Unit Testing Principles]]
-	- formal method
+
+
+## Sep
+
+- Night
+	- slatedb: transaction API, SSI Conflict Checks
+	- kiwi-rs: Engine trait, seperate tokio runtime
+	- learn Mooncake
+- Books
+- Readings
+	- ai infra
+		- [[DeepkSeek serving on Huawei CloudMatrix384]]
+		- [[25x Faster Cold Starts for LLMs on Kubernetes]]
+		- [[Mooncake - Store Preview]]
+		- [[Mooncake - Transfer Engine]]
+
+## Oct
+
+- Night
+	- slatedb: transaction benchmark
+	- tiny-vllm
+- Readings
+	- ai infra
+		- LLM Query Scheduling with Prefix Reuse and Latency Constraints
+	- sys
+		- [[Cancelling async Rust]]
+		- [[An MVCC-like columnar table on S3 with constant-time deletes]]

@@ -58,5 +58,72 @@ CANN 软件架构主要有三层，driver、运行时、library。整体上会�
 
 ### 3.4.2 Infra Software for Cloud Deployment
 
+- MatrixResource：管理在 supernode 内的资源 provisioning，包括结合拓扑的计算实例分配。provision 任务的执行，通过一个跑在 qingtian 卡里的 MatrixResource Agent 进行。
+- MatrixLink：QoS、dynamic routing。管理 link level 的配置，管理 network aware 的 workload placement，也是在 qingtian 卡里跑的。
+- MatrixCompute：管理 cloudmatrix 实例的生命周期，包括 baremental provisioning 到 auto-scaling 乃至 fault recovery。
+- MatrixContainer：提供基于 k8s 的容器服务，增强了 topology-aware scheduling。
+- ModelArt：在 infra 栈的最上方，提供 end-to-end 的 AI 平台服务。
 
+## 3.5 Suitabiliby Analysis of DeepSeek Models
 
+### 3.5.1 DeepSeek Models and their Deployment on Nvidia H800
+
+Deepseek 模型的性质：
+
+1. 671B 的 MoE 架构，37B 的激活参数。在 256 个 router export 中选择 top 8 的 expert。
+2. 利用 MLA 来压缩 KV cache 到 93.3%。
+3. Multi-token Prediction 支持 decode time validation 的多个 token 生成。
+4. FP8 量化训练。
+
+Deepseek 将他们的模型部署在 H800 的集群中，每个卡有 80GB 的内存，卡之间用 NVLink 相连，400 Gbps InfiniBand 跨节点通信。
+
+整个部署是 PD 分离的形式。
+
+在 prefill 阶段：
+
+- deepseek 将 4 个 h800 节点（总共 32 张卡）组成一个单独的部署单元。
+- 每个单元内，256 个 router expert 分布在这些 GPU 中，每个 GPU 装 9 个 router expert，一个 shared expert。
+- 这个配置，被称为 DP32 + EP32，在 32 个 GPU 中实现 Expert Parallelism。其中 shared expert 和 MLA 机制在同样的一组中按 Data Parallelism 进行 replicate。
+
+在 Decode 阶段：
+
+- Deeseek 将 parallelism 扩展到 DP144+EP144。组了 18 个节点，总共 144 个 GPU。
+- 每个 GPU 管理两个 router expert，一个 shared expert。maintaining a system-wide redundancy of 32 router expert replicas。
+
+为了优化吞吐和延迟，deepseek 将一个 dual-microbatch pipeline 策略，将计算和 all-to-all 通信 overlap 在一起。
+
+当一个 microbatch 在 MoE 相关的 dispatch 和 combination 中，下一个 microbatch 会并行地在 local attention 或者 MLP 计算。
+
+这套仔细协同的部署，显著的提高了吞吐。在 prefill 阶段，每个 H800 GOU 可以在 56.3% 的 context caching hit rate 上，跑到 9123 token/s。在忽略 cache 时，可以跑到 4029 tok/s。
+
+在 decoding 阶段，每个 GPU 平均可以跑到 1850 tok/s。
+
+### 3.5.2 Architectural Synergy between CloudMatrix and Deepseek Models
+
+#### MoE Communication Synergy: Efficient Dispatch and Combinations
+
+MoE 架构需要在 token dispatch 和 expert output combination 中涉及很重的跨 NPU 通信。
+
+CloudMatrix384 的高吞吐、低延迟 UB interconnect 对这些需求适配的很好。
+
+在 token dispatch 中，token 必须从 router 到 selected expert 上，可能涉及几百个 NPU。
+
+在 combination phase，多个 expert 的输出必须及时地合并到一起，UB 的高吞吐能够很好的解决这个需求。
+
+#### Memory Capacity and Management：Accomodating Large Models and KV Caches
+
+> CloudMatrix384's generous memory footprint supports these scenarios, but efficient partitioning and synchronization of KV cache across NPUs remain essential。
+
+#### Context Cache Reuse: Accelerating Cache Access
+
+deepseek 官方说法是 cache hit rate 能达到 56% 以上。
+
+NPU 能够允许通过 UB plane 来访问 disaggregated 的 CPU 的 DRAM 池。能够针对远端的 kv cache 访问，提供内存级别的带宽和 latency。
+
+#### Quantization for Efficientcy：Int8 Support
+
+## 4 DeepSeek Serving on Huawei CloudMatrix384
+
+PDC 分离（Prefill、Decoding、Caching 分离）。
+
+### 4.1 Overview: A Peer-to-Peer Serving Architecture with PDC Disaggregation

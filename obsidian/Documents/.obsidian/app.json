@@ -15,6 +15,6 @@
   "autoPairBrackets": false,
   "showLineNumber": false,
   "autoPairMarkdown": false,
-  "vimMode": true,
+  "vimMode": false,
   "foldHeading": true
 }
