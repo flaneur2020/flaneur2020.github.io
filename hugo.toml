@@ -19,7 +19,7 @@ tag = 'tags'
 googleAnalytics = "G-xxxxxxxxx"
 
 [params]
-author = "Yazhou Li"
+author = "flaneur2020"
 description = "A Tech Blog"
 socialImage = "/images/icon-blog-social.jpg"
 
