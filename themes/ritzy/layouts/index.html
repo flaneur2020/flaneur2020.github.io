@@ -1,0 +1,63 @@
+{{ define "main" }}
+<style>
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center the container horizontally */
+    max-width: 580px; /* Set to the same as content max-width for readability */
+    padding: 0 20px; /* Keep padding to prevent content from touching the edge */
+  }
+  
+  .content-column {
+    width: 100%;
+    box-sizing: border-box;
+    min-width: auto;
+    max-width: 580px; /* Maximum width for readability */
+    font-size: 15px;
+  }
+  
+  @media (max-width: 992px) {
+    .page-container {
+      flex-direction: column;
+    }
+    
+    .content-column {
+      width: 100%;
+      padding-right: 0;
+      min-width: auto; /* Remove min-width on smaller screens */
+      max-width: 580px; /* Keep the maximum width for readability */
+      margin: 0 auto; /* Center on mobile */
+    }
+  }
+</style>
+
+<div class="page-container">
+  <div class="content-column">
+    <div class="section">
+      {{ with .Site.GetPage "_about" }}
+        {{ .Content }}
+      {{ end }}
+    </div>    
+    
+    <div class="section">
+      <div class="works-title">Writing</div>
+
+      {{ range sort (where .Site.RegularPages "Section" "posts") "Date" "desc" }}
+      <div class="work-item">
+        <a href="{{ .RelPermalink }}" class="work-link">
+          <span class="work-title">{{ .Title }}</span> 
+          <span class="year">({{ if .Params.originalYear }}{{ .Params.originalYear }}{{ else }}{{ .Date.Format "2006" }}{{ end }})</span>
+          <div class="description">{{ .Description }}</div>
+        </a>
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="contact">
+        {{ with .Site.GetPage "_contact" }}
+          {{ .Content }}
+        {{ end }} 
+    </div>
+  </div>
+</div>
+{{ end }}

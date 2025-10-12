@@ -1,0 +1,14 @@
+baseURL = 'https://example.com'
+languageCode = 'en-us'
+title = 'My Ritzy Site'
+theme = 'ritzy'
+themesDir = "../.."
+
+[params]
+  author = "Example Author"
+  description = "Writer, Researcher, Creator"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -1,0 +1,107 @@
+{{ define "main" }}
+<style>
+  .posts-container {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .posts-header {
+    margin-bottom: 40px;
+  }
+  
+  .posts-title {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #4a4b4f;
+  }
+  
+  .posts-description {
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .post-list {
+    margin-bottom: 40px;
+  }
+  
+  .post-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .post-item:last-child {
+    border-bottom: none;
+  }
+  
+  .post-link {
+    display: block;
+    text-decoration: none;
+    color: #4a4b4f;
+  }
+  
+  .post-link:hover .post-item-title {
+    color: #8f6a60;
+  }
+  
+  .post-item-title {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  
+  .post-item-date {
+    color: #9d9d9d;
+    font-style: italic;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .post-item-description {
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #8f6a60;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  
+  .back-link:hover {
+    color: #6b5046;
+  }
+</style>
+
+<div class="posts-container">
+  <div class="posts-header">
+    <h1 class="posts-title">{{ .Title }}</h1>
+    {{ if .Description }}
+    <div class="posts-description">{{ .Description }}</div>
+    {{ end }}
+  </div>
+  
+  <div class="post-list">
+    {{ range .Pages.ByDate.Reverse }}
+    <div class="post-item">
+      <a href="{{ .Permalink }}" class="post-link">
+        <h2 class="post-item-title">{{ .Title }}</h2>
+        <div class="post-item-date">{{ .Date.Format "January 2, 2006" }}</div>
+        <div class="post-item-description">{{ .Description }}</div>
+      </a>
+    </div>
+    {{ end }}
+  </div>
+  
+  <a href="{{ "/" | relURL }}" class="back-link">← Back to home</a>
+</div>
+{{ end }}

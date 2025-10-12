@@ -1,0 +1,29 @@
+# Hugo default output directory
+/public/
+
+# Hugo generated resources
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
