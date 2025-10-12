@@ -1,7 +1,8 @@
 baseURL = 'https://flaneur2020.github.io/'
+languageCode = 'en-us'
 
 title = "Flaneur2020"
-theme = 'typo'
+theme = 'ritzy'
 translationKey = 'about'
 defaultContentLanguage = 'en'
 
@@ -18,63 +19,8 @@ tag = 'tags'
 googleAnalytics = "G-xxxxxxxxx"
 
 [params]
+author = "Yazhou Li"
 description = "A Tech Blog"
-
-# Appearance settings
-theme = 'typo'
-math = true
-colorPalette = 'default'
-hideHeader = false
-hidePagination = true
-
-# Intro on main page, content is markdown
-homeIntroTitle = 'Hi!'
-homeIntroContent = """
-I am an Software Engineer with a strong foundation in computer science and a passion for solving complex problems.
-I am interested in a range of topics, including Distributed Systems and AI/LLM.
-"""
-
-# Collection to display on home
-homeCollectionTitle = 'Posts'
-homeCollection = 'posts'
-
-# Lists parameters
-paginationSize = 1000
-listSummaries = false
-listDateFormat = '2 Jan 2006'
-
-# Breadcrumbs
-breadcrumbs = false
-
-# Social icons
-[[params.social]]
-name = "linkedin"
-url = "https://www.linkedin.com/in/li-yazhou-02548a69/"
-
-[[params.social]]
-name = "github"
-url = "https://github.com/flaneur2020"
-
-[[params.social]]
-name = "twitter"
-url = "https://x.com/flaneur2023"
-
-[[params.social]]
-name = "instagram"
-url = "https://instagram.com/flaneur2024_"
-
-# Main menu pages
-[[params.menu]]
-name = "home"
-url = "/"
-
-[[params.menu]]
-name = "中文"
-url = "/zh"
-
-[[params.menu]]
-name = "links"
-url = "/links"
 
 # Syntax highligth on code blocks
 [markup]

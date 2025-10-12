@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="{{ or .Site.LanguageCode .Site.Language.Lang }}">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #4a4b4f;
+        background-color: #fbfbfb;
+      }
+
+      .container {
+        max-width: 580px;
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      h1 {
+        font-family: 'Source Serif Pro', serif;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 40px 0;
+        color: #4a4b4f;
+      }
+
+      p {
+        margin: 0 0 20px 0;
+        line-height: 1.7;
+      }
+
+      a {
+        color: #8f6a60;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      a:hover {
+        color: #6b5046;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .works-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #4a4b4f;
+      }
+
+      .work-item {
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .work-link {
+        display: block;
+        text-decoration: none;
+        color: #4a4b4f;
+      }
+
+      .work-link:hover {
+        opacity: 0.8;
+      }
+
+      .work-title {
+        font-weight: 500;
+      }
+
+      .publication {
+        color: #8f6a60;
+      }
+
+      .year {
+        color: #9d9d9d;
+      }
+
+      .description {
+        color: #9d9d9d;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .contact {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      .footer-image {
+        margin-top: 30px;
+        text-align: left;
+      }
+
+      .footer-image img {
+        width: 60px;
+        height: auto;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 40px 20px;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        body {
+          font-size: 15px;
+        }
+      }
+
+      pre {
+        background-color: #f5f5f5;
+        padding: 16px;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      code {
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      pre code {
+        display: block;
+        white-space: pre !important;
+        word-wrap: normal !important;
+        word-break: normal;
+        overflow-x: auto;
+      }
+
+      p code,
+      li code,
+      h1 code,
+      h2 code,
+      h3 code {
+        background-color: #f5f5f5;
+        padding: 3px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .post-content mjx-container[display="true"] {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        min-height: unset;
+      }
+
+      .post-content mjx-container[display="true"] mjx-math {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        white-space: pre;
+        box-sizing: border-box;
+        min-height: unset;
+      }
+
+      .post-content {
+        overflow-x: auto;
+        overflow-y: visible;
+      }
+
+      .post-content img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      .post-content img + em {
+        display: block;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        margin-top: -1em;
+        margin-bottom: 1.5em;
+      }
+
+      .language-footer {
+        margin: 50px auto 30px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #9d9d9d;
+      }
+
+      .language-switcher {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .language-switcher a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .language-switcher a:hover {
+        color: #6b5046;
+      }
+
+      .language-switcher .language-current {
+        font-weight: 600;
+        color: #4a4b4f;
+      }
+
+      .language-switcher-separator {
+        color: #c5c5c5;
+      }
+    </style>
+
+    <script async src="https://cdn.seline.so/seline.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      {{ block "main" . }}{{ end }}
+    </div>
+    {{ if gt (len .Site.Languages) 1 }}
+      {{ $currentLang := .Site.Language.Lang }}
+      {{ $home := .Site.Home }}
+      <footer class="language-footer">
+        <nav class="language-switcher" aria-label="Language selector">
+          {{ range $index, $lang := .Site.Languages }}
+            {{ if gt $index 0 }}
+              <span class="language-switcher-separator">·</span>
+            {{ end }}
+            {{ if eq $lang.Lang $currentLang }}
+              <span class="language-current">{{ $lang.LanguageName }}</span>
+            {{ else }}
+              {{ with (where $.Page.AllTranslations "Language.Lang" $lang.Lang) }}
+                {{ with (index . 0) }}
+                  <a href="{{ .RelPermalink }}">{{ $lang.LanguageName }}</a>
+                {{ end }}
+              {{ else }}
+                {{ with (where $home.AllTranslations "Language.Lang" $lang.Lang) }}
+                  {{ with (index . 0) }}
+                    <a href="{{ .RelPermalink }}">{{ $lang.LanguageName }}</a>
+                  {{ end }}
+                {{ else }}
+                  {{ if eq $lang.Lang $home.Language.Lang }}
+                    <a href="{{ $home.RelPermalink }}">{{ $lang.LanguageName }}</a>
+                  {{ else }}
+                    <a href="/{{ $lang.Lang }}/">{{ $lang.LanguageName }}</a>
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </nav>
+      </footer>
+    {{ end }}
+    {{ partial "math.html" . }}
+  </body>
+</html>
