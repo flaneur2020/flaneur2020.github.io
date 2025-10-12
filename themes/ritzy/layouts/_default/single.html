@@ -1,9 +1,9 @@
 {{ define "main" }}
 <style>
   .post-container {
-    max-width: 580px; /* Adjusted for approximately 80 characters */
+    max-width: 720px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 28px;
   }
   
   .post-header {
@@ -12,10 +12,10 @@
   
   .post-title {
     font-family: 'Source Serif Pro', serif;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #4a4b4f;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #2d2e32;
   }
   
   .post-date {
@@ -26,37 +26,48 @@
   
   .post-description {
     font-style: italic;
-    color: #666;
+    color: #6b6c70;
     margin-bottom: 30px;
     font-size: 17px;
   }
   
   .post-content {
     line-height: 1.8;
+    font-size: 17px;
+    color: #2f3034;
   }
   
   .post-content h2 {
     font-family: 'Source Serif Pro', serif;
-    font-size: 24px;
-    font-weight: 600;
-    margin: 30px 0 20px 0;
-    color: #4a4b4f;
+    font-size: 26px;
+    font-weight: 500;
+    margin: 36px 0 22px 0;
+    color: #2d2e32;
   }
   
   .post-content p {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+  }
+  
+  .post-content ul,
+  .post-content ol {
+    margin: 0 0 1.4em 1.8em;
+    padding: 0;
+    list-style-position: outside;
+  }
+  
+  .post-content li {
+    margin-bottom: 0.45em;
   }
   
   .post-content img {
     display: block;
-    width: 80%;
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
     margin: 2rem auto;
     border-radius: 4px;
   }
   
-  /* Style for image captions (typically placed in an <em> tag after an image) */
   .post-content img + em {
     display: block;
     text-align: center;
@@ -71,21 +82,51 @@
   }
   
   .back-link {
-    display: inline-block;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 32px 0;
     color: #8f6a60;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  
+  .back-link::before {
+    content: "←";
+  }
+  
+  .back-link span {
+    border-bottom: 1px solid rgba(143, 106, 96, 0.4);
+    padding-bottom: 2px;
   }
   
   .back-link:hover {
     color: #6b5046;
   }
+  
+  .back-link:hover span {
+    border-bottom-color: rgba(107, 80, 70, 0.6);
+  }
+  
+  @media (max-width: 768px) {
+    .post-container {
+      padding: 0 20px;
+    }
+    
+    .post-title {
+      font-size: 28px;
+    }
+    
+    .post-content {
+      font-size: 16px;
+    }
+  }
 </style>
 
 <div class="post-container">
+  <a href="{{ "/" | relURL }}" class="back-link"><span>Back to home</span></a>
   <div class="post-header">
     <h1 class="post-title">{{ .Title }}</h1>
     <div class="post-date">{{ .Date.Format "January 2, 2006" }}</div>
@@ -95,6 +136,5 @@
     {{ .Content }}
   </div>
   
-  <a href="{{ "/" | relURL }}" class="back-link">← Back to home</a>
 </div>
 {{ end }}

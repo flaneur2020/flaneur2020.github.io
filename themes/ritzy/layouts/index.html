@@ -3,30 +3,43 @@
   .page-container {
     display: flex;
     flex-direction: column;
-    margin: 0 auto; /* Center the container horizontally */
-    max-width: 580px; /* Set to the same as content max-width for readability */
-    padding: 0 20px; /* Keep padding to prevent content from touching the edge */
+    margin: 0 auto;
+    max-width: 720px;
+    padding: 0 28px;
+    font-size: 17px;
+    color: #2f3034;
   }
   
   .content-column {
     width: 100%;
     box-sizing: border-box;
     min-width: auto;
-    max-width: 580px; /* Maximum width for readability */
-    font-size: 15px;
+    max-width: 720px;
+  }
+  
+  .section ul,
+  .section ol {
+    margin: 0 0 1.3em 1.7em;
+    padding: 0;
+    list-style-position: outside;
+  }
+  
+  .section li {
+    margin-bottom: 0.45em;
   }
   
   @media (max-width: 992px) {
     .page-container {
       flex-direction: column;
+      padding: 0 20px;
     }
     
     .content-column {
       width: 100%;
       padding-right: 0;
-      min-width: auto; /* Remove min-width on smaller screens */
-      max-width: 580px; /* Keep the maximum width for readability */
-      margin: 0 auto; /* Center on mobile */
+      min-width: auto;
+      max-width: 720px;
+      margin: 0 auto;
     }
   }
 </style>
@@ -51,12 +64,6 @@
         </a>
       </div>
       {{ end }}
-    </div>
-
-    <div class="contact">
-        {{ with .Site.GetPage "_contact" }}
-          {{ .Content }}
-        {{ end }} 
     </div>
   </div>
 </div>

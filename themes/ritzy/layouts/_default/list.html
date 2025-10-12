@@ -68,21 +68,37 @@
   }
   
   .back-link {
-    display: inline-block;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 28px 0;
     color: #8f6a60;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  
+  .back-link::before {
+    content: "←";
+  }
+  
+  .back-link span {
+    border-bottom: 1px solid rgba(143, 106, 96, 0.4);
+    padding-bottom: 2px;
   }
   
   .back-link:hover {
     color: #6b5046;
   }
+  
+  .back-link:hover span {
+    border-bottom-color: rgba(107, 80, 70, 0.6);
+  }
 </style>
 
 <div class="posts-container">
+  <a href="{{ "/" | relURL }}" class="back-link"><span>Back to home</span></a>
   <div class="posts-header">
     <h1 class="posts-title">{{ .Title }}</h1>
     {{ if .Description }}
@@ -101,7 +117,5 @@
     </div>
     {{ end }}
   </div>
-  
-  <a href="{{ "/" | relURL }}" class="back-link">← Back to home</a>
 </div>
 {{ end }}

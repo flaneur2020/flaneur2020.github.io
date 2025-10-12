@@ -9,36 +9,42 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Source+Serif+Pro:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Inter', sans-serif;
-        font-size: 16px;
-        line-height: 1.6;
-        color: #4a4b4f;
-        background-color: #fbfbfb;
+        font-family: 'Lora', 'Source Serif Pro', Georgia, serif;
+        font-size: 17px;
+        line-height: 1.76;
+        color: #2c2d33;
+        background: radial-gradient(circle at top left, #f9f6f1 0%, #f3f0ea 40%, #ece8e0 100%);
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
       }
 
       .container {
-        max-width: 580px;
-        margin: 0 auto;
-        padding: 60px 20px;
+        max-width: 720px;
+        margin: 60px auto;
+        padding: 60px 48px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 24px 48px rgba(33, 30, 24, 0.08);
+        border-radius: 14px;
+        backdrop-filter: blur(4px);
       }
 
       h1 {
         font-family: 'Source Serif Pro', serif;
-        font-size: 24px;
-        font-weight: 600;
-        margin: 0 0 40px 0;
-        color: #4a4b4f;
+        font-size: 31px;
+        font-weight: 500;
+        margin: 0 0 32px 0;
+        color: #292a30;
       }
 
       p {
         margin: 0 0 20px 0;
-        line-height: 1.7;
+        line-height: 1.75;
       }
 
       a {
@@ -57,28 +63,35 @@
       }
 
       .works-title {
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #4a4b4f;
+        font-family: 'Lora', serif;
+        font-weight: 500;
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        margin-bottom: 18px;
+        color: #41424a;
+        font-size: 0.9em;
       }
 
       .work-item {
-        margin-bottom: 12px;
-        line-height: 1.6;
+        margin-bottom: 14px;
+        line-height: 1.68;
       }
 
       .work-link {
         display: block;
         text-decoration: none;
-        color: #4a4b4f;
+        color: #2d2e32;
+        font-weight: 400;
+        transition: color 0.2s ease;
       }
 
       .work-link:hover {
-        opacity: 0.8;
+        color: #705246;
       }
 
       .work-title {
-        font-weight: 500;
+        font-weight: 400;
+        letter-spacing: 0.015em;
       }
 
       .publication {
@@ -86,11 +99,11 @@
       }
 
       .year {
-        color: #9d9d9d;
+        color: #9b9ca0;
       }
 
       .description {
-        color: #9d9d9d;
+        color: #8b8c90;
         font-style: italic;
         margin-top: 4px;
       }
@@ -114,30 +127,39 @@
 
       @media (max-width: 768px) {
         .container {
-          padding: 40px 20px;
+          margin: 30px auto;
+          padding: 36px 20px;
+          border-radius: 10px;
+          box-shadow: 0 16px 32px rgba(33, 30, 24, 0.08);
         }
 
         h1 {
-          font-size: 22px;
+          font-size: 24px;
         }
 
         body {
-          font-size: 15px;
+          font-size: 16px;
         }
       }
 
       pre {
         background-color: #f5f5f5;
-        padding: 16px;
+        padding: 18px;
         border-radius: 4px;
         overflow-x: auto;
         margin: 20px 0;
+        scrollbar-width: none;
+      }
+
+      pre::-webkit-scrollbar {
+        display: none;
       }
 
       code {
-        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
         font-size: 14px;
-        line-height: 1.5;
+        line-height: 1.55;
+        font-weight: 400;
       }
 
       pre code {
@@ -161,33 +183,32 @@
         word-wrap: break-word;
       }
 
+      .post-content {
+        overflow: visible;
+      }
+
       .post-content mjx-container[display="true"] {
         display: block;
         text-align: center;
         margin: 1em 0;
-        overflow-x: auto !important;
-        overflow-y: visible !important;
-        max-width: 100% !important;
-        width: 100% !important;
+        overflow-x: auto;
+        overflow-y: visible;
+        max-width: 100%;
+        width: 100%;
         box-sizing: border-box;
         padding-top: 1em;
         padding-bottom: 1em;
-        min-height: unset;
+        scrollbar-width: none;
+      }
+
+      .post-content mjx-container[display="true"]::-webkit-scrollbar {
+        display: none;
       }
 
       .post-content mjx-container[display="true"] mjx-math {
-        min-width: 0 !important;
-        max-width: 100% !important;
-        overflow-x: auto !important;
-        overflow-y: visible !important;
-        white-space: pre;
-        box-sizing: border-box;
-        min-height: unset;
-      }
-
-      .post-content {
-        overflow-x: auto;
-        overflow-y: visible;
+        min-width: 0;
+        max-width: 100%;
+        white-space: normal;
       }
 
       .post-content img {
@@ -208,11 +229,42 @@
         margin-bottom: 1.5em;
       }
 
+      .section ul,
+      .section ol,
+      .post-content ul,
+      .post-content ol {
+        margin: 0 0 1.4em 1.8em;
+        padding: 0;
+        list-style-position: outside;
+      }
+
+      .section ul ul,
+      .section ul ol,
+      .section ol ul,
+      .section ol ol,
+      .post-content ul ul,
+      .post-content ul ol,
+      .post-content ol ul,
+      .post-content ol ol {
+        margin-top: 0.6em;
+        margin-bottom: 0.6em;
+      }
+
+      .section li,
+      .post-content li {
+        margin-bottom: 0.45em;
+      }
+
+      .section li:last-child,
+      .post-content li:last-child {
+        margin-bottom: 0;
+      }
+
       .language-footer {
         margin: 50px auto 30px;
         text-align: center;
         font-size: 0.9rem;
-        color: #9d9d9d;
+        color: #8b8c90;
       }
 
       .language-switcher {
@@ -234,8 +286,8 @@
       }
 
       .language-switcher .language-current {
-        font-weight: 600;
-        color: #4a4b4f;
+        font-weight: 500;
+        color: #2d2e32;
       }
 
       .language-switcher-separator {

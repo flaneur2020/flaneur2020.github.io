@@ -2,9 +2,9 @@
 title: "关于我"
 ---
 
-**你好，我是李亚洲。**
+**你好，我是李亚舟。**
 
-我是一名软件工程师，长期关注分布式系统与 AI/LLM 的工程化落地。这篇博客记录了我在构建基础设施、优化性能以及折腾大模型过程中踩过的坑和获得的经验。
+我是一名软件工程师，关注 Cloud Infra 与 AI/LLM 系统相关的工程实践。这篇博客记录了我在这些领域的一些实验、实用笔记和学习心得。
 
 欢迎交流指正，也期待与同样热爱技术的你一起讨论。	
 
@@ -14,6 +14,12 @@ title: "关于我"
 <a href="https://x.com/flaneur2023" target="_blank" style="text-decoration:none; margin-right: 16px;">
   <span style="font-size:1.3em; vertical-align:middle;">🐦</span> X
 </a>
-<a href="https://instagram.com/flaneur2024_" target="_blank" style="text-decoration:none;">
+<a href="https://bsky.app/profile/flaneur2024.bsky.social" target="_blank" style="text-decoration:none; margin-right: 16px;">
+  <span style="font-size:1.3em; vertical-align:middle;">🌐</span> Bluesky
+</a>
+<a href="https://instagram.com/flaneur2024_" target="_blank" style="text-decoration:none; margin-right: 16px;">
   <span style="font-size:1.3em; vertical-align:middle;">📷</span> Instagram
+</a>
+<a href="https://www.linkedin.com/in/li-yazhou-02548a69/" target="_blank" style="text-decoration:none; margin-right: 16px;">
+  <span style="font-size:1.3em; vertical-align:middle;">💼</span> LinkedIn
 </a>
