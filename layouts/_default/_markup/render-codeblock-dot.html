@@ -1,0 +1,53 @@
+<div class="graphviz-{{ .Ordinal }}"></div>
+<script>
+  (function renderGraphvizForBlock() {
+    const target = document.currentScript?.previousElementSibling;
+    if (!target) {
+      return;
+    }
+
+    const dotSource = JSON.parse({{ .Inner | jsonify }});
+
+    function ensureVizReady() {
+      if (typeof window.Viz !== "function") {
+        return setTimeout(ensureVizReady, 50);
+      }
+
+      if (!window.__vizWorkerURLPromise) {
+        window.__vizWorkerURLPromise = fetch("https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js")
+          .then(response => response.text())
+          .then(source => {
+            const blob = new Blob([source], { type: "application/javascript" });
+            return URL.createObjectURL(blob);
+          })
+          .catch(error => {
+            console.error("Viz worker fetch failed", error);
+            throw error;
+          });
+      }
+
+      window.__vizWorkerURLPromise
+        .then(workerURL => {
+          const viz = new window.Viz({ workerURL });
+          return viz.renderSVGElement(dotSource);
+        })
+        .then(svg => {
+          svg.removeAttribute("width");
+          svg.removeAttribute("height");
+          svg.style.width = "100%";
+          svg.style.height = "auto";
+          svg.style.maxWidth = "100%";
+          svg.setAttribute("preserveAspectRatio", svg.getAttribute("preserveAspectRatio") || "xMidYMid meet");
+          target.style.overflowX = "auto";
+          target.style.maxWidth = "100%";
+          target.style.display = "block";
+          target.appendChild(svg);
+        })
+        .catch(error => {
+          console.error("Viz render failed", error);
+        });
+    }
+
+    ensureVizReady();
+  })();
+</script>
