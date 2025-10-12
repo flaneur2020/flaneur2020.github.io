@@ -18,6 +18,7 @@ amazon.com 在 1998 上线了 item-based 的协同过滤。在 2003 年在 IEEE 
 在发表了 IEEE 之后，基于 item 的推荐系统在 行业内快速地得到了普及。
 
 30% 的 amazon.com 访问都来自于推荐。
+
 ## Defining “Related” Items
 
 推荐的质量严重取决于怎样定义“相关”。

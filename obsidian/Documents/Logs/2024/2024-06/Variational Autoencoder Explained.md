@@ -16,6 +16,7 @@ p_{\theta}(x) &= \int_z p(z) p_{\theta}(x|z) \\
 $$
 
 相当于穷举一把 $z$ 的所有样本，这个计算量是巨大的。
+
 ## Posterior inference in a latent variable model
 
 可以换一个目标，来优化后验概率 $p(z|x)$。给出来先验 $p(z)$ 和似然 $p(x|z)$，可以计算出来后验 $p(z|x)$。

@@ -1,6 +1,7 @@
 https://insujang.github.io/2024-01-07/llm-inference-continuous-batching-and-pagedattention/
 
 在 OSDI'22 的 Orca 发了两个 novel 的技术：**continuous batching** （也叫做 iteration scheduling）和 **selective batching**。
+
 ## Continuous Batching
 
 在 continuous batching 之前，一般的做法是 static batching，发一组请求攒成一个 batch，然后等它们结束。

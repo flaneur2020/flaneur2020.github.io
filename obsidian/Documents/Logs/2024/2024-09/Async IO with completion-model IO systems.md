@@ -8,6 +8,7 @@ TLDR;
 ---
 
 > Completion-model IO systems don't work naturally with the `Read` trait.
+
 ## Completion model reads
 
 Completion based IO 下，读取相当于给 os 发一个 buffer，等待 IO 完成，最后读取这个 buffer 中的数据。
