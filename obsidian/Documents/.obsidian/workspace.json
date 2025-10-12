@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/2025/2025-10/nano-vllm.md",
+                "file": "Logs/2025/2025-10/nano-vllm notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "nano-vllm"
+              "title": "nano-vllm notes"
             }
           },
           {
@@ -235,10 +235,11 @@
       "notebook-navigator:Notebook Navigator": false
     }
   },
-  "active": "d9c440ffea63d0ba",
+  "active": "1420199e4ec7aaf3",
   "lastOpenFiles": [
+    "Logs/2025/2025-10/Cancelling async Rust.md",
+    "Logs/2025/2025-10/nano-vllm notes.md",
     "Excalidraw/nano-vllm-scheduler.excalidraw.md",
-    "Logs/2025/2025-10/nano-vllm.md",
     "Excalidraw",
     "Logs/2025/2025-10/nano-vllm 看代码.md",
     "Logs/2025/2025 - Index.md",
@@ -263,7 +264,6 @@
     "Logs/2024/2024-02/q8 dot product 优化记录.md",
     "Logs/2024/2024-02/Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine.md",
     "Logs/2024/2024-02/Optimization of GEMV on Intel AVX Processor.md",
-    "Logs/2024/2024-03/使用 rust 开发平民推理框架.md",
     "Books/Books Base.base",
     "Pasted image 20251009221451.png",
     "Logs/2025/2025-10/assets/Screenshot 2025-10-05 at 19.09.42.png",
