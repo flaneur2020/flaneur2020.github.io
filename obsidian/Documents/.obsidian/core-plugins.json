@@ -15,7 +15,7 @@
   "editor-status": true,
   "markdown-importer": true,
   "zk-prefixer": false,
-  "random-note": false,
+  "random-note": true,
   "outline": true,
   "word-count": true,
   "slides": true,
@@ -26,8 +26,8 @@
   "sync": false,
   "canvas": true,
   "bookmarks": true,
-  "properties": false,
+  "properties": true,
   "webviewer": false,
-  "footnotes": false,
+  "footnotes": true,
   "bases": true
 }

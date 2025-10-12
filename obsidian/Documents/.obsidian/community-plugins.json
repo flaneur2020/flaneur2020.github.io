@@ -3,5 +3,6 @@
   "obsidian-excalidraw-plugin",
   "smart-composer",
   "floating-toc",
-  "notebook-navigator"
+  "notebook-navigator",
+  "obsidian-graphviz"
 ]

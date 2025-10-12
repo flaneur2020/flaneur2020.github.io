@@ -13,15 +13,42 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/2025/2025 - Index.md",
+                "file": "Logs/2025/2025-10/nano-vllm.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025 - Index"
+              "title": "nano-vllm"
+            }
+          },
+          {
+            "id": "1420199e4ec7aaf3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Logs/2025/2025-10/nano-vllm.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "nano-vllm"
+            }
+          },
+          {
+            "id": "0518884f6e3b481a",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/nano-vllm-scheduler.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "nano-vllm-scheduler.excalidraw"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,6 +183,32 @@
               "icon": "wand-sparkles",
               "title": "Smart composer chat"
             }
+          },
+          {
+            "id": "9318a4d6daebdc90",
+            "type": "leaf",
+            "state": {
+              "type": "footnotes",
+              "state": {
+                "file": "Logs/2025/2025-10/nano-vllm.md"
+              },
+              "icon": "lucide-file-signature",
+              "title": "Footnotes"
+            }
+          },
+          {
+            "id": "6dd164f65172acae",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
           }
         ],
         "currentTab": 3
@@ -167,6 +220,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "random-note:Open random note": false,
       "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
@@ -183,6 +237,11 @@
   },
   "active": "d9c440ffea63d0ba",
   "lastOpenFiles": [
+    "Excalidraw/nano-vllm-scheduler.excalidraw.md",
+    "Logs/2025/2025-10/nano-vllm.md",
+    "Excalidraw",
+    "Logs/2025/2025-10/nano-vllm 看代码.md",
+    "Logs/2025/2025 - Index.md",
     "Logs/2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
     "Logs/2022/2022-06/SQS Notes.md",
     "Logs/2023/2023-07/Softmax tiling.md",
@@ -205,10 +264,6 @@
     "Logs/2024/2024-02/Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine.md",
     "Logs/2024/2024-02/Optimization of GEMV on Intel AVX Processor.md",
     "Logs/2024/2024-03/使用 rust 开发平民推理框架.md",
-    "Logs/2024/2024-03/财务自由之路.md",
-    "Logs/2024/2024-03/这就是 ChatGPT.md",
-    "Logs/2024/2024-04/Experiments with Bitnet 1.5 (~ngmi~).md",
-    "Logs/2024/2024-04/Design choices for Vision Language Models in 2024.md",
     "Books/Books Base.base",
     "Pasted image 20251009221451.png",
     "Logs/2025/2025-10/assets/Screenshot 2025-10-05 at 19.09.42.png",
@@ -228,7 +283,6 @@
     "Logs/2025/2025-08",
     "Logs/2025/2025-07/assets",
     "Logs/2025/2025-07",
-    "Logs/2025/2025-06",
     "Untitled.canvas"
   ]
 }
