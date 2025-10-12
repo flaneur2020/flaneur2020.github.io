@@ -4,8 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+    {{ $scratch := newScratch }}
+    {{ $scratch.Set "title" (cond .IsHome .Site.Title (printf "%s | %s" .Title .Site.Title)) }}
+    {{ if .Params.description }}
+      {{ $scratch.Set "description" (.Params.description | plainify) }}
+    {{ else if .Summary }}
+      {{ $scratch.Set "description" (.Summary | plainify | truncate 160) }}
+    {{ else if .Site.Params.description }}
+      {{ $scratch.Set "description" (.Site.Params.description | plainify) }}
+    {{ else }}
+      {{ $scratch.Set "description" (.Site.Title | plainify) }}
+    {{ end }}
+    {{ if .Params.images }}
+      {{ $scratch.Set "image" ((index .Params.images 0) | absURL) }}
+    {{ else if .Params.image }}
+      {{ $scratch.Set "image" (.Params.image | absURL) }}
+    {{ else if .Site.Params.socialImage }}
+      {{ $scratch.Set "image" (.Site.Params.socialImage | absURL) }}
+    {{ end }}
+    {{ $title := $scratch.Get "title" }}
+    {{ $description := $scratch.Get "description" }}
+    {{ $image := $scratch.Get "image" }}
+    {{ $twitterCard := cond (and $image (ne $image "")) "summary_large_image" "summary" }}
+    {{ $ogType := cond .IsHome "website" "article" }}
+    <title>{{ $title }}</title>
+    {{ with $description }}<meta name="description" content="{{ . }}" />{{ end }}
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta property="og:type" content="{{ $ogType }}" />
+    <meta property="og:title" content="{{ $title }}" />
+    {{ with $description }}<meta property="og:description" content="{{ . }}" />{{ end }}
+    <meta property="og:url" content="{{ .Permalink }}" />
+    {{ with $image }}<meta property="og:image" content="{{ . }}" />{{ end }}
+    <meta name="twitter:card" content="{{ $twitterCard }}" />
+    <meta name="twitter:title" content="{{ $title }}" />
+    {{ with $description }}<meta name="twitter:description" content="{{ . }}" />{{ end }}
+    {{ with $image }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
