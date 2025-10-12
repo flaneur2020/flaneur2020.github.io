@@ -21,7 +21,7 @@ googleAnalytics = "G-xxxxxxxxx"
 [params]
 author = "flaneur2020"
 description = "A Tech Blog"
-socialImage = "/images/icon-blog-social.jpg"
+socialImage = "/images/icon-blog-social.jpeg"
 
 # Syntax highligth on code blocks
 [markup]
