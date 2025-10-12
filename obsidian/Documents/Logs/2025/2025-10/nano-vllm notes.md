@@ -1,13 +1,7 @@
 
-最近想学习一下工业级的推理引擎的设计，不过 vLLM 和 SGLang 似乎都已经发展的比较复杂了。前段时间看到一个[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm)，它的代码比较精简，但是也有一套完整的 Page Attention 和 Scheduler 的实现，国庆假期学习了一下，很有意思，在这里记录一下自己的理解。
+最近想学习一下工业级的推理引擎的设计，不过 vLLM 和 SGLang 似乎都已经发展的比较复杂了，读起来大概会比较吃力。
 
-感兴趣的点主要在：
-
-- 怎样处理多个推理请求？
-- 怎样抢占的？
-- 怎样管理 KV Cache 的内存的？
-
-下面跟着感兴趣的这个点，过一下 nano-vllm 的代码。
+前段时间看到一个[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm)，它的代码比较精简，但是也有一套完整的 Page Attention 和 Scheduler 的实现，国庆假期学习了一下，很有意思，在这里记录一下自己的理解。
 
 ## 代码结构
 
@@ -30,7 +24,7 @@ vLLM 快速流行的关键之一就是 Page Attention。nano-vllm 的核心设�
 1. 显卡的 KV Cache 总空间是固定的，除了模型权重等固定占用外，剩余显存都应当留给 KV Cache。怎样分配和管理这部分内存？
 2. 用户请求的长度长短不同，每个请求对应的 KV Cache 也长短差异极大，如何在同一个 batch 内支持这些不同长度的请求？
 
-Page Attention 借鉴了操作系统的 Page Cache，把整个用于 KV Cache 的内存切成固定大小的 Block，并维护“序列位置 → Block”的映射。这样做有几个好处：
+Page Attention 会把整个用于 KV Cache 的内存切成固定大小的 Block，并维护“序列位置 → Block”的映射。这样做有几个好处：
 
 1. 全局管理 KV Cache 相关的内存，通过分配表来管理 KV Cache 内存 Block 的分配与释放；
 2. 允许为不同请求灵活拼装不同数量的 Block；
@@ -180,20 +174,20 @@ digraph KVCachePrefillDecode {
         // Sequence A
         p_seq_a_before [label=<
             <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-                <tr><td bgcolor="#ADD8E6"><b>Seq A</b></td><td colspan="5">KV Cache</td></tr>
-                <tr><td>Before</td><td>Empty</td><td>Empty</td><td>Empty</td><td>Empty</td><td>Empty</td></tr>
+                <tr><td colspan="6">Before Prefill</td></tr>
+                <tr><td bgcolor="#ADD8E6"><b>Seq A</b></td><td>Empty</td><td>Empty</td><td>Empty</td><td>Empty</td><td>Empty</td></tr>
             </table>
         >, shape=plaintext];
         
         p_seq_a_after [label=<
             <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-                <tr><td bgcolor="#ADD8E6"><b>Seq A</b></td><td colspan="5">KV Cache</td></tr>
-                <tr><td>After</td>
-                    <td bgcolor="#90EE90">K₁V₁</td>
-                    <td bgcolor="#90EE90">K₂V₂</td>
-                    <td bgcolor="#90EE90">K₃V₃</td>
-                    <td bgcolor="#90EE90">K₄V₄</td>
-                    <td bgcolor="#90EE90">K₅V₅</td>
+				<tr><td colspan="6">After Prefill</td></tr>
+                <tr><td bgcolor="#ADD8E6"><b>Seq A</b></td>
+                    <td bgcolor="#FFD700">K₁V₁</td>
+                    <td bgcolor="#FFD700">K₂V₂</td>
+                    <td bgcolor="#FFD700">K₃V₃</td>
+                    <td bgcolor="#FFD700">K₄V₄</td>
+                    <td bgcolor="#FFD700">K₅V₅</td>
                 </tr>
             </table>
         >, shape=plaintext];
@@ -325,7 +319,9 @@ digraph SchedulerOverview {
 
 在初始化时，`BlockManager` 会初始化来跟踪起来 `free_block_ids`、`used_block_ids` 乃至 `hash_to_block_id`。
 
-其中 `hash_to_block_id` 是内存复用的基础。它会为每个 Block 计算出哈希，当不同的请求中，遇到相同的哈希时，就不需要再单独分配 Block 了，增加引用计数即可。值得一提的是，Block 的 hash 并不是单纯根据 Block 的数据计算出来的，也会结合前一个 Block 的哈希，形成一整个 Prefix Hash。
+其中 `hash_to_block_id` 是内存复用的基础。它会为每个 Block 计算出哈希，每当填满一个 Block 时，都可以查一下有没有哈希相同的 Block，就不需要再单独分配 Block 了，增加引用计数即可。
+
+值得一提的是，Block 的 hash 并不是单纯根据 Block 的数据计算出来的，也会结合前一个 Block 的哈希，形成一整个 Prefix Hash。
 
 ``` dot
 digraph PrefixSharingExample {
@@ -427,26 +423,127 @@ digraph PrefixSharingExample {
 
 ### 抢占与驱逐
 
-回到调度视角，抢占是在 Decode 阶段触发的“保命手段”。Prefill 阶段还算简单：scheduler 从 waiting 队列头部依次尝试，
+凡是有调度器概念的地方，就总是能见到 “驱逐” 字样存在。
 
-能拿到足够的 Block 就转成 RUNNING 并放进 running 队列，失败就停下来等待下一轮。这部分完全是 FIFO。
+在推理场景的驱逐，似乎只有一个出发点就是 KV Cache 的内存不够用了。这时可以驱逐一些请求出去，连带着 KV Cache 释放出来。
 
-Decode 阶段的循环则是：
+Prefill 阶段的驱逐会比较简单，只要把 waiting 队列中占用 KV Cache 的请求拿掉，腾出空间足够当前的 Prefill 任务完成就可以了。
 
-  1. 从 running 队列头部取一条序列，准备给它添 1 个 token。
-  2. 检查 block_manager.can_append(seq)：
-      - 如果显存还够，就调用 may_append(seq) 预留好空间，把序列加入本轮要执行的 batch；
-      - 如果显存不够，就得触发抢占。
-  3. 抢占策略分两步：
-      - 优先踢 running 队列的尾巴（近似 LRU），调用 preempt(victim)：状态改回 WAITING，释放掉它的所有 Block，再把它
-        塞回 waiting 队列的前面；
-      - 如果队尾都救不了场，就只好把当前这条序列自己抢占掉，让它换到下一轮再试。
-  4. 本轮选中的序列会被反向塞回 running 队列头部，实现类似 round-robin 的公平性。
+Decode 阶段会随着 Decode 的进行，KV Cache 变得越来越长。这时如果分配 Block 失败，则触发抢占。这时就得从 running 队列中踢掉任务，从而腾出空间，给其余的请求使用。
 
-postprocess 则在 Decode 结束后统一收尾：为每条序列写入新 token，命中 EOS 或到达 max_tokens 的直接标记 FINISHED、
+``` dot
+digraph PreemptionSimplified {
+    rankdir=LR;
+    node [fontname="Arial"];
+    edge [fontname="Arial", fontsize=10];
+    
+    label="";
+    labelloc=t;
+    fontsize=14;
+    
+    // Before preemption
+    subgraph cluster_before {
+        label="Sequences Running, Memory Full";
+        style=rounded;
+        color=red;
+        penwidth=2;
+        
+        running_before [label=<
+            <table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+                <tr><td bgcolor="#90EE90" colspan="4"><b>Running Queue (3 sequences)</b></td></tr>
+                <tr><td><b>Seq</b></td><td colspan="3"><b>Blocks</b></td></tr>
+                <tr>
+                    <td bgcolor="#ADD8E6">Seq A</td>
+                    <td bgcolor="#ADD8E6">[0]</td>
+                    <td bgcolor="#ADD8E6">[1]</td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FFE4B5">Seq B</td>
+                    <td bgcolor="#FFE4B5">[2]</td>
+                    <td bgcolor="#FFE4B5">[3]</td>
+                    <td bgcolor="#FFE4B5">[4]</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0FFFF">Seq C</td>
+                    <td bgcolor="#E0FFFF">[5]</td>
+                    <td bgcolor="#E0FFFF">[6]</td>
+                    <td colspan="1"></td>
+                </tr>
+            </table>
+        >, shape=plaintext];
+        
+        memory_before [label=<
+            <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                <tr><td bgcolor="#FFA500" colspan="8"><b>GPU Memory Pool</b></td></tr>
+                <tr>
+                    <td bgcolor="#ADD8E6">[0]<br/>A</td>
+                    <td bgcolor="#ADD8E6">[1]<br/>A</td>
+                    <td bgcolor="#FFE4B5">[2]<br/>B</td>
+                    <td bgcolor="#FFE4B5">[3]<br/>B</td>
+                    <td bgcolor="#FFE4B5">[4]<br/>B</td>
+                    <td bgcolor="#E0FFFF">[5]<br/>C</td>
+                    <td bgcolor="#E0FFFF">[6]<br/>C</td>
+                    <td bgcolor="#D3D3D3">[7]<br/>Other</td>
+                </tr>
+                <tr><td colspan="8" bgcolor="#FF6B6B" align="center"><b>❌ No free blocks!</b></td></tr>
+            </table>
+        >, shape=plaintext];
+        
+        running_before -> memory_before [style=invis];
+    }
+    
+    // After preemption
+    subgraph cluster_after {
+        label="Sequences Running, Memory Available";
+        style=rounded;
+        color=green;
+        penwidth=2;
+        
+        running_after [label=<
+            <table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+                <tr><td bgcolor="#90EE90" colspan="4"><b>Running Queue (2 sequences)</b></td></tr>
+                <tr><td><b>Seq</b></td><td colspan="3"><b>Blocks</b></td></tr>
+                <tr>
+                    <td bgcolor="#ADD8E6">Seq A</td>
+                    <td bgcolor="#ADD8E6">[0]</td>
+                    <td bgcolor="#ADD8E6">[1]</td>
+                    <td bgcolor="#FFD700">[5]</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FFE4B5">Seq B</td>
+                    <td bgcolor="#FFE4B5">[2]</td>
+                    <td bgcolor="#FFE4B5">[3]</td>
+                    <td bgcolor="#FFE4B5">[4]</td>
+                </tr>
+            </table>
+        >, shape=plaintext];
+        
+        memory_after [label=<
+            <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                <tr><td bgcolor="#FFA500" colspan="8"><b>GPU Memory Pool</b></td></tr>
+                <tr>
+                    <td bgcolor="#ADD8E6">[0]<br/>A</td>
+                    <td bgcolor="#ADD8E6">[1]<br/>A</td>
+                    <td bgcolor="#FFE4B5">[2]<br/>B</td>
+                    <td bgcolor="#FFE4B5">[3]<br/>B</td>
+                    <td bgcolor="#FFE4B5">[4]<br/>B</td>
+                    <td bgcolor="#FFD700">[5]<br/>A<br/>(new)</td>
+                    <td bgcolor="#90EE90">[6]<br/>Free</td>
+                    <td bgcolor="#D3D3D3">[7]<br/>Other</td>
+                </tr>
+                <tr><td colspan="8" bgcolor="#90EE90" align="center"><b>✓ 1 free block!</b></td></tr>
+            </table>
+        >, shape=plaintext];
+        
+        running_after -> memory_after [style=invis];
+    }
+    
+    memory_before -> running_after [label="Evict Seq C", penwidth=3, color=red, fontsize=12];
+}
 
-释放 Block，并从 running 队列移除。这样既保证了显存先满足正在执行的序列，又不会把等待序列饿死，整个循环自然形成了「Prefill 顺序化 → Decode 并行化 → 内存不够先抢占」的节奏。
+```
 
 ## 小结
 
-tbd
+nano-vllm 提供了一套最小可行的多请求调度与 KV Cache 管理实现，代码结构清晰，对理解 Page Attention 和 LLM Scheduler 确实是很好的素材。后面有空可以在这个基础上接着捋一下 vLLM 的流程。
