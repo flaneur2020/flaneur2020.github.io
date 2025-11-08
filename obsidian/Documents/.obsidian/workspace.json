@@ -13,42 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/2025/2025-10/nano-vllm.md",
+                "file": "Logs/2025/2025-11/Understanding RDMA Components in Linux.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "nano-vllm"
-            }
-          },
-          {
-            "id": "1420199e4ec7aaf3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Logs/2025/2025-10/nano-vllm notes.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "nano-vllm notes"
-            }
-          },
-          {
-            "id": "0518884f6e3b481a",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/nano-vllm-scheduler.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "nano-vllm-scheduler.excalidraw"
+              "title": "Understanding RDMA Components in Linux"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -111,12 +84,11 @@
               "title": "Notebook Navigator"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 550.5
+    "width": 381.5
   },
   "right": {
     "id": "0b9cf38bf3932929",
@@ -215,7 +187,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 649.5,
+    "width": 524.5,
     "collapsed": true
   },
   "left-ribbon": {
@@ -235,37 +207,44 @@
       "notebook-navigator:Notebook Navigator": false
     }
   },
-  "active": "1420199e4ec7aaf3",
+  "active": "7899559cdb95351f",
   "lastOpenFiles": [
+    "Logs/2025/2025 - Index.md",
+    "Logs/2025/2025-11/Understanding RDMA Components in Linux.md",
+    "Logs/2025/2025-11/Dynamic Resource Allocation.md",
+    "Logs/2025/2025-11/GKE network interface at 10 - From core connectivity to the AI backbone.md",
+    "Logs/2025/2025-10/nvidia-container-runtime & CDI.md",
+    "Logs/2025/2025-11",
+    "Logs/2025/Untitled.md",
+    "Logs/2025/2025-10/assets/Pasted image 20251023211344.png",
+    "Logs/2025/2025-10/assets/Pasted image 20251023211007.png",
+    "Excalidraw/nano-vllm-scheduler.excalidraw.md",
+    "Books/毛泽东、斯大林和朝鲜战争.md",
+    "Logs/2025/2025-10/How To Reduce Cold Start Times For LLM Inference.md",
+    "Logs/2025/2025-10/A Survey of Reinforcement Learning for Large Reasoning Models.md",
+    "Logs/2025/2025-10/Dynamo Disaggregation - Separating Prefill and Decode for Enhanced Performance.md",
+    "Logs/2025/2025-10/assets/Pasted image 20251009221451.png",
+    "Books/蒋介石：一个力行者的思想资源.md",
+    "Logs/2025/2025-10/nano-vllm 看代码.md",
+    "Logs/2025/2025-10/An MVCC-like columnar table on S3 with constant-time deletes.md",
     "Logs/2025/2025-10/Cancelling async Rust.md",
     "Logs/2025/2025-10/nano-vllm notes.md",
-    "Excalidraw/nano-vllm-scheduler.excalidraw.md",
+    "Logs/2019/Why is the kernel community replacing iptables with BPF?.md",
+    "Logs/2019/How to mentor software engineers.md",
+    "Logs/2017/Omid, Reloaded - Scalable and Highly-AvailableTransaction Processing.md",
+    "Logs/2022/信封加密.md",
+    "Logs/2017",
+    "Logs/2020/On Hiring QA engineers.md",
+    "Logs/2020/When Linux conntrack is no longer your friend.md",
+    "Logs/2020/Racy conntrack and DNS lookup timeouts.md",
+    "Logs/2019/The Almighty Pause Contaner.md",
+    "Logs/2020",
+    "Logs/2018/Notes about SegWit.md",
+    "Logs/2018/The USE Method.md",
+    "Logs/2018",
+    "Logs/2016",
     "Excalidraw",
-    "Logs/2025/2025-10/nano-vllm 看代码.md",
-    "Logs/2025/2025 - Index.md",
-    "Logs/2019/2019-02/Why is the kernel community replacing iptables with BPF?.md",
-    "Logs/2022/2022-06/SQS Notes.md",
-    "Logs/2023/2023-07/Softmax tiling.md",
-    "Logs/2023/2023-09/CUDA Programming with Julia.md",
-    "Logs/2023/2023-09/An Introduction to GPU Programming in Julia.md",
-    "Logs/2023/2023-09/Massively Parallel Fun with GPUs - Accelerating Tensors in Rust.md",
-    "Logs/2023/2023-09/Introduction to CUDA.md",
-    "Logs/2023/2023-09/Difference between view, reshape, transpose and permute in PyTorch.md",
-    "Logs/2023/2023-09/ClickHouse vs Snowflake for Real-Time Analytics - Benchmarks and Cost Analysis.md",
-    "Logs/2023/2023-09/On The Future Of Cloud Services And BYOC.md",
-    "Logs/2023/2023-09/The State of Async Rust - Runtimes.md",
-    "Logs/2023/2023-09/Speculative Sampling.md",
-    "Logs/2024/2024-01/Efficient LLM inference solution on Intel GPU.md",
-    "Logs/2024/2024-01/AWQ - Activation-aware Weight Quantization for LLM Compression and Acceleration.md",
-    "Logs/2024/2024-01/The case for 4-bit precision - k-bit Inference Scaling Laws.md",
-    "Logs/2024/2024-01/Towards 100x Speedup - Full Stack Transformer Inference Optimization.md",
-    "Logs/2024/2024-02/Anatomy of High-Performance Matrix Multiplication.md",
-    "Logs/2024/2024-02/gemm - a rabbit hole.md",
-    "Logs/2024/2024-02/q8 dot product 优化记录.md",
-    "Logs/2024/2024-02/Apache Arrow DataFusion - A Fast, Embeddable, Modular Analytic Query Engine.md",
-    "Logs/2024/2024-02/Optimization of GEMV on Intel AVX Processor.md",
     "Books/Books Base.base",
-    "Pasted image 20251009221451.png",
     "Logs/2025/2025-10/assets/Screenshot 2025-10-05 at 19.09.42.png",
     "Logs/2025/2025-10/assets/Screenshot 2025-10-05 at 19.08.31.png",
     "Logs/2025/2025-10/assets",
@@ -275,14 +254,7 @@
     "Logs/2025/2025-09/assets/Pasted image 20250907130633.png",
     "Logs/2025/2025-09/assets/Pasted image 20250903212716.png",
     "Logs/2025/2025-09/assets",
-    "Logs/2025/2025-09",
     "Logs/2025/2025-08/assets/Pasted image 20250802222207.png",
-    "Logs/2025/2025-08/assets/Pasted image 20250802222154.png",
-    "Logs/2025/2025-08/assets",
-    "Logs/2025/2025-08/assets/Pasted image 20250802222107.png",
-    "Logs/2025/2025-08",
-    "Logs/2025/2025-07/assets",
-    "Logs/2025/2025-07",
     "Untitled.canvas"
   ]
 }
