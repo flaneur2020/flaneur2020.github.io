@@ -1,0 +1,101 @@
+http://www.slideshare.net/nkallen/q-con-3770885
+
+- What's real time data：web 请求中的 query；低延时的 offline 计算；延迟与吞吐同等重要；并非 Hadoop 这类高吞吐高延迟的大数据设施
+- 四类数据问题：tweets、timelines、social graphs、search indices；
+tweet：
+- 性质：140 字，加一些元信息；query pattern：by id、by author；按行存储
+- 原先的实现：一张表 <id, user_id, text, created_at>，master-slave ＋ memcached
+- 问题：不想维护超过 800gb 的磁盘阵列；29 亿条 tweet 之后，磁盘已经 90%；
+- 应对：partition 
+	- 方案1: 按 primary key 进行 partition； 
+	  cons：按 user_id 查询最近的 tweets 需要访问多个 partition；
+	- 方案2: 按 user_id 进行 partition； 
+	  cons：按 id 查询 tweets 需要访问多个 partition；
+	- 最终选择的方案：按时间进行 partition； 
+	  pros：利用数据的 locality；
+- principles： 
+	- partition ＋ index
+	- 利用数据的 locality；（新的 tweet 最常被访问到）
+- problems w/ solutions: 
+	- 写吞吐受局限
+	- 在 tweet 量大时遭遇 deadlock
+	- 新建 shard 过程痛苦，时间长，还需要配 slave；遭 dba 恨；
+- future solution： 
+	- 切 cassandra
+	- 按 primary key 做 partition
+	- 手工按 user_id 维护二级索引
+	- 使用 memcache 覆盖住 90% 请求
+Timeline
+- 性质： 
+	- tweet id 的序列；
+	- query pattern：get  by uid；
+	- 操作： append、merge、truncate；
+	- 流量大；
+	- space based（in-place mutation）；
+- 原先的实现： 
+	- select * from tweets where user_id in (select source_id from followers where destination_id=?) order by created_at desc limit 20;
+- 当前实现： 
+	- tweet id 序列保存在 memcache；
+	- fanout-offline，但是有一个低延时的 SLA；
+	- 随机 truncate timeline 序列，控制长度；
+	- cache miss 时，合并 user 的 timeline；
+	- 吞吐指标(2010)：(average tps: 700, peak tps: 2000, fanout ratio: 600:1, deliveries: 每分钟 120w 消息)
+- 可选的实现： 
+	- fanout to disk：即使有很强的 buffering 技术，也需要很高的 iops；从其他数据 store 重建数据的成本没有太高；
+	- fanout to memory：
+- Principles： 
+	- offline vs online computation: 如果计算量可控，且 query 模式非常少，那么可以使用 pre computation；
+	- 留心 memory hierarchy；
+	- 系统的性能取决于，从其他数据源生成数据的代价 * 需要这类数据的概率
+Social Graph
+- 性质： 
+	- 谁关注了谁、谁拉黑了谁、等等；
+	- 操作：按时间展现；交集、并集、差异；是否包含；基数（多少 follower、following、star 之类）；出于 antispam 的大量删除；
+	- 流量压力中等，但数据集不可控（unbound）；
+	- 复杂、不可预期的 query 模式；
+- 原先的实现： 
+	- 一张表: <source_id, destination_id>
+- problem w/ solution: 
+	- write throughput 问题
+	- 索引不能保存在内存中
+- current solution： 
+	- 按 user_id 做 partition；
+	- 将 edge 分为 forward 和 backward；
+	- 按时间建 index；
+	- 按 element 建 index；
+	- denormalized 基数；
+- challenges：错误时数据一致性问题； 
+	- 使写操作幂等：成功前一直重试；
+	- last-write-wins 策略；
+	- commutative 策略；
+- principles： 
+	- 集合运算的 query 无法预计算；
+	- 而简单的分布式协调机制可以 work；
+	- partition、replicate、index，可以解决很多性能问题；
+Search Index
+- 复杂、adhoc query；允许多个 query 做 and/or；relevance is recency；
+- 原先的实现：<term_id, doc_id>
+- problem: index 不能放进内存；
+- current solution： 
+	- 按时间 partition；
+	- 使用 mysql；
+	- 使用 delayed key-write；
+- problem: 
+	- write throughput 问题；
+	- 罕见的 term 会跑到多个 partition 上；
+	- 空间效率不高；
+- future solution： 
+	- document partitioning；
+	- time partition too；
+	- merge layer；（聚合层）
+	- 可能使用 lucence 替代 mysql；
+- principles： 
+	- partition so that work can be parallelised；
+	- temporal 局部性不够；
+principles
+- 所有的工程方案都是短命的
+- 没有完美的方案，但是可以 good enough
+- 扩展性不是 magic，主要靠 partition、indexing、replication；
+- 所有实时检索的 query 必须在内存，磁盘只用来写
+- 有几类问题可以预计算解决，但是很多问题不能
+- 尽可能地发掘局部性

@@ -174,12 +174,29 @@ prev: [[2024 - Index]]
 
 - Night
 	- slatedb: transaction benchmark
-	- tiny-vllm
+	- nano-vllm
+	- learn TRPO 
 - Writings
 	- [[nano-vllm 看代码]]
 - Readings
+	- llm
+		- [[A Survey of Reinforcement Learning for Large Reasoning Models]]
 	- ai infra
 		- LLM Query Scheduling with Prefix Reuse and Latency Constraints
+		- [[Dynamo Disaggregation - Separating Prefill and Decode for Enhanced Performance]]
+		- [[How To Reduce Cold Start Times For LLM Inference]]
+		- [[]]
 	- sys
 		- [[Cancelling async Rust]]
 		- [[An MVCC-like columnar table on S3 with constant-time deletes]]
+
+## Nov
+
+- Learn
+	- DRA
+	- Dranet
+- Readings
+	- cloud infra
+		- [[GKE network interface at 10 - From core connectivity to the AI backbone]]
+		- [[Dynamic Resource Allocation]]
+		- [[Understanding RDMA Components in Linux]]
