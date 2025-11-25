@@ -193,10 +193,17 @@ prev: [[2024 - Index]]
 ## Nov
 
 - Learn
-	- DRA
-	- Dranet
+	- nvidia-dra-plugin
+	- libkrun
 - Readings
 	- cloud infra
 		- [[GKE network interface at 10 - From core connectivity to the AI backbone]]
 		- [[Dynamic Resource Allocation]]
 		- [[Understanding RDMA Components in Linux]]
+		- [[Data Replication Design Spectrum]]
+	- sys
+		- [[libkrun - README]]
+		- [[libkrun - 看代码]]
+		- [[libkrun - virtio-blk]]
+	- data
+		- [[epsio - How we built a Streaming SQL Engine]]
