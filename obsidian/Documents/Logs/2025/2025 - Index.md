@@ -201,9 +201,12 @@ prev: [[2024 - Index]]
 		- [[Dynamic Resource Allocation]]
 		- [[Understanding RDMA Components in Linux]]
 		- [[Data Replication Design Spectrum]]
+		- [[CSI 概念]]
 	- sys
 		- [[libkrun - README]]
 		- [[libkrun - 看代码]]
 		- [[libkrun - virtio-blk]]
-	- data
-		- [[epsio - How we built a Streaming SQL Engine]]
+	- ai infra
+		- [[Efficient Request Queueing – Optimizing LLM Performance]]
+		- [[Prefill and Decode for Concurrent Requests - Optimizing LLM Performance]]
+	
