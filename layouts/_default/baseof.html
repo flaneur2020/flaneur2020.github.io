@@ -18,7 +18,7 @@
         font-size: 17px;
         line-height: 1.76;
         color: #2c2d33;
-        background: radial-gradient(circle at top left, #f9f6f1 0%, #f3f0ea 40%, #ece8e0 100%);
+        background-color: #f6f6f7;
         font-weight: 400;
         -webkit-font-smoothing: antialiased;
       }
@@ -27,10 +27,6 @@
         max-width: 720px;
         margin: 60px auto;
         padding: 60px 48px;
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 24px 48px rgba(33, 30, 24, 0.08);
-        border-radius: 14px;
-        backdrop-filter: blur(4px);
       }
 
       h1 {
@@ -47,14 +43,17 @@
       }
 
       a {
-        color: #8f6a60;
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 2px;
+        color: #0000FF;
+        text-decoration: none;
       }
 
       a:hover {
-        color: #6b5046;
+        color: #FF0000;
+        text-decoration: underline;
+      }
+
+      a:visited {
+        color: #800080;
       }
 
       .section {
@@ -79,13 +78,11 @@
       .work-link {
         display: block;
         text-decoration: none;
-        color: #2d2e32;
         font-weight: 400;
         transition: color 0.2s ease;
       }
 
       .work-link:hover {
-        color: #705246;
       }
 
       .work-title {
@@ -94,7 +91,7 @@
       }
 
       .publication {
-        color: #8f6a60;
+        color: #5a6fa3;
       }
 
       .year {
@@ -142,8 +139,8 @@
       }
 
       pre {
-        background-color: #f5f5f5;
         padding: 18px;
+        border: 1px solid #d4d6d9;
         border-radius: 4px;
         overflow-x: auto;
         margin: 20px 0;
@@ -174,8 +171,8 @@
       h1 code,
       h2 code,
       h3 code {
-        background-color: #f5f5f5;
         padding: 3px 5px;
+        border: 1px solid #d4d6d9;
         border-radius: 3px;
         font-size: 0.9em;
         white-space: pre-wrap;
@@ -281,7 +278,7 @@
       }
 
       .language-switcher a:hover {
-        color: #6b5046;
+        color: #5a6fa3;
       }
 
       .language-switcher .language-current {
