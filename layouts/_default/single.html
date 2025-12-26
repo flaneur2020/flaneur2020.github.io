@@ -8,7 +8,7 @@
   }
 
   .post-header {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
 
   .post-title {
@@ -82,6 +82,37 @@
     color: #666;
   }
 
+  .toc {
+    padding: 0;
+    margin-bottom: 24px;
+    font-size: 0.95em;
+  }
+
+  .toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .toc ul ul {
+    padding-left: 20px;
+    margin-top: 4px;
+  }
+
+  .toc li {
+    margin-bottom: 6px;
+  }
+
+  .toc a {
+    color: #0000FF;
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    text-decoration: underline;
+    color: #FF0000;
+  }
+
   .back-link {
     display: inline-flex;
     align-items: center;
@@ -124,6 +155,12 @@
     <h1 class="post-title">{{ .Title }}</h1>
     <div class="post-date">{{ .Date.Format "January 2, 2006" }}</div>
   </div>
+
+  {{ with .TableOfContents }}
+  <div class="toc">
+    {{ . }}
+  </div>
+  {{ end }}
 
   <div class="post-content">
     {{ .Content }}

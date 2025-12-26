@@ -37,3 +37,6 @@ style = 'algol'
       [markup.goldmark.extensions.passthrough.delimiters]
         block = [['\[', '\]'], ['$$', '$$']]
         inline = [['\(', '\)'], ['$', '$']]
+  [markup.goldmark.tableOfContents]
+    startLevel = 2
+    endLevel = 3
