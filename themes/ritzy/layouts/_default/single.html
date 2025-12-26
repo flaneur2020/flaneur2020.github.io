@@ -126,7 +126,7 @@
 </style>
 
 <div class="post-container">
-  <a href="{{ "/" | relURL }}" class="back-link"><span>Back to home</span></a>
+  <a href="{{ .Language.Lang | relLangURL }}" class="back-link"><span>{{ if eq .Language.Lang "zh" }}返回{{ else }}Back{{ end }}</span></a>
   <div class="post-header">
     <h1 class="post-title">{{ .Title }}</h1>
     <div class="post-date">{{ .Date.Format "January 2, 2006" }}</div>
