@@ -209,4 +209,10 @@ prev: [[2024 - Index]]
 	- ai infra
 		- [[Efficient Request Queueing – Optimizing LLM Performance]]
 		- [[Prefill and Decode for Concurrent Requests - Optimizing LLM Performance]]
-	
+
+## Dec
+
+ - Learn
+ - Readings
+	 - ai infra
+		 - [[RDMA over Ethernet for Distributed AI Training at Meta Scale]]
