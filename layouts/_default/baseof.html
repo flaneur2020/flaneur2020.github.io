@@ -6,19 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{ partial "social-meta.html" . }}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Source+Serif+Pro:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Source+Serif+Pro:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Lora', 'Source Serif Pro', Georgia, serif;
+        font-family: "Lora", "Source Serif Pro", Georgia, serif;
         font-size: 17px;
         line-height: 1.76;
         color: #2c2d33;
-        background-color: #f6f6f7;
+        background-color: #ffffff;
         font-weight: 400;
         -webkit-font-smoothing: antialiased;
       }
@@ -30,7 +33,7 @@
       }
 
       h1 {
-        font-family: 'Source Serif Pro', serif;
+        font-family: "Source Serif Pro", serif;
         font-size: 31px;
         font-weight: 500;
         margin: 0 0 32px 0;
@@ -43,12 +46,12 @@
       }
 
       a {
-        color: #0000FF;
+        color: #0000ff;
         text-decoration: none;
       }
 
       a:hover {
-        color: #FF0000;
+        color: #ff0000;
         text-decoration: underline;
       }
 
@@ -61,7 +64,7 @@
       }
 
       .works-title {
-        font-family: 'Lora', serif;
+        font-family: "Lora", serif;
         font-weight: 500;
         font-variant: small-caps;
         letter-spacing: 0.08em;
@@ -152,7 +155,9 @@
       }
 
       code {
-        font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-family:
+          "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          monospace;
         font-size: 14px;
         line-height: 1.55;
         font-weight: 400;
@@ -295,43 +300,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js"></script>
   </head>
   <body>
-    <div class="container">
-      {{ block "main" . }}{{ end }}
-    </div>
-    {{ if gt (len .Site.Languages) 1 }}
-      {{ $currentLang := .Site.Language.Lang }}
-      {{ $home := .Site.Home }}
-      <footer class="language-footer">
-        <nav class="language-switcher" aria-label="Language selector">
-          {{ range $index, $lang := .Site.Languages }}
-            {{ if gt $index 0 }}
-              <span class="language-switcher-separator">·</span>
-            {{ end }}
-            {{ if eq $lang.Lang $currentLang }}
-              <span class="language-current">{{ $lang.LanguageName }}</span>
-            {{ else }}
-              {{ with (where $.Page.AllTranslations "Language.Lang" $lang.Lang) }}
-                {{ with (index . 0) }}
-                  <a href="{{ .RelPermalink }}">{{ $lang.LanguageName }}</a>
-                {{ end }}
-              {{ else }}
-                {{ with (where $home.AllTranslations "Language.Lang" $lang.Lang) }}
-                  {{ with (index . 0) }}
-                    <a href="{{ .RelPermalink }}">{{ $lang.LanguageName }}</a>
-                  {{ end }}
-                {{ else }}
-                  {{ if eq $lang.Lang $home.Language.Lang }}
-                    <a href="{{ $home.RelPermalink }}">{{ $lang.LanguageName }}</a>
-                  {{ else }}
-                    <a href="/{{ $lang.Lang }}/">{{ $lang.LanguageName }}</a>
-                  {{ end }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-        </nav>
-      </footer>
-    {{ end }}
-    {{ partial "math.html" . }}
+    <div class="container">{{ block "main" . }}{{ end }}</div>
+    {{ if gt (len .Site.Languages) 1 }} {{ $currentLang := .Site.Language.Lang
+    }} {{ $home := .Site.Home }}
+    <footer class="language-footer">
+      <nav class="language-switcher" aria-label="Language selector">
+        {{ range $index, $lang := .Site.Languages }} {{ if gt $index 0 }}
+        <span class="language-switcher-separator">·</span>
+        {{ end }} {{ if eq $lang.Lang $currentLang }}
+        <span class="language-current">{{ $lang.LanguageName }}</span>
+        {{ else }} {{ with (where $.Page.AllTranslations "Language.Lang"
+        $lang.Lang) }} {{ with (index . 0) }}
+        <a href="{{ .RelPermalink }}">{{ $lang.LanguageName }}</a>
+        {{ end }} {{ else }} {{ with (where $home.AllTranslations
+        "Language.Lang" $lang.Lang) }} {{ with (index . 0) }}
+        <a href="{{ .RelPermalink }}">{{ $lang.LanguageName }}</a>
+        {{ end }} {{ else }} {{ if eq $lang.Lang $home.Language.Lang }}
+        <a href="{{ $home.RelPermalink }}">{{ $lang.LanguageName }}</a>
+        {{ else }}
+        <a href="/{{ $lang.Lang }}/">{{ $lang.LanguageName }}</a>
+        {{ end }} {{ end }} {{ end }} {{ end }} {{ end }}
+      </nav>
+    </footer>
+    {{ end }} {{ partial "math.html" . }}
   </body>
 </html>
