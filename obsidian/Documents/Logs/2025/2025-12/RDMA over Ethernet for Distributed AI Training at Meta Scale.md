@@ -14,3 +14,6 @@ collective 的网络负载的特征：
 - 首先，"collective" 由 parallel 策略决定，比如 Distributedd Data Parallel 使用 AllReduce、Fully Sharded Data Parallel 使用 `AllGather` 和 `ReduceScatter`
 - 其次，collective 可以产生几种不同的网络 traffic 特征，比如 AllToAllv 会产生一个全连接的流量特征，可能导致临时的 congestion，However, its high number of active flows simplifies routing, reducing persistent congestion risks with hashing schemes
 - Third, the choice of logical topology from collective operations impacts network congestion and data exchange between GPUs. 比如，AllReduce 按 Ring 和按 Tree 来实现，有不同的 congestion 和哈希冲突的后果。
+
+### 3 HARDWARE
+

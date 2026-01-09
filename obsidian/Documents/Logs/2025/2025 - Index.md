@@ -214,5 +214,7 @@ prev: [[2024 - Index]]
 
  - Learn
  - Readings
-	 - ai infra
+	- ai infra
 		 - [[RDMA over Ethernet for Distributed AI Training at Meta Scale]]
+	- cloud infra
+		- [[Under the hood - Amazon EKS ultra scale clusters]]
