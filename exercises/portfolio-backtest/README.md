@@ -20,7 +20,7 @@ Run:
 uv run python3 download_data.py
 
 # display the visualization
-streamlit run visualization/streamlit_app.py
+uv run streamlit run visualization/streamlit_app.py
 ```
 
 应用将在 http://localhost:8501 打开。
