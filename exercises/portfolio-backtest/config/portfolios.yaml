@@ -1,0 +1,54 @@
+portfolios:
+  permanent_portfolio:
+    name: "传统永久投资组合"
+    description: "Harry Browne永久投资组合策略 - 25%股票/25%长期国债/25%黄金/25%现金"
+    inception_date: "2007-01-03"
+    assets:
+      - symbol: SPY
+        weight: 0.25
+        asset_class: equity
+        name: "S&P 500 ETF"
+        inception: "1993-01-29"
+      - symbol: TLT
+        weight: 0.25
+        asset_class: bond
+        name: "20+ Year Treasury Bond ETF"
+        inception: "2002-07-26"
+      - symbol: GLD
+        weight: 0.25
+        asset_class: commodity
+        name: "Gold ETF"
+        inception: "2004-11-18"
+      - symbol: SHV
+        weight: 0.25
+        asset_class: cash
+        name: "Short-Term Treasury ETF"
+        inception: "2007-01-03"
+
+rebalance_strategies:
+  annual:
+    name: "Annual"
+    frequency: "yearly"
+    description: "每年1月1日再平衡"
+
+  quarterly:
+    name: "Quarterly"
+    frequency: "quarterly"
+    months: [1, 4, 7, 10]
+    description: "每季度第一个交易日再平衡"
+
+  threshold:
+    name: "Threshold"
+    frequency: "threshold"
+    threshold: 0.05
+    description: "当任何资产偏离目标权重超过5%时再平衡"
+
+  none:
+    name: "No Rebalance"
+    frequency: "never"
+    description: "不进行再平衡，仅记录买入后的表现"
+
+transaction_costs:
+  commission_per_trade: 0.0
+  spread_bps: 5  # 5个基点
+  min_trade_size: 100
