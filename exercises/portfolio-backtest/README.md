@@ -2,85 +2,30 @@
 
 基于 Harry Browne 永久投资组合策略的交互式回测系统。使用 Streamlit 前端、DuckDB 数据存储和 Python 回测引擎。
 
-## 功能特性
-
-✅ **完整的投资组合回测** - 从 1993 年至今的历史数据
-✅ **多种再平衡策略** - 年度、季度、月度、阈值触发
-✅ **灵活的资产配置** - 支持自定义资产列表和权重
-✅ **关键性能指标** - 总收益率、年化收益率、夏普比率、最大回撤等
-✅ **交互式可视化** - Plotly 图表和 Streamlit 界面
-✅ **数据导出** - CSV 格式下载
-
 ## 快速开始
 
 ### 1. 环境设置
 
-使用 `uv` 管理依赖：
+Initialize the venv:
+
 
 ```bash
-# 创建虚拟环境并安装依赖
 uv sync
 
-# 激活虚拟环境
 source .venv/bin/activate
 ```
 
-### 2. 初始化数据
-
-下载历史数据到 DuckDB 数据库：
+Run:
 
 ```bash
-python download_data.py
-```
+# download data to local duckdb
+uv run python3 download_data.py
 
-这将从 yfinance 下载所有资产的历史数据并存储到 `database/portfolio.duckdb`。
-
-**数据覆盖范围：**
-- SPY (S&P 500): 1993-01-29 至今
-- TLT (20年期国债): 2002-07-26 至今
-- GLD (黄金): 2004-11-18 至今
-- SHV (短期国债): 2007-01-03 至今
-
-### 3. 运行 Streamlit 应用
-
-```bash
+# display the visualization
 streamlit run visualization/streamlit_app.py
 ```
 
 应用将在 http://localhost:8501 打开。
-
-### 4. 测试回测引擎
-
-运行测试脚本验证系统功能：
-
-```bash
-python test_backtest.py
-```
-
-## 项目结构
-
-```
-portfolio-backtest/
-├── config/
-│   ├── settings.py              # 全局配置管理
-│   └── portfolios.yaml          # 投资组合配置
-├── data/
-│   ├── downloader.py            # yfinance 数据下载
-│   ├── database.py              # DuckDB 操作
-│   └── storage.py               # 数据存储协调
-├── core/
-│   ├── portfolio.py             # 投资组合类
-│   ├── rebalance.py             # 再平衡策略
-│   ├── metrics.py               # 性能指标计算
-│   └── backtest.py              # 回测引擎
-├── visualization/
-│   └── streamlit_app.py         # Streamlit 应用
-├── database/
-│   └── portfolio.duckdb         # 数据库文件
-├── download_data.py             # 数据初始化脚本
-├── test_backtest.py             # 测试脚本
-└── pyproject.toml               # 项目配置
-```
 
 ## 投资组合配置
 
@@ -124,67 +69,6 @@ portfolios:
 - **最大回撤** - 从高点到低点的最大跌幅
 - **卡尔玛比率** - 年化收益/最大回撤
 
-## API 文档
-
-### BacktestEngine
-
-```python
-from core.backtest import BacktestEngine
-from data.database import DatabaseManager
-
-# 初始化
-db = DatabaseManager("database/portfolio.duckdb")
-engine = BacktestEngine(db)
-
-# 运行回测
-results = engine.run_backtest(
-    symbols=['SPY', 'TLT', 'GLD', 'SHV'],
-    target_weights={'SPY': 0.25, 'TLT': 0.25, 'GLD': 0.25, 'SHV': 0.25},
-    start_date=date(2007, 1, 11),
-    end_date=date(2026, 1, 23),
-    rebalance_strategy=annual_strategy,
-    initial_capital=100000.0
-)
-
-# 访问结果
-print(results['summary']['total_return'])  # 总收益率
-print(results['summary']['sharpe_ratio'])  # 夏普比率
-```
-
-## 历史表现示例
-
-2007年以来年度回测结果（年度再平衡）：
-
-```
-总收益率:       290.83%
-年化收益率:     7.42%
-波动率:         7.21%
-夏普比率:       0.75
-最大回撤:       17.10%（2022年）
-```
-
-## 关键特点
-
-### 数据处理
-
-- 自动从 yfinance 下载历史数据
-- 支持增量更新（只下载缺失的日期）
-- 前复权价格处理（调整分红和分拆）
-- 缺失交易日前向填充
-
-### 性能优化
-
-- DuckDB 高效查询
-- 向量化 NumPy 计算
-- Streamlit 数据缓存
-- 支持大规模数据回测
-
-### 交易成本建模
-
-- 可配置的交易佣金
-- 买卖价差（基点）
-- 再平衡时自动扣除成本
-
 ## 常见问题
 
 ### Q: 如何修改资产配置？
@@ -208,7 +92,7 @@ portfolios:
 ### Q: 如何添加新的资产？
 
 1. 在 `config/portfolios.yaml` 中添加资产定义
-2. 运行 `python download_data.py` 下载该资产的历史数据
+2. 运行 `uv python3 download_data.py` 下载该资产的历史数据
 3. 在回测中使用新资产
 
 ### Q: 支持哪些资产？
@@ -241,10 +125,6 @@ portfolios:
 3. **税收** - 回测未考虑税收影响
 4. **生存偏差** - 当前 ETF 都存活至今，历史数据不包含倒闭的基金
 
-## 许可证
+## License
 
 MIT License
-
-## 作者
-
-创建于 2026 年 1 月
