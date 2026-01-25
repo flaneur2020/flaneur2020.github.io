@@ -1,4 +1,5 @@
 prev: [[2024 - Index]]
+
 ## Jan
 
 - Night
