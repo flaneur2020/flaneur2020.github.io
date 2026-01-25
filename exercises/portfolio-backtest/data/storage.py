@@ -55,13 +55,8 @@ class DataStorage:
                 end_date = date.today()
 
             if start_date is None:
-                # 从配置中查找资产成立日期
-                config = get_config()
-                start_date = self._get_asset_start_date(symbol, config)
-
-                if start_date is None:
-                    logger.warning(f"Could not determine start date for {symbol}")
-                    return False
+                # 尽可能下载全历史：从很早的日期开始，请求会自动返回可用范围
+                start_date = date(1900, 1, 1)
 
             # 检查本地已有的数据
             local_start, local_end = self.db.get_date_range(symbol)
@@ -209,22 +204,7 @@ class DataStorage:
     @staticmethod
     def _get_asset_start_date(symbol: str, config: dict) -> Optional[date]:
         """
-        从配置中获取资产的起始日期
-
-        Args:
-            symbol: 资产代码
-            config: 配置字典
-
-        Returns:
-            起始日期，如果未找到则返回 None
+        兼容旧逻辑：配置文件不再维护 inception/inception_date 字段。
+        保留该方法作为兼容入口，返回尽可能早的日期以请求全历史。
         """
-        # 遍历所有投资组合，查找该资产
-        for portfolio_data in config.get('portfolios', {}).values():
-            for asset in portfolio_data.get('assets', []):
-                if asset['symbol'] == symbol:
-                    if 'inception' in asset:
-                        return datetime.strptime(asset['inception'], '%Y-%m-%d').date()
-
-        # 如果配置中没有，尝试从yfinance查询
-        inception = DataDownloader.get_asset_inception_date(symbol)
-        return inception
+        return date(1900, 1, 1)
