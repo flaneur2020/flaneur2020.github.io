@@ -1,0 +1,839 @@
+{
+  "version": "2.6",
+  "children": [
+    {
+      "type": "frame",
+      "id": "tnigA",
+      "x": 0,
+      "y": 0,
+      "name": "AI Chat App",
+      "clip": true,
+      "width": 1200,
+      "height": 800,
+      "fill": "$--bg-window",
+      "cornerRadius": 12,
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "$--shadow-window",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 40
+      },
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "E6Ub2",
+          "name": "Title Bar",
+          "width": "fill_container",
+          "height": 52,
+          "fill": "#E8E8E8",
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "3BnL1",
+              "name": "windowButtons",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "KSkuk",
+                  "name": "btnClose",
+                  "fill": "$--accent-red",
+                  "width": 12,
+                  "height": 12
+                },
+                {
+                  "type": "ellipse",
+                  "id": "nPVL3",
+                  "name": "btnMinimize",
+                  "fill": "$--accent-yellow",
+                  "width": 12,
+                  "height": 12
+                },
+                {
+                  "type": "ellipse",
+                  "id": "xinY6",
+                  "name": "btnMaximize",
+                  "fill": "$--accent-green",
+                  "width": 12,
+                  "height": 12
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "ABaeT",
+              "name": "titleText",
+              "fill": "$--text-primary",
+              "content": "Claude Chat",
+              "fontFamily": "SF Pro Display",
+              "fontSize": 14,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "HRgpr",
+              "name": "spacer",
+              "width": 68,
+              "height": 12
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "5GPI1",
+          "name": "Main Body",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "3b0rK",
+              "name": "Sidebar",
+              "width": 280,
+              "height": "fill_container",
+              "fill": "$--bg-sidebar",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "right": 1
+                },
+                "fill": "$--border-light"
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                16,
+                12
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Jpptp",
+                  "name": "Sidebar Header",
+                  "width": "fill_container",
+                  "height": 40,
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "DYWKw",
+                      "name": "sidebarTitle",
+                      "fill": "$--text-secondary",
+                      "content": "Conversations",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "1Z7Pp",
+                      "name": "newChatBtn",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DADADA",
+                      "cornerRadius": 6,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "1OfKV",
+                          "name": "plusIcon",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "plus",
+                          "iconFontFamily": "lucide",
+                          "fill": "$--text-primary"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "dsylD",
+                  "name": "Chat List",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "rwJyB",
+                      "name": "chatItem1",
+                      "width": "fill_container",
+                      "fill": "$--bg-card",
+                      "cornerRadius": 8,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#00000008",
+                        "offset": {
+                          "x": 0,
+                          "y": 1
+                        },
+                        "blur": 3
+                      },
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "FnQWs",
+                          "name": "chatTitle1",
+                          "fill": "$--text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Understanding quantum computing",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "shzWy",
+                          "name": "chatPreview1",
+                          "fill": "$--text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Let me explain the basics of qubits...",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VMtIv",
+                      "name": "chatItem2",
+                      "width": "fill_container",
+                      "cornerRadius": 8,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PhmaH",
+                          "name": "chatTitle2",
+                          "fill": "$--text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "React hooks best practices",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BdCVR",
+                          "name": "chatPreview2",
+                          "fill": "$--text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Here are some tips for using hooks...",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "MVDqf",
+                      "name": "chatItem3",
+                      "width": "fill_container",
+                      "cornerRadius": 8,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "fL7jc",
+                          "name": "chatTitle3",
+                          "fill": "$--text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Travel planning to Japan",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "uZeO1",
+                          "name": "chatPreview3",
+                          "fill": "$--text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "I recommend visiting Kyoto in spring...",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JcGcE",
+                      "name": "chatItem4",
+                      "width": "fill_container",
+                      "cornerRadius": 8,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "g7egu",
+                          "name": "chatTitle4",
+                          "fill": "$--text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Python debugging tips",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ECoVR",
+                          "name": "chatPreview4",
+                          "fill": "$--text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Use pdb for interactive debugging...",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "pR0cJ",
+              "name": "Chat Area",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$--bg-window",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "8r6VG",
+                  "name": "Chat Header",
+                  "width": "fill_container",
+                  "height": 56,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$--border-light"
+                  },
+                  "padding": [
+                    0,
+                    24
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "XDzq7",
+                      "name": "chatHeaderLeft",
+                      "gap": 12,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "UOeBZ",
+                          "name": "aiAvatar",
+                          "width": 36,
+                          "height": 36,
+                          "fill": {
+                            "type": "gradient",
+                            "gradientType": "linear",
+                            "enabled": true,
+                            "rotation": 135,
+                            "size": {
+                              "height": 1
+                            },
+                            "colors": [
+                              {
+                                "color": "#8B5CF6",
+                                "position": 0
+                              },
+                              {
+                                "color": "#6366F1",
+                                "position": 1
+                              }
+                            ]
+                          },
+                          "cornerRadius": 18,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "yvvFn",
+                              "name": "aiIcon",
+                              "width": 18,
+                              "height": 18,
+                              "iconFontName": "sparkles",
+                              "iconFontFamily": "lucide",
+                              "fill": "#FFFFFF"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "UT1B4",
+                          "name": "chatHeaderTitle",
+                          "fill": "$--text-primary",
+                          "content": "Claude",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "eteay",
+                      "name": "chatHeaderActions",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "j3vIr",
+                          "name": "settingsBtn",
+                          "width": 36,
+                          "height": 36,
+                          "cornerRadius": 8,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "IEDTe",
+                              "name": "settingsIcon",
+                              "width": 20,
+                              "height": 20,
+                              "iconFontName": "settings",
+                              "iconFontFamily": "lucide",
+                              "fill": "$--text-secondary"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wWDEb",
+                  "name": "Messages Area",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "iXZ3d",
+                      "name": "User Message",
+                      "width": "fill_container",
+                      "justifyContent": "end",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "j7Ll9",
+                          "name": "userBubble1",
+                          "fill": "$--bg-message-user",
+                          "cornerRadius": [
+                            16,
+                            16,
+                            4,
+                            16
+                          ],
+                          "layout": "vertical",
+                          "padding": [
+                            12,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Pb3Hg",
+                              "name": "userText1",
+                              "fill": "$--text-on-accent",
+                              "textGrowth": "fixed-width",
+                              "width": 340,
+                              "content": "Can you explain how AI chat applications work?",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CEmnJ",
+                      "name": "AI Message",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "3fLc3",
+                          "name": "aiAvatarSmall",
+                          "width": 32,
+                          "height": 32,
+                          "fill": {
+                            "type": "gradient",
+                            "gradientType": "linear",
+                            "enabled": true,
+                            "rotation": 135,
+                            "size": {
+                              "height": 1
+                            },
+                            "colors": [
+                              {
+                                "color": "#8B5CF6",
+                                "position": 0
+                              },
+                              {
+                                "color": "#6366F1",
+                                "position": 1
+                              }
+                            ]
+                          },
+                          "cornerRadius": 16,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "hZhAN",
+                              "name": "aiIconSmall",
+                              "width": 14,
+                              "height": 14,
+                              "iconFontName": "sparkles",
+                              "iconFontFamily": "lucide",
+                              "fill": "#FFFFFF"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "M3Shp",
+                          "name": "aiBubble1",
+                          "fill": "$--bg-message-ai",
+                          "cornerRadius": [
+                            16,
+                            16,
+                            16,
+                            4
+                          ],
+                          "effect": {
+                            "type": "shadow",
+                            "shadowType": "outer",
+                            "color": "#0000000A",
+                            "offset": {
+                              "x": 0,
+                              "y": 2
+                            },
+                            "blur": 8
+                          },
+                          "layout": "vertical",
+                          "padding": [
+                            12,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "LUgIl",
+                              "name": "aiText1",
+                              "fill": "$--text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": 520,
+                              "content": "AI chat applications work through several key components:\n\n1. **Natural Language Processing (NLP)**: This allows the AI to understand and interpret human language.\n\n2. **Large Language Models (LLMs)**: These are trained on vast amounts of text data to generate human-like responses.\n\n3. **Context Management**: The system maintains conversation history to provide relevant responses.\n\n4. **User Interface**: A clean, intuitive interface like this one makes interaction seamless.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Elj8L",
+                      "name": "User Message 2",
+                      "width": "fill_container",
+                      "justifyContent": "end",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "JwWeu",
+                          "name": "userBubble2",
+                          "fill": "$--bg-message-user",
+                          "cornerRadius": [
+                            16,
+                            16,
+                            4,
+                            16
+                          ],
+                          "layout": "vertical",
+                          "padding": [
+                            12,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "2yxG2",
+                              "name": "userText2",
+                              "fill": "$--text-on-accent",
+                              "textGrowth": "fixed-width",
+                              "width": 320,
+                              "content": "That's helpful! What makes Claude different from other AI assistants?",
+                              "fontFamily": "Inter",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fasxj",
+                  "name": "Input Area",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "padding": [
+                    16,
+                    24,
+                    24,
+                    24
+                  ],
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "S1ZUS",
+                      "name": "inputWrapper",
+                      "width": "fill_container",
+                      "fill": "$--bg-input",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "$--border-input"
+                      },
+                      "gap": 12,
+                      "padding": [
+                        12,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "6cQAh",
+                          "name": "attachBtn",
+                          "width": 32,
+                          "height": 32,
+                          "cornerRadius": 8,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "EmTHa",
+                              "name": "attachIcon",
+                              "width": 18,
+                              "height": 18,
+                              "iconFontName": "paperclip",
+                              "iconFontFamily": "lucide",
+                              "fill": "$--text-secondary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "rNLcD",
+                          "name": "inputText",
+                          "fill": "$--text-tertiary",
+                          "content": "Ask me anything...",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "KFbJ4",
+                      "name": "sendBtn",
+                      "width": 44,
+                      "height": 44,
+                      "fill": "$--accent-blue",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "zceVP",
+                          "name": "sendIcon",
+                          "width": 20,
+                          "height": 20,
+                          "iconFontName": "arrow-up",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "--accent-blue": {
+      "type": "color",
+      "value": "#007AFF"
+    },
+    "--accent-green": {
+      "type": "color",
+      "value": "#34C759"
+    },
+    "--accent-red": {
+      "type": "color",
+      "value": "#FF3B30"
+    },
+    "--accent-yellow": {
+      "type": "color",
+      "value": "#FFCC00"
+    },
+    "--bg-card": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "--bg-input": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "--bg-message-ai": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "--bg-message-user": {
+      "type": "color",
+      "value": "#007AFF"
+    },
+    "--bg-sidebar": {
+      "type": "color",
+      "value": "#EBEBEB"
+    },
+    "--bg-window": {
+      "type": "color",
+      "value": "#F5F5F5"
+    },
+    "--border-input": {
+      "type": "color",
+      "value": "#C7C7CC"
+    },
+    "--border-light": {
+      "type": "color",
+      "value": "#D1D1D6"
+    },
+    "--font-system": {
+      "type": "string",
+      "value": "SF Pro Display"
+    },
+    "--radius-lg": {
+      "type": "number",
+      "value": 16
+    },
+    "--radius-md": {
+      "type": "number",
+      "value": 10
+    },
+    "--radius-sm": {
+      "type": "number",
+      "value": 6
+    },
+    "--radius-xl": {
+      "type": "number",
+      "value": 20
+    },
+    "--shadow-window": {
+      "type": "color",
+      "value": "#00000020"
+    },
+    "--text-on-accent": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "--text-primary": {
+      "type": "color",
+      "value": "#1D1D1F"
+    },
+    "--text-secondary": {
+      "type": "color",
+      "value": "#86868B"
+    },
+    "--text-tertiary": {
+      "type": "color",
+      "value": "#AEAEB2"
+    }
+  }
+}
