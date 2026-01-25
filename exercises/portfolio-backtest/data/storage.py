@@ -2,6 +2,8 @@
 数据存储模块 - 协调下载和数据库存储
 """
 import logging
+import time
+import random
 from datetime import date, datetime, timedelta
 from typing import List, Optional
 from pathlib import Path
@@ -11,6 +13,10 @@ from data.database import DatabaseManager
 from config.settings import get_config
 
 logger = logging.getLogger(__name__)
+
+# 资产之间的延迟配置
+ASSET_DELAY_MIN = 2.0  # 最小延迟（秒）
+ASSET_DELAY_MAX = 4.0  # 最大延迟（秒）
 
 
 class DataStorage:
@@ -126,9 +132,15 @@ class DataStorage:
 
             logger.info(f"Syncing portfolio '{portfolio_name}' with {len(symbols)} assets")
 
-            for asset in assets:
+            for i, asset in enumerate(assets):
                 symbol = asset['symbol']
                 logger.info(f"\nProcessing {symbol}...")
+
+                # 除第一个资产外，添加随机延迟防止限速
+                if i > 0:
+                    delay = random.uniform(ASSET_DELAY_MIN, ASSET_DELAY_MAX)
+                    logger.info(f"Waiting {delay:.1f}s before next request...")
+                    time.sleep(delay)
 
                 success = self.sync_asset_data(symbol, end_date=end_date)
                 results[symbol] = success

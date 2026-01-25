@@ -13,30 +13,45 @@ echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}永久投资组合回测系统${NC}"
 echo -e "${GREEN}========================================${NC}"
 
-# 检查虚拟环境
-if [ ! -d ".venv" ]; then
-    echo -e "${YELLOW}虚拟环境不存在，正在创建...${NC}"
-    python3 -m venv .venv
-fi
+# 检查数据库是否有数据
+check_database() {
+    uv run python3 -c "
+import duckdb
+from pathlib import Path
+db_path = Path('database/portfolio.duckdb')
+if not db_path.exists():
+    exit(1)
+conn = duckdb.connect(str(db_path))
+count = conn.execute('SELECT COUNT(*) FROM asset_prices').fetchone()[0]
+exit(0 if count > 0 else 1)
+" 2>/dev/null
+}
 
-# 激活虚拟环境
-echo -e "${YELLOW}激活虚拟环境...${NC}"
-source .venv/bin/activate
-
-# 检查数据库
-if [ ! -f "database/portfolio.duckdb" ]; then
-    echo -e "${YELLOW}数据库不存在，正在下载历史数据...${NC}"
+# 步骤1: 确保数据库有数据
+if ! check_database; then
+    echo -e "${YELLOW}数据库为空或不存在，正在下载历史数据...${NC}"
     echo -e "${YELLOW}这可能需要几分钟时间...${NC}"
-    python download_data.py
+
+    if ! uv run python3 download_data.py; then
+        echo -e "${RED}数据下载失败！${NC}"
+        exit 1
+    fi
+
+    # 再次检查数据库
+    if ! check_database; then
+        echo -e "${RED}数据下载后数据库仍为空，请检查网络或稍后重试${NC}"
+        exit 1
+    fi
+
     echo -e "${GREEN}数据下载完成！${NC}"
 else
-    echo -e "${GREEN}✓ 数据库已存在${NC}"
+    echo -e "${GREEN}✓ 数据库已有数据${NC}"
 fi
 
-# 启动 Streamlit
+# 步骤2: 启动 Streamlit
 echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}启动 Streamlit 应用...${NC}"
 echo -e "${GREEN}打开浏览器访问: http://localhost:8501${NC}"
 echo -e "${GREEN}========================================${NC}"
 
-streamlit run visualization/streamlit_app.py
+uv run streamlit run visualization/streamlit_app.py

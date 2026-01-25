@@ -1,11 +1,13 @@
 """
 性能指标计算模块
 """
-import numpy as np
-import pandas as pd
+
+import logging
 from datetime import date
 from typing import List, Optional
-import logging
+
+import numpy as np
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +23,11 @@ class PerformanceMetrics:
             portfolio_values: 每日组合价值序列
             dates: 对应的日期序列
         """
-        self.values = portfolio_values.values if isinstance(portfolio_values, pd.Series) else portfolio_values
+        self.values = (
+            portfolio_values.values
+            if isinstance(portfolio_values, pd.Series)
+            else portfolio_values
+        )
         self.dates = dates.values if isinstance(dates, pd.Series) else dates
 
         # 计算日收益率
@@ -152,7 +158,7 @@ class PerformanceMetrics:
         drawdown = (self.values - cummax) / cummax
         return pd.Series(drawdown, index=self.dates)
 
-    def metrics_by_period(self, frequency: str = 'M') -> pd.DataFrame:
+    def metrics_by_period(self, frequency: str = "M") -> pd.DataFrame:
         """
         按时间段计算指标
 
@@ -163,37 +169,36 @@ class PerformanceMetrics:
             包含各时段指标的DataFrame
         """
         # 创建DataFrame
-        df = pd.DataFrame({
-            'date': self.dates,
-            'value': self.values
-        })
+        df = pd.DataFrame({"date": self.dates, "value": self.values})
 
         # 计算收益率
-        df['return'] = df['value'].pct_change()
+        df["return"] = df["value"].pct_change()
 
         # 按频率分组
-        df['period'] = pd.to_datetime(df['date']).dt.to_period(frequency)
+        df["period"] = pd.to_datetime(df["date"]).dt.to_period(frequency)
 
         # 聚合统计
         results = []
 
-        for period, group in df.groupby('period'):
+        for period, group in df.groupby("period"):
             if len(group) < 2:
                 continue
 
-            period_start_value = group['value'].iloc[0]
-            period_end_value = group['value'].iloc[-1]
+            period_start_value = group["value"].iloc[0]
+            period_end_value = group["value"].iloc[-1]
             period_return = (period_end_value / period_start_value) - 1
 
-            results.append({
-                'period': str(period),
-                'start_value': period_start_value,
-                'end_value': period_end_value,
-                'return': period_return,
-                'volatility': group['return'].std() * np.sqrt(len(group)),
-                'max_value': group['value'].max(),
-                'min_value': group['value'].min()
-            })
+            results.append(
+                {
+                    "period": str(period),
+                    "start_value": period_start_value,
+                    "end_value": period_end_value,
+                    "return": period_return,
+                    "volatility": group["return"].std() * np.sqrt(len(group)),
+                    "max_value": group["value"].max(),
+                    "min_value": group["value"].min(),
+                }
+            )
 
         return pd.DataFrame(results)
 
@@ -210,24 +215,25 @@ class PerformanceMetrics:
         if len(self.values) < window_days:
             return pd.DataFrame()
 
-        df = pd.DataFrame({
-            'date': self.dates,
-            'value': self.values
-        })
+        df = pd.DataFrame({"date": self.dates, "value": self.values})
 
         # 计算滚动收益率
-        df['rolling_return'] = df['value'].pct_change(window_days)
+        df["rolling_return"] = df["value"].pct_change(window_days)
 
         # 计算滚动波动率
-        df['return'] = df['value'].pct_change()
-        df['rolling_volatility'] = df['return'].rolling(window_days).std() * np.sqrt(252)
-
-        # 计算滚动夏普比率
-        df['rolling_sharpe'] = (
-            (df['rolling_return'] / window_days * 252) / df['rolling_volatility']
+        df["return"] = df["value"].pct_change()
+        df["rolling_volatility"] = df["return"].rolling(window_days).std() * np.sqrt(
+            252
         )
 
-        return df[window_days:][['date', 'rolling_return', 'rolling_volatility', 'rolling_sharpe']]
+        # 计算滚动夏普比率
+        df["rolling_sharpe"] = (df["rolling_return"] / window_days * 252) / df[
+            "rolling_volatility"
+        ]
+
+        return df[window_days:][
+            ["date", "rolling_return", "rolling_volatility", "rolling_sharpe"]
+        ]
 
     def get_summary(self, risk_free_rate: float = 0.02) -> dict:
         """
@@ -240,15 +246,15 @@ class PerformanceMetrics:
             指标字典
         """
         return {
-            'total_return': self.total_return(),
-            'annualized_return': self.annualized_return(),
-            'volatility': self.volatility(),
-            'sharpe_ratio': self.sharpe_ratio(risk_free_rate),
-            'max_drawdown': self.max_drawdown(),
-            'calmar_ratio': self.calmar_ratio(),
-            'total_days': len(self.dates),
-            'start_date': self.dates[0] if len(self.dates) > 0 else None,
-            'end_date': self.dates[-1] if len(self.dates) > 0 else None,
-            'start_value': self.values[0] if len(self.values) > 0 else None,
-            'end_value': self.values[-1] if len(self.values) > 0 else None
+            "total_return": self.total_return(),
+            "annualized_return": self.annualized_return(),
+            "volatility": self.volatility(),
+            "sharpe_ratio": self.sharpe_ratio(risk_free_rate),
+            "max_drawdown": self.max_drawdown(),
+            "calmar_ratio": self.calmar_ratio(),
+            "total_days": len(self.dates),
+            "start_date": self.dates[0] if len(self.dates) > 0 else None,
+            "end_date": self.dates[-1] if len(self.dates) > 0 else None,
+            "start_value": self.values[0] if len(self.values) > 0 else None,
+            "end_value": self.values[-1] if len(self.values) > 0 else None,
         }
