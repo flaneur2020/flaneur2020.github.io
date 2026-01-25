@@ -24,20 +24,54 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def download_portfolio(storage: DataStorage, portfolio_name: str, portfolio: dict) -> dict:
-    """下载单个投资组合的数据
+def collect_unique_symbols(portfolios: dict) -> set:
+    """收集所有投资组合中的唯一资产代码
+
+    Args:
+        portfolios: 投资组合字典 {name: portfolio}
+
+    Returns:
+        唯一的资产代码集合
+    """
+    symbols = set()
+    for portfolio in portfolios.values():
+        for asset in portfolio.get("assets", []):
+            symbols.add(asset["symbol"])
+    return symbols
+
+
+def download_assets(storage: DataStorage, symbols: set) -> dict:
+    """下载指定资产的数据
 
     Args:
         storage: 数据存储管理器
-        portfolio_name: 投资组合名称
-        portfolio: 投资组合配置
+        symbols: 资产代码集合
 
     Returns:
         同步结果字典 {symbol: success}
     """
-    logger.info(f"\nSyncing data for: {portfolio['name']} ({portfolio_name})...")
-    results = storage.sync_all_assets(portfolio_name=portfolio_name)
-    return results
+    sync_results = {}
+    for i, symbol in enumerate(sorted(symbols)):
+        logger.info(f"\nProcessing {symbol} ({i+1}/{len(symbols)})...")
+
+        # 除第一个资产外，添加延迟防止限速
+        if i > 0:
+            import random
+            import time
+            delay = random.uniform(2.0, 4.0)
+            logger.info(f"Waiting {delay:.1f}s before next request...")
+            time.sleep(delay)
+
+        success = storage.sync_asset_data(symbol)
+        sync_results[symbol] = success
+
+        if success:
+            coverage = storage.db.check_data_completeness(symbol)
+            logger.info(f"✓ {symbol}: Data coverage {coverage:.1%}")
+        else:
+            logger.warning(f"✗ {symbol}: Sync failed")
+
+    return sync_results
 
 
 def get_portfolios_to_sync(config: dict, portfolio_name: str | None) -> dict:
@@ -121,17 +155,12 @@ def main(portfolio_name: str | None = None):
         # 确定要同步的 portfolios
         portfolios_to_sync = get_portfolios_to_sync(config, portfolio_name)
 
-        # 遍历所有要同步的 portfolios
-        all_symbols = set()
-        sync_results = {}
+        # 收集所有唯一的 symbols
+        all_symbols = collect_unique_symbols(portfolios_to_sync)
+        logger.info(f"\nFound {len(all_symbols)} unique assets to sync: {sorted(all_symbols)}")
 
-        for p_name, portfolio in portfolios_to_sync.items():
-            results = download_portfolio(storage, p_name, portfolio)
-            sync_results.update(results)
-
-            # 收集所有 symbols 用于后续统计显示
-            for asset in portfolio["assets"]:
-                all_symbols.add(asset["symbol"])
+        # 下载所有数据（去重）
+        sync_results = download_assets(storage, all_symbols)
 
         # 显示结果
         show_sync_results(sync_results)
