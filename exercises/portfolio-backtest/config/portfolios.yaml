@@ -24,6 +24,31 @@ portfolios:
         asset_class: cash
         name: "Short-Term Treasury ETF"
         inception: "2007-01-03"
+  my_portfolio:
+    name: "我的投资组合"
+    description: "25%标普/25%纳斯达克100/25%黄金/25%现金"
+    inception_date: "2007-01-03"
+    assets:
+      - symbol: SPY
+        weight: 0.25
+        asset_class: equity
+        name: "S&P 500 ETF"
+        inception: "1993-01-29"
+      - symbol: QQQ
+        weight: 0.25
+        asset_class: equity
+        name: "纳斯达克100 ETF"
+        inception: "1999-01-01"
+      - symbol: GLD
+        weight: 0.25
+        asset_class: commodity
+        name: "Gold ETF"
+        inception: "2004-11-18"
+      - symbol: SHV
+        weight: 0.25
+        asset_class: cash
+        name: "Short-Term Treasury ETF"
+        inception: "2007-01-03"
 
 rebalance_strategies:
   annual:
@@ -50,5 +75,5 @@ rebalance_strategies:
 
 transaction_costs:
   commission_per_trade: 0.0
-  spread_bps: 5  # 5个基点
+  spread_bps: 5 # 5个基点
   min_trade_size: 100
