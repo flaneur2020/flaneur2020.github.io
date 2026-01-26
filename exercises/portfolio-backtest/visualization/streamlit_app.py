@@ -55,6 +55,26 @@ def load_config():
     return get_config()
 
 
+@st.cache_data
+def get_portfolio_data_window(symbols: list[str]) -> tuple[date | None, date | None]:
+    """
+    计算一个 portfolio 在本地数据库里可用的最大时间窗口：
+    start = max(各资产最早日期), end = min(各资产最晚日期)
+    """
+    db_manager = get_db_manager()
+    starts: list[date] = []
+    ends: list[date] = []
+
+    for symbol in symbols:
+        start, end = db_manager.get_date_range(symbol)
+        if start is None or end is None:
+            return None, None
+        starts.append(start)
+        ends.append(end)
+
+    return max(starts), min(ends)
+
+
 def format_currency(value):
     """格式化货币"""
     return f"${value:,.2f}"
@@ -90,6 +110,8 @@ def main():
         symbols = [asset['symbol'] for asset in assets]
         target_weights = {asset['symbol']: asset['weight'] for asset in assets}
 
+        available_start, available_end = get_portfolio_data_window(symbols)
+
         st.markdown("### 资产配置")
         for asset in assets:
             st.text(f"{asset['symbol']}: {asset['weight']:.0%} - {asset['name']}")
@@ -98,20 +120,27 @@ def main():
         st.markdown("### 时间范围")
         col1, col2 = st.columns(2)
 
+        if available_start is None or available_end is None:
+            st.warning("本地数据库缺少该组合所需资产数据，请先运行 download_data.py")
+            available_start = date(2007, 1, 1)
+            available_end = date.today()
+
         with col1:
             start_date = st.date_input(
                 "开始日期",
-                value=date(2007, 1, 11),
-                min_value=date(2007, 1, 1),
-                max_value=date.today()
+                value=available_start,
+                min_value=available_start,
+                max_value=available_end,
+                key=f"start_date_{selected_portfolio}",
             )
 
         with col2:
             end_date = st.date_input(
                 "结束日期",
-                value=date.today(),
-                min_value=date(2007, 1, 1),
-                max_value=date.today()
+                value=available_end,
+                min_value=start_date,
+                max_value=available_end,
+                key=f"end_date_{selected_portfolio}",
             )
 
         # 验证日期范围
