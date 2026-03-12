@@ -19,4 +19,4 @@ views:
       - file.name
       - file.folder
       - file.ctime
-      - file.backlinks
+    imageAspectRatio: 0.85
