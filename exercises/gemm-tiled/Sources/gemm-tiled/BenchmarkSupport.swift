@@ -1,7 +1,7 @@
 import Dispatch
 import Foundation
 
-struct GEMMProblem: Comparable, CustomStringConvertible {
+struct GEMMProblem: Comparable, CustomStringConvertible, Hashable {
     let m: Int
     let n: Int
     let k: Int
@@ -89,6 +89,7 @@ struct BenchmarkConfiguration {
     let warmupIterations: Int
     let measuredIterations: Int
     let csvPath: String?
+    let implementationFilters: [String]?
 }
 
 struct RawBenchmarkRun {
@@ -101,6 +102,7 @@ struct RawBenchmarkRun {
 
 struct BenchmarkMeasurement {
     let implementation: String
+    let selectedVariant: String?
     let problem: GEMMProblem
     let wallAverageMs: Double
     let wallBestMs: Double
@@ -121,11 +123,16 @@ protocol GEMMRunner {
         warmupIterations: Int,
         measuredIterations: Int
     ) throws -> RawBenchmarkRun
+    func variantDescription(for problem: GEMMProblem) -> String?
 }
 
 extension GEMMRunner {
     func supports(problem: GEMMProblem) -> Bool {
         true
+    }
+
+    func variantDescription(for problem: GEMMProblem) -> String? {
+        nil
     }
 }
 

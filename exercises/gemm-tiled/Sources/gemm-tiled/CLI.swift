@@ -6,17 +6,19 @@ enum CLI {
       swift run gemm-tiled [options]
 
     Options:
-      --problems LIST      Comma-separated GEMM sizes, like 128 or 256x256x256
-      --iterations N       Measured iterations per problem (default: 10)
-      --warmup N           Warmup iterations per problem (default: 2)
-      --csv PATH           Write CSV output to PATH (default: benchmark.csv)
-      --no-csv             Disable CSV output
-      --help               Show this help message
+      --problems LIST           Comma-separated GEMM sizes, like 128 or 256x256x256
+      --iterations N            Measured iterations per problem (default: 10)
+      --warmup N                Warmup iterations per problem (default: 2)
+      --implementations LIST    Comma-separated filters like veclib,metal-best or 64x64x16
+      --csv PATH                Write CSV output to PATH (default: benchmark.csv)
+      --no-csv                  Disable CSV output
+      --help                    Show this help message
 
     Notes:
       - The benchmark reports X-axis data as MNK = M*N*K.
       - The benchmark reports Y-axis data as MFLOPs.
       - The baseline uses Apple vecLib through Accelerate cblas_sgemm.
+      - `metal-best` benchmarks a small autotuned set of the strongest Metal kernels.
     """
 
     static func parse(arguments: [String]) throws -> BenchmarkConfiguration? {
@@ -26,6 +28,7 @@ enum CLI {
         var measuredIterations = 10
         var warmupIterations = 2
         var csvPath: String? = "benchmark.csv"
+        var implementationFilters: [String]? = nil
 
         var index = 1
         while index < arguments.count {
@@ -51,6 +54,12 @@ enum CLI {
                     throw BenchmarkError.invalidArgument("Missing value for --warmup")
                 }
                 warmupIterations = try parsePositiveInt(arguments[index], flag: "--warmup")
+            case "--implementations":
+                index += 1
+                guard index < arguments.count else {
+                    throw BenchmarkError.invalidArgument("Missing value for --implementations")
+                }
+                implementationFilters = try parseNonEmptyList(arguments[index], flag: "--implementations")
             case "--csv":
                 index += 1
                 guard index < arguments.count else {
@@ -69,7 +78,8 @@ enum CLI {
             problems: problems.sorted(),
             warmupIterations: warmupIterations,
             measuredIterations: measuredIterations,
-            csvPath: csvPath
+            csvPath: csvPath,
+            implementationFilters: implementationFilters
         )
     }
 
@@ -79,6 +89,17 @@ enum CLI {
             throw BenchmarkError.invalidArgument("--problems cannot be empty")
         }
         return try items.map(parseProblem)
+    }
+
+    private static func parseNonEmptyList(_ value: String, flag: String) throws -> [String] {
+        let items = value
+            .split(separator: ",")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        guard !items.isEmpty else {
+            throw BenchmarkError.invalidArgument("\(flag) cannot be empty")
+        }
+        return items
     }
 
     private static func parseProblem(_ value: String) throws -> GEMMProblem {

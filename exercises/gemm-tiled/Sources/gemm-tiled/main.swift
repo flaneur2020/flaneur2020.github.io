@@ -130,6 +130,92 @@ let metalRunnerConfigurations = [
         requiredKAlignment: 16
     ),
     MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x64x16",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x64x16_aligned",
+        threadgroupWidth: 16,
+        threadgroupHeight: 16,
+        outputTileWidth: 64,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 64, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x64x16 private",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x64x16_aligned",
+        threadgroupWidth: 16,
+        threadgroupHeight: 16,
+        outputTileWidth: 64,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 64, vectorWidth: 4),
+        bufferMode: .privateStaged,
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x64x16 unroll",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x64x16_unrolled",
+        threadgroupWidth: 16,
+        threadgroupHeight: 16,
+        outputTileWidth: 64,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 64, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 8x4 64x64x16",
+        functionName: "packed_vectorized_a_b_gemm_8x4_64x64x16_aligned",
+        threadgroupWidth: 16,
+        threadgroupHeight: 8,
+        outputTileWidth: 64,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 64, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 8x4 64x128x16",
+        functionName: "packed_vectorized_a_b_gemm_8x4_64x128x16_aligned",
+        threadgroupWidth: 32,
+        threadgroupHeight: 8,
+        outputTileWidth: 128,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 128, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x64x32",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x64x32_aligned",
+        threadgroupWidth: 16,
+        threadgroupHeight: 16,
+        outputTileWidth: 64,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 32, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 32, blockN: 64, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 32
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x64x32 private",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x64x32_aligned",
+        threadgroupWidth: 16,
+        threadgroupHeight: 16,
+        outputTileWidth: 64,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 32, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 32, blockN: 64, vectorWidth: 4),
+        bufferMode: .privateStaged,
+        requiresAlignedProblem: true,
+        requiredKAlignment: 32
+    ),
+    MetalKernelConfiguration(
         name: "Metal packed-vectorized A+B 64x32x16 unroll",
         functionName: "packed_vectorized_a_b_gemm_4x4_64x32x16_unrolled",
         threadgroupWidth: 8,
@@ -207,14 +293,7 @@ do {
         exit(0)
     }
 
-    var runners: [any GEMMRunner] = [vecLibRunner]
-    for runnerConfiguration in metalRunnerConfigurations {
-        do {
-            runners.append(try MetalTiledGEMMRunner(configuration: runnerConfiguration))
-        } catch {
-            fputs("warning: skipping \(runnerConfiguration.name): \(error.localizedDescription)\n", stderr)
-        }
-    }
+    let runners = try buildRunners(matching: configuration.implementationFilters)
 
     print("Benchmarking GEMM with X = MNK and Y = MFLOPs")
     print("Primary metric: unified wall time across vecLib and Metal")
@@ -227,13 +306,15 @@ do {
 
     var measurements = [BenchmarkMeasurement]()
 
-    for problem in configuration.problems.sorted() {
+    for (problemIndex, problem) in configuration.problems.sorted().enumerated() {
         var generator = SplitMix64(seed: seed(for: problem))
         let a = Matrix.random(rows: problem.m, cols: problem.k, generator: &generator)
         let b = Matrix.random(rows: problem.k, cols: problem.n, generator: &generator)
         let reference = vecLibRunner.reference(a: a, b: b, problem: problem)
 
-        for runner in runners {
+        let orderedRunners = problemIndex.isMultiple(of: 2) ? runners : Array(runners.reversed())
+
+        for runner in orderedRunners {
             guard runner.supports(problem: problem) else {
                 fputs("warning: skipping \(runner.name) on \(problem.description): requires aligned problem dimensions\n", stderr)
                 continue
@@ -249,6 +330,7 @@ do {
 
             let measurement = BenchmarkMeasurement(
                 implementation: runner.name,
+                selectedVariant: runner.variantDescription(for: problem),
                 problem: problem,
                 wallAverageMs: run.wallAverageMs,
                 wallBestMs: run.wallBestMs,
@@ -276,6 +358,8 @@ do {
         try writeCSV(measurements, to: csvPath)
         print("\nWrote CSV data to \(csvPath)")
     }
+
+    printComparisonSummary(measurements)
 } catch {
     fputs("error: \(error.localizedDescription)\n", stderr)
     exit(1)
@@ -290,13 +374,14 @@ private func seed(for problem: GEMMProblem) -> UInt64 {
 
 private func writeCSV(_ measurements: [BenchmarkMeasurement], to path: String) throws {
     var lines = [
-        "implementation,m,n,k,mnk,average_ms,best_ms,mflops,device_average_ms,device_best_ms,device_mflops,max_abs_error",
+        "implementation,selected_variant,m,n,k,mnk,average_ms,best_ms,mflops,device_average_ms,device_best_ms,device_mflops,max_abs_error",
     ]
 
     for measurement in measurements {
         lines.append(
             [
                 measurement.implementation,
+                measurement.selectedVariant ?? "",
                 String(measurement.problem.m),
                 String(measurement.problem.n),
                 String(measurement.problem.k),
@@ -313,4 +398,214 @@ private func writeCSV(_ measurements: [BenchmarkMeasurement], to path: String) t
     }
 
     try lines.joined(separator: "\n").write(toFile: path, atomically: true, encoding: .utf8)
+}
+
+
+private func buildRunners(matching filters: [String]?) throws -> [any GEMMRunner] {
+    let normalizedFilters = normalizeImplementationFilters(filters)
+
+    if normalizedFilters == nil || normalizedFilters?.contains("all") == true {
+        return try buildDefaultRunners()
+    }
+
+    var runners = [any GEMMRunner]()
+
+    if shouldIncludeVecLib(in: normalizedFilters) {
+        runners.append(vecLibRunner)
+    }
+
+    if shouldIncludeMetalBest(in: normalizedFilters) {
+        if let bestRunner = try makeMetalBestRunner() {
+            runners.append(bestRunner)
+        }
+    }
+
+    for runnerConfiguration in metalRunnerConfigurations where shouldInclude(runnerConfiguration, in: normalizedFilters) {
+        do {
+            runners.append(try MetalTiledGEMMRunner(configuration: runnerConfiguration))
+        } catch {
+            fputs("warning: skipping \(runnerConfiguration.name): \(error.localizedDescription)\n", stderr)
+        }
+    }
+
+    reportUnmatchedImplementationFilters(normalizedFilters)
+
+    guard !runners.isEmpty else {
+        throw BenchmarkError.invalidArgument("No implementations matched --implementations")
+    }
+
+    return runners
+}
+
+private func buildDefaultRunners() throws -> [any GEMMRunner] {
+    var runners: [any GEMMRunner] = [vecLibRunner]
+
+    for runnerConfiguration in metalRunnerConfigurations {
+        do {
+            runners.append(try MetalTiledGEMMRunner(configuration: runnerConfiguration))
+        } catch {
+            fputs("warning: skipping \(runnerConfiguration.name): \(error.localizedDescription)\n", stderr)
+        }
+    }
+
+    return runners
+}
+
+private func makeMetalBestRunner() throws -> MetalBestGEMMRunner? {
+    let candidateNames = [
+        "Metal packed-vectorized A+B 64x64x16",
+        "Metal packed-vectorized A+B 64x64x16 private",
+        "Metal packed-vectorized A+B 64x64x32",
+        "Metal packed-vectorized A+B 64x64x32 private",
+        "Metal packed-vectorized A+B 64x32x16",
+        "Metal packed-vectorized A+B 4x4 aligned",
+        "Metal packed-vectorized A+B 4x4 k16",
+    ]
+
+    var candidates = [(name: String, runner: MetalTiledGEMMRunner)]()
+
+    for candidateName in candidateNames {
+        guard let runnerConfiguration = metalRunnerConfigurations.first(where: { $0.name == candidateName }) else {
+            continue
+        }
+
+        do {
+            candidates.append((candidateName, try MetalTiledGEMMRunner(configuration: runnerConfiguration)))
+        } catch {
+            fputs("warning: skipping \(candidateName) for metal-best: \(error.localizedDescription)\n", stderr)
+        }
+    }
+
+    guard !candidates.isEmpty else {
+        return nil
+    }
+
+    return MetalBestGEMMRunner(candidates: candidates)
+}
+
+private func normalizeImplementationFilters(_ filters: [String]?) -> [String]? {
+    guard let filters else {
+        return nil
+    }
+
+    let normalized = filters
+        .map(normalizedImplementationKey)
+        .filter { !$0.isEmpty }
+
+    return normalized.isEmpty ? nil : normalized
+}
+
+private func shouldIncludeVecLib(in filters: [String]?) -> Bool {
+    guard let filters else {
+        return true
+    }
+
+    return filters.contains(where: isVecLibFilter)
+}
+
+private func shouldIncludeMetalBest(in filters: [String]?) -> Bool {
+    guard let filters else {
+        return false
+    }
+
+    return filters.contains(where: isMetalBestFilter)
+}
+
+private func shouldInclude(_ configuration: MetalKernelConfiguration, in filters: [String]?) -> Bool {
+    guard let filters else {
+        return true
+    }
+
+    let normalizedName = normalizedImplementationKey(configuration.name)
+    return filters.contains { filter in
+        isAllMetalFilter(filter) || normalizedName.contains(filter)
+    }
+}
+
+private func reportUnmatchedImplementationFilters(_ filters: [String]?) {
+    guard let filters else {
+        return
+    }
+
+    let unmatched = filters.filter { filter in
+        !matchesAnyImplementation(filter)
+    }
+
+    guard !unmatched.isEmpty else {
+        return
+    }
+
+    fputs("warning: no implementations matched filter(s): \(unmatched.joined(separator: ", "))\n", stderr)
+}
+
+private func matchesAnyImplementation(_ filter: String) -> Bool {
+    if filter == "all" || isVecLibFilter(filter) || isMetalBestFilter(filter) || isAllMetalFilter(filter) {
+        return true
+    }
+
+    return metalRunnerConfigurations.contains { normalizedImplementationKey($0.name).contains(filter) }
+}
+
+private func isVecLibFilter(_ filter: String) -> Bool {
+    ["veclib", "vec lib", "baseline", "cblas", "sgemm", "accelerate"].contains(filter)
+}
+
+private func isMetalBestFilter(_ filter: String) -> Bool {
+    ["metal best", "best metal", "best", "autotuned", "autotune"].contains(filter)
+}
+
+private func isAllMetalFilter(_ filter: String) -> Bool {
+    ["metal", "metal all"].contains(filter)
+}
+
+private func normalizedImplementationKey(_ value: String) -> String {
+    let lowercased = value.lowercased()
+    let normalizedCharacters = lowercased.map { character -> Character in
+        character.isLetter || character.isNumber ? character : " "
+    }
+    return String(normalizedCharacters)
+        .split(whereSeparator: \.isWhitespace)
+        .joined(separator: " ")
+}
+
+private func printComparisonSummary(_ measurements: [BenchmarkMeasurement]) {
+    let groupedByProblem = Dictionary(grouping: measurements, by: \.problem)
+    let baselineName = vecLibRunner.name
+
+    let summaryRows = groupedByProblem.keys.sorted().compactMap { problem -> String? in
+        guard let baseline = groupedByProblem[problem]?.first(where: { $0.implementation == baselineName }) else {
+            return nil
+        }
+
+        let competitors = groupedByProblem[problem]?
+            .filter { $0.implementation != baselineName }
+            .sorted { $0.wallMflops > $1.wallMflops } ?? []
+
+        guard let bestCompetitor = competitors.first else {
+            return nil
+        }
+
+        let speedup = bestCompetitor.wallMflops / baseline.wallMflops - 1.0
+        let variantSuffix: String
+        if let selectedVariant = bestCompetitor.selectedVariant, selectedVariant != bestCompetitor.implementation {
+            variantSuffix = " via \(selectedVariant)"
+        } else {
+            variantSuffix = ""
+        }
+
+        return "\(pad(problem.description, to: 14)) \(pad(bestCompetitor.implementation, to: 28)) \(formatSpeedup(speedup))\(variantSuffix)"
+    }
+
+    guard !summaryRows.isEmpty else {
+        return
+    }
+
+    print("\nBest-vs-vecLib summary")
+    for row in summaryRows {
+        print(row)
+    }
+}
+
+private func formatSpeedup(_ value: Double) -> String {
+    String(format: "%+.2f%%", value * 100.0)
 }
