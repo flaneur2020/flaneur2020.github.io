@@ -406,3 +406,97 @@ kernel void packed_vectorized_b_gemm_4x4(
         if (globalColBase + 3 < uniforms.n) { c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3]; }
     }
 }
+
+
+inline uint swizzled_vector_index(uint vectorIndex, uint inner) {
+    return (vectorIndex & ~3u) | ((vectorIndex & 3u) ^ (inner & 3u));
+}
+
+kernel void packed_swizzled_vectorized_b_gemm_4x4(
+    device const float *a [[buffer(0)]],
+    device const float *packedB [[buffer(1)]],
+    device float *c [[buffer(2)]],
+    constant GEMMUniforms &uniforms [[buffer(3)]],
+    uint2 threadgroupPosition [[threadgroup_position_in_grid]],
+    uint2 threadPositionInThreadgroup [[thread_position_in_threadgroup]]
+) {
+    constexpr uint blockM = 32;
+    constexpr uint blockN = 32;
+    constexpr uint blockK = 8;
+    constexpr uint registerBlockM = 4;
+    constexpr uint registerBlockN = 4;
+    constexpr uint threadsPerThreadgroupX = 8;
+    constexpr uint bVectorsPerRow = blockN / registerBlockN;
+
+    threadgroup float tileA[blockM][blockK];
+    threadgroup float4 tileB[blockK][bVectorsPerRow];
+
+    uint localLinearIndex = threadPositionInThreadgroup.y * threadsPerThreadgroupX + threadPositionInThreadgroup.x;
+    uint localRowBase = threadPositionInThreadgroup.y * registerBlockM;
+    uint localColBase = threadPositionInThreadgroup.x * registerBlockN;
+    uint globalRowBase = threadgroupPosition.y * blockM + localRowBase;
+    uint globalColBase = threadgroupPosition.x * blockN + localColBase;
+    uint kTileCount = (uniforms.k + blockK - 1) / blockK;
+
+    float4 accumulator0 = float4(0.0f);
+    float4 accumulator1 = float4(0.0f);
+    float4 accumulator2 = float4(0.0f);
+    float4 accumulator3 = float4(0.0f);
+
+    const device packed_float4 *packedBVectors = reinterpret_cast<const device packed_float4 *>(packedB);
+
+    for (uint tileIndex = 0; tileIndex < kTileCount; tileIndex++) {
+        for (uint loadIndex = localLinearIndex; loadIndex < blockM * blockK; loadIndex += 64) {
+            uint rowIndex = loadIndex / blockK;
+            uint innerIndex = loadIndex % blockK;
+            uint globalACol = tileIndex * blockK + innerIndex;
+            uint globalARow = threadgroupPosition.y * blockM + rowIndex;
+            tileA[rowIndex][innerIndex] =
+                (globalARow < uniforms.m && globalACol < uniforms.k) ? a[globalARow * uniforms.k + globalACol] : 0.0f;
+        }
+
+        uint packedVectorBase = (threadgroupPosition.x * kTileCount + tileIndex) * blockK * bVectorsPerRow;
+        uint innerLoadIndex = threadPositionInThreadgroup.y;
+        uint vectorLoadIndex = threadPositionInThreadgroup.x;
+        tileB[innerLoadIndex][vectorLoadIndex] = float4(
+            packedBVectors[packedVectorBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+        );
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+
+        for (uint inner = 0; inner < blockK; inner++) {
+            float4 bVector = tileB[inner][swizzled_vector_index(threadPositionInThreadgroup.x, inner)];
+            accumulator0 += tileA[localRowBase + 0][inner] * bVector;
+            accumulator1 += tileA[localRowBase + 1][inner] * bVector;
+            accumulator2 += tileA[localRowBase + 2][inner] * bVector;
+            accumulator3 += tileA[localRowBase + 3][inner] * bVector;
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+    }
+
+    if (globalRowBase + 0 < uniforms.m) {
+        if (globalColBase + 0 < uniforms.n) { c[(globalRowBase + 0) * uniforms.n + globalColBase + 0] = accumulator0[0]; }
+        if (globalColBase + 1 < uniforms.n) { c[(globalRowBase + 0) * uniforms.n + globalColBase + 1] = accumulator0[1]; }
+        if (globalColBase + 2 < uniforms.n) { c[(globalRowBase + 0) * uniforms.n + globalColBase + 2] = accumulator0[2]; }
+        if (globalColBase + 3 < uniforms.n) { c[(globalRowBase + 0) * uniforms.n + globalColBase + 3] = accumulator0[3]; }
+    }
+    if (globalRowBase + 1 < uniforms.m) {
+        if (globalColBase + 0 < uniforms.n) { c[(globalRowBase + 1) * uniforms.n + globalColBase + 0] = accumulator1[0]; }
+        if (globalColBase + 1 < uniforms.n) { c[(globalRowBase + 1) * uniforms.n + globalColBase + 1] = accumulator1[1]; }
+        if (globalColBase + 2 < uniforms.n) { c[(globalRowBase + 1) * uniforms.n + globalColBase + 2] = accumulator1[2]; }
+        if (globalColBase + 3 < uniforms.n) { c[(globalRowBase + 1) * uniforms.n + globalColBase + 3] = accumulator1[3]; }
+    }
+    if (globalRowBase + 2 < uniforms.m) {
+        if (globalColBase + 0 < uniforms.n) { c[(globalRowBase + 2) * uniforms.n + globalColBase + 0] = accumulator2[0]; }
+        if (globalColBase + 1 < uniforms.n) { c[(globalRowBase + 2) * uniforms.n + globalColBase + 1] = accumulator2[1]; }
+        if (globalColBase + 2 < uniforms.n) { c[(globalRowBase + 2) * uniforms.n + globalColBase + 2] = accumulator2[2]; }
+        if (globalColBase + 3 < uniforms.n) { c[(globalRowBase + 2) * uniforms.n + globalColBase + 3] = accumulator2[3]; }
+    }
+    if (globalRowBase + 3 < uniforms.m) {
+        if (globalColBase + 0 < uniforms.n) { c[(globalRowBase + 3) * uniforms.n + globalColBase + 0] = accumulator3[0]; }
+        if (globalColBase + 1 < uniforms.n) { c[(globalRowBase + 3) * uniforms.n + globalColBase + 1] = accumulator3[1]; }
+        if (globalColBase + 2 < uniforms.n) { c[(globalRowBase + 3) * uniforms.n + globalColBase + 2] = accumulator3[2]; }
+        if (globalColBase + 3 < uniforms.n) { c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3]; }
+    }
+}

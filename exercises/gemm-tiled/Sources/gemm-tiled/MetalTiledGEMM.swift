@@ -12,6 +12,7 @@ enum MetalBOperandLayout {
     case rowMajor
     case packedSwizzled(blockK: Int, blockN: Int, swizzleGroup: Int)
     case packedVectorized(blockK: Int, blockN: Int, vectorWidth: Int)
+    case packedVectorizedSwizzled(blockK: Int, blockN: Int, vectorWidth: Int, vectorSwizzleGroup: Int)
 }
 
 struct MetalKernelConfiguration {
@@ -151,6 +152,15 @@ struct MetalTiledGEMMRunner: GEMMRunner {
                 blockN: blockN,
                 vectorWidth: vectorWidth
             )
+        case .packedVectorizedSwizzled(let blockK, let blockN, let vectorWidth, let vectorSwizzleGroup):
+            return packVectorizedSwizzledBOperand(
+                elements: b.elements,
+                problem: problem,
+                blockK: blockK,
+                blockN: blockN,
+                vectorWidth: vectorWidth,
+                vectorSwizzleGroup: vectorSwizzleGroup
+            )
         }
     }
 
@@ -228,10 +238,61 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         return packed
     }
 
+    private func packVectorizedSwizzledBOperand(
+        elements: [Float],
+        problem: GEMMProblem,
+        blockK: Int,
+        blockN: Int,
+        vectorWidth: Int,
+        vectorSwizzleGroup: Int
+    ) -> [Float] {
+        precondition(blockN % vectorWidth == 0)
+
+        let vectorsPerRow = blockN / vectorWidth
+        precondition(vectorsPerRow % vectorSwizzleGroup == 0)
+
+        let kTileCount = (problem.k + blockK - 1) / blockK
+        let nTileCount = (problem.n + blockN - 1) / blockN
+        let tileElementCount = blockK * blockN
+        var packed = [Float](repeating: 0, count: nTileCount * kTileCount * tileElementCount)
+
+        for nTile in 0..<nTileCount {
+            for kTile in 0..<kTileCount {
+                let tileBase = (nTile * kTileCount + kTile) * tileElementCount
+                for inner in 0..<blockK {
+                    let sourceRow = kTile * blockK + inner
+                    for vectorIndex in 0..<vectorsPerRow {
+                        let swizzledVectorIndex = swizzledVectorIndex(
+                            vectorIndex: vectorIndex,
+                            inner: inner,
+                            vectorSwizzleGroup: vectorSwizzleGroup
+                        )
+                        for lane in 0..<vectorWidth {
+                            let sourceColumn = nTile * blockN + vectorIndex * vectorWidth + lane
+                            let destinationIndex = tileBase + inner * blockN + swizzledVectorIndex * vectorWidth + lane
+                            if sourceRow < problem.k && sourceColumn < problem.n {
+                                packed[destinationIndex] = elements[sourceRow * problem.n + sourceColumn]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return packed
+    }
+
     private func swizzledColumnIndex(column: Int, inner: Int, swizzleGroup: Int) -> Int {
         let groupBase = column / swizzleGroup * swizzleGroup
         let offset = column % swizzleGroup
         let swizzledOffset = offset ^ (inner % swizzleGroup)
+        return groupBase + swizzledOffset
+    }
+
+    private func swizzledVectorIndex(vectorIndex: Int, inner: Int, vectorSwizzleGroup: Int) -> Int {
+        let groupBase = vectorIndex / vectorSwizzleGroup * vectorSwizzleGroup
+        let offset = vectorIndex % vectorSwizzleGroup
+        let swizzledOffset = offset ^ (inner % vectorSwizzleGroup)
         return groupBase + swizzledOffset
     }
 

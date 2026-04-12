@@ -56,6 +56,15 @@ let metalRunnerConfigurations = [
         outputTileHeight: 32,
         bOperandLayout: .packedVectorized(blockK: 8, blockN: 32, vectorWidth: 4)
     ),
+    MetalKernelConfiguration(
+        name: "Metal packed-swizzled vec4 B 4x4",
+        functionName: "packed_swizzled_vectorized_b_gemm_4x4",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        bOperandLayout: .packedVectorizedSwizzled(blockK: 8, blockN: 32, vectorWidth: 4, vectorSwizzleGroup: 4)
+    ),
 ]
 
 do {
@@ -77,7 +86,7 @@ do {
     print("Baseline: Apple vecLib via Accelerate cblas_sgemm")
     print("")
     print(
-        "\(pad("implementation", to: 31)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
+        "\(pad("implementation", to: 34)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
     )
 
     var measurements = [BenchmarkMeasurement]()
@@ -108,7 +117,7 @@ do {
             measurements.append(measurement)
 
             print(
-                "\(pad(measurement.implementation, to: 31)) " +
+                "\(pad(measurement.implementation, to: 34)) " +
                 "\(pad(problem.description, to: 14)) " +
                 "\(pad(String(problem.mnkProduct), to: 14)) " +
                 "\(pad(formatMilliseconds(measurement.averageMs), to: 12)) " +
