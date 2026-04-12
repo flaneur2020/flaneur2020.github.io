@@ -11,6 +11,7 @@ private struct GEMMUniforms {
 enum MetalBOperandLayout {
     case rowMajor
     case packedSwizzled(blockK: Int, blockN: Int, swizzleGroup: Int)
+    case packedVectorized(blockK: Int, blockN: Int, vectorWidth: Int)
 }
 
 struct MetalKernelConfiguration {
@@ -135,17 +136,25 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         case .rowMajor:
             return b.elements
         case .packedSwizzled(let blockK, let blockN, let swizzleGroup):
-            return packBOperand(
+            return packSwizzledBOperand(
                 elements: b.elements,
                 problem: problem,
                 blockK: blockK,
                 blockN: blockN,
                 swizzleGroup: swizzleGroup
             )
+        case .packedVectorized(let blockK, let blockN, let vectorWidth):
+            return packVectorizedBOperand(
+                elements: b.elements,
+                problem: problem,
+                blockK: blockK,
+                blockN: blockN,
+                vectorWidth: vectorWidth
+            )
         }
     }
 
-    private func packBOperand(
+    private func packSwizzledBOperand(
         elements: [Float],
         problem: GEMMProblem,
         blockK: Int,
@@ -176,6 +185,41 @@ struct MetalTiledGEMMRunner: GEMMRunner {
                             value = 0
                         }
                         packed[tileBase + inner * blockN + swizzledColumn] = value
+                    }
+                }
+            }
+        }
+
+        return packed
+    }
+
+    private func packVectorizedBOperand(
+        elements: [Float],
+        problem: GEMMProblem,
+        blockK: Int,
+        blockN: Int,
+        vectorWidth: Int
+    ) -> [Float] {
+        precondition(blockN % vectorWidth == 0)
+
+        let kTileCount = (problem.k + blockK - 1) / blockK
+        let nTileCount = (problem.n + blockN - 1) / blockN
+        let tileElementCount = blockK * blockN
+        var packed = [Float](repeating: 0, count: nTileCount * kTileCount * tileElementCount)
+
+        for nTile in 0..<nTileCount {
+            for kTile in 0..<kTileCount {
+                let tileBase = (nTile * kTileCount + kTile) * tileElementCount
+                for inner in 0..<blockK {
+                    let sourceRow = kTile * blockK + inner
+                    for vectorIndex in 0..<(blockN / vectorWidth) {
+                        for lane in 0..<vectorWidth {
+                            let sourceColumn = nTile * blockN + vectorIndex * vectorWidth + lane
+                            let destinationIndex = tileBase + inner * blockN + vectorIndex * vectorWidth + lane
+                            if sourceRow < problem.k && sourceColumn < problem.n {
+                                packed[destinationIndex] = elements[sourceRow * problem.n + sourceColumn]
+                            }
+                        }
                     }
                 }
             }

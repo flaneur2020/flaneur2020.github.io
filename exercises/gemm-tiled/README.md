@@ -5,7 +5,7 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 ## What it includes
 
 - A baseline `vecLib` GEMM using `Accelerate` + `cblas_sgemm`
-- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including a packed/swizzled-`B` version
+- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B` and packed/vectorized-`B` versions
 - Console output with `MNK` on the X-axis and `MFLOPs` on the Y-axis
 - CSV export for plotting performance curves
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
@@ -43,6 +43,7 @@ The default benchmark compares:
 - `Metal swizzled 32x32`
 - `Metal register blocked 4x4`
 - `Metal packed-swizzled B 4x4`
+- `Metal packed-vectorized B 4x4`
 
 ## Make targets
 
