@@ -128,6 +128,7 @@ def render_svg(series: Dict[str, List[Point]], title: str, source_name: str) -> 
         "#4f46e5",
         "#059669",
         "#b91c1c",
+        "#1d4ed8",
     ]
 
     def project_x(value: float) -> float:

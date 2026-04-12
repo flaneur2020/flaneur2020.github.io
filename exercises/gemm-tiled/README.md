@@ -5,7 +5,7 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 ## What it includes
 
 - A baseline `vecLib` GEMM using `Accelerate` + `cblas_sgemm`
-- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, and packed-vectorized-`A+B` unrolled-inner-`K` versions
+- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, and packed-vectorized-`A+B` unrolled-inner-`K` versions
 - Console output with `MNK` on the X-axis and `MFLOPs` on the Y-axis
 - CSV export for plotting performance curves
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
@@ -47,6 +47,7 @@ The default benchmark compares:
 - `Metal packed-swizzled vec4 B 4x4`
 - `Metal packed-vectorized B 4x4 k16`
 - `Metal packed-vectorized A+B 4x4 k16`
+- `Metal packed-vectorized A+B 4x4 aligned`
 - `Metal packed-vectorized A+B 4x4 unroll`
 
 ## Make targets

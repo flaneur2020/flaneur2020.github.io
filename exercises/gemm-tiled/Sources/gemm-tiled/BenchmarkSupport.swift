@@ -108,6 +108,7 @@ struct BenchmarkMeasurement {
 
 protocol GEMMRunner {
     var name: String { get }
+    func supports(problem: GEMMProblem) -> Bool
     func benchmark(
         a: Matrix,
         b: Matrix,
@@ -115,6 +116,12 @@ protocol GEMMRunner {
         warmupIterations: Int,
         measuredIterations: Int
     ) throws -> RawBenchmarkRun
+}
+
+extension GEMMRunner {
+    func supports(problem: GEMMProblem) -> Bool {
+        true
+    }
 }
 
 enum BenchmarkError: LocalizedError {

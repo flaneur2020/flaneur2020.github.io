@@ -93,6 +93,18 @@ let metalRunnerConfigurations = [
         bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4)
     ),
     MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 4x4 aligned",
+        functionName: "packed_vectorized_a_b_gemm_4x4_k16_aligned",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
         name: "Metal packed-vectorized A+B 4x4 unroll",
         functionName: "packed_vectorized_a_b_gemm_4x4_k16_unrolled",
         threadgroupWidth: 8,
@@ -135,6 +147,11 @@ do {
         let reference = vecLibRunner.reference(a: a, b: b, problem: problem)
 
         for runner in runners {
+            guard runner.supports(problem: problem) else {
+                fputs("warning: skipping \(runner.name) on \(problem.description): requires aligned problem dimensions\n", stderr)
+                continue
+            }
+
             let run = try runner.benchmark(
                 a: a,
                 b: b,

@@ -29,6 +29,32 @@ struct MetalKernelConfiguration {
     let outputTileHeight: Int
     let aOperandLayout: MetalAOperandLayout
     let bOperandLayout: MetalBOperandLayout
+    let requiresAlignedProblem: Bool
+    let requiredKAlignment: Int
+
+    init(
+        name: String,
+        functionName: String,
+        threadgroupWidth: Int,
+        threadgroupHeight: Int,
+        outputTileWidth: Int,
+        outputTileHeight: Int,
+        aOperandLayout: MetalAOperandLayout,
+        bOperandLayout: MetalBOperandLayout,
+        requiresAlignedProblem: Bool = false,
+        requiredKAlignment: Int = 1
+    ) {
+        self.name = name
+        self.functionName = functionName
+        self.threadgroupWidth = threadgroupWidth
+        self.threadgroupHeight = threadgroupHeight
+        self.outputTileWidth = outputTileWidth
+        self.outputTileHeight = outputTileHeight
+        self.aOperandLayout = aOperandLayout
+        self.bOperandLayout = bOperandLayout
+        self.requiresAlignedProblem = requiresAlignedProblem
+        self.requiredKAlignment = requiredKAlignment
+    }
 }
 
 struct MetalTiledGEMMRunner: GEMMRunner {
@@ -65,6 +91,16 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         self.device = device
         self.commandQueue = commandQueue
         self.pipeline = pipeline
+    }
+
+    func supports(problem: GEMMProblem) -> Bool {
+        guard configuration.requiresAlignedProblem else {
+            return true
+        }
+
+        return problem.m % configuration.outputTileHeight == 0 &&
+            problem.n % configuration.outputTileWidth == 0 &&
+            problem.k % configuration.requiredKAlignment == 0
     }
 
     func benchmark(
