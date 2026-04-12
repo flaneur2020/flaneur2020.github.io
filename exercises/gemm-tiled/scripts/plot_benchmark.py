@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("output_svg", nargs="?", default="benchmark.svg")
     parser.add_argument(
         "--title",
-        default="GEMM benchmark: MNK vs MFLOPs",
+        default="GEMM benchmark: MNK vs MFLOPs (wall time)",
         help="Chart title",
     )
     return parser.parse_args()
@@ -129,6 +129,14 @@ def render_svg(series: Dict[str, List[Point]], title: str, source_name: str) -> 
         "#059669",
         "#b91c1c",
         "#1d4ed8",
+        "#7c2d12",
+        "#0f766e",
+        "#a21caf",
+        "#65a30d",
+        "#c2410c",
+        "#be123c",
+        "#1f2937",
+        "#4338ca",
     ]
 
     def project_x(value: float) -> float:

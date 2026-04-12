@@ -8,6 +8,11 @@ private struct GEMMUniforms {
     var k: UInt32
 }
 
+private struct MetalDispatchTiming {
+    let wallMs: Double
+    let deviceMs: Double?
+}
+
 enum MetalAOperandLayout {
     case rowMajor
     case packedVectorized(blockM: Int, blockK: Int, vectorHeight: Int)
@@ -20,6 +25,11 @@ enum MetalBOperandLayout {
     case packedVectorizedSwizzled(blockK: Int, blockN: Int, vectorWidth: Int, vectorSwizzleGroup: Int)
 }
 
+enum MetalBufferMode {
+    case shared
+    case privateStaged
+}
+
 struct MetalKernelConfiguration {
     let name: String
     let functionName: String
@@ -29,6 +39,7 @@ struct MetalKernelConfiguration {
     let outputTileHeight: Int
     let aOperandLayout: MetalAOperandLayout
     let bOperandLayout: MetalBOperandLayout
+    let bufferMode: MetalBufferMode
     let requiresAlignedProblem: Bool
     let requiredKAlignment: Int
 
@@ -41,6 +52,7 @@ struct MetalKernelConfiguration {
         outputTileHeight: Int,
         aOperandLayout: MetalAOperandLayout,
         bOperandLayout: MetalBOperandLayout,
+        bufferMode: MetalBufferMode = .shared,
         requiresAlignedProblem: Bool = false,
         requiredKAlignment: Int = 1
     ) {
@@ -52,6 +64,7 @@ struct MetalKernelConfiguration {
         self.outputTileHeight = outputTileHeight
         self.aOperandLayout = aOperandLayout
         self.bOperandLayout = bOperandLayout
+        self.bufferMode = bufferMode
         self.requiresAlignedProblem = requiresAlignedProblem
         self.requiredKAlignment = requiredKAlignment
     }
@@ -112,14 +125,8 @@ struct MetalTiledGEMMRunner: GEMMRunner {
     ) throws -> RawBenchmarkRun {
         let preparedAElements = prepareAOperandElements(from: a, problem: problem)
         let preparedBElements = prepareBOperandElements(from: b, problem: problem)
-        let aBuffer = try makeBuffer(copying: preparedAElements)
-        let bBuffer = try makeBuffer(copying: preparedBElements)
         let outputLength = problem.outputElementCount * MemoryLayout<Float>.stride
-        guard let cBuffer = device.makeBuffer(length: outputLength, options: .storageModeShared) else {
-            throw BenchmarkError.runtimeFailure("Could not allocate the output Metal buffer")
-        }
-
-        var uniforms = GEMMUniforms(
+        let uniforms = GEMMUniforms(
             m: UInt32(problem.m),
             n: UInt32(problem.n),
             k: UInt32(problem.k)
@@ -136,42 +143,61 @@ struct MetalTiledGEMMRunner: GEMMRunner {
             depth: 1
         )
 
-        var timings = [Double]()
+        let timings: [MetalDispatchTiming]
+        let outputBuffer: MTLBuffer
 
-        for iteration in 0..<(warmupIterations + measuredIterations) {
-            guard let commandBuffer = commandQueue.makeCommandBuffer() else {
-                throw BenchmarkError.runtimeFailure("Could not create a Metal command buffer")
-            }
-            guard let encoder = commandBuffer.makeComputeCommandEncoder() else {
-                throw BenchmarkError.runtimeFailure("Could not create a Metal compute encoder")
-            }
+        switch configuration.bufferMode {
+        case .shared:
+            let aBuffer = try makeSharedBuffer(copying: preparedAElements, errorMessage: "Could not allocate a Metal input buffer")
+            let bBuffer = try makeSharedBuffer(copying: preparedBElements, errorMessage: "Could not allocate a Metal input buffer")
+            let cBuffer = try makeSharedBuffer(length: outputLength, errorMessage: "Could not allocate the output Metal buffer")
+            timings = try runBenchmarkIterations(
+                aBuffer: aBuffer,
+                bBuffer: bBuffer,
+                cBuffer: cBuffer,
+                uniforms: uniforms,
+                threadgroups: threadgroups,
+                threadsPerThreadgroup: threadsPerThreadgroup,
+                warmupIterations: warmupIterations,
+                measuredIterations: measuredIterations
+            )
+            outputBuffer = cBuffer
 
-            encoder.setComputePipelineState(pipeline)
-            encoder.setBuffer(aBuffer, offset: 0, index: 0)
-            encoder.setBuffer(bBuffer, offset: 0, index: 1)
-            encoder.setBuffer(cBuffer, offset: 0, index: 2)
-            encoder.setBytes(&uniforms, length: MemoryLayout<GEMMUniforms>.stride, index: 3)
-            encoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadsPerThreadgroup)
-            encoder.endEncoding()
+        case .privateStaged:
+            let aStagingBuffer = try makeSharedBuffer(copying: preparedAElements, errorMessage: "Could not allocate the Metal staging buffer for A")
+            let bStagingBuffer = try makeSharedBuffer(copying: preparedBElements, errorMessage: "Could not allocate the Metal staging buffer for B")
+            let aBuffer = try makePrivateBuffer(length: aStagingBuffer.length, errorMessage: "Could not allocate the private Metal buffer for A")
+            let bBuffer = try makePrivateBuffer(length: bStagingBuffer.length, errorMessage: "Could not allocate the private Metal buffer for B")
+            let cBuffer = try makePrivateBuffer(length: outputLength, errorMessage: "Could not allocate the private Metal buffer for C")
+            let cReadbackBuffer = try makeSharedBuffer(length: outputLength, errorMessage: "Could not allocate the Metal readback buffer for C")
 
-            let wallStart = DispatchTime.now().uptimeNanoseconds
-            commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
-            let wallElapsedMs = Double(DispatchTime.now().uptimeNanoseconds - wallStart) / 1_000_000.0
+            try copyBuffer(aStagingBuffer, to: aBuffer)
+            try copyBuffer(bStagingBuffer, to: bBuffer)
 
-            if let error = commandBuffer.error {
-                throw error
-            }
+            timings = try runBenchmarkIterations(
+                aBuffer: aBuffer,
+                bBuffer: bBuffer,
+                cBuffer: cBuffer,
+                uniforms: uniforms,
+                threadgroups: threadgroups,
+                threadsPerThreadgroup: threadsPerThreadgroup,
+                warmupIterations: warmupIterations,
+                measuredIterations: measuredIterations
+            )
 
-            if iteration >= warmupIterations {
-                timings.append(gpuElapsedMs(for: commandBuffer, fallbackMs: wallElapsedMs))
-            }
+            try copyBuffer(cBuffer, to: cReadbackBuffer)
+            outputBuffer = cReadbackBuffer
         }
 
+        let wallTimings = timings.map { $0.wallMs }
+        let deviceTimings = timings.compactMap { $0.deviceMs }
+
         return RawBenchmarkRun(
-            output: Matrix(rows: problem.m, cols: problem.n, elements: readFloats(from: cBuffer, count: problem.outputElementCount)),
-            averageMs: timings.average,
-            bestMs: timings.min() ?? 0
+            output: Matrix(rows: problem.m, cols: problem.n, elements: readFloats(from: outputBuffer, count: problem.outputElementCount)),
+            wallAverageMs: wallTimings.average,
+            wallBestMs: wallTimings.min() ?? 0,
+            deviceAverageMs: deviceTimings.isEmpty ? nil : deviceTimings.average,
+            deviceBestMs: deviceTimings.min()
         )
     }
 
@@ -390,16 +416,120 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         return groupBase + swizzledOffset
     }
 
-    private func makeBuffer(copying values: [Float]) throws -> MTLBuffer {
-        let length = values.count * MemoryLayout<Float>.stride
-        guard let buffer = device.makeBuffer(length: length, options: .storageModeShared) else {
-            throw BenchmarkError.runtimeFailure("Could not allocate a Metal input buffer")
+    private func runBenchmarkIterations(
+        aBuffer: MTLBuffer,
+        bBuffer: MTLBuffer,
+        cBuffer: MTLBuffer,
+        uniforms: GEMMUniforms,
+        threadgroups: MTLSize,
+        threadsPerThreadgroup: MTLSize,
+        warmupIterations: Int,
+        measuredIterations: Int
+    ) throws -> [MetalDispatchTiming] {
+        var timings = [MetalDispatchTiming]()
+
+        for iteration in 0..<(warmupIterations + measuredIterations) {
+            let timing = try dispatchKernel(
+                aBuffer: aBuffer,
+                bBuffer: bBuffer,
+                cBuffer: cBuffer,
+                uniforms: uniforms,
+                threadgroups: threadgroups,
+                threadsPerThreadgroup: threadsPerThreadgroup
+            )
+
+            if iteration >= warmupIterations {
+                timings.append(timing)
+            }
         }
+
+        return timings
+    }
+
+    private func dispatchKernel(
+        aBuffer: MTLBuffer,
+        bBuffer: MTLBuffer,
+        cBuffer: MTLBuffer,
+        uniforms: GEMMUniforms,
+        threadgroups: MTLSize,
+        threadsPerThreadgroup: MTLSize
+    ) throws -> MetalDispatchTiming {
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+            throw BenchmarkError.runtimeFailure("Could not create a Metal command buffer")
+        }
+        guard let encoder = commandBuffer.makeComputeCommandEncoder() else {
+            throw BenchmarkError.runtimeFailure("Could not create a Metal compute encoder")
+        }
+
+        var mutableUniforms = uniforms
+        encoder.setComputePipelineState(pipeline)
+        encoder.setBuffer(aBuffer, offset: 0, index: 0)
+        encoder.setBuffer(bBuffer, offset: 0, index: 1)
+        encoder.setBuffer(cBuffer, offset: 0, index: 2)
+        encoder.setBytes(&mutableUniforms, length: MemoryLayout<GEMMUniforms>.stride, index: 3)
+        encoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadsPerThreadgroup)
+        encoder.endEncoding()
+
+        let wallStart = DispatchTime.now().uptimeNanoseconds
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
+        let wallElapsedMs = Double(DispatchTime.now().uptimeNanoseconds - wallStart) / 1_000_000.0
+
+        if let error = commandBuffer.error {
+            throw error
+        }
+
+        return MetalDispatchTiming(
+            wallMs: wallElapsedMs,
+            deviceMs: gpuElapsedMs(for: commandBuffer)
+        )
+    }
+
+    private func copyBuffer(_ source: MTLBuffer, to destination: MTLBuffer) throws {
+        guard source.length <= destination.length else {
+            throw BenchmarkError.runtimeFailure("Metal buffer copy exceeds destination size")
+        }
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+            throw BenchmarkError.runtimeFailure("Could not create a Metal command buffer for blit")
+        }
+        guard let encoder = commandBuffer.makeBlitCommandEncoder() else {
+            throw BenchmarkError.runtimeFailure("Could not create a Metal blit encoder")
+        }
+
+        encoder.copy(from: source, sourceOffset: 0, to: destination, destinationOffset: 0, size: source.length)
+        encoder.endEncoding()
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
+
+        if let error = commandBuffer.error {
+            throw error
+        }
+    }
+
+    private func makeSharedBuffer(copying values: [Float], errorMessage: String) throws -> MTLBuffer {
+        let length = values.count * MemoryLayout<Float>.stride
+        let buffer = try makeSharedBuffer(length: length, errorMessage: errorMessage)
 
         values.withUnsafeBytes { rawBuffer in
             if let baseAddress = rawBuffer.baseAddress {
                 buffer.contents().copyMemory(from: baseAddress, byteCount: length)
             }
+        }
+
+        return buffer
+    }
+
+    private func makeSharedBuffer(length: Int, errorMessage: String) throws -> MTLBuffer {
+        try makeBuffer(length: length, options: .storageModeShared, errorMessage: errorMessage)
+    }
+
+    private func makePrivateBuffer(length: Int, errorMessage: String) throws -> MTLBuffer {
+        try makeBuffer(length: length, options: .storageModePrivate, errorMessage: errorMessage)
+    }
+
+    private func makeBuffer(length: Int, options: MTLResourceOptions, errorMessage: String) throws -> MTLBuffer {
+        guard let buffer = device.makeBuffer(length: length, options: options) else {
+            throw BenchmarkError.runtimeFailure(errorMessage)
         }
         return buffer
     }
@@ -409,9 +539,9 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         return Array(UnsafeBufferPointer(start: pointer, count: count))
     }
 
-    private func gpuElapsedMs(for commandBuffer: MTLCommandBuffer, fallbackMs: Double) -> Double {
+    private func gpuElapsedMs(for commandBuffer: MTLCommandBuffer) -> Double? {
         let elapsed = (commandBuffer.gpuEndTime - commandBuffer.gpuStartTime) * 1_000.0
-        return elapsed > 0 ? elapsed : fallbackMs
+        return elapsed > 0 ? elapsed : nil
     }
 
     private static func loadShaderSource() throws -> String {

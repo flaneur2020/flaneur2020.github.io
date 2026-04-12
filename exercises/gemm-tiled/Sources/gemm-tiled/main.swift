@@ -105,6 +105,67 @@ let metalRunnerConfigurations = [
         requiredKAlignment: 16
     ),
     MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 4x4 aligned private",
+        functionName: "packed_vectorized_a_b_gemm_4x4_k16_aligned",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4),
+        bufferMode: .privateStaged,
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x32x16",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x32x16_aligned",
+        threadgroupWidth: 8,
+        threadgroupHeight: 16,
+        outputTileWidth: 32,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 32x64x16",
+        functionName: "packed_vectorized_a_b_gemm_4x4_32x64x16_aligned",
+        threadgroupWidth: 16,
+        threadgroupHeight: 8,
+        outputTileWidth: 64,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 64, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 32x32x32",
+        functionName: "packed_vectorized_a_b_gemm_4x4_32x32x32_aligned",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 32, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 32, blockN: 32, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 32
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed A+B aligned pipe",
+        functionName: "packed_vectorized_a_b_gemm_4x4_k16_aligned_pipelined",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
         name: "Metal packed-vectorized A+B 4x4 unroll",
         functionName: "packed_vectorized_a_b_gemm_4x4_k16_unrolled",
         threadgroupWidth: 8,
@@ -132,10 +193,12 @@ do {
     }
 
     print("Benchmarking GEMM with X = MNK and Y = MFLOPs")
+    print("Primary metric: unified wall time across vecLib and Metal")
+    print("Metal GPU timestamps are exported to CSV as secondary columns when available")
     print("Baseline: Apple vecLib via Accelerate cblas_sgemm")
     print("")
     print(
-        "\(pad("implementation", to: 40)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
+        "\(pad("implementation", to: 40)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("wall avg", to: 12)) \(pad("wall best", to: 12)) \(pad("wall MFLOPs", to: 14)) max |Δ|"
     )
 
     var measurements = [BenchmarkMeasurement]()
@@ -163,9 +226,12 @@ do {
             let measurement = BenchmarkMeasurement(
                 implementation: runner.name,
                 problem: problem,
-                averageMs: run.averageMs,
-                bestMs: run.bestMs,
-                mflops: problem.mflops(forMilliseconds: run.averageMs),
+                wallAverageMs: run.wallAverageMs,
+                wallBestMs: run.wallBestMs,
+                wallMflops: problem.mflops(forMilliseconds: run.wallAverageMs),
+                deviceAverageMs: run.deviceAverageMs,
+                deviceBestMs: run.deviceBestMs,
+                deviceMflops: run.deviceAverageMs.map { problem.mflops(forMilliseconds: $0) },
                 maxAbsError: run.output.maxAbsoluteDifference(comparedTo: reference)
             )
             measurements.append(measurement)
@@ -174,9 +240,9 @@ do {
                 "\(pad(measurement.implementation, to: 40)) " +
                 "\(pad(problem.description, to: 14)) " +
                 "\(pad(String(problem.mnkProduct), to: 14)) " +
-                "\(pad(formatMilliseconds(measurement.averageMs), to: 12)) " +
-                "\(pad(formatMilliseconds(measurement.bestMs), to: 12)) " +
-                "\(pad(formatMFLOPs(measurement.mflops), to: 14)) " +
+                "\(pad(formatMilliseconds(measurement.wallAverageMs), to: 12)) " +
+                "\(pad(formatMilliseconds(measurement.wallBestMs), to: 12)) " +
+                "\(pad(formatMFLOPs(measurement.wallMflops), to: 14)) " +
                 "\(formatError(measurement.maxAbsError))"
             )
         }
@@ -200,7 +266,7 @@ private func seed(for problem: GEMMProblem) -> UInt64 {
 
 private func writeCSV(_ measurements: [BenchmarkMeasurement], to path: String) throws {
     var lines = [
-        "implementation,m,n,k,mnk,average_ms,best_ms,mflops,max_abs_error",
+        "implementation,m,n,k,mnk,average_ms,best_ms,mflops,device_average_ms,device_best_ms,device_mflops,max_abs_error",
     ]
 
     for measurement in measurements {
@@ -211,9 +277,12 @@ private func writeCSV(_ measurements: [BenchmarkMeasurement], to path: String) t
                 String(measurement.problem.n),
                 String(measurement.problem.k),
                 String(measurement.problem.mnkProduct),
-                String(format: "%.6f", measurement.averageMs),
-                String(format: "%.6f", measurement.bestMs),
-                String(format: "%.6f", measurement.mflops),
+                String(format: "%.6f", measurement.wallAverageMs),
+                String(format: "%.6f", measurement.wallBestMs),
+                String(format: "%.6f", measurement.wallMflops),
+                csvValue(measurement.deviceAverageMs),
+                csvValue(measurement.deviceBestMs),
+                csvValue(measurement.deviceMflops),
                 String(format: "%.8e", Double(measurement.maxAbsError)),
             ].joined(separator: ",")
         )

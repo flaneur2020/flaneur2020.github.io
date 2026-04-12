@@ -5,9 +5,9 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 ## What it includes
 
 - A baseline `vecLib` GEMM using `Accelerate` + `cblas_sgemm`
-- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, and packed-vectorized-`A+B` unrolled-inner-`K` versions
+- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, a `storageModePrivate` aligned variant, aligned tile/threadgroup autotune variants (`64x32x16`, `32x64x16`, `32x32x32`), and packed-vectorized-`A+B` unrolled-inner-`K` versions
 - Console output with `MNK` on the X-axis and `MFLOPs` on the Y-axis
-- CSV export for plotting performance curves
+- CSV export for plotting performance curves, with unified wall-time columns and optional Metal GPU timestamp columns
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
 - A small `Makefile` for build, benchmark, and plot commands
 
@@ -48,6 +48,11 @@ The default benchmark compares:
 - `Metal packed-vectorized B 4x4 k16`
 - `Metal packed-vectorized A+B 4x4 k16`
 - `Metal packed-vectorized A+B 4x4 aligned`
+- `Metal packed-vectorized A+B 4x4 aligned private`
+- `Metal packed-vectorized A+B 64x32x16`
+- `Metal packed-vectorized A+B 32x64x16`
+- `Metal packed-vectorized A+B 32x32x32`
+- `Metal packed A+B aligned pipe`
 - `Metal packed-vectorized A+B 4x4 unroll`
 
 ## Make targets
@@ -94,24 +99,27 @@ make plot CSV=benchmark.csv SVG=benchmark.svg
 The generated chart uses:
 
 - `MNK` on the X-axis
-- `MFLOPs` on the Y-axis
+- `MFLOPs` on the Y-axis, computed from unified wall time
 - One line per implementation
 
 ## CSV columns
 
 - `mnk`: the X-axis value, computed as `M * N * K`
-- `mflops`: the Y-axis value, computed from `2 * M * N * K / time`
-- `average_ms`: average runtime across measured iterations
-- `best_ms`: fastest measured runtime
+- `average_ms`: average wall-clock runtime across measured iterations
+- `best_ms`: fastest wall-clock runtime across measured iterations
+- `mflops`: wall-time MFLOPs, computed from `2 * M * N * K / average_ms`
+- `device_average_ms`: Metal GPU timestamp average when available
+- `device_best_ms`: Metal GPU timestamp best when available
+- `device_mflops`: MFLOPs computed from `device_average_ms` when available
 - `max_abs_error`: maximum absolute difference against the vecLib result
 
 ## Why vecLib
 
-`cblas_sgemm` in `Accelerate` is the native Apple baseline that is available on M1/M2/M3 Macs through vecLib, so it is a more relevant comparison than MKL on macOS.
+`cblas_sgemm` in `Accelerate` is the native Apple baseline that is available on M1/M2/M3 Macs through vecLib, so it is a more relevant comparison than MKL on macOS. The default table, CSV, and SVG now use unified wall time so vecLib and Metal are compared on the same timing basis.
 
 ## Where to extend next
 
 - Add a swizzled or block-packed Metal kernel
 - Tune tile sizes per GPU family
-- Split host-to-device transfer time from pure kernel time
+- Push `storageModePrivate` + staging onto more kernels
 - Emit multiple chart variants such as best-ms or GFLOPs

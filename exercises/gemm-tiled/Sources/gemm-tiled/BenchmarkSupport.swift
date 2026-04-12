@@ -93,16 +93,21 @@ struct BenchmarkConfiguration {
 
 struct RawBenchmarkRun {
     let output: Matrix
-    let averageMs: Double
-    let bestMs: Double
+    let wallAverageMs: Double
+    let wallBestMs: Double
+    let deviceAverageMs: Double?
+    let deviceBestMs: Double?
 }
 
 struct BenchmarkMeasurement {
     let implementation: String
     let problem: GEMMProblem
-    let averageMs: Double
-    let bestMs: Double
-    let mflops: Double
+    let wallAverageMs: Double
+    let wallBestMs: Double
+    let wallMflops: Double
+    let deviceAverageMs: Double?
+    let deviceBestMs: Double?
+    let deviceMflops: Double?
     let maxAbsError: Float
 }
 
@@ -174,4 +179,11 @@ func formatMFLOPs(_ value: Double) -> String {
 
 func formatError(_ value: Float) -> String {
     String(format: "%.2e", Double(value))
+}
+
+func csvValue(_ value: Double?) -> String {
+    guard let value else {
+        return ""
+    }
+    return String(format: "%.6f", value)
 }

@@ -31,8 +31,10 @@ struct VecLibGEMMRunner: GEMMRunner {
 
         return RawBenchmarkRun(
             output: Matrix(rows: problem.m, cols: problem.n, elements: output),
-            averageMs: timings.average,
-            bestMs: timings.min() ?? 0
+            wallAverageMs: timings.average,
+            wallBestMs: timings.min() ?? 0,
+            deviceAverageMs: nil,
+            deviceBestMs: nil
         )
     }
 

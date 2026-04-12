@@ -993,3 +993,370 @@ kernel void packed_vectorized_a_b_gemm_4x4_k16_aligned(
     c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
 }
 
+kernel void packed_vectorized_a_b_gemm_4x4_64x32x16_aligned(
+    device const float *packedA [[buffer(0)]],
+    device const float *packedB [[buffer(1)]],
+    device float *c [[buffer(2)]],
+    constant GEMMUniforms &uniforms [[buffer(3)]],
+    uint2 threadgroupPosition [[threadgroup_position_in_grid]],
+    uint2 threadPositionInThreadgroup [[thread_position_in_threadgroup]]
+) {
+    constexpr uint blockM = 64;
+    constexpr uint blockN = 32;
+    constexpr uint blockK = 16;
+    constexpr uint registerBlockM = 4;
+    constexpr uint registerBlockN = 4;
+    constexpr uint threadsPerThreadgroupX = 8;
+    constexpr uint threadsPerThreadgroupY = 16;
+    constexpr uint threadsPerThreadgroup = threadsPerThreadgroupX * threadsPerThreadgroupY;
+    constexpr uint aVectorsPerInner = blockM / registerBlockM;
+    constexpr uint bVectorsPerRow = blockN / registerBlockN;
+
+    threadgroup float4 tileA[blockK][aVectorsPerInner];
+    threadgroup float4 tileB[blockK][bVectorsPerRow];
+
+    uint localLinearIndex = threadPositionInThreadgroup.y * threadsPerThreadgroupX + threadPositionInThreadgroup.x;
+    uint localARowVector = threadPositionInThreadgroup.y;
+    uint localBVectorIndex = threadPositionInThreadgroup.x;
+    uint globalRowBase = threadgroupPosition.y * blockM + localARowVector * registerBlockM;
+    uint globalColBase = threadgroupPosition.x * blockN + localBVectorIndex * registerBlockN;
+    uint kTileCount = uniforms.k / blockK;
+
+    float4 accumulator0 = float4(0.0f);
+    float4 accumulator1 = float4(0.0f);
+    float4 accumulator2 = float4(0.0f);
+    float4 accumulator3 = float4(0.0f);
+
+    const device packed_float4 *packedAVectors = reinterpret_cast<const device packed_float4 *>(packedA);
+    const device packed_float4 *packedBVectors = reinterpret_cast<const device packed_float4 *>(packedB);
+
+    for (uint tileIndex = 0; tileIndex < kTileCount; tileIndex++) {
+        uint packedABase = (threadgroupPosition.y * kTileCount + tileIndex) * blockK * aVectorsPerInner;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * aVectorsPerInner; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / aVectorsPerInner;
+            uint vectorLoadIndex = loadIndex % aVectorsPerInner;
+            tileA[innerLoadIndex][vectorLoadIndex] = float4(
+                packedAVectors[packedABase + innerLoadIndex * aVectorsPerInner + vectorLoadIndex]
+            );
+        }
+
+        uint packedBBase = (threadgroupPosition.x * kTileCount + tileIndex) * blockK * bVectorsPerRow;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * bVectorsPerRow; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / bVectorsPerRow;
+            uint vectorLoadIndex = loadIndex % bVectorsPerRow;
+            tileB[innerLoadIndex][vectorLoadIndex] = float4(
+                packedBVectors[packedBBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+            );
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+
+        for (uint inner = 0; inner < blockK; inner++) {
+            float4 aVector = tileA[inner][localARowVector];
+            float4 bVector = tileB[inner][localBVectorIndex];
+            accumulate_register_block_4x4(aVector, bVector, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+    }
+
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 0] = accumulator0[0];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 1] = accumulator0[1];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 2] = accumulator0[2];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 3] = accumulator0[3];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 0] = accumulator1[0];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 1] = accumulator1[1];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 2] = accumulator1[2];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 3] = accumulator1[3];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 0] = accumulator2[0];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 1] = accumulator2[1];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 2] = accumulator2[2];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 3] = accumulator2[3];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 0] = accumulator3[0];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 1] = accumulator3[1];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 2] = accumulator3[2];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
+}
+
+kernel void packed_vectorized_a_b_gemm_4x4_32x64x16_aligned(
+    device const float *packedA [[buffer(0)]],
+    device const float *packedB [[buffer(1)]],
+    device float *c [[buffer(2)]],
+    constant GEMMUniforms &uniforms [[buffer(3)]],
+    uint2 threadgroupPosition [[threadgroup_position_in_grid]],
+    uint2 threadPositionInThreadgroup [[thread_position_in_threadgroup]]
+) {
+    constexpr uint blockM = 32;
+    constexpr uint blockN = 64;
+    constexpr uint blockK = 16;
+    constexpr uint registerBlockM = 4;
+    constexpr uint registerBlockN = 4;
+    constexpr uint threadsPerThreadgroupX = 16;
+    constexpr uint threadsPerThreadgroupY = 8;
+    constexpr uint threadsPerThreadgroup = threadsPerThreadgroupX * threadsPerThreadgroupY;
+    constexpr uint aVectorsPerInner = blockM / registerBlockM;
+    constexpr uint bVectorsPerRow = blockN / registerBlockN;
+
+    threadgroup float4 tileA[blockK][aVectorsPerInner];
+    threadgroup float4 tileB[blockK][bVectorsPerRow];
+
+    uint localLinearIndex = threadPositionInThreadgroup.y * threadsPerThreadgroupX + threadPositionInThreadgroup.x;
+    uint localARowVector = threadPositionInThreadgroup.y;
+    uint localBVectorIndex = threadPositionInThreadgroup.x;
+    uint globalRowBase = threadgroupPosition.y * blockM + localARowVector * registerBlockM;
+    uint globalColBase = threadgroupPosition.x * blockN + localBVectorIndex * registerBlockN;
+    uint kTileCount = uniforms.k / blockK;
+
+    float4 accumulator0 = float4(0.0f);
+    float4 accumulator1 = float4(0.0f);
+    float4 accumulator2 = float4(0.0f);
+    float4 accumulator3 = float4(0.0f);
+
+    const device packed_float4 *packedAVectors = reinterpret_cast<const device packed_float4 *>(packedA);
+    const device packed_float4 *packedBVectors = reinterpret_cast<const device packed_float4 *>(packedB);
+
+    for (uint tileIndex = 0; tileIndex < kTileCount; tileIndex++) {
+        uint packedABase = (threadgroupPosition.y * kTileCount + tileIndex) * blockK * aVectorsPerInner;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * aVectorsPerInner; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / aVectorsPerInner;
+            uint vectorLoadIndex = loadIndex % aVectorsPerInner;
+            tileA[innerLoadIndex][vectorLoadIndex] = float4(
+                packedAVectors[packedABase + innerLoadIndex * aVectorsPerInner + vectorLoadIndex]
+            );
+        }
+
+        uint packedBBase = (threadgroupPosition.x * kTileCount + tileIndex) * blockK * bVectorsPerRow;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * bVectorsPerRow; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / bVectorsPerRow;
+            uint vectorLoadIndex = loadIndex % bVectorsPerRow;
+            tileB[innerLoadIndex][vectorLoadIndex] = float4(
+                packedBVectors[packedBBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+            );
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+
+        for (uint inner = 0; inner < blockK; inner++) {
+            float4 aVector = tileA[inner][localARowVector];
+            float4 bVector = tileB[inner][localBVectorIndex];
+            accumulate_register_block_4x4(aVector, bVector, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+    }
+
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 0] = accumulator0[0];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 1] = accumulator0[1];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 2] = accumulator0[2];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 3] = accumulator0[3];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 0] = accumulator1[0];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 1] = accumulator1[1];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 2] = accumulator1[2];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 3] = accumulator1[3];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 0] = accumulator2[0];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 1] = accumulator2[1];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 2] = accumulator2[2];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 3] = accumulator2[3];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 0] = accumulator3[0];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 1] = accumulator3[1];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 2] = accumulator3[2];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
+}
+
+kernel void packed_vectorized_a_b_gemm_4x4_32x32x32_aligned(
+    device const float *packedA [[buffer(0)]],
+    device const float *packedB [[buffer(1)]],
+    device float *c [[buffer(2)]],
+    constant GEMMUniforms &uniforms [[buffer(3)]],
+    uint2 threadgroupPosition [[threadgroup_position_in_grid]],
+    uint2 threadPositionInThreadgroup [[thread_position_in_threadgroup]]
+) {
+    constexpr uint blockM = 32;
+    constexpr uint blockN = 32;
+    constexpr uint blockK = 32;
+    constexpr uint registerBlockM = 4;
+    constexpr uint registerBlockN = 4;
+    constexpr uint threadsPerThreadgroupX = 8;
+    constexpr uint threadsPerThreadgroupY = 8;
+    constexpr uint threadsPerThreadgroup = threadsPerThreadgroupX * threadsPerThreadgroupY;
+    constexpr uint aVectorsPerInner = blockM / registerBlockM;
+    constexpr uint bVectorsPerRow = blockN / registerBlockN;
+
+    threadgroup float4 tileA[blockK][aVectorsPerInner];
+    threadgroup float4 tileB[blockK][bVectorsPerRow];
+
+    uint localLinearIndex = threadPositionInThreadgroup.y * threadsPerThreadgroupX + threadPositionInThreadgroup.x;
+    uint localARowVector = threadPositionInThreadgroup.y;
+    uint localBVectorIndex = threadPositionInThreadgroup.x;
+    uint globalRowBase = threadgroupPosition.y * blockM + localARowVector * registerBlockM;
+    uint globalColBase = threadgroupPosition.x * blockN + localBVectorIndex * registerBlockN;
+    uint kTileCount = uniforms.k / blockK;
+
+    float4 accumulator0 = float4(0.0f);
+    float4 accumulator1 = float4(0.0f);
+    float4 accumulator2 = float4(0.0f);
+    float4 accumulator3 = float4(0.0f);
+
+    const device packed_float4 *packedAVectors = reinterpret_cast<const device packed_float4 *>(packedA);
+    const device packed_float4 *packedBVectors = reinterpret_cast<const device packed_float4 *>(packedB);
+
+    for (uint tileIndex = 0; tileIndex < kTileCount; tileIndex++) {
+        uint packedABase = (threadgroupPosition.y * kTileCount + tileIndex) * blockK * aVectorsPerInner;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * aVectorsPerInner; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / aVectorsPerInner;
+            uint vectorLoadIndex = loadIndex % aVectorsPerInner;
+            tileA[innerLoadIndex][vectorLoadIndex] = float4(
+                packedAVectors[packedABase + innerLoadIndex * aVectorsPerInner + vectorLoadIndex]
+            );
+        }
+
+        uint packedBBase = (threadgroupPosition.x * kTileCount + tileIndex) * blockK * bVectorsPerRow;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * bVectorsPerRow; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / bVectorsPerRow;
+            uint vectorLoadIndex = loadIndex % bVectorsPerRow;
+            tileB[innerLoadIndex][vectorLoadIndex] = float4(
+                packedBVectors[packedBBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+            );
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+
+        for (uint inner = 0; inner < blockK; inner++) {
+            float4 aVector = tileA[inner][localARowVector];
+            float4 bVector = tileB[inner][localBVectorIndex];
+            accumulate_register_block_4x4(aVector, bVector, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+    }
+
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 0] = accumulator0[0];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 1] = accumulator0[1];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 2] = accumulator0[2];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 3] = accumulator0[3];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 0] = accumulator1[0];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 1] = accumulator1[1];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 2] = accumulator1[2];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 3] = accumulator1[3];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 0] = accumulator2[0];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 1] = accumulator2[1];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 2] = accumulator2[2];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 3] = accumulator2[3];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 0] = accumulator3[0];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 1] = accumulator3[1];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 2] = accumulator3[2];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
+}
+
+kernel void packed_vectorized_a_b_gemm_4x4_k16_aligned_pipelined(
+    device const float *packedA [[buffer(0)]],
+    device const float *packedB [[buffer(1)]],
+    device float *c [[buffer(2)]],
+    constant GEMMUniforms &uniforms [[buffer(3)]],
+    uint2 threadgroupPosition [[threadgroup_position_in_grid]],
+    uint2 threadPositionInThreadgroup [[thread_position_in_threadgroup]]
+) {
+    constexpr uint blockM = 32;
+    constexpr uint blockN = 32;
+    constexpr uint blockK = 16;
+    constexpr uint registerBlockM = 4;
+    constexpr uint registerBlockN = 4;
+    constexpr uint threadsPerThreadgroupX = 8;
+    constexpr uint aVectorsPerInner = blockM / registerBlockM;
+    constexpr uint bVectorsPerRow = blockN / registerBlockN;
+
+    threadgroup float4 tileA[2][blockK][aVectorsPerInner];
+    threadgroup float4 tileB[2][blockK][bVectorsPerRow];
+
+    uint localLinearIndex = threadPositionInThreadgroup.y * threadsPerThreadgroupX + threadPositionInThreadgroup.x;
+    uint localARowVector = threadPositionInThreadgroup.y;
+    uint localBVectorIndex = threadPositionInThreadgroup.x;
+    uint globalRowBase = threadgroupPosition.y * blockM + localARowVector * registerBlockM;
+    uint globalColBase = threadgroupPosition.x * blockN + localBVectorIndex * registerBlockN;
+    uint kTileCount = uniforms.k / blockK;
+
+    float4 accumulator0 = float4(0.0f);
+    float4 accumulator1 = float4(0.0f);
+    float4 accumulator2 = float4(0.0f);
+    float4 accumulator3 = float4(0.0f);
+
+    const device packed_float4 *packedAVectors = reinterpret_cast<const device packed_float4 *>(packedA);
+    const device packed_float4 *packedBVectors = reinterpret_cast<const device packed_float4 *>(packedB);
+
+    {
+        uint packedABase = threadgroupPosition.y * kTileCount * blockK * aVectorsPerInner;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * aVectorsPerInner; loadIndex += 64) {
+            uint innerLoadIndex = loadIndex / aVectorsPerInner;
+            uint vectorLoadIndex = loadIndex % aVectorsPerInner;
+            tileA[0][innerLoadIndex][vectorLoadIndex] = float4(
+                packedAVectors[packedABase + innerLoadIndex * aVectorsPerInner + vectorLoadIndex]
+            );
+        }
+
+        uint packedBBase = threadgroupPosition.x * kTileCount * blockK * bVectorsPerRow;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * bVectorsPerRow; loadIndex += 64) {
+            uint innerLoadIndex = loadIndex / bVectorsPerRow;
+            uint vectorLoadIndex = loadIndex % bVectorsPerRow;
+            tileB[0][innerLoadIndex][vectorLoadIndex] = float4(
+                packedBVectors[packedBBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+            );
+        }
+    }
+
+    threadgroup_barrier(mem_flags::mem_threadgroup);
+
+    for (uint tileIndex = 0; tileIndex < kTileCount; tileIndex++) {
+        uint stage = tileIndex & 1u;
+        uint nextStage = stage ^ 1u;
+
+        for (uint inner = 0; inner < blockK; inner++) {
+            float4 aVector = tileA[stage][inner][localARowVector];
+            float4 bVector = tileB[stage][inner][localBVectorIndex];
+            accumulator0 += aVector[0] * bVector;
+            accumulator1 += aVector[1] * bVector;
+            accumulator2 += aVector[2] * bVector;
+            accumulator3 += aVector[3] * bVector;
+        }
+
+        if (tileIndex + 1 < kTileCount) {
+            uint nextTileIndex = tileIndex + 1;
+            uint packedABase = (threadgroupPosition.y * kTileCount + nextTileIndex) * blockK * aVectorsPerInner;
+            for (uint loadIndex = localLinearIndex; loadIndex < blockK * aVectorsPerInner; loadIndex += 64) {
+                uint innerLoadIndex = loadIndex / aVectorsPerInner;
+                uint vectorLoadIndex = loadIndex % aVectorsPerInner;
+                tileA[nextStage][innerLoadIndex][vectorLoadIndex] = float4(
+                    packedAVectors[packedABase + innerLoadIndex * aVectorsPerInner + vectorLoadIndex]
+                );
+            }
+
+            uint packedBBase = (threadgroupPosition.x * kTileCount + nextTileIndex) * blockK * bVectorsPerRow;
+            for (uint loadIndex = localLinearIndex; loadIndex < blockK * bVectorsPerRow; loadIndex += 64) {
+                uint innerLoadIndex = loadIndex / bVectorsPerRow;
+                uint vectorLoadIndex = loadIndex % bVectorsPerRow;
+                tileB[nextStage][innerLoadIndex][vectorLoadIndex] = float4(
+                    packedBVectors[packedBBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+                );
+            }
+
+            threadgroup_barrier(mem_flags::mem_threadgroup);
+        }
+    }
+
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 0] = accumulator0[0];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 1] = accumulator0[1];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 2] = accumulator0[2];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 3] = accumulator0[3];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 0] = accumulator1[0];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 1] = accumulator1[1];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 2] = accumulator1[2];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 3] = accumulator1[3];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 0] = accumulator2[0];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 1] = accumulator2[1];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 2] = accumulator2[2];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 3] = accumulator2[3];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 0] = accumulator3[0];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 1] = accumulator3[1];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 2] = accumulator3[2];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
+}
+
