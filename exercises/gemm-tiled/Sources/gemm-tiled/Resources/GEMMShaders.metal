@@ -1078,6 +1078,142 @@ kernel void packed_vectorized_a_b_gemm_4x4_64x32x16_aligned(
     c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
 }
 
+kernel void packed_vectorized_a_b_gemm_4x4_64x32x16_unrolled(
+    device const float *packedA [[buffer(0)]],
+    device const float *packedB [[buffer(1)]],
+    device float *c [[buffer(2)]],
+    constant GEMMUniforms &uniforms [[buffer(3)]],
+    uint2 threadgroupPosition [[threadgroup_position_in_grid]],
+    uint2 threadPositionInThreadgroup [[thread_position_in_threadgroup]]
+) {
+    constexpr uint blockM = 64;
+    constexpr uint blockN = 32;
+    constexpr uint blockK = 16;
+    constexpr uint registerBlockM = 4;
+    constexpr uint registerBlockN = 4;
+    constexpr uint threadsPerThreadgroupX = 8;
+    constexpr uint threadsPerThreadgroupY = 16;
+    constexpr uint threadsPerThreadgroup = threadsPerThreadgroupX * threadsPerThreadgroupY;
+    constexpr uint aVectorsPerInner = blockM / registerBlockM;
+    constexpr uint bVectorsPerRow = blockN / registerBlockN;
+
+    threadgroup float4 tileA[blockK][aVectorsPerInner];
+    threadgroup float4 tileB[blockK][bVectorsPerRow];
+
+    uint localLinearIndex = threadPositionInThreadgroup.y * threadsPerThreadgroupX + threadPositionInThreadgroup.x;
+    uint localARowVector = threadPositionInThreadgroup.y;
+    uint localBVectorIndex = threadPositionInThreadgroup.x;
+    uint globalRowBase = threadgroupPosition.y * blockM + localARowVector * registerBlockM;
+    uint globalColBase = threadgroupPosition.x * blockN + localBVectorIndex * registerBlockN;
+    uint kTileCount = uniforms.k / blockK;
+
+    float4 accumulator0 = float4(0.0f);
+    float4 accumulator1 = float4(0.0f);
+    float4 accumulator2 = float4(0.0f);
+    float4 accumulator3 = float4(0.0f);
+
+    const device packed_float4 *packedAVectors = reinterpret_cast<const device packed_float4 *>(packedA);
+    const device packed_float4 *packedBVectors = reinterpret_cast<const device packed_float4 *>(packedB);
+
+    for (uint tileIndex = 0; tileIndex < kTileCount; tileIndex++) {
+        uint packedABase = (threadgroupPosition.y * kTileCount + tileIndex) * blockK * aVectorsPerInner;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * aVectorsPerInner; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / aVectorsPerInner;
+            uint vectorLoadIndex = loadIndex % aVectorsPerInner;
+            tileA[innerLoadIndex][vectorLoadIndex] = float4(
+                packedAVectors[packedABase + innerLoadIndex * aVectorsPerInner + vectorLoadIndex]
+            );
+        }
+
+        uint packedBBase = (threadgroupPosition.x * kTileCount + tileIndex) * blockK * bVectorsPerRow;
+        for (uint loadIndex = localLinearIndex; loadIndex < blockK * bVectorsPerRow; loadIndex += threadsPerThreadgroup) {
+            uint innerLoadIndex = loadIndex / bVectorsPerRow;
+            uint vectorLoadIndex = loadIndex % bVectorsPerRow;
+            tileB[innerLoadIndex][vectorLoadIndex] = float4(
+                packedBVectors[packedBBase + innerLoadIndex * bVectorsPerRow + vectorLoadIndex]
+            );
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+
+        {
+            float4 aVector0 = tileA[0][localARowVector];
+            float4 bVector0 = tileB[0][localBVectorIndex];
+            float4 aVector1 = tileA[1][localARowVector];
+            float4 bVector1 = tileB[1][localBVectorIndex];
+            float4 aVector2 = tileA[2][localARowVector];
+            float4 bVector2 = tileB[2][localBVectorIndex];
+            float4 aVector3 = tileA[3][localARowVector];
+            float4 bVector3 = tileB[3][localBVectorIndex];
+            accumulate_register_block_4x4(aVector0, bVector0, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector1, bVector1, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector2, bVector2, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector3, bVector3, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+        {
+            float4 aVector4 = tileA[4][localARowVector];
+            float4 bVector4 = tileB[4][localBVectorIndex];
+            float4 aVector5 = tileA[5][localARowVector];
+            float4 bVector5 = tileB[5][localBVectorIndex];
+            float4 aVector6 = tileA[6][localARowVector];
+            float4 bVector6 = tileB[6][localBVectorIndex];
+            float4 aVector7 = tileA[7][localARowVector];
+            float4 bVector7 = tileB[7][localBVectorIndex];
+            accumulate_register_block_4x4(aVector4, bVector4, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector5, bVector5, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector6, bVector6, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector7, bVector7, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+        {
+            float4 aVector8 = tileA[8][localARowVector];
+            float4 bVector8 = tileB[8][localBVectorIndex];
+            float4 aVector9 = tileA[9][localARowVector];
+            float4 bVector9 = tileB[9][localBVectorIndex];
+            float4 aVector10 = tileA[10][localARowVector];
+            float4 bVector10 = tileB[10][localBVectorIndex];
+            float4 aVector11 = tileA[11][localARowVector];
+            float4 bVector11 = tileB[11][localBVectorIndex];
+            accumulate_register_block_4x4(aVector8, bVector8, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector9, bVector9, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector10, bVector10, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector11, bVector11, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+        {
+            float4 aVector12 = tileA[12][localARowVector];
+            float4 bVector12 = tileB[12][localBVectorIndex];
+            float4 aVector13 = tileA[13][localARowVector];
+            float4 bVector13 = tileB[13][localBVectorIndex];
+            float4 aVector14 = tileA[14][localARowVector];
+            float4 bVector14 = tileB[14][localBVectorIndex];
+            float4 aVector15 = tileA[15][localARowVector];
+            float4 bVector15 = tileB[15][localBVectorIndex];
+            accumulate_register_block_4x4(aVector12, bVector12, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector13, bVector13, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector14, bVector14, accumulator0, accumulator1, accumulator2, accumulator3);
+            accumulate_register_block_4x4(aVector15, bVector15, accumulator0, accumulator1, accumulator2, accumulator3);
+        }
+
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+    }
+
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 0] = accumulator0[0];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 1] = accumulator0[1];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 2] = accumulator0[2];
+    c[(globalRowBase + 0) * uniforms.n + globalColBase + 3] = accumulator0[3];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 0] = accumulator1[0];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 1] = accumulator1[1];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 2] = accumulator1[2];
+    c[(globalRowBase + 1) * uniforms.n + globalColBase + 3] = accumulator1[3];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 0] = accumulator2[0];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 1] = accumulator2[1];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 2] = accumulator2[2];
+    c[(globalRowBase + 2) * uniforms.n + globalColBase + 3] = accumulator2[3];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 0] = accumulator3[0];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 1] = accumulator3[1];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 2] = accumulator3[2];
+    c[(globalRowBase + 3) * uniforms.n + globalColBase + 3] = accumulator3[3];
+}
+
 kernel void packed_vectorized_a_b_gemm_4x4_32x64x16_aligned(
     device const float *packedA [[buffer(0)]],
     device const float *packedB [[buffer(1)]],

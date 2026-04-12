@@ -130,6 +130,18 @@ let metalRunnerConfigurations = [
         requiredKAlignment: 16
     ),
     MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 64x32x16 unroll",
+        functionName: "packed_vectorized_a_b_gemm_4x4_64x32x16_unrolled",
+        threadgroupWidth: 8,
+        threadgroupHeight: 16,
+        outputTileWidth: 32,
+        outputTileHeight: 64,
+        aOperandLayout: .packedVectorized(blockM: 64, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4),
+        requiresAlignedProblem: true,
+        requiredKAlignment: 16
+    ),
+    MetalKernelConfiguration(
         name: "Metal packed-vectorized A+B 32x64x16",
         functionName: "packed_vectorized_a_b_gemm_4x4_32x64x16_aligned",
         threadgroupWidth: 16,

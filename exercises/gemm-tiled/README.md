@@ -5,7 +5,7 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 ## What it includes
 
 - A baseline `vecLib` GEMM using `Accelerate` + `cblas_sgemm`
-- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, a `storageModePrivate` aligned variant, aligned tile/threadgroup autotune variants (`64x32x16`, `32x64x16`, `32x32x32`), and packed-vectorized-`A+B` unrolled-inner-`K` versions
+- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, a `storageModePrivate` aligned variant, aligned tile/threadgroup autotune variants (`64x32x16`, `32x64x16`, `32x32x32`), a `64x32x16` unrolled-inner-`K` experiment, and packed-vectorized-`A+B` unrolled-inner-`K` versions
 - Console output with `MNK` on the X-axis and `MFLOPs` on the Y-axis
 - CSV export for plotting performance curves, with unified wall-time columns and optional Metal GPU timestamp columns
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
@@ -50,6 +50,7 @@ The default benchmark compares:
 - `Metal packed-vectorized A+B 4x4 aligned`
 - `Metal packed-vectorized A+B 4x4 aligned private`
 - `Metal packed-vectorized A+B 64x32x16`
+- `Metal packed-vectorized A+B 64x32x16 unroll`
 - `Metal packed-vectorized A+B 32x64x16`
 - `Metal packed-vectorized A+B 32x32x32`
 - `Metal packed A+B aligned pipe`
@@ -116,6 +117,14 @@ The generated chart uses:
 ## Why vecLib
 
 `cblas_sgemm` in `Accelerate` is the native Apple baseline that is available on M1/M2/M3 Macs through vecLib, so it is a more relevant comparison than MKL on macOS. The default table, CSV, and SVG now use unified wall time so vecLib and Metal are compared on the same timing basis.
+
+## Optimization takeaways
+
+- `4x4` register blocking is the first big step up from naive tiled kernels because each thread reuses loaded values across a small output patch instead of producing a single scalar.
+- Packing only `B` helps mostly by cleaning up global-memory access, but packing both `A` and `B` is the bigger jump because it lines up both operands with the kernel's `float4` access pattern.
+- The aligned-only kernels matter because they remove edge handling from the hot path and make the `k16` packed path more stable on large square problems.
+- Tile and threadgroup shape tuning is still one of the highest-value levers: `64x32x16` is currently the strongest general-purpose variant in many of the larger benchmark points.
+- Swizzle, pipeline, and buffer-mode changes are more situational here; they are useful experiments, but so far they have not beaten the simpler packed `A+B` hot paths as consistently as packing plus tile autotuning.
 
 ## Where to extend next
 
