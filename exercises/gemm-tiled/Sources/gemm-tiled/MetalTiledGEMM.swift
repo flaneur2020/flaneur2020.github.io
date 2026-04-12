@@ -17,8 +17,16 @@ struct MetalTiledGEMMRunner: GEMMRunner {
     private let tileSize: Int
 
     init(tileSize: Int) throws {
+        try self.init(
+            name: "Metal tiled \(tileSize)x\(tileSize)",
+            functionName: "tiled_gemm_\(tileSize)x\(tileSize)",
+            tileSize: tileSize
+        )
+    }
+
+    init(name: String, functionName: String, tileSize: Int) throws {
+        self.name = name
         self.tileSize = tileSize
-        self.name = "Metal tiled \(tileSize)x\(tileSize)"
 
         guard let device = MTLCreateSystemDefaultDevice() else {
             throw BenchmarkError.unsupportedPlatform("Metal is unavailable on this machine")
@@ -29,14 +37,13 @@ struct MetalTiledGEMMRunner: GEMMRunner {
 
         let source = try Self.loadShaderSource()
         let library = try device.makeLibrary(source: source, options: nil)
-        let functionName = "tiled_gemm_\(tileSize)x\(tileSize)"
         guard let function = library.makeFunction(name: functionName) else {
             throw BenchmarkError.runtimeFailure("Could not find \(functionName) in GEMMShaders.metal")
         }
 
         let pipeline = try device.makeComputePipelineState(function: function)
         guard tileSize * tileSize <= pipeline.maxTotalThreadsPerThreadgroup else {
-            throw BenchmarkError.runtimeFailure("The \(tileSize)x\(tileSize) threadgroup exceeds the device limit")
+            throw BenchmarkError.runtimeFailure("The \(name) threadgroup exceeds the device limit")
         }
 
         self.device = device
