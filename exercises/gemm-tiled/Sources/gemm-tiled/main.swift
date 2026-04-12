@@ -1,6 +1,7 @@
 import Foundation
 
 let vecLibRunner = VecLibGEMMRunner()
+let metalTileSizes = [16, 32]
 
 do {
     guard let configuration = try CLI.parse(arguments: CommandLine.arguments) else {
@@ -9,10 +10,12 @@ do {
     }
 
     var runners: [any GEMMRunner] = [vecLibRunner]
-    do {
-        runners.append(try MetalTiledGEMMRunner())
-    } catch {
-        fputs("warning: skipping Metal runner: \(error.localizedDescription)\n", stderr)
+    for tileSize in metalTileSizes {
+        do {
+            runners.append(try MetalTiledGEMMRunner(tileSize: tileSize))
+        } catch {
+            fputs("warning: skipping Metal tiled \(tileSize)x\(tileSize): \(error.localizedDescription)\n", stderr)
+        }
     }
 
     print("Benchmarking GEMM with X = MNK and Y = MFLOPs")

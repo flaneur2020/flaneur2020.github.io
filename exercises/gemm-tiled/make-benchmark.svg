@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620">
+<rect width="100%" height="100%" fill="#ffffff" />
+<text x="500.00" y="36.00" fill="#111827" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="700">GEMM benchmark: MNK vs MFLOPs</text>
+<text x="500.00" y="58.00" fill="#6b7280" font-size="13" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">Source: make-benchmark.csv</text>
+<rect x="100" y="70" width="860" height="460" fill="#fafafa" stroke="#e5e7eb" />
+<line x1="100.00" y1="530.00" x2="960.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="88.00" y="534.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">0</text>
+<line x1="100.00" y1="438.00" x2="960.00" y2="438.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="88.00" y="442.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">132.6K</text>
+<line x1="100.00" y1="346.00" x2="960.00" y2="346.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="88.00" y="350.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">265.2K</text>
+<line x1="100.00" y1="254.00" x2="960.00" y2="254.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="88.00" y="258.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">397.8K</text>
+<line x1="100.00" y1="162.00" x2="960.00" y2="162.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="88.00" y="166.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">530.4K</text>
+<line x1="100.00" y1="70.00" x2="960.00" y2="70.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="88.00" y="74.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">663.0K</text>
+<line x1="100.00" y1="70.00" x2="100.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="100.00" y="554.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">0</text>
+<line x1="272.00" y1="70.00" x2="272.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="272.00" y="554.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">440.4K</text>
+<line x1="444.00" y1="70.00" x2="444.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="444.00" y="554.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">880.8K</text>
+<line x1="616.00" y1="70.00" x2="616.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="616.00" y="554.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">1.3M</text>
+<line x1="788.00" y1="70.00" x2="788.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="788.00" y="554.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">1.8M</text>
+<line x1="960.00" y1="70.00" x2="960.00" y2="530.00" stroke="#e5e7eb" stroke-width="1" />
+<text x="960.00" y="554.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">2.2M</text>
+<line x1="100.00" y1="530.00" x2="960.00" y2="530.00" stroke="#111827" stroke-width="1.5" />
+<line x1="100.00" y1="70.00" x2="100.00" y2="530.00" stroke="#111827" stroke-width="1.5" />
+<text x="500.00" y="592.00" fill="#111827" font-size="16" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">MNK</text>
+<text x="28.00" y="310.00" fill="#111827" font-size="16" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600" transform="rotate(-90 28 310.00)">MFLOPs</text>
+<polyline points="202.38,497.54 919.05,441.14" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="202.38" cy="497.54" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="919.05" cy="441.14" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<line x1="740.00" y1="88.00" x2="764.00" y2="88.00" stroke="#2563eb" stroke-width="3" />
+<circle cx="752.00" cy="88.00" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<text x="774.00" y="92.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal tiled 16x16</text>
+<polyline points="202.38,499.79 919.05,429.79" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="202.38" cy="499.79" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="919.05" cy="429.79" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<line x1="740.00" y1="112.00" x2="764.00" y2="112.00" stroke="#dc2626" stroke-width="3" />
+<circle cx="752.00" cy="112.00" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<text x="774.00" y="116.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal tiled 32x32</text>
+<polyline points="202.38,300.20 919.05,111.82" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="202.38" cy="300.20" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="919.05" cy="111.82" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<line x1="740.00" y1="136.00" x2="764.00" y2="136.00" stroke="#16a34a" stroke-width="3" />
+<circle cx="752.00" cy="136.00" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<text x="774.00" y="140.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">vecLib cblas_sgemm</text>
+</svg>
