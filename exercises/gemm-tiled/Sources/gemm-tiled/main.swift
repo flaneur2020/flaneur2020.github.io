@@ -9,6 +9,7 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 16,
         outputTileWidth: 16,
         outputTileHeight: 16,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
@@ -18,6 +19,7 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 32,
         outputTileWidth: 32,
         outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
@@ -27,6 +29,7 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 32,
         outputTileWidth: 32,
         outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
@@ -36,6 +39,7 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 8,
         outputTileWidth: 32,
         outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
@@ -45,6 +49,7 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 8,
         outputTileWidth: 32,
         outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .packedSwizzled(blockK: 8, blockN: 32, swizzleGroup: 8)
     ),
     MetalKernelConfiguration(
@@ -54,6 +59,7 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 8,
         outputTileWidth: 32,
         outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .packedVectorized(blockK: 8, blockN: 32, vectorWidth: 4)
     ),
     MetalKernelConfiguration(
@@ -63,7 +69,38 @@ let metalRunnerConfigurations = [
         threadgroupHeight: 8,
         outputTileWidth: 32,
         outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
         bOperandLayout: .packedVectorizedSwizzled(blockK: 8, blockN: 32, vectorWidth: 4, vectorSwizzleGroup: 4)
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized B 4x4 k16",
+        functionName: "packed_vectorized_b_gemm_4x4_k16",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .rowMajor,
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4)
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 4x4 k16",
+        functionName: "packed_vectorized_a_b_gemm_4x4_k16",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4)
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-vectorized A+B 4x4 unroll",
+        functionName: "packed_vectorized_a_b_gemm_4x4_k16_unrolled",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        aOperandLayout: .packedVectorized(blockM: 32, blockK: 16, vectorHeight: 4),
+        bOperandLayout: .packedVectorized(blockK: 16, blockN: 32, vectorWidth: 4)
     ),
 ]
 
@@ -86,7 +123,7 @@ do {
     print("Baseline: Apple vecLib via Accelerate cblas_sgemm")
     print("")
     print(
-        "\(pad("implementation", to: 34)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
+        "\(pad("implementation", to: 40)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
     )
 
     var measurements = [BenchmarkMeasurement]()
@@ -117,7 +154,7 @@ do {
             measurements.append(measurement)
 
             print(
-                "\(pad(measurement.implementation, to: 34)) " +
+                "\(pad(measurement.implementation, to: 40)) " +
                 "\(pad(problem.description, to: 14)) " +
                 "\(pad(String(problem.mnkProduct), to: 14)) " +
                 "\(pad(formatMilliseconds(measurement.averageMs), to: 12)) " +

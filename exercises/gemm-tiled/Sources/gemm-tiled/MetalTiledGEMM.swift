@@ -8,6 +8,11 @@ private struct GEMMUniforms {
     var k: UInt32
 }
 
+enum MetalAOperandLayout {
+    case rowMajor
+    case packedVectorized(blockM: Int, blockK: Int, vectorHeight: Int)
+}
+
 enum MetalBOperandLayout {
     case rowMajor
     case packedSwizzled(blockK: Int, blockN: Int, swizzleGroup: Int)
@@ -22,6 +27,7 @@ struct MetalKernelConfiguration {
     let threadgroupHeight: Int
     let outputTileWidth: Int
     let outputTileHeight: Int
+    let aOperandLayout: MetalAOperandLayout
     let bOperandLayout: MetalBOperandLayout
 }
 
@@ -68,8 +74,9 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         warmupIterations: Int,
         measuredIterations: Int
     ) throws -> RawBenchmarkRun {
+        let preparedAElements = prepareAOperandElements(from: a, problem: problem)
         let preparedBElements = prepareBOperandElements(from: b, problem: problem)
-        let aBuffer = try makeBuffer(copying: a.elements)
+        let aBuffer = try makeBuffer(copying: preparedAElements)
         let bBuffer = try makeBuffer(copying: preparedBElements)
         let outputLength = problem.outputElementCount * MemoryLayout<Float>.stride
         guard let cBuffer = device.makeBuffer(length: outputLength, options: .storageModeShared) else {
@@ -132,6 +139,21 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         )
     }
 
+    private func prepareAOperandElements(from a: Matrix, problem: GEMMProblem) -> [Float] {
+        switch configuration.aOperandLayout {
+        case .rowMajor:
+            return a.elements
+        case .packedVectorized(let blockM, let blockK, let vectorHeight):
+            return packVectorizedAOperand(
+                elements: a.elements,
+                problem: problem,
+                blockM: blockM,
+                blockK: blockK,
+                vectorHeight: vectorHeight
+            )
+        }
+    }
+
     private func prepareBOperandElements(from b: Matrix, problem: GEMMProblem) -> [Float] {
         switch configuration.bOperandLayout {
         case .rowMajor:
@@ -162,6 +184,42 @@ struct MetalTiledGEMMRunner: GEMMRunner {
                 vectorSwizzleGroup: vectorSwizzleGroup
             )
         }
+    }
+
+    private func packVectorizedAOperand(
+        elements: [Float],
+        problem: GEMMProblem,
+        blockM: Int,
+        blockK: Int,
+        vectorHeight: Int
+    ) -> [Float] {
+        precondition(blockM % vectorHeight == 0)
+
+        let mTileCount = (problem.m + blockM - 1) / blockM
+        let kTileCount = (problem.k + blockK - 1) / blockK
+        let vectorsPerInner = blockM / vectorHeight
+        let tileElementCount = blockM * blockK
+        var packed = [Float](repeating: 0, count: mTileCount * kTileCount * tileElementCount)
+
+        for mTile in 0..<mTileCount {
+            for kTile in 0..<kTileCount {
+                let tileBase = (mTile * kTileCount + kTile) * tileElementCount
+                for inner in 0..<blockK {
+                    let sourceColumn = kTile * blockK + inner
+                    for vectorIndex in 0..<vectorsPerInner {
+                        for lane in 0..<vectorHeight {
+                            let sourceRow = mTile * blockM + vectorIndex * vectorHeight + lane
+                            let destinationIndex = tileBase + inner * blockM + vectorIndex * vectorHeight + lane
+                            if sourceRow < problem.m && sourceColumn < problem.k {
+                                packed[destinationIndex] = elements[sourceRow * problem.k + sourceColumn]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return packed
     }
 
     private func packSwizzledBOperand(

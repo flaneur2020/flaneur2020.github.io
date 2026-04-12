@@ -101,8 +101,8 @@ def svg_polyline(points: List[Tuple[float, float]], **attrs: str) -> str:
 
 
 def render_svg(series: Dict[str, List[Point]], title: str, source_name: str) -> str:
-    width = 1000
-    height = 620
+    width = 1220
+    height = 700
     margin_left = 100
     margin_right = 40
     margin_top = 70
@@ -123,6 +123,11 @@ def render_svg(series: Dict[str, List[Point]], title: str, source_name: str) -> 
         "#7c3aed",
         "#ea580c",
         "#0891b2",
+        "#d97706",
+        "#db2777",
+        "#4f46e5",
+        "#059669",
+        "#b91c1c",
     ]
 
     def project_x(value: float) -> float:
@@ -156,7 +161,7 @@ def render_svg(series: Dict[str, List[Point]], title: str, source_name: str) -> 
     items.append(svg_text(width / 2, height - 28, "MNK", fill="#111827", font_size="16", font_family="Helvetica, Arial, sans-serif", text_anchor="middle", font_weight="600"))
     items.append(svg_text(28, height / 2, "MFLOPs", fill="#111827", font_size="16", font_family="Helvetica, Arial, sans-serif", text_anchor="middle", font_weight="600", transform=f"rotate(-90 28 {height / 2:.2f})"))
 
-    legend_x = width - margin_right - 220
+    legend_x = width - margin_right - 360
     legend_y = margin_top + 18
 
     for index, (implementation, points) in enumerate(sorted(series.items())):
