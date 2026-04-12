@@ -8,7 +8,8 @@ let metalRunnerConfigurations = [
         threadgroupWidth: 16,
         threadgroupHeight: 16,
         outputTileWidth: 16,
-        outputTileHeight: 16
+        outputTileHeight: 16,
+        bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
         name: "Metal tiled 32x32",
@@ -16,7 +17,8 @@ let metalRunnerConfigurations = [
         threadgroupWidth: 32,
         threadgroupHeight: 32,
         outputTileWidth: 32,
-        outputTileHeight: 32
+        outputTileHeight: 32,
+        bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
         name: "Metal swizzled 32x32",
@@ -24,7 +26,8 @@ let metalRunnerConfigurations = [
         threadgroupWidth: 32,
         threadgroupHeight: 32,
         outputTileWidth: 32,
-        outputTileHeight: 32
+        outputTileHeight: 32,
+        bOperandLayout: .rowMajor
     ),
     MetalKernelConfiguration(
         name: "Metal register blocked 4x4",
@@ -32,7 +35,17 @@ let metalRunnerConfigurations = [
         threadgroupWidth: 8,
         threadgroupHeight: 8,
         outputTileWidth: 32,
-        outputTileHeight: 32
+        outputTileHeight: 32,
+        bOperandLayout: .rowMajor
+    ),
+    MetalKernelConfiguration(
+        name: "Metal packed-swizzled B 4x4",
+        functionName: "packed_swizzled_b_gemm_4x4",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32,
+        bOperandLayout: .packedSwizzled(blockK: 8, blockN: 32, swizzleGroup: 8)
     ),
 ]
 
@@ -55,7 +68,7 @@ do {
     print("Baseline: Apple vecLib via Accelerate cblas_sgemm")
     print("")
     print(
-        "\(pad("implementation", to: 26)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
+        "\(pad("implementation", to: 30)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
     )
 
     var measurements = [BenchmarkMeasurement]()
@@ -86,7 +99,7 @@ do {
             measurements.append(measurement)
 
             print(
-                "\(pad(measurement.implementation, to: 26)) " +
+                "\(pad(measurement.implementation, to: 30)) " +
                 "\(pad(problem.description, to: 14)) " +
                 "\(pad(String(problem.mnkProduct), to: 14)) " +
                 "\(pad(formatMilliseconds(measurement.averageMs), to: 12)) " +

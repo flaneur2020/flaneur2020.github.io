@@ -8,6 +8,11 @@ private struct GEMMUniforms {
     var k: UInt32
 }
 
+enum MetalBOperandLayout {
+    case rowMajor
+    case packedSwizzled(blockK: Int, blockN: Int, swizzleGroup: Int)
+}
+
 struct MetalKernelConfiguration {
     let name: String
     let functionName: String
@@ -15,6 +20,7 @@ struct MetalKernelConfiguration {
     let threadgroupHeight: Int
     let outputTileWidth: Int
     let outputTileHeight: Int
+    let bOperandLayout: MetalBOperandLayout
 }
 
 struct MetalTiledGEMMRunner: GEMMRunner {
@@ -60,8 +66,9 @@ struct MetalTiledGEMMRunner: GEMMRunner {
         warmupIterations: Int,
         measuredIterations: Int
     ) throws -> RawBenchmarkRun {
+        let preparedBElements = prepareBOperandElements(from: b, problem: problem)
         let aBuffer = try makeBuffer(copying: a.elements)
-        let bBuffer = try makeBuffer(copying: b.elements)
+        let bBuffer = try makeBuffer(copying: preparedBElements)
         let outputLength = problem.outputElementCount * MemoryLayout<Float>.stride
         guard let cBuffer = device.makeBuffer(length: outputLength, options: .storageModeShared) else {
             throw BenchmarkError.runtimeFailure("Could not allocate the output Metal buffer")
@@ -121,6 +128,67 @@ struct MetalTiledGEMMRunner: GEMMRunner {
             averageMs: timings.average,
             bestMs: timings.min() ?? 0
         )
+    }
+
+    private func prepareBOperandElements(from b: Matrix, problem: GEMMProblem) -> [Float] {
+        switch configuration.bOperandLayout {
+        case .rowMajor:
+            return b.elements
+        case .packedSwizzled(let blockK, let blockN, let swizzleGroup):
+            return packBOperand(
+                elements: b.elements,
+                problem: problem,
+                blockK: blockK,
+                blockN: blockN,
+                swizzleGroup: swizzleGroup
+            )
+        }
+    }
+
+    private func packBOperand(
+        elements: [Float],
+        problem: GEMMProblem,
+        blockK: Int,
+        blockN: Int,
+        swizzleGroup: Int
+    ) -> [Float] {
+        let kTileCount = (problem.k + blockK - 1) / blockK
+        let nTileCount = (problem.n + blockN - 1) / blockN
+        let tileElementCount = blockK * blockN
+        var packed = [Float](repeating: 0, count: nTileCount * kTileCount * tileElementCount)
+
+        for nTile in 0..<nTileCount {
+            for kTile in 0..<kTileCount {
+                let tileBase = (nTile * kTileCount + kTile) * tileElementCount
+                for inner in 0..<blockK {
+                    let sourceRow = kTile * blockK + inner
+                    for column in 0..<blockN {
+                        let sourceColumn = nTile * blockN + column
+                        let swizzledColumn = swizzledColumnIndex(
+                            column: column,
+                            inner: inner,
+                            swizzleGroup: swizzleGroup
+                        )
+                        let value: Float
+                        if sourceRow < problem.k && sourceColumn < problem.n {
+                            value = elements[sourceRow * problem.n + sourceColumn]
+                        } else {
+                            value = 0
+                        }
+                        packed[tileBase + inner * blockN + swizzledColumn] = value
+                    }
+                }
+            }
+        }
+
+        return packed
+    }
+
+    private func swizzledColumnIndex(column: Int, inner: Int, swizzleGroup: Int) -> Int {
+        let groupBase = column / swizzleGroup * swizzleGroup
+        let offset = column % swizzleGroup
+        let swizzledOffset = offset ^ (inner % swizzleGroup)
+        return groupBase + swizzledOffset
     }
 
     private func makeBuffer(copying values: [Float]) throws -> MTLBuffer {
