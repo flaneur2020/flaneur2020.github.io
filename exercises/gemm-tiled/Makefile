@@ -4,7 +4,7 @@ SVG ?= benchmark.svg
 PROBLEMS ?= 1024,1280,1536,1792,2048
 ITERATIONS ?= 10
 WARMUP ?= 2
-IMPLEMENTATIONS ?= veclib,metal-best
+IMPLEMENTATIONS ?= veclib,mps,metal-best
 
 .PHONY: build benchmark quick plot clean
 

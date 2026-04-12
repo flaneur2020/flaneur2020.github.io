@@ -14,14 +14,23 @@ let package = Package(
         ),
     ],
     targets: [
+        .target(
+            name: "Metal4Interop",
+            publicHeadersPath: "include",
+            linkerSettings: [
+                .linkedFramework("Metal"),
+            ]
+        ),
         .executableTarget(
             name: "gemm-tiled",
+            dependencies: ["Metal4Interop"],
             resources: [
                 .process("Resources"),
             ],
             linkerSettings: [
                 .linkedFramework("Accelerate"),
                 .linkedFramework("Metal"),
+                .linkedFramework("MetalPerformanceShaders"),
             ]
         ),
     ]

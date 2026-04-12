@@ -414,9 +414,27 @@ private func buildRunners(matching filters: [String]?) throws -> [any GEMMRunner
         runners.append(vecLibRunner)
     }
 
+    if shouldIncludeMPS(in: normalizedFilters) {
+        do {
+            runners.append(try MPSGEMMRunner())
+        } catch {
+            fputs("warning: skipping MPSMatrixMultiplication: \(error.localizedDescription)\n", stderr)
+        }
+    }
+
     if shouldIncludeMetalBest(in: normalizedFilters) {
         if let bestRunner = try makeMetalBestRunner() {
             runners.append(bestRunner)
+        }
+    }
+
+    if shouldIncludeMPP(in: normalizedFilters) {
+        if #available(macOS 26.0, *) {
+            do {
+                runners.append(try MetalMPPGEMMRunner())
+            } catch {
+                fputs("warning: skipping Metal MPP single-tile 64x32 (k<64): \(error.localizedDescription)\n", stderr)
+            }
         }
     }
 
@@ -439,6 +457,20 @@ private func buildRunners(matching filters: [String]?) throws -> [any GEMMRunner
 
 private func buildDefaultRunners() throws -> [any GEMMRunner] {
     var runners: [any GEMMRunner] = [vecLibRunner]
+
+    do {
+        runners.append(try MPSGEMMRunner())
+    } catch {
+        fputs("warning: skipping MPSMatrixMultiplication: \(error.localizedDescription)\n", stderr)
+    }
+
+    if #available(macOS 26.0, *) {
+        do {
+            runners.append(try MetalMPPGEMMRunner())
+        } catch {
+            fputs("warning: skipping Metal MPP single-tile 64x32 (k<64): \(error.localizedDescription)\n", stderr)
+        }
+    }
 
     for runnerConfiguration in metalRunnerConfigurations {
         do {
@@ -503,12 +535,28 @@ private func shouldIncludeVecLib(in filters: [String]?) -> Bool {
     return filters.contains(where: isVecLibFilter)
 }
 
+private func shouldIncludeMPS(in filters: [String]?) -> Bool {
+    guard let filters else {
+        return false
+    }
+
+    return filters.contains(where: isMPSFilter)
+}
+
 private func shouldIncludeMetalBest(in filters: [String]?) -> Bool {
     guard let filters else {
         return false
     }
 
     return filters.contains(where: isMetalBestFilter)
+}
+
+private func shouldIncludeMPP(in filters: [String]?) -> Bool {
+    guard let filters else {
+        return false
+    }
+
+    return filters.contains(where: isMPPFilter)
 }
 
 private func shouldInclude(_ configuration: MetalKernelConfiguration, in filters: [String]?) -> Bool {
@@ -539,7 +587,7 @@ private func reportUnmatchedImplementationFilters(_ filters: [String]?) {
 }
 
 private func matchesAnyImplementation(_ filter: String) -> Bool {
-    if filter == "all" || isVecLibFilter(filter) || isMetalBestFilter(filter) || isAllMetalFilter(filter) {
+    if filter == "all" || isVecLibFilter(filter) || isMPSFilter(filter) || isMetalBestFilter(filter) || isMPPFilter(filter) || isAllMetalFilter(filter) {
         return true
     }
 
@@ -550,8 +598,16 @@ private func isVecLibFilter(_ filter: String) -> Bool {
     ["veclib", "vec lib", "baseline", "cblas", "sgemm", "accelerate"].contains(filter)
 }
 
+private func isMPSFilter(_ filter: String) -> Bool {
+    ["mps", "mpsmatrix", "mpsmatrixmultiplication", "matrixmultiplication", "metal performance shaders"].contains(filter)
+}
+
 private func isMetalBestFilter(_ filter: String) -> Bool {
     ["metal best", "best metal", "best", "autotuned", "autotune"].contains(filter)
+}
+
+private func isMPPFilter(_ filter: String) -> Bool {
+    ["mpp", "cooperative", "cooperative tensor", "tensor ops", "tensorops"].contains(filter)
 }
 
 private func isAllMetalFilter(_ filter: String) -> Bool {

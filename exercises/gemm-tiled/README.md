@@ -27,7 +27,7 @@ swift run gemm-tiled \
   --problems 128,256,384,512,768,1024 \
   --iterations 10 \
   --warmup 2 \
-  --implementations veclib,metal-best \
+  --implementations veclib,mps,metal-best \
   --csv benchmark.csv
 ```
 
@@ -69,7 +69,7 @@ make quick
 make plot
 ```
 
-`make benchmark` now runs a focused `vecLib` vs `metal-best` release benchmark and generates the SVG graph in one step.
+`make benchmark` now runs a focused `vecLib` vs `MPSMatrixMultiplication` vs `metal-best` release benchmark and generates the SVG graph in one step.
 
 Useful overrides:
 
@@ -105,7 +105,7 @@ The generated chart uses:
 
 - `MNK` on the X-axis
 - `MFLOPs` on the Y-axis, computed from unified wall time
-- By default, one line for `vecLib` and one line for `metal-best`
+- By default, one line each for `vecLib`, `MPSMatrixMultiplication`, and `metal-best`
 - Override `IMPLEMENTATIONS=all` to plot the full kernel sweep
 
 ## CSV columns
