@@ -1,0 +1,13 @@
+[project]
+name = "browserdownload"
+version = "0.1.0"
+description = "A script to download videos from browser-visited URLs"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "undetected-chromedriver>=3.5.0",
+    "setuptools>=60.0.0",
+]
+
+[project.scripts]
+browser-download = "browser_download:main"

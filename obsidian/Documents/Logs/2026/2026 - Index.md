@@ -16,4 +16,13 @@ prev: [[2025 - Index]]
 ## Mar
 
 - Readings
-	- 
+	- [[Enabling Trillion-Parameter Models on AWS EFA]]
+	- [[Disaggregated Prefill and Decode]]
+
+## April
+
+- LeetGPU Easy (7/20)
+- Writings
+	- [[Swizzling]]
+- Readings
+	- [[Inside NVIDIA GPUs - Anatomy of high performance matmul kernels]]
