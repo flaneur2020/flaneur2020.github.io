@@ -8,25 +8,26 @@ private struct GEMMUniforms {
     var k: UInt32
 }
 
+struct MetalKernelConfiguration {
+    let name: String
+    let functionName: String
+    let threadgroupWidth: Int
+    let threadgroupHeight: Int
+    let outputTileWidth: Int
+    let outputTileHeight: Int
+}
+
 struct MetalTiledGEMMRunner: GEMMRunner {
     let name: String
 
     private let device: MTLDevice
     private let commandQueue: MTLCommandQueue
     private let pipeline: MTLComputePipelineState
-    private let tileSize: Int
+    private let configuration: MetalKernelConfiguration
 
-    init(tileSize: Int) throws {
-        try self.init(
-            name: "Metal tiled \(tileSize)x\(tileSize)",
-            functionName: "tiled_gemm_\(tileSize)x\(tileSize)",
-            tileSize: tileSize
-        )
-    }
-
-    init(name: String, functionName: String, tileSize: Int) throws {
-        self.name = name
-        self.tileSize = tileSize
+    init(configuration: MetalKernelConfiguration) throws {
+        self.name = configuration.name
+        self.configuration = configuration
 
         guard let device = MTLCreateSystemDefaultDevice() else {
             throw BenchmarkError.unsupportedPlatform("Metal is unavailable on this machine")
@@ -37,13 +38,14 @@ struct MetalTiledGEMMRunner: GEMMRunner {
 
         let source = try Self.loadShaderSource()
         let library = try device.makeLibrary(source: source, options: nil)
-        guard let function = library.makeFunction(name: functionName) else {
-            throw BenchmarkError.runtimeFailure("Could not find \(functionName) in GEMMShaders.metal")
+        guard let function = library.makeFunction(name: configuration.functionName) else {
+            throw BenchmarkError.runtimeFailure("Could not find \(configuration.functionName) in GEMMShaders.metal")
         }
 
         let pipeline = try device.makeComputePipelineState(function: function)
-        guard tileSize * tileSize <= pipeline.maxTotalThreadsPerThreadgroup else {
-            throw BenchmarkError.runtimeFailure("The \(name) threadgroup exceeds the device limit")
+        let threadCount = configuration.threadgroupWidth * configuration.threadgroupHeight
+        guard threadCount <= pipeline.maxTotalThreadsPerThreadgroup else {
+            throw BenchmarkError.runtimeFailure("The \(configuration.name) threadgroup exceeds the device limit")
         }
 
         self.device = device
@@ -71,10 +73,14 @@ struct MetalTiledGEMMRunner: GEMMRunner {
             k: UInt32(problem.k)
         )
 
-        let threadsPerThreadgroup = MTLSize(width: tileSize, height: tileSize, depth: 1)
+        let threadsPerThreadgroup = MTLSize(
+            width: configuration.threadgroupWidth,
+            height: configuration.threadgroupHeight,
+            depth: 1
+        )
         let threadgroups = MTLSize(
-            width: (problem.n + tileSize - 1) / tileSize,
-            height: (problem.m + tileSize - 1) / tileSize,
+            width: (problem.n + configuration.outputTileWidth - 1) / configuration.outputTileWidth,
+            height: (problem.m + configuration.outputTileHeight - 1) / configuration.outputTileHeight,
             depth: 1
         )
 

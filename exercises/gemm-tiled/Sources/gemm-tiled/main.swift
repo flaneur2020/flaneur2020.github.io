@@ -2,9 +2,38 @@ import Foundation
 
 let vecLibRunner = VecLibGEMMRunner()
 let metalRunnerConfigurations = [
-    (name: "Metal tiled 16x16", functionName: "tiled_gemm_16x16", tileSize: 16),
-    (name: "Metal tiled 32x32", functionName: "tiled_gemm_32x32", tileSize: 32),
-    (name: "Metal swizzled 32x32", functionName: "swizzled_gemm_32x32", tileSize: 32),
+    MetalKernelConfiguration(
+        name: "Metal tiled 16x16",
+        functionName: "tiled_gemm_16x16",
+        threadgroupWidth: 16,
+        threadgroupHeight: 16,
+        outputTileWidth: 16,
+        outputTileHeight: 16
+    ),
+    MetalKernelConfiguration(
+        name: "Metal tiled 32x32",
+        functionName: "tiled_gemm_32x32",
+        threadgroupWidth: 32,
+        threadgroupHeight: 32,
+        outputTileWidth: 32,
+        outputTileHeight: 32
+    ),
+    MetalKernelConfiguration(
+        name: "Metal swizzled 32x32",
+        functionName: "swizzled_gemm_32x32",
+        threadgroupWidth: 32,
+        threadgroupHeight: 32,
+        outputTileWidth: 32,
+        outputTileHeight: 32
+    ),
+    MetalKernelConfiguration(
+        name: "Metal register blocked 4x4",
+        functionName: "register_blocked_gemm_4x4",
+        threadgroupWidth: 8,
+        threadgroupHeight: 8,
+        outputTileWidth: 32,
+        outputTileHeight: 32
+    ),
 ]
 
 do {
@@ -16,13 +45,7 @@ do {
     var runners: [any GEMMRunner] = [vecLibRunner]
     for runnerConfiguration in metalRunnerConfigurations {
         do {
-            runners.append(
-                try MetalTiledGEMMRunner(
-                    name: runnerConfiguration.name,
-                    functionName: runnerConfiguration.functionName,
-                    tileSize: runnerConfiguration.tileSize
-                )
-            )
+            runners.append(try MetalTiledGEMMRunner(configuration: runnerConfiguration))
         } catch {
             fputs("warning: skipping \(runnerConfiguration.name): \(error.localizedDescription)\n", stderr)
         }
@@ -32,7 +55,7 @@ do {
     print("Baseline: Apple vecLib via Accelerate cblas_sgemm")
     print("")
     print(
-        "\(pad("implementation", to: 22)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
+        "\(pad("implementation", to: 26)) \(pad("problem", to: 14)) \(pad("MNK", to: 14)) \(pad("avg ms", to: 12)) \(pad("best ms", to: 12)) \(pad("MFLOPs", to: 14)) max |Δ|"
     )
 
     var measurements = [BenchmarkMeasurement]()
@@ -63,7 +86,7 @@ do {
             measurements.append(measurement)
 
             print(
-                "\(pad(measurement.implementation, to: 22)) " +
+                "\(pad(measurement.implementation, to: 26)) " +
                 "\(pad(problem.description, to: 14)) " +
                 "\(pad(String(problem.mnkProduct), to: 14)) " +
                 "\(pad(formatMilliseconds(measurement.averageMs), to: 12)) " +
