@@ -5,7 +5,7 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 ## What it includes
 
 - A baseline `vecLib` GEMM using `Accelerate` + `cblas_sgemm`
-- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, a `storageModePrivate` aligned variant, aligned tile/threadgroup autotune variants (`64x32x16`, `32x64x16`, `32x32x32`), a `64x32x16` unrolled-inner-`K` experiment, and packed-vectorized-`A+B` unrolled-inner-`K` versions
+- Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, a `storageModePrivate` aligned variant, aligned tile/threadgroup autotune variants (`64x32x16`, `32x64x16`, `32x32x32`), plus `64x32x16` unrolled and pipelined experiments, and packed-vectorized-`A+B` unrolled-inner-`K` versions
 - Console output with `MNK` on the X-axis and `MFLOPs` on the Y-axis
 - CSV export for plotting performance curves, with unified wall-time columns and optional Metal GPU timestamp columns
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
@@ -51,6 +51,7 @@ The default benchmark compares:
 - `Metal packed-vectorized A+B 4x4 aligned private`
 - `Metal packed-vectorized A+B 64x32x16`
 - `Metal packed-vectorized A+B 64x32x16 unroll`
+- `Metal packed A+B 64x32x16 pipe`
 - `Metal packed-vectorized A+B 32x64x16`
 - `Metal packed-vectorized A+B 32x32x32`
 - `Metal packed A+B aligned pipe`

@@ -7,11 +7,11 @@
 <line x1="100.00" y1="610.00" x2="1180.00" y2="610.00" stroke="#e5e7eb" stroke-width="1" />
 <text x="88.00" y="614.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">0</text>
 <line x1="100.00" y1="502.00" x2="1180.00" y2="502.00" stroke="#e5e7eb" stroke-width="1" />
-<text x="88.00" y="506.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">270.1K</text>
+<text x="88.00" y="506.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">270.4K</text>
 <line x1="100.00" y1="394.00" x2="1180.00" y2="394.00" stroke="#e5e7eb" stroke-width="1" />
-<text x="88.00" y="398.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">540.2K</text>
+<text x="88.00" y="398.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">540.7K</text>
 <line x1="100.00" y1="286.00" x2="1180.00" y2="286.00" stroke="#e5e7eb" stroke-width="1" />
-<text x="88.00" y="290.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">810.3K</text>
+<text x="88.00" y="290.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">811.1K</text>
 <line x1="100.00" y1="178.00" x2="1180.00" y2="178.00" stroke="#e5e7eb" stroke-width="1" />
 <text x="88.00" y="182.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">1.1M</text>
 <line x1="100.00" y1="70.00" x2="1180.00" y2="70.00" stroke="#e5e7eb" stroke-width="1" />
@@ -32,238 +32,251 @@
 <line x1="100.00" y1="70.00" x2="100.00" y2="610.00" stroke="#111827" stroke-width="1.5" />
 <text x="610.00" y="672.00" fill="#111827" font-size="16" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">MNK</text>
 <text x="28.00" y="350.00" fill="#111827" font-size="16" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600" transform="rotate(-90 28 350.00)">MFLOPs</text>
-<polyline points="100.25,602.42 102.01,570.52 116.07,493.97 154.24,428.79 228.57,364.02 351.12,358.31 533.93,356.71 789.06,358.25 1128.57,354.62" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.42" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="570.52" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="493.97" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="428.79" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="364.02" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="358.31" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="356.71" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="358.25" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="354.62" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<polyline points="100.25,602.18 102.01,564.12 116.07,485.91 154.24,407.06 228.57,337.51 351.12,322.48 533.93,318.71 789.06,317.95 1128.57,314.87" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.18" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="564.12" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="485.91" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="407.06" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="337.51" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="322.48" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="318.71" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="317.95" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="314.87" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="88.00" x2="844.00" y2="88.00" stroke="#2563eb" stroke-width="3" />
 <circle cx="832.00" cy="88.00" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="92.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed A+B aligned pipe</text>
-<polyline points="100.25,603.85 102.01,571.09 116.07,509.65 154.24,443.78 228.57,412.29 351.12,398.05 533.93,397.09 789.06,395.10 1128.57,395.09" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.85" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="571.09" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="509.65" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="443.78" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="412.29" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="398.05" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="397.09" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="395.10" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="395.09" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="92.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed A+B 64x32x16 pipe</text>
+<polyline points="100.25,602.55 102.01,569.39 116.07,492.97 154.24,437.57 228.57,364.74 351.12,357.88 533.93,353.06 789.06,359.99 1128.57,356.15" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.55" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="569.39" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="492.97" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="437.57" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="364.74" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="357.88" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="353.06" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="359.99" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="356.15" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="112.00" x2="844.00" y2="112.00" stroke="#dc2626" stroke-width="3" />
 <circle cx="832.00" cy="112.00" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="116.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-swizzled B 4x4</text>
-<polyline points="100.25,603.27 102.01,568.08 116.07,497.24 154.24,423.18 228.57,377.57 351.12,353.19 533.93,348.97 789.06,349.53 1128.57,346.03" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.27" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="568.08" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="497.24" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="423.18" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="377.57" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="353.19" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="348.97" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="349.53" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="346.03" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="116.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed A+B aligned pipe</text>
+<polyline points="100.25,603.42 102.01,571.98 116.07,514.50 154.24,449.92 228.57,415.87 351.12,403.24 533.93,397.44 789.06,395.26 1128.57,396.73" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="603.42" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="571.98" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="514.50" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="449.92" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="415.87" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="403.24" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="397.44" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="395.26" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="396.73" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="136.00" x2="844.00" y2="136.00" stroke="#16a34a" stroke-width="3" />
 <circle cx="832.00" cy="136.00" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="140.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-swizzled vec4 B 4x4</text>
-<polyline points="100.25,602.80 102.01,570.28 116.07,487.88 154.24,437.38 228.57,372.04 351.12,335.49 533.93,336.15 789.06,334.99 1128.57,340.54" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.80" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="570.28" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="487.88" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="437.38" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="372.04" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="335.49" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="336.15" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="334.99" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="340.54" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="140.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-swizzled B 4x4</text>
+<polyline points="100.25,602.74 102.01,567.54 116.07,496.28 154.24,442.18 228.57,376.35 351.12,354.62 533.93,350.53 789.06,347.26 1128.57,348.76" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.74" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="567.54" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="496.28" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="442.18" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="376.35" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="354.62" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="350.53" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="347.26" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="348.76" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="160.00" x2="844.00" y2="160.00" stroke="#7c3aed" stroke-width="3" />
 <circle cx="832.00" cy="160.00" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="164.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 32x32x32</text>
-<polyline points="100.25,602.24 102.01,566.13 116.07,479.59 154.24,441.54 228.57,340.31 351.12,304.79 533.93,304.28 789.06,291.30 1128.57,291.24" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<text x="854.00" y="164.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-swizzled vec4 B 4x4</text>
+<polyline points="100.25,602.24 102.01,569.95 116.07,484.38 154.24,448.61 228.57,358.07 351.12,336.82 533.93,339.41 789.06,338.93 1128.57,338.04" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
 <circle cx="100.25" cy="602.24" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="566.13" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="479.59" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="441.54" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="340.31" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="304.79" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="304.28" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="291.30" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="291.24" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="569.95" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="484.38" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="448.61" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="358.07" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="336.82" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="339.41" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="338.93" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="338.04" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="184.00" x2="844.00" y2="184.00" stroke="#ea580c" stroke-width="3" />
 <circle cx="832.00" cy="184.00" r="4.50" fill="#ea580c" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="188.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 32x64x16</text>
-<polyline points="100.25,602.85 102.01,565.89 116.07,500.72 154.24,407.72 228.57,320.13 351.12,298.88 533.93,302.76 789.06,291.58 1128.57,290.84" fill="none" stroke="#0891b2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.85" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="565.89" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="500.72" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="407.72" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="320.13" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="298.88" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="302.76" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="291.58" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="290.84" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="188.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 32x32x32</text>
+<polyline points="100.25,601.68 102.01,563.13 116.07,477.02 154.24,407.01 228.57,332.23 351.12,301.66 533.93,295.93 789.06,298.16 1128.57,302.51" fill="none" stroke="#0891b2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="601.68" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="563.13" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="477.02" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="407.01" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="332.23" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="301.66" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="295.93" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="298.16" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="302.51" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="208.00" x2="844.00" y2="208.00" stroke="#0891b2" stroke-width="3" />
 <circle cx="832.00" cy="208.00" r="4.50" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="212.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 aligned</text>
-<polyline points="100.25,602.47 102.01,562.28 116.07,483.82 154.24,399.29 228.57,352.02 351.12,304.77 533.93,306.44 789.06,294.42 1128.57,292.70" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.47" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="562.28" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="483.82" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="399.29" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="352.02" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="304.77" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="306.44" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="294.42" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="292.70" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="212.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 32x64x16</text>
+<polyline points="100.25,601.97 102.01,562.79 116.07,476.88 154.24,412.17 228.57,319.52 351.12,301.48 533.93,296.31 789.06,294.72 1128.57,293.82" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="601.97" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="562.79" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="476.88" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="412.17" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="319.52" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="301.48" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="296.31" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="294.72" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="293.82" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="232.00" x2="844.00" y2="232.00" stroke="#d97706" stroke-width="3" />
 <circle cx="832.00" cy="232.00" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="236.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 aligned private</text>
-<polyline points="100.25,603.20 102.01,567.14 116.07,476.98 154.24,413.96 228.57,345.07 351.12,305.61 533.93,304.13 789.06,289.21 1128.57,287.86" fill="none" stroke="#db2777" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.20" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="567.14" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="476.98" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="413.96" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="345.07" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="305.61" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="304.13" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="289.21" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="287.86" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="236.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 aligned</text>
+<polyline points="100.25,601.74 102.01,563.27 116.07,477.40 154.24,403.32 228.57,346.36 351.12,306.48 533.93,293.98 789.06,301.33 1128.57,291.90" fill="none" stroke="#db2777" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="601.74" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="563.27" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="477.40" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="403.32" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="346.36" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="306.48" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="293.98" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="301.33" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="291.90" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="256.00" x2="844.00" y2="256.00" stroke="#db2777" stroke-width="3" />
 <circle cx="832.00" cy="256.00" r="4.50" fill="#db2777" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="260.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 k16</text>
-<polyline points="100.25,602.49 102.01,568.12 116.07,477.57 154.24,428.50 228.57,326.50 351.12,323.58 533.93,314.58 789.06,324.65 1128.57,330.48" fill="none" stroke="#4f46e5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.49" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="568.12" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="477.57" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="428.50" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="326.50" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="323.58" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="314.58" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="324.65" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="330.48" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="260.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 aligned private</text>
+<polyline points="100.25,601.66 102.01,562.59 116.07,502.25 154.24,405.53 228.57,338.81 351.12,302.63 533.93,293.35 789.06,295.20 1128.57,301.64" fill="none" stroke="#4f46e5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="601.66" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="562.59" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="502.25" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="405.53" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="338.81" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="302.63" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="293.35" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="295.20" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="301.64" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="280.00" x2="844.00" y2="280.00" stroke="#4f46e5" stroke-width="3" />
 <circle cx="832.00" cy="280.00" r="4.50" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="284.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 unroll</text>
-<polyline points="100.25,602.24 102.01,562.29 116.07,568.12 154.24,421.13 228.57,317.06 351.12,296.24 533.93,292.06 789.06,286.01 1128.57,282.00" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.24" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="562.29" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="568.12" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="421.13" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="317.06" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="296.24" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="292.06" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="286.01" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="282.00" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="284.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 k16</text>
+<polyline points="100.25,602.16 102.01,566.54 116.07,477.81 154.24,401.24 228.57,329.95 351.12,325.64 533.93,330.74 789.06,374.76 1128.57,323.03" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.16" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="566.54" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="477.81" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="401.24" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="329.95" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="325.64" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="330.74" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="374.76" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="323.03" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="304.00" x2="844.00" y2="304.00" stroke="#059669" stroke-width="3" />
 <circle cx="832.00" cy="304.00" r="4.50" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="308.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 64x32x16</text>
-<polyline points="100.25,602.87 102.01,566.41 116.07,484.54 154.24,442.13 228.57,341.43 351.12,326.67 533.93,339.15 789.06,324.73 1128.57,321.62" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.87" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="566.41" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="484.54" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="442.13" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="341.43" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="326.67" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="339.15" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="324.73" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="321.62" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="308.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 4x4 unroll</text>
+<polyline points="100.25,602.38 102.01,562.44 116.07,475.47 154.24,411.68 228.57,343.38 351.12,296.75 533.93,288.67 789.06,286.82 1128.57,282.89" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.38" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="562.44" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="475.47" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="411.68" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="343.38" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="296.75" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="288.67" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="286.82" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="282.89" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="328.00" x2="844.00" y2="328.00" stroke="#b91c1c" stroke-width="3" />
 <circle cx="832.00" cy="328.00" r="4.50" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="332.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 64x32x16 unroll</text>
-<polyline points="100.25,603.24 102.01,568.65 116.07,496.49 154.24,414.58 228.57,365.15 351.12,348.78 533.93,345.95 789.06,344.17 1128.57,343.06" fill="none" stroke="#1d4ed8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.24" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="568.65" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="496.49" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="414.58" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="365.15" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="348.78" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="345.95" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="344.17" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="343.06" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="332.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 64x32x16</text>
+<polyline points="100.25,602.01 102.01,563.69 116.07,481.64 154.24,413.23 228.57,336.34 351.12,326.62 533.93,326.76 789.06,333.61 1128.57,327.04" fill="none" stroke="#1d4ed8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.01" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="563.69" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="481.64" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="413.23" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="336.34" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="326.62" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="326.76" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="333.61" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="327.04" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="352.00" x2="844.00" y2="352.00" stroke="#1d4ed8" stroke-width="3" />
 <circle cx="832.00" cy="352.00" r="4.50" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="356.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized B 4x4</text>
-<polyline points="100.25,603.36 102.01,568.76 116.07,507.77 154.24,445.49 228.57,379.38 351.12,359.64 533.93,357.17 789.06,357.90 1128.57,358.32" fill="none" stroke="#7c2d12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.36" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="568.76" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="507.77" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="445.49" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="379.38" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="359.64" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="357.17" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="357.90" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="358.32" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="356.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized A+B 64x32x16 unroll</text>
+<polyline points="100.25,606.14 102.01,565.51 116.07,493.62 154.24,432.93 228.57,373.13 351.12,349.18 533.93,345.25 789.06,346.02 1128.57,345.56" fill="none" stroke="#7c2d12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="606.14" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="565.51" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="493.62" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="432.93" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="373.13" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="349.18" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="345.25" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="346.02" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="345.56" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="376.00" x2="844.00" y2="376.00" stroke="#7c2d12" stroke-width="3" />
 <circle cx="832.00" cy="376.00" r="4.50" fill="#7c2d12" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="380.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized B 4x4 k16</text>
-<polyline points="100.25,603.87 102.01,573.39 116.07,520.11 154.24,428.10 228.57,404.79 351.12,392.33 533.93,386.81 789.06,390.30 1128.57,387.55" fill="none" stroke="#0f766e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.87" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="573.39" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="520.11" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="428.10" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="404.79" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="392.33" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="386.81" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="390.30" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="387.55" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="380.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized B 4x4</text>
+<polyline points="100.25,602.95 102.01,565.56 116.07,525.82 154.24,422.17 228.57,382.88 351.12,359.91 533.93,371.17 789.06,356.75 1128.57,363.86" fill="none" stroke="#0f766e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.95" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="565.56" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="525.82" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="422.17" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="382.88" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="359.91" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="371.17" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="356.75" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="363.86" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="400.00" x2="844.00" y2="400.00" stroke="#0f766e" stroke-width="3" />
 <circle cx="832.00" cy="400.00" r="4.50" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="404.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal register blocked 4x4</text>
-<polyline points="100.25,602.96 102.01,579.14 116.07,550.36 154.24,526.65 228.57,528.94 351.12,526.67 533.93,528.01 789.06,528.61 1128.57,528.37" fill="none" stroke="#a21caf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.96" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="579.14" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="550.36" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="526.65" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="528.94" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="526.67" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="528.01" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="528.61" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="528.37" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="404.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal packed-vectorized B 4x4 k16</text>
+<polyline points="100.25,603.58 102.01,570.76 116.07,511.20 154.24,461.73 228.57,406.16 351.12,393.20 533.93,388.14 789.06,389.69 1128.57,389.43" fill="none" stroke="#a21caf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="603.58" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="570.76" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="511.20" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="461.73" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="406.16" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="393.20" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="388.14" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="389.69" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="389.43" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="424.00" x2="844.00" y2="424.00" stroke="#a21caf" stroke-width="3" />
 <circle cx="832.00" cy="424.00" r="4.50" fill="#a21caf" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="428.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal swizzled 32x32</text>
-<polyline points="100.25,602.42 102.01,577.69 116.07,546.46 154.24,513.55 228.57,498.44 351.12,497.81 533.93,500.85 789.06,501.07 1128.57,499.01" fill="none" stroke="#65a30d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="602.42" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="577.69" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="546.46" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="513.55" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="498.44" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="497.81" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="500.85" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="501.07" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="499.01" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="428.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal register blocked 4x4</text>
+<polyline points="100.25,602.31 102.01,578.86 116.07,547.02 154.24,526.03 228.57,525.04 351.12,525.10 533.93,529.24 789.06,529.27 1128.57,530.23" fill="none" stroke="#65a30d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.31" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="578.86" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="547.02" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="526.03" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="525.04" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="525.10" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="529.24" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="529.27" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="530.23" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="448.00" x2="844.00" y2="448.00" stroke="#65a30d" stroke-width="3" />
 <circle cx="832.00" cy="448.00" r="4.50" fill="#65a30d" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="452.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal tiled 16x16</text>
-<polyline points="100.25,603.09 102.01,577.86 116.07,542.12 154.24,519.21 228.57,518.40 351.12,519.33 533.93,523.35 789.06,522.34 1128.57,521.97" fill="none" stroke="#c2410c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="603.09" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="577.86" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="542.12" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="519.21" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="518.40" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="519.33" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="523.35" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="522.34" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="521.97" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="452.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal swizzled 32x32</text>
+<polyline points="100.25,602.30 102.01,576.32 116.07,543.84 154.24,505.54 228.57,497.98 351.12,497.62 533.93,500.64 789.06,500.57 1128.57,502.53" fill="none" stroke="#c2410c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="602.30" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="576.32" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="543.84" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="505.54" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="497.98" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="497.62" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="500.64" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="500.57" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="502.53" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="472.00" x2="844.00" y2="472.00" stroke="#c2410c" stroke-width="3" />
 <circle cx="832.00" cy="472.00" r="4.50" fill="#c2410c" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="476.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal tiled 32x32</text>
-<polyline points="100.25,345.01 102.01,230.85 116.07,260.78 154.24,119.09 228.57,308.94 351.12,261.71 533.93,292.79 789.06,266.53 1128.57,302.12" fill="none" stroke="#be123c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="100.25" cy="345.01" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="102.01" cy="230.85" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="116.07" cy="260.78" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="154.24" cy="119.09" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="228.57" cy="308.94" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="261.71" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="292.79" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="266.53" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="302.12" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="476.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal tiled 16x16</text>
+<polyline points="100.25,601.82 102.01,588.39 116.07,542.50 154.24,527.27 228.57,516.83 351.12,520.40 533.93,522.75 789.06,522.50 1128.57,523.81" fill="none" stroke="#be123c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="601.82" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="588.39" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="542.50" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="527.27" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="516.83" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="520.40" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="522.75" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="522.50" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="523.81" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="496.00" x2="844.00" y2="496.00" stroke="#be123c" stroke-width="3" />
 <circle cx="832.00" cy="496.00" r="4.50" fill="#be123c" stroke="#ffffff" stroke-width="1.5" />
-<text x="854.00" y="500.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">vecLib cblas_sgemm</text>
+<text x="854.00" y="500.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal tiled 32x32</text>
+<polyline points="100.25,342.82 102.01,229.69 116.07,260.05 154.24,119.09 228.57,304.15 351.12,258.73 533.93,311.48 789.06,274.77 1128.57,312.79" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="100.25" cy="342.82" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="102.01" cy="229.69" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="116.07" cy="260.05" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="154.24" cy="119.09" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="228.57" cy="304.15" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="258.73" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="311.48" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="274.77" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="312.79" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<line x1="820.00" y1="520.00" x2="844.00" y2="520.00" stroke="#1f2937" stroke-width="3" />
+<circle cx="832.00" cy="520.00" r="4.50" fill="#1f2937" stroke="#ffffff" stroke-width="1.5" />
+<text x="854.00" y="524.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">vecLib cblas_sgemm</text>
 </svg>
