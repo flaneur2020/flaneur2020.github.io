@@ -8,7 +8,7 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 - Basic Metal compute kernels in tiled `16x16`, tiled `32x32`, swizzled `32x32`, and register-blocked `4x4` variants, including packed/swizzled-`B`, packed/vectorized-`B`, packed+swizzled-vec4-`B`, packed-vectorized-`B` `k16`, packed-vectorized-`A+B` `k16`, packed-vectorized-`A+B` aligned-only, a `storageModePrivate` aligned variant, aligned tile/threadgroup autotune variants (`64x32x16`, `32x64x16`, `32x32x32`), plus `64x32x16` unrolled and pipelined experiments, and packed-vectorized-`A+B` unrolled-inner-`K` versions
 - Console output with `MNK` on the X-axis and `MFLOPs` on the Y-axis
 - A `metal-best` autotuned runner for focused `vecLib` vs strongest-Metal comparisons
-- CSV export for plotting performance curves, with unified wall-time columns and optional Metal GPU timestamp columns
+- CSV export for plotting performance curves, with steady-state wall-time columns and optional Metal GPU timestamp columns
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
 - A small `Makefile` for build, benchmark, and plot commands
 
@@ -104,9 +104,15 @@ make plot CSV=benchmark.csv SVG=benchmark.svg
 The generated chart uses:
 
 - `MNK` on the X-axis
-- `MFLOPs` on the Y-axis, computed from unified wall time
+- `MFLOPs` on the Y-axis, computed from steady-state wall time
 - By default, one line each for `vecLib`, `MPSMatrixMultiplication`, and `metal-best`
 - Override `IMPLEMENTATIONS=all` to plot the full kernel sweep
+
+## Timing scope
+
+- `vecLib cblas_sgemm` wall time measures the `cblas_sgemm` call itself.
+- `MPSMatrixMultiplication` and the custom Metal kernels use the same steady-state GPU wall-time scope: buffers are prepared once per problem, each measured iteration times dispatch/commit/wait, and one-time upload/readback stays outside the measured loop.
+- `device_*` CSV columns remain secondary data from Metal GPU timestamps when the driver reports them.
 
 ## CSV columns
 
@@ -122,7 +128,7 @@ The generated chart uses:
 
 ## Why vecLib
 
-`cblas_sgemm` in `Accelerate` is the native Apple baseline that is available on M1/M2/M3 Macs through vecLib, so it is a more relevant comparison than MKL on macOS. The default table, CSV, and SVG now use unified wall time so vecLib and Metal are compared on the same timing basis.
+`cblas_sgemm` in `Accelerate` is the native Apple baseline that is available on M1/M2/M3 Macs through vecLib, so it is a more relevant comparison than MKL on macOS.
 
 ## Optimization takeaways
 

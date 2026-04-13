@@ -296,7 +296,8 @@ do {
     let runners = try buildRunners(matching: configuration.implementationFilters)
 
     print("Benchmarking GEMM with X = MNK and Y = MFLOPs")
-    print("Primary metric: unified wall time across vecLib and Metal")
+    print("Primary metric: steady-state wall time")
+    print("GPU runners time dispatch+wait with persistent buffers")
     print("Metal GPU timestamps are exported to CSV as secondary columns when available")
     print("Baseline: Apple vecLib via Accelerate cblas_sgemm")
     print("")

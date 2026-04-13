@@ -18,6 +18,7 @@ enum CLI {
       - The benchmark reports X-axis data as MNK = M*N*K.
       - The benchmark reports Y-axis data as MFLOPs.
       - The baseline uses Apple vecLib through Accelerate cblas_sgemm.
+      - GPU wall time uses the same steady-state scope for MPS and custom Metal kernels.
       - `metal-best` benchmarks a small autotuned set of the strongest Metal kernels.
     """
 

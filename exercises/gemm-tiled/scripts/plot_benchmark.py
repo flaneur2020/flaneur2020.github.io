@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("output_svg", nargs="?", default="benchmark.svg")
     parser.add_argument(
         "--title",
-        default="GEMM benchmark: MNK vs MFLOPs (wall time)",
+        default="GEMM benchmark: MNK vs MFLOPs (steady-state wall time)",
         help="Chart title",
     )
     return parser.parse_args()
