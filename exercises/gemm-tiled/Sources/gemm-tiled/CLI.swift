@@ -20,6 +20,7 @@ enum CLI {
       - The baseline uses Apple vecLib through Accelerate cblas_sgemm.
       - GPU wall time uses the same steady-state scope for MPS and custom Metal kernels.
       - `metal-best` benchmarks a small autotuned set of the strongest Metal kernels.
+      - `mpp`, `cooperative`, or `simdgroup` selects the cooperative-matrix 32x32 benchmark line.
     """
 
     static func parse(arguments: [String]) throws -> BenchmarkConfiguration? {

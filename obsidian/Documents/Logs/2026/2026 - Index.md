@@ -26,3 +26,4 @@ prev: [[2025 - Index]]
 	- [[Swizzling]]
 - Readings
 	- [[Inside NVIDIA GPUs - Anatomy of high performance matmul kernels]]
+	- [[The AI Labs Are Hiring for Hardware They Don’t Own]]

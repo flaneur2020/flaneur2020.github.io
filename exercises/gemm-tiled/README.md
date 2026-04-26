@@ -11,6 +11,7 @@ This scaffold benchmarks a basic tiled GEMM written in Apple's Metal against App
 - CSV export for plotting performance curves, with steady-state wall-time columns and optional Metal GPU timestamp columns
 - A dependency-free SVG plotting script at `scripts/plot_benchmark.py`
 - A small `Makefile` for build, benchmark, and plot commands
+- An experimental Metal 4 cooperative-matrix benchmark line using the `32x32` single-tile kernel (`k < 64`) behind `--implementations mpp` on macOS 26+
 
 ## Run it
 
@@ -29,6 +30,16 @@ swift run gemm-tiled \
   --warmup 2 \
   --implementations veclib,mps,metal-best \
   --csv benchmark.csv
+```
+
+Or try the experimental cooperative-matrix benchmark line on small problems:
+
+```bash
+swift run gemm-tiled \
+  --problems 32,64x32x32 \
+  --iterations 10 \
+  --warmup 2 \
+  --implementations mpp
 ```
 
 Or disable CSV output:
@@ -123,7 +134,7 @@ The generated chart uses:
 - `device_average_ms`: Metal GPU timestamp average when available
 - `device_best_ms`: Metal GPU timestamp best when available
 - `device_mflops`: MFLOPs computed from `device_average_ms` when available
-- `selected_variant`: when using `metal-best`, the concrete Metal kernel chosen for that problem
+- `selected_variant`: when using `metal-best`, the concrete kernel chosen for that problem
 - `max_abs_error`: maximum absolute difference against the vecLib result
 
 ## Why vecLib

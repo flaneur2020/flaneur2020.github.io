@@ -8,10 +8,39 @@ private struct MPPDispatchTiming {
     let deviceMs: Double?
 }
 
+struct MPPKernelConfiguration {
+    let name: String
+    let functionName: String
+    let threadgroupWidth: Int
+    let maxTileWidth: Int
+    let maxTileHeight: Int
+    let maxSupportedK: Int
+}
+
+let mppRunnerConfigurations = [
+    MPPKernelConfiguration(
+        name: "Metal cooperative matrix 64x32 (k<64)",
+        functionName: "mpp_matmul_cooperative_f32_64x32",
+        threadgroupWidth: 128,
+        maxTileWidth: 32,
+        maxTileHeight: 64,
+        maxSupportedK: 63
+    ),
+    MPPKernelConfiguration(
+        name: "Metal cooperative matrix 32x32 (k<64)",
+        functionName: "mpp_matmul_cooperative_f32_32x32",
+        threadgroupWidth: 64,
+        maxTileWidth: 32,
+        maxTileHeight: 32,
+        maxSupportedK: 63
+    ),
+]
+
 @available(macOS 26.0, *)
 struct MetalMPPGEMMRunner: GEMMRunner {
-    let name = "Metal MPP single-tile 64x32 (k<64)"
+    let name: String
 
+    private let configuration: MPPKernelConfiguration
     private let device: MTLDevice
     private let pipeline: MTLComputePipelineState
     private let commandAllocator: any MTL4CommandAllocator
@@ -20,12 +49,9 @@ struct MetalMPPGEMMRunner: GEMMRunner {
     private let aBindingIndex: Int
     private let bBindingIndex: Int
     private let cBindingIndex: Int
-    private let threadsPerThreadgroup = MTLSize(width: 128, height: 1, depth: 1)
-    private let maxTileWidth = 32
-    private let maxTileHeight = 64
-    private let maxSupportedK = 63
+    private let threadsPerThreadgroup: MTLSize
 
-    init() throws {
+    init(configuration: MPPKernelConfiguration) throws {
         guard let device = MTLCreateSystemDefaultDevice() else {
             throw BenchmarkError.unsupportedPlatform("Metal is unavailable on this machine")
         }
@@ -35,9 +61,11 @@ struct MetalMPPGEMMRunner: GEMMRunner {
 
         let source = try Self.loadShaderSource()
         let library = try device.makeLibrary(source: source, options: compileOptions)
-        guard let function = library.makeFunction(name: "mpp_matmul_cooperative_f32_64x32") else {
-            throw BenchmarkError.runtimeFailure("Could not find mpp_matmul_cooperative_f32_64x32 in MPPShaders.metal")
+        guard let function = library.makeFunction(name: configuration.functionName) else {
+            throw BenchmarkError.runtimeFailure("Could not find \(configuration.functionName) in MPPShaders.metal")
         }
+
+        let threadsPerThreadgroup = MTLSize(width: configuration.threadgroupWidth, height: 1, depth: 1)
 
         let pipelineDescriptor = MTLComputePipelineDescriptor()
         pipelineDescriptor.computeFunction = function
@@ -68,6 +96,8 @@ struct MetalMPPGEMMRunner: GEMMRunner {
             throw BenchmarkError.runtimeFailure("Could not resolve tensor bindings for Metal MPP pipeline")
         }
 
+        self.name = configuration.name
+        self.configuration = configuration
         self.device = device
         self.pipeline = pipeline
         self.commandAllocator = commandAllocator
@@ -76,10 +106,11 @@ struct MetalMPPGEMMRunner: GEMMRunner {
         self.aBindingIndex = aBinding.index
         self.bBindingIndex = bBinding.index
         self.cBindingIndex = cBinding.index
+        self.threadsPerThreadgroup = threadsPerThreadgroup
     }
 
     func supports(problem: GEMMProblem) -> Bool {
-        problem.m <= maxTileHeight && problem.n <= maxTileWidth && problem.k <= maxSupportedK
+        problem.m <= configuration.maxTileHeight && problem.n <= configuration.maxTileWidth && problem.k <= configuration.maxSupportedK
     }
 
     func benchmark(
@@ -89,9 +120,9 @@ struct MetalMPPGEMMRunner: GEMMRunner {
         warmupIterations: Int,
         measuredIterations: Int
     ) throws -> RawBenchmarkRun {
-        let aBuffer = try makeSharedBuffer(copying: a.elements, errorMessage: "Could not allocate Metal MPP input buffer A")
-        let bBuffer = try makeSharedBuffer(copying: b.elements, errorMessage: "Could not allocate Metal MPP input buffer B")
-        let cBuffer = try makeSharedBuffer(length: problem.outputElementCount * MemoryLayout<Float>.stride, errorMessage: "Could not allocate Metal MPP output buffer C")
+        let aBuffer = try makeSharedBuffer(copying: a.elements, errorMessage: "Could not allocate \(name) input buffer A")
+        let bBuffer = try makeSharedBuffer(copying: b.elements, errorMessage: "Could not allocate \(name) input buffer B")
+        let cBuffer = try makeSharedBuffer(length: problem.outputElementCount * MemoryLayout<Float>.stride, errorMessage: "Could not allocate \(name) output buffer C")
 
         let aTensor = try makeTensor(from: aBuffer, logicalWidth: problem.k, logicalHeight: problem.m, rowStride: problem.k)
         let bTensor = try makeTensor(from: bBuffer, logicalWidth: problem.n, logicalHeight: problem.k, rowStride: problem.n)

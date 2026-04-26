@@ -7,15 +7,15 @@
 <line x1="100.00" y1="610.00" x2="1180.00" y2="610.00" stroke="#e5e7eb" stroke-width="1" />
 <text x="88.00" y="614.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">0</text>
 <line x1="100.00" y1="502.00" x2="1180.00" y2="502.00" stroke="#e5e7eb" stroke-width="1" />
-<text x="88.00" y="506.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">389.9K</text>
+<text x="88.00" y="506.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">390.7K</text>
 <line x1="100.00" y1="394.00" x2="1180.00" y2="394.00" stroke="#e5e7eb" stroke-width="1" />
-<text x="88.00" y="398.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">779.8K</text>
+<text x="88.00" y="398.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">781.3K</text>
 <line x1="100.00" y1="286.00" x2="1180.00" y2="286.00" stroke="#e5e7eb" stroke-width="1" />
 <text x="88.00" y="290.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">1.2M</text>
 <line x1="100.00" y1="178.00" x2="1180.00" y2="178.00" stroke="#e5e7eb" stroke-width="1" />
 <text x="88.00" y="182.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">1.6M</text>
 <line x1="100.00" y1="70.00" x2="1180.00" y2="70.00" stroke="#e5e7eb" stroke-width="1" />
-<text x="88.00" y="74.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">1.9M</text>
+<text x="88.00" y="74.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="end">2.0M</text>
 <line x1="100.00" y1="70.00" x2="100.00" y2="610.00" stroke="#e5e7eb" stroke-width="1" />
 <text x="100.00" y="634.00" fill="#374151" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">0</text>
 <line x1="316.00" y1="70.00" x2="316.00" y2="610.00" stroke="#e5e7eb" stroke-width="1" />
@@ -32,30 +32,30 @@
 <line x1="100.00" y1="70.00" x2="100.00" y2="610.00" stroke="#111827" stroke-width="1.5" />
 <text x="610.00" y="672.00" fill="#111827" font-size="16" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600">MNK</text>
 <text x="28.00" y="350.00" fill="#111827" font-size="16" font-family="Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="600" transform="rotate(-90 28 350.00)">MFLOPs</text>
-<polyline points="228.57,271.89 351.12,123.33 533.93,137.74 789.06,124.83 1128.57,119.09" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="228.57" cy="271.89" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="123.33" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="137.74" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="124.83" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="119.09" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<polyline points="228.57,288.10 351.12,139.99 533.93,119.09 789.06,135.58 1128.57,121.28" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="228.57" cy="288.10" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="139.99" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="119.09" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="135.58" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="121.28" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="88.00" x2="844.00" y2="88.00" stroke="#2563eb" stroke-width="3" />
 <circle cx="832.00" cy="88.00" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
 <text x="854.00" y="92.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">MPSMatrixMultiplication</text>
-<polyline points="228.57,391.06 351.12,381.53 533.93,378.46 789.06,374.87 1128.57,374.85" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="228.57" cy="391.06" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="381.53" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="378.46" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="374.87" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="374.85" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<polyline points="228.57,403.01 351.12,383.60 533.93,379.93 789.06,375.73 1128.57,374.17" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="228.57" cy="403.01" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="383.60" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="379.93" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="375.73" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="374.17" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="112.00" x2="844.00" y2="112.00" stroke="#dc2626" stroke-width="3" />
 <circle cx="832.00" cy="112.00" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
 <text x="854.00" y="116.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">Metal best (autotuned)</text>
-<polyline points="228.57,399.76 351.12,372.48 533.93,376.48 789.06,368.94 1128.57,396.12" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-<circle cx="228.57" cy="399.76" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="351.12" cy="372.48" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="533.93" cy="376.48" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="789.06" cy="368.94" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
-<circle cx="1128.57" cy="396.12" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<polyline points="228.57,398.30 351.12,373.68 533.93,378.11 789.06,370.28 1128.57,397.24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="228.57" cy="398.30" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="351.12" cy="373.68" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="533.93" cy="378.11" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="789.06" cy="370.28" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
+<circle cx="1128.57" cy="397.24" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
 <line x1="820.00" y1="136.00" x2="844.00" y2="136.00" stroke="#16a34a" stroke-width="3" />
 <circle cx="832.00" cy="136.00" r="4.50" fill="#16a34a" stroke="#ffffff" stroke-width="1.5" />
 <text x="854.00" y="140.00" fill="#111827" font-size="13" font-family="Helvetica, Arial, sans-serif">vecLib cblas_sgemm</text>

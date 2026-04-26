@@ -317,7 +317,7 @@ do {
 
         for runner in orderedRunners {
             guard runner.supports(problem: problem) else {
-                fputs("warning: skipping \(runner.name) on \(problem.description): requires aligned problem dimensions\n", stderr)
+                fputs("warning: skipping \(runner.name) on \(problem.description): unsupported problem size/alignment\n", stderr)
                 continue
             }
 
@@ -430,12 +430,8 @@ private func buildRunners(matching filters: [String]?) throws -> [any GEMMRunner
     }
 
     if shouldIncludeMPP(in: normalizedFilters) {
-        if #available(macOS 26.0, *) {
-            do {
-                runners.append(try MetalMPPGEMMRunner())
-            } catch {
-                fputs("warning: skipping Metal MPP single-tile 64x32 (k<64): \(error.localizedDescription)\n", stderr)
-            }
+        if #available(macOS 26.0, *), let mppRunner = try makeMPPBenchmarkRunner() {
+            runners.append(mppRunner)
         }
     }
 
@@ -465,12 +461,8 @@ private func buildDefaultRunners() throws -> [any GEMMRunner] {
         fputs("warning: skipping MPSMatrixMultiplication: \(error.localizedDescription)\n", stderr)
     }
 
-    if #available(macOS 26.0, *) {
-        do {
-            runners.append(try MetalMPPGEMMRunner())
-        } catch {
-            fputs("warning: skipping Metal MPP single-tile 64x32 (k<64): \(error.localizedDescription)\n", stderr)
-        }
+    if #available(macOS 26.0, *), let mppRunner = try makeMPPBenchmarkRunner() {
+        runners.append(mppRunner)
     }
 
     for runnerConfiguration in metalRunnerConfigurations {
@@ -482,6 +474,22 @@ private func buildDefaultRunners() throws -> [any GEMMRunner] {
     }
 
     return runners
+}
+
+@available(macOS 26.0, *)
+private func makeMPPBenchmarkRunner() throws -> MetalMPPGEMMRunner? {
+    guard let configuration = mppRunnerConfigurations.first(where: {
+        $0.maxTileHeight == 32 && $0.maxTileWidth == 32
+    }) else {
+        return nil
+    }
+
+    do {
+        return try MetalMPPGEMMRunner(configuration: configuration)
+    } catch {
+        fputs("warning: skipping \(configuration.name): \(error.localizedDescription)\n", stderr)
+        return nil
+    }
 }
 
 private func makeMetalBestRunner() throws -> MetalBestGEMMRunner? {
@@ -608,7 +616,7 @@ private func isMetalBestFilter(_ filter: String) -> Bool {
 }
 
 private func isMPPFilter(_ filter: String) -> Bool {
-    ["mpp", "cooperative", "cooperative tensor", "tensor ops", "tensorops"].contains(filter)
+    ["mpp", "mpp-best", "cooperative", "cooperative-best", "cooperative tensor", "cooperative matrix", "cooperative-matrix", "tensor ops", "tensorops", "simdgroup", "simd-group", "simdgroup-best"].contains(filter)
 }
 
 private func isAllMetalFilter(_ filter: String) -> Bool {

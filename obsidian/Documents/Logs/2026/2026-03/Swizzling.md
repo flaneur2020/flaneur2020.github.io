@@ -5,7 +5,6 @@
 ## Tiled GEMM
 
 
-
 ```cuda
 // Tiled GEMM Kernel
 __global__ void tiled_gemm_kernel(float* A, float* B, float* C, 
