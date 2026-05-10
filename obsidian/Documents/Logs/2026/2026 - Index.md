@@ -33,7 +33,9 @@ prev: [[2025 - Index]]
 
 - LeetGPU Medium (0/20)
 - Learning
-	- hf_transfer
 	- 3fs fuse downloading
+	- sglang weight transfer
 - Readings
-	- [[Rethinking Zero-Copy Networking with MAIO]]
+	- [[SOCKMAP - TCP splicing of the future]]
+	- [[hf_transfer]]
+	- [[hdrdmacp]]
