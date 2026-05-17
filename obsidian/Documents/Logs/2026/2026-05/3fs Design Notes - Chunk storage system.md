@@ -76,3 +76,30 @@ CRAQ 是一个 write-all-read-any 的 replication protocol，为读 heavy 的场
 
 ### Failure detection
 
+cluster manager 通过心跳来检测 fail-stop 故障。
+
+cluster manager 在存储服务的成员变更中扮演着关键角色，它维护着 chain table 和存储目标的全局视图。
+
+每个存储目标有公共状态和本地状态：
+
+1. 公共状态：该目标是否准备好读取请求，以及写入请求是否会传播到该目标；公共状态存储在 chain table 中，状态包括：serving、syncing、waiting、lastsrv、offline；
+2. 本地状态：仅有存储服务和 cluster manager 知道，存储在 cluster manager 的内存中，如果存储目标发生故障，相关服务会在心跳中将该目标的本地状态设置为 offline。如果存储服务器宕机，该服务器管理的所有存储目标都会被标记为 offline，状态包括：up-to-date、onine、offline；
+
+定期的维护（有点 reconcile 的感觉）：
+
+- 如果链被更新，链的版本号会递增。
+- 如果某个存储目标被标记为 offline，它会被移动到链的末尾。
+- 如果某个存储服务发现其管理的任何本地存储目标的公共状态为 lastsrv 或 offline，该服务会立即退出。
+- 一旦处于 syncing 状态的存储目标的数据恢复完成，存储服务会在后续发送给集群管理器的心跳消息中，将该目标的本地状态设为 up-to-date。
+
+### Data recovery
+
+在存储目标的数据恢复开始之前，前驱节点会向恢复中的服务发送一个 dump-chunkmeta 请求。然后该服务遍历本地块元数据存储，收集该目标上所有块的 ID、链版本号以及已提交/待处理的版本号，并将收集到的元数据回复给前驱节点。
+
+当存储服务发现之前离线的后继节点变为在线时：
+
+1. 转发写入请求：服务开始将正常的写入请求转发给后继节点。客户端可能只更新块的一部分，但转发的写入请求应包含整个块，即全块替换写入。
+
+### Chunks and the metadata
+
+使用 rocksdb 保存 chunk。

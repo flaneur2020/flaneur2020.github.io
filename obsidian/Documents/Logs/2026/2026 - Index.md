@@ -33,12 +33,13 @@ prev: [[2025 - Index]]
 
 - LeetGPU Medium (0/20)
 - Learning
-	- 3fs fuse downloading
 	- sglang weight transfer
-	- UCX
+	- CRAQ
 - Readings
 	- [[SOCKMAP - TCP splicing of the future]]
 	- [[hf_transfer]]
 	- [[hdrdmacp]]
 	- [[USRBIO API Reference]]
 	- [[splice()]]
+	- [[3fs Design Notes - Chunk storage system]]
+	- [[]]
