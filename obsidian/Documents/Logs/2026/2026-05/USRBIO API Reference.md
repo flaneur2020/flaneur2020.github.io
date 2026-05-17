@@ -25,8 +25,6 @@ int hf3fs_iorcreate4(struct hf3fs_ior *ior,
 
 其中 hf3fs_mount_point 对应 3fs 在本地的 mount 路径。
 
-
-
 ```c
 void hf3fs_destroy(struct hf3fs_ior *ior);
 ```

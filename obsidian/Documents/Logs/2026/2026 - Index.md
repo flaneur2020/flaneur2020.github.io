@@ -35,7 +35,10 @@ prev: [[2025 - Index]]
 - Learning
 	- 3fs fuse downloading
 	- sglang weight transfer
+	- UCX
 - Readings
 	- [[SOCKMAP - TCP splicing of the future]]
 	- [[hf_transfer]]
 	- [[hdrdmacp]]
+	- [[USRBIO API Reference]]
+	- [[splice()]]
