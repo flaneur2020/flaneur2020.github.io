@@ -34,7 +34,7 @@ prev: [[2025 - Index]]
 - LeetGPU Medium (0/20)
 - Learning
 	- sglang weight transfer
-	- CRAQ
+- [[Notes on CRAQ]]
 - Readings
 	- [[SOCKMAP - TCP splicing of the future]]
 	- [[hf_transfer]]
@@ -42,4 +42,3 @@ prev: [[2025 - Index]]
 	- [[USRBIO API Reference]]
 	- [[splice()]]
 	- [[3fs Design Notes - Chunk storage system]]
-	- [[]]
