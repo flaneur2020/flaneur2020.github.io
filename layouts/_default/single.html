@@ -12,7 +12,7 @@
   }
 
   .post-title {
-    font-family: 'Source Serif Pro', serif;
+    font-family: "Source Serif Pro", serif;
     font-size: 30px;
     font-weight: 500;
     margin-bottom: 12px;
@@ -33,13 +33,13 @@
   }
 
   .post-content {
-    line-height: 1.8;
+    line-height: 1.5;
     font-size: 17px;
     color: #2f3034;
   }
 
   .post-content h2 {
-    font-family: 'Source Serif Pro', serif;
+    font-family: "Source Serif Pro", serif;
     font-size: 26px;
     font-weight: 500;
     margin: 36px 0 22px 0;
@@ -47,7 +47,7 @@
   }
 
   .post-content p {
-    margin-bottom: 22px;
+    margin-bottom: 16px;
   }
 
   .post-content ul,
@@ -114,22 +114,17 @@
       font-size: 16px;
     }
   }
-
 </style>
 
-
 <div class="post-container">
-  <a href="{{ .Language.Lang | relLangURL }}" class="back-link"><span>{{ if eq .Language.Lang "zh" }}返回{{ else }}Back{{ end }}</span></a>
+  <a href="{{ .Language.Lang | relLangURL }}" class="back-link"
+    ><span>{{ if eq .Language.Lang "zh" }}返回{{ else }}Back{{ end }}</span></a
+  >
   <div class="post-header">
     <h1 class="post-title">{{ .Title }}</h1>
     <div class="post-date">{{ .Date.Format "January 2, 2006" }}</div>
   </div>
 
-
-  <div class="post-content">
-    {{ .Content }}
-  </div>
-
-
+  <div class="post-content">{{ .Content }}</div>
 </div>
 {{ end }}
