@@ -42,3 +42,8 @@ prev: [[2025 - Index]]
 	- [[USRBIO API Reference]]
 	- [[splice()]]
 	- [[3fs Design Notes - Chunk storage system]]
+
+## Jun
+
+- Readings
+	- [[MiMo-V2.5 系列推理全链路优化：将 Hybrid SWA 效率推向极致]]
