@@ -47,3 +47,5 @@ prev: [[2025 - Index]]
 
 - Readings
 	- [[MiMo-V2.5 系列推理全链路优化：将 Hybrid SWA 效率推向极致]]
+	- [[SGLang HiCache - Fast Hierarchical KV Caching with Your Favorite Storage Backends]]
+	- [[Updating 1T parameters in seconds — P2P weight transfer in Large Scale Distributed RL]]
