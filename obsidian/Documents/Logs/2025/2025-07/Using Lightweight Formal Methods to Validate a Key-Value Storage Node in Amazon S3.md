@@ -1,7 +1,5 @@
 tldr
 
-
-
 ----
 
 1. 首先，定义一个 reference model 按预期的语义进行实现；它的代码量是真正实现的 1%，比如，reference model 中，LSM 的真正实现是一个 hashmap；在工程师开发新功能时，也会同步更新 reference model；
