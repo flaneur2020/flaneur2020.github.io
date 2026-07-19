@@ -1,6 +1,17 @@
 """
 数据下载模块 - 支持多数据源（yfinance, stooq）
+
+注意：Yahoo Finance 和 Stooq 都对自动化请求做了反爬和限速处理。
+- yfinance: 2025 年起 Yahoo 加强了反爬，"Expecting value / 429 Too Many
+  Requests" 通常是被限速或命中了 consent 墙。这里通过 curl_cffi 的浏览器
+  伪装 session 绕过 TLS 指纹检测，并对 429 做指数退避重试。
+- Stooq: 现在会先返回一段 JS 浏览器校验（SHA-256 proof-of-work）再下发
+  auth cookie；只有带上该 cookie 才能拿到真正的 CSV。这里实现了解 PoW 的
+  逻辑，并复用同一个 curl_cffi session（带 cookie + 浏览器 TLS 指纹）。
 """
+import hashlib
+import re
+
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, date, timedelta
@@ -15,6 +26,85 @@ logger = logging.getLogger(__name__)
 # Rate limiting 配置
 REQUEST_DELAY_MIN = 1.0
 REQUEST_DELAY_MAX = 2.0
+
+# 伪装的浏览器 User-Agent（普通 requests 的默认 UA 很容易被识别为爬虫）
+BROWSER_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/120.0.0.0 Safari/537.36"
+)
+
+
+def _make_impersonated_session():
+    """创建一个伪装成浏览器的 requests session。
+
+    优先用 curl_cffi（与 yfinance 同源依赖，能伪造 TLS/JA3 指纹，绕过 Yahoo /
+    Stooq 的反爬）；不可用时回退到普通 requests Session 并设置浏览器 UA 和
+    cookie jar。返回 (session, backend) 便于调用方区分行为。
+    """
+    try:
+        from curl_cffi import requests as cf_requests
+
+        session = cf_requests.Session(impersonate="chrome")
+        session.headers.update({"User-Agent": BROWSER_UA})
+        return session, "curl_cffi"
+    except ImportError:
+        import requests
+
+        session = requests.Session()
+        session.headers.update({"User-Agent": BROWSER_UA})
+        return session, "requests"
+
+
+def _is_stooq_challenge(text: str) -> bool:
+    """判断返回内容是否是 Stooq 的 JS 浏览器校验页而非 CSV。"""
+    if not text:
+        return False
+    return text.lstrip().lower().startswith(("<!doctype", "<html"))
+
+
+def _solve_stooq_challenge(session, challenge_html: str, referer: str) -> bool:
+    """解 Stooq 的 SHA-256 proof-of-work 校验并写入 auth cookie。
+
+    页面内联 JS 的逻辑：找到 nonce n，使 SHA256(challenge + str(n)) 的十六进制
+    表示以 d 个 '0' 开头，然后 POST 到 /__verify；服务端校验通过后下发 auth
+    cookie。返回是否成功（后续带 cookie 请求就能拿到 CSV）。
+    """
+    m_c = re.search(r'const c="([^"]+)"', challenge_html)
+    m_d = re.search(r',d=(\d+),', challenge_html)
+    if not m_c or not m_d:
+        logger.warning("[Stooq] Could not parse challenge page")
+        return False
+
+    challenge = m_c.group(1)
+    difficulty = int(m_d.group(1))
+    prefix = "0" * difficulty
+
+    nonce = 0
+    while not hashlib.sha256(f"{challenge}{nonce}".encode()).hexdigest().startswith(prefix):
+        nonce += 1
+        if nonce > 50_000_000:  # 兜底，防止异常难度卡死
+            logger.warning(f"[Stooq] PoW difficulty {difficulty} too high, giving up")
+            return False
+
+    try:
+        rv = session.post(
+            "https://stooq.com/__verify",
+            data={"c": challenge, "n": str(nonce)},
+            headers={
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Referer": referer,
+                "Origin": "https://stooq.com",
+            },
+            timeout=30,
+        )
+        ok = rv.status_code == 200 and rv.text.strip().lower() == "ok"
+        if not ok:
+            logger.warning(f"[Stooq] Verify returned {rv.status_code}: {rv.text[:80]}")
+        return ok
+    except Exception as e:
+        logger.warning(f"[Stooq] Verify request failed: {e}")
+        return False
 
 
 class DataDownloader:
@@ -33,24 +123,48 @@ class DataDownloader:
         start_date: date,
         end_date: date
     ) -> Optional[pd.DataFrame]:
-        """从 Stooq 下载数据（免费，无需 API key）"""
+        """从 Stooq 下载数据（免费，无需 API key）
+
+        Stooq 现在会先返回一段 JS 浏览器校验（SHA-256 proof-of-work）再下发
+        auth cookie，所以必须用带 cookie / 浏览器指纹的 session 请求，并在
+        首次拿到校验页时解出 PoW、提交拿到 cookie，之后才能拿到 CSV 内容。
+        """
+        session, backend = _make_impersonated_session()
         try:
-            import requests
             from io import StringIO
 
-            logger.info(f"[Stooq] Downloading {symbol}...")
+            logger.info(f"[Stooq] Downloading {symbol} (via {backend})...")
 
             # Stooq CSV 下载 URL
-            # 格式：d=开始日期, d1=结束日期 (YYYYMMDD)
+            # 注意：参数顺序是 d1=开始日期, d2=结束日期 (YYYYMMDD)
             start_str = start_date.strftime('%Y%m%d')
             end_str = end_date.strftime('%Y%m%d')
             url = f"https://stooq.com/q/d/l/?s={symbol.lower()}.us&d1={start_str}&d2={end_str}&i=d"
 
-            response = requests.get(url, timeout=30)
-            response.raise_for_status()
+            # 首次请求可能命中 JS 校验页（proof-of-work）。解出 PoW 提交拿到
+            # auth cookie 后，再次请求即可拿到 CSV。challenge cookie 有时效，
+            # 最多重试几次。
+            text = ""
+            for attempt in range(3):
+                response = session.get(url, timeout=30)
+                text = getattr(response, "text", "")
+                if not _is_stooq_challenge(text):
+                    break
+                logger.debug(f"[Stooq] {symbol}: got JS challenge page (attempt {attempt+1}/3), solving PoW")
+                if not _solve_stooq_challenge(session, text, url):
+                    break
+                time.sleep(1 + attempt)
+
+            if not text or _is_stooq_challenge(text):
+                logger.warning(f"[Stooq] No CSV data for {symbol} (still JS challenge after attempts)")
+                return None
+
+            if text.strip().lower() == "access denied":
+                logger.warning(f"[Stooq] Access denied for {symbol} (IP may be blocked by Stooq)")
+                return None
 
             # 读取 CSV
-            df = pd.read_csv(StringIO(response.text))
+            df = pd.read_csv(StringIO(text))
 
             if df.empty or len(df) < 10:
                 logger.warning(f"[Stooq] No data for {symbol}")
@@ -79,41 +193,59 @@ class DataDownloader:
         start_date: date,
         end_date: date
     ) -> Optional[pd.DataFrame]:
-        """从 yfinance 下载数据"""
-        try:
-            logger.info(f"[yfinance] Downloading {symbol}...")
+        """从 yfinance 下载数据
 
-            ticker = yf.Ticker(symbol)
-            df = ticker.history(start=start_date, end=end_date)
+        用 curl_cffi 伪装的浏览器 session 喂给 yfinance，绕过 Yahoo 的 TLS 指纹 /
+        consent 墙；遇到 429 限速时做指数退避重试。
+        """
+        session, backend = _make_impersonated_session()
+        max_retries = 4
+        last_err = None
+        for attempt in range(max_retries):
+            try:
+                logger.info(f"[yfinance] Downloading {symbol} (via {backend}, attempt {attempt+1}/{max_retries})...")
 
-            if df.empty:
-                logger.warning(f"[yfinance] No data for {symbol}")
-                return None
+                ticker = yf.Ticker(symbol, session=session)
+                df = ticker.history(start=start_date, end=end_date, auto_adjust=False)
 
-            df.reset_index(inplace=True)
-            df.rename(columns={
-                'Date': 'date',
-                'Open': 'open',
-                'High': 'high',
-                'Low': 'low',
-                'Close': 'close',
-                'Volume': 'volume'
-            }, inplace=True)
+                if df.empty:
+                    logger.warning(f"[yfinance] No data for {symbol}")
+                    return None
 
-            df['adjusted_close'] = df['close']
-            df = df[['date', 'open', 'high', 'low', 'close', 'adjusted_close', 'volume']]
-            df['date'] = pd.to_datetime(df['date']).dt.date
+                df.reset_index(inplace=True)
+                df.rename(columns={
+                    'Date': 'date',
+                    'Open': 'open',
+                    'High': 'high',
+                    'Low': 'low',
+                    'Close': 'close',
+                    'Volume': 'volume'
+                }, inplace=True)
 
-            logger.info(f"[yfinance] Downloaded {len(df)} records for {symbol}")
-            return df
+                df['adjusted_close'] = df['close']
+                df = df[['date', 'open', 'high', 'low', 'close', 'adjusted_close', 'volume']]
+                df['date'] = pd.to_datetime(df['date']).dt.date
 
-        except Exception as e:
-            error_msg = str(e)
-            if "Rate limited" in error_msg or "Too Many Requests" in error_msg:
-                logger.warning(f"[yfinance] Rate limited for {symbol}")
-            else:
-                logger.warning(f"[yfinance] Failed for {symbol}: {e}")
-            return None
+                logger.info(f"[yfinance] Downloaded {len(df)} records for {symbol}")
+                return df
+
+            except Exception as e:
+                last_err = e
+                error_msg = str(e)
+                if "Rate limited" in error_msg or "Too Many Requests" in error_msg:
+                    wait = 5 * (2 ** attempt) + random.uniform(0, 2)
+                    logger.warning(
+                        f"[yfinance] Rate limited for {symbol}, retrying in {wait:.1f}s "
+                        f"({attempt+1}/{max_retries})"
+                    )
+                    time.sleep(wait)
+                    continue
+                else:
+                    logger.warning(f"[yfinance] Failed for {symbol}: {e}")
+                    return None
+
+        logger.warning(f"[yfinance] Rate limited for {symbol} after {max_retries} retries: {last_err}")
+        return None
 
     @staticmethod
     def download_asset_data(
