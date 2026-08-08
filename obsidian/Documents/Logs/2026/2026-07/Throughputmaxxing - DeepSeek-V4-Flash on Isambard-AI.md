@@ -1,0 +1,29 @@
+- 怎样使用单节点，跑 DeepSeek-v4 Flash 比 vLLM 快三倍。
+- 作者有的硬件：
+	- 4xGH200；GH200 的算力性能和 H100 一样，有更多的显存（96GiB）；
+	- GPU 用 NvLink P2P 进行互联，150GiB/s 的带宽；
+	- GPU 可以通过 NvLink C2C 连接到宿主机的 LPDDR5x 上，在这台机器上， 这个 LPDDR5x 的带宽，比 GPU 互联更高； 
+- 初步方案：
+	- 没有针对 4xGH200 的现成的配置，参考了 8xH200 的 vLLM 配置做调整；
+	- deepseek 有原生的 FP8 KV缓存，启用起来；
+	- 使用 --numa-bind 避免 numa 开销；
+	- TP 并行为 4、kv cache 类型 fp8、块大小 256、CPU 内存利用率 0.92、最大模型长度 128k；
+	- 最终吞吐量 5856toks/s；
+- 改用 Data Parallel Attention
+	- TP 不大适合 deepseek 模型的 attention 机制；
+	- 在 TP 模式下，通常在不同的 GPU 上计算不同的 attention head，这导致 kvcache 被复制 N 份；
+	- 对 deepseek 来讲，更简洁的办法是使用 Data Parallel Attention；每个 GPU 上复制注意力层的参数，每个 GPU 跑不同的 kvcache；
+	- 这时能跑到 12802 toks/s；
+	- （感觉跑 kvcache 用 DP 才更符合直觉。。。）
+- 深入模型内部：
+	- MoE 专家权重（284B 参数中的大部分）以 fp4 格式来存储；
+	- 这对有原生支持 fp4 的 B 系列卡上会很理想，但是在 Hopper 这一代 GPU 中，只支持 fp8；
+	- vLLM 在 Hopper 上的做法比较保守，将 fp4 权重反量化为 bf16，然后按 bf16 跑 GEMM；
+	- 不过 Hopper 上有 fp8 张量核心；
+	- 蚂蚁集团有一个 Humming 内核，支持 W4A8；在 SM 中将权重转为 fp8，然后在 fp8 的 tensor core 上执行 fp8xfp8 的矩阵乘法；权重传输量不变，但是可用 FLOPS 可以翻倍，临界批次大小也随之翻倍；
+	- 新增 --moe-backend humming；
+	- 新增环境变量 VLLM_HUMMING_MOE_GEMM_TYPE=indexed
+	- 新增环境变量 VLLM_HUMMING_INPUT_QUANT_CONFIG='{"dtype":"float8e4m3","input_scale_group_size":128}'
+	- 相对于 DP baseline 提升了 40%；
+- 
+

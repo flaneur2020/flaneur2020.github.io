@@ -60,3 +60,12 @@ prev: [[2025 - Index]]
 	- s3 rdma
 - Readings
 	- [[NVIDIA cuObject - GPUDirect Storage for Objects]]
+	- [[Throughputmaxxing - DeepSeek-V4-Flash on Isambard-AI]]
+	- [[Accelerating Web Protocols Using RDMA]]
+
+## Aug
+
+- Learning
+	- 
+- Readings
+	- [[State-of-the-Art Multiplatform Matrix Multiplication Kernels]]
