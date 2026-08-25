@@ -69,3 +69,4 @@ prev: [[2025 - Index]]
 	- 
 - Readings
 	- [[State-of-the-Art Multiplatform Matrix Multiplication Kernels]]
+	- [[Faster FUSE Filesystems with Efficient Data Transfers]]
