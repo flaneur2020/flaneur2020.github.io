@@ -1,0 +1,102 @@
+tldr
+
+- 相当于每个客户端发 LSN，给多个节点发 quorum write，读取时优先找一个 log node 获得日志，如果该 log node 的数据不完整，则回退到 quorum read，找多个节点根据 lsn 查询 log entries，并做 merge 排序；
+- 落对象存储时，是每个 log node 独立地落对象存储；这意味着客户端在恢复时，会需要读取多个来自对象存储的段；（这里似乎可以使用 content addressable 的命名风格来去重）
+- 也有类似 slatedb 的 epoch 来做 write fence 机制；
+
+## 3 BTRLOG DESIGN AND DEPLOYMENT
+
+### 3.1 System Overview
+
+- 使用 ssd 盘当作一个 staging layer，将对象存储看作持久层；
+- 将追加写暂存在 staging layer，然后异步攒一个比较大的段写入对象存储；
+- log 节点本地保存一个有限的 unflushed 的日志 tail 在内存，用于快速读取，并使用 local NVMe 来做故障恢复；
+- 有四个组件：客户端库、log node 组成的集群、对象存储、元信息存储；
+- btrlog 需要一些元信息操作，可以通过对象存储的 if-match 之类的原语来实现；
+- 客户端 append、sync、scan、read 几个原语；
+- 写入路径上：
+	- 每个客户端维护一个局部的 LSN，将 append 操作追加到所有的 node 上；
+	- log node 在收到写入时，会追加到内存 segment，写到 local SSD；
+	- 只有 SSD 写入并 fsync 后，才 ack 给客户端；
+	- 客户端在多数派 ack 之后，返回成功；
+	- 客户端驱动的 sequencer 可以省掉一个中心化的 sequencer 组件；
+	- 客户端在每次追加时，携带 cLSN，告知节点当前已提交的最大 LSN；
+- 读路径：
+	- 会区分 hot read 和 cold read；
+	- hot read 可以用在事物的回滚；
+	- cold entries 从对象存储读取，利用聚合的带宽优势；
+	- 客户端基于 LSN range 来路由读、scan 请求，并在本地 cache tail 的 records；
+	- 读侧会维护一个 commit watermark，只能读到 commit 之前的 log 内容；
+	- 读取时，优先从单个节点读取，如果遇到 gap 或者发现该节点的 cLSN 过期，则切换到 quorum read（从多个节点中合并读取）；
+	- 冷读时，直接读取对象存储中归档的 segment，这些 segment 是完整且一致的，因为只有填满的段才会被异步刷新到 s3；
+
+## 4 PROTOCOLS AND FAULT TOLERANCE
+
+- 基本的设计思想很简单：append 到一个 quorum-replicated 的 staging layer，异步地按 segment 归档到对象存储；
+- 两个不变式：1. log record 保序提交；2. 已提交的 log record 绝对不丢失；
+- 该协议可以容错：消息丢失、乱序、重复、延迟、network partition、log node failure、client failure 等；
+- 将 leader/proposer 角色安排给单一写者，来减少延迟、利用 WAL 的单调递增性；
+- 对象存储也可以作为一个高可用的 metadata store，允许原子的 CAS 语义用于 leader 选举（client failover）；
+- Failure free operations
+	- 日志创建：
+		- 在追加前，需要在元数据存储中创建新日志，做一些初始化（比如 segment size）；
+		- 客户端这时从元数据服务获得一个写令牌（wtoken）；
+		- 客户端携带 wtoken 向所有日志节点发送 open 请求；
+		- 等待多数派 quorum 节点的确认后，才能开始发送追加请求；
+	- Append 日志：
+		- 日志向所有节点发送追加请求，收到多数 quorum 回复后可以提交成功；
+		- 每个追加请求除了数据外，还需要携带：
+		- nLSN：记录的日志序列号；
+		- cLSN：最后已提交的 LSN；
+		- byte offset：记录在当前 segment 内的 offset；
+	- Idempotent Segment Flushes
+		- 如果所有节点都 flush 同一个 segment 到对象存储，会产生 3 倍的 PUT 成本；
+		- 利用前缀和使所有节点构造出完全相同的 segment，从而派生出确定性的对象名；
+		- 使用 If-None-Match 做 conditional PUT 语句进行写入；
+	- Read Guarantees
+		- 所有已提交的数据，一定可读；
+		- 写路径可以容忍消息丢失，某些节点可能缺少已提交的记录；cLSN 的水位线也可能过期；
+		- hot read 使用 quorum read，客户端可以容忍单个节点的空洞，并取得最新的 cLSN；
+		- 如果请求的 LSN 的范围已被刷新到对象存储，日志节点将请求重定向到对象存储；
+	- Cold Data Reads
+		- 对象键中编码了 log ID、epoch、LSN 范围和数据哈希；
+	- Deferred Eviction
+		- 通过 LSN 窗口机制控制对象存储的驱逐时；
+- Client Failover
+	- 不变量：单一写者，必须任意时刻只有一个客户端能够写入日志；
+	- 需要防止脑裂，避免两个客户端同时认为自己是写者的情况；
+	- write fencing 机制：
+		- 主要思路是使用单调递增的 wtoken；
+		- C2 使用原子操作将 wtoken 从 1 递增到 2；
+		- C2 向所有日志节点发送 open 请求，安装新令牌；
+		- C2 等待多数写者确认；
+		- 日志节点只接收最高 wtoken 的请求，如果已经见过更高的令牌，则拒绝 open 并返回更高的值；
+	- Avoiding Data Loss
+		- 新写者接管之前，必须获取正确的日志尾部；
+		- 即使 C2 无法访问日志节点 L1，但它仍然可以观察到 L1 已经刷新到对象存储的 segment；
+	- Finding the Log Tail
+		- 故障切换并不需要访问对象存储；
+		- 为了不丢失数据的前提下，定位到 log tail，新的写者需要确定 read quorum 多数派支持的最大连续可恢复 LSN 前缀；
+		- 日志节点在确认安装 wtoken 时，会捎带其最后提交的 LSN 水位线；
+		- 随后，客户端从它观察到的最高水位线开始顺序读取日志记录；
+	- Determining committed data
+		- 新客户端接管后，怎么判断哪些记录是已提交的，哪些未提交？
+		- 在故障切换时，不能简单在多数节点上看到某条记录，判断错误要么导致数据丢失（把已提交的丢弃），要么导致错误地恢复未提交的数据（破坏一致性）；
+		- 假如，一个记录在提交时被复制到了 2 个节点（满足多数），但是后来一个节点宕机，导致故障切换时只能从 1 个节点看到这条记录，如果要求多数存在，这条已提交的记录就会被误判为未提交；
+		- 为了避免丢掉已提交的数据，新的客户端在推断日志尾部时要保守一些，<mark>只要某个 LSN 至少存在于一个日志节点上，就视为已提交</mark>；
+		- 如何排除未提交数据？
+			- 上述策略可能会把某些未提交的记录也纳入恢复范围，但是这并不会破坏正在运行的数据库的正确性；
+			- 需要排除的，是那些不可能已提交的 LSN；
+			- 如果多数派节点都认为某个 LSN 不存在，那么该 LSN 不可能被提交；
+		- **如果读多数派节点中至少有一个节点存在该 LSN**，则保守地认为它**可能已提交**，将其纳入日志尾部。
+		- **如果读多数派节点一致确认该 LSN 不存在**，则可以确定它**未提交**，将其排除在尾部之外。
+		- （这似乎意味着，在抽的多数节点的不同，是否提交该 LSN 的结果是不同的）
+	- Log repair and appending
+		- 因为各种原因，；
+		- 新的客户端使用新的 wtoken，将复制不足的 log entry 重新复制到所有日志节点；
+	- Reconstructing the client's log state
+		- 故障切换完之后，新的客户端需要拥有老的写者所需的全部内存状态；
+		- 需要重建的状态包括：
+			- cLSN：最后已提交的 LSN；
+			- nLSN：下一个待分配的 LSN；客户端追加新记录时，从 nLSN 递增；
+			- 字节偏移量：当前段内每条记录的偏移量，用于计算下一条记录的偏移；

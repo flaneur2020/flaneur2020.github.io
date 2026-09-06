@@ -16,4 +16,10 @@
 	- 在写入时，如果是 write through 模式，就是同步写的；如果是异步在 write-back 模式中，则看一个 dirty ratio 或者 timeout；
 	- 在 direct IO 模式中，内核会 bypass FUSE module 的 page cache，直接从应用程序和 daemon buffer 之间拷贝；
 	- 也就是说，默认的模式下，有两次拷贝；
-- 
+- Splice Interface：
+	- Linux 的 splice 能够做到让一个 pipe，从 user buffer 或者文件描述符之间移动数据；管道被视为页指针的环形数组，splice 可以简单地向页面添加额外的指针，即可经过管道传输数据；
+	- 这允许 FUSE 跳过应用程序和 page cache 之间拷贝数据；
+	- 在读写中，data size 应当大于 1 或者 2 个页面；daemon 应当实现 read/write_buf 函数，来取代常规的 read/write 函数；
+	- `_buf` 意味着这是一个通用缓冲区，可以选择文件描述符而非内存地址作为 src 或者目标；如果守护进程检测到支持 splice，它就会创建一个管道，用于在 FUSE 设备与守护进程之间传输；数据传输可以跳过守护进程的缓冲区，直接在管道对端的文件描述符和 stacked 的文件系统的文件之间进行；<mark>这要求 stacked 文件系统支持页面移动语义，从而避免通过管道进行拷贝</mark>。这一来，应用程序缓冲区与 stacked 文件系统之间的路径上，只需要一次拷贝。
+- Passthrough
+	- 将请求直接转发给 stacked 文件系统；
