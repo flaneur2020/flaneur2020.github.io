@@ -34,7 +34,9 @@ prev: [[2025 - Index]]
 - LeetGPU Medium (0/20)
 - Learning
 	- sglang weight transfer
-- [[Notes on CRAQ]]
+	- hf_transfer
+	- GDS cuFile API
+	- 3fs fuse downloading
 - Readings
 	- [[SOCKMAP - TCP splicing of the future]]
 	- [[hf_transfer]]
@@ -69,4 +71,7 @@ prev: [[2025 - Index]]
 	- 
 - Readings
 	- [[State-of-the-Art Multiplatform Matrix Multiplication Kernels]]
+<<<<<<< HEAD
 	- [[Faster FUSE Filesystems with Efficient Data Transfers]]
+=======
+>>>>>>> origin/master
