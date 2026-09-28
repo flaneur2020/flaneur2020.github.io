@@ -3,7 +3,7 @@ tldr
 - 相当于每个客户端发 LSN，给多个节点发 quorum write，读取时优先找一个 log node 获得日志，如果该 log node 的数据不完整，则回退到 quorum read，找多个节点根据 lsn 查询 log entries，并做 merge 排序；
 - 落对象存储时，是每个 log node 独立地落对象存储；这意味着客户端在恢复时，会需要读取多个来自对象存储的段；（这里似乎可以使用 content addressable 的命名风格来去重）
 - 也有类似 slatedb 的 epoch 来做 write fence 机制；
-	- 新节点找元数据中心原子地递增 wtoken；
+	- 新节点<mark>找元数据中心原子地递增 wtoken</mark>；
 	- 新节点对每个 log node 调用 open() 安装 wtoken，直到多数通过为止；
 	- log node 如果遇到新的 wtoken，则拒绝老的 wtoken 的写入；
 - 复杂的点似乎也主要是各种崩溃恢复和 cLSN 这种提交的细节；

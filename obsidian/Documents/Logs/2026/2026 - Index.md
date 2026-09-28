@@ -71,7 +71,14 @@ prev: [[2025 - Index]]
 	- 
 - Readings
 	- [[State-of-the-Art Multiplatform Matrix Multiplication Kernels]]
-<<<<<<< HEAD
 	- [[Faster FUSE Filesystems with Efficient Data Transfers]]
-=======
->>>>>>> origin/master
+
+## Sep
+
+- Learning
+- Books
+	- CUDA for LLMs: 16/256
+- Readings
+	- [[BtrLog - Low-Latency Logging for Cloud Database Systems]]
+	- [[We Replaced mmap with io_uring in Our Rust Query Engine. It Got Slower.]]
+	- [[Making io_uring Actually Fast]]
