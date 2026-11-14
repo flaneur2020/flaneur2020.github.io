@@ -1,0 +1,73 @@
+{{- /*
+  On the root home page only (no /zh/ or /en/ prefix), send browsers whose
+  primary language is Chinese to the Chinese home page. A manual choice from
+  the language switcher is remembered in localStorage and takes precedence.
+
+  Every explicitly prefixed URL (e.g. /zh/, /en/, /zh/_about/) is left alone.
+*/ -}}
+{{- $homeURL := "/" | relURL -}}
+{{- $zhHomeURL := "/zh/" | relURL -}}
+<script>
+  (function () {
+    var STORAGE_KEY = "preferred-lang";
+    var HOME_URL = {{ $homeURL }};
+    var ZH_HOME_URL = {{ $zhHomeURL }};
+    var CURRENT_LANG = {{ .Language.Lang }};
+    var path = window.location.pathname;
+
+    function getPreference() {
+      try {
+        return window.localStorage.getItem(STORAGE_KEY);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function setPreference(lang) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, lang);
+      } catch (e) {
+        /* localStorage can be unavailable in private / restricted contexts. */
+      }
+    }
+
+    function browserPrefersChinese() {
+      var primary =
+        navigator.languages && navigator.languages.length
+          ? navigator.languages[0]
+          : navigator.language || navigator.userLanguage || "";
+
+      return /^zh([_-]|$)/i.test(primary);
+    }
+
+    // Only the unprefixed home page is eligible for automatic redirect.
+    var isRootHome = path === HOME_URL || path === HOME_URL + "index.html";
+
+    if (isRootHome && CURRENT_LANG !== "zh") {
+      var target = getPreference();
+
+      if (target === null) {
+        target = browserPrefersChinese() ? "zh" : "en";
+      }
+
+      if (target === "zh") {
+        window.location.replace(
+          ZH_HOME_URL + window.location.search + window.location.hash,
+        );
+        return;
+      }
+    }
+
+    document.addEventListener("click", function (event) {
+      var link =
+        event.target && event.target.closest
+          ? event.target.closest(".language-switcher a")
+          : null;
+
+      if (!link) return;
+
+      var href = link.getAttribute("href") || "";
+      setPreference(/^\/zh(\/|$)/.test(href) ? "zh" : "en");
+    });
+  })();
+</script>
