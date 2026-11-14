@@ -2,8 +2,6 @@
 title: "About"
 ---
 
-**Hi, I'm Yazhou Li.**
-
 I'm a software engineer who loves building distributed architectures and exploring AI/LLM systems. This blog is where I record experiments, practical notes, and the lessons I pick up.
 
 Thanks for reading—feel free to reach out if something resonates.	
