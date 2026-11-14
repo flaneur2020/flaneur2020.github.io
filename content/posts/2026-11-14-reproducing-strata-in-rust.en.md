@@ -14,7 +14,7 @@ Locally I'm running the Coder variant of Qwen 3.8 Flash Next. It cuts the number
 
 The hardware is an RTX 4070 with 12 GiB of VRAM, an AMD Ryzen 3600, and 64 GiB of DDR4 memory. While debugging, I found this configuration isn't ideal for local LLMs. With more CPU cores, AVX512, and DDR5, it would definitely run faster.
 
-Because of budget constraints, the models I mainly had access to were DeepSeek V4.1 Flash and GPT-6.2-Sol. If I had paid for Claude models, I guess it wouldn't have taken me this long—but the tinkering is part of the process. Using cheaper models still leaves some of the fun of hitting bottlenecks and overcoming them...
+Because of budget constraints, the models I mainly had access to were DeepSeek V4.1 Flash and GPT-6.1-Sol. If I had paid for Claude models, I guess it wouldn't have taken me this long—but the tinkering is part of the process. Using cheaper models still leaves some of the fun of hitting bottlenecks and overcoming them...
 
 These days, simply documenting technology doesn't mean much anymore. This blog post is just a record of how I felt during this vibe-coding process—written entirely by hand, with no agent involvement.
 
@@ -116,7 +116,7 @@ Because I was trying to save money, I went through a long frustrating period her
 
 Since we had already decided not to switch to CUDA Graphs, the only option was to squeeze performance out of eager mode bit by bit. If the gap really came from CUDA Graphs, there was no way to go further.
 
-At my wit's end, I turned to GPT 6 Astral, and the picture suddenly became much clearer. The most useful prompt I found in this process was "please attribute this in detail" rather than a direct "optimize performance." To do the attribution, the agent inserts a lot of instrumentation into the code. With detailed attribution, optimization became much simpler, and at that point I could use GPT-6.2-Sol for the work and save a lot of money.
+At my wit's end, I turned to GPT 6 Astral, and the picture suddenly became much clearer. The most useful prompt I found in this process was "please attribute this in detail" rather than a direct "optimize performance." To do the attribution, the agent inserts a lot of instrumentation into the code. With detailed attribution, optimization became much simpler, and at that point I could use GPT-6.1-Sol for the work and save a lot of money.
 
 In the end I made roughly these optimizations:
 
