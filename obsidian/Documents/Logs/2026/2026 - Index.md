@@ -93,4 +93,4 @@ prev: [[2025 - Index]]
 
 - Learnings
 - Writings
-	- [[reproducing Strata in rust]]
+	- [[Reproducing Strata in Rust]]
