@@ -83,3 +83,14 @@ prev: [[2025 - Index]]
 	- [[We Replaced mmap with io_uring in Our Rust Query Engine. It Got Slower.]]
 	- [[Making io_uring Actually Fast]]
 	- [[io_uring for High-Performance DBMSs - When and How to Use It]]
+
+## Oct
+
+- Learnings
+	- [[DHT]]
+
+## Nov
+
+- Learnings
+- Writings
+	- [[reproducing Strata in rust]]
