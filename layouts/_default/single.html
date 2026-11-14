@@ -69,6 +69,30 @@
     border-radius: 4px;
   }
 
+  /* A paragraph containing only one image gets a wider canvas than the
+     text column, so diagrams can use more horizontal space. */
+  .post-content p:has(> img:only-child) {
+    width: auto;
+    margin-left: calc(50% - min(540px, 50vw - 16px));
+    margin-right: calc(50% - min(540px, 50vw - 16px));
+  }
+
+  .post-content p:has(> img:only-child) img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Fallback for browsers without :has(). */
+  @supports not selector(:has(*)) {
+    .post-content p > img:only-child {
+      width: min(1080px, calc(100vw - 32px));
+      max-width: none;
+      margin-left: 50%;
+      margin-right: 0;
+      transform: translateX(-50%);
+    }
+  }
+
   .post-content img + em {
     display: block;
     text-align: center;
